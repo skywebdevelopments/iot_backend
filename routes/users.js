@@ -1,8 +1,9 @@
 var express = require('express');
 var conf_sercet = require('../config/sercret.json')
-let { securedWithToken } = require('../secured/auth')
+let { securedWithToken, decryptReqBody, encrypt, decrypt } = require('../securitylayer/auth')
 let { tokenModel } = require('../models/token');
 let { userModel } = require('../models/user');
+const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
@@ -13,7 +14,7 @@ var router = express.Router();
 // get user token (login)
 router.post('/auth', function (req, res, next) {
 
-  
+
 
   let username = req.body.user_email;
   let password = req.body.user_password;
@@ -21,27 +22,43 @@ router.post('/auth', function (req, res, next) {
   userModel.findAll({
     where: {
       [Op.and]: [
-        { user_email: username },
-        { user_password: password }
+        { user_email: username }
       ]
     },
   }).then((data) => {
 
-    //login info not found
-    if (data.length === 0) return res.send(response = "invalid login information", status = 401);
-    //
-
+    // user_email not found
+    data.length === 0 ? res.send(response = "user email wasn't found", status = 401) : "";
     //user found
-    let userPayload = { name: username };
-    let accessToken = jwt.sign(userPayload, conf_sercet.token_sercet_key, { expiresIn: conf_sercet.token_expiry_duration })
-    //
-    //store token for reference.
-    tokenModel.create({ user_email: username, token_key: accessToken }).then((data) => {
-      if (data) res.send(response = { accessToken: accessToken }, status = 200);
-      else res.send(response = "error caching the token key.", status = 401);
-    }).catch((err) => {
-      next(err);
+
+
+    let db_password = data[0].user_password
+    let db_user_role = data[0].user_role
+
+    bcrypt.compare(password, db_password, function (err, result) {
+      err ? res.send(response = err, status = 401) : "";
+
+      if (result) {
+        let userPayload = { name: username, role: db_user_role };
+        let accessToken = jwt.sign(userPayload, conf_sercet.token_sercet_key, { expiresIn: conf_sercet.token_expiry_duration })
+        //
+        //store token for reference.
+        tokenModel.create({ user_email: username, token_key: accessToken }).then((data) => {
+          if (data) res.send(response = { accessToken: accessToken }, status = 200);
+          else res.send(response = "error caching the token key.", status = 401);
+        }).catch((err) => {
+          next(err);
+        });
+      }
+      else {
+        //login info not found
+        return res.send(response = "invalid login information", status = 401);
+        //
+      }
+
     });
+
+
 
     //end
 
@@ -53,22 +70,28 @@ router.post('/auth', function (req, res, next) {
 // accepts user_email , user_password , user_role
 router.post('/create', securedWithToken, (req, res, next) => {
 
-  userModel.create(req.body).then((data) => {
+  let password = req.body['user_password'];
+  bcrypt.hash(password, 10, function (err, hash) {
 
-    if (data) return res.send(response = "user was created", status = 200);
-    res.send(`${data}`, status = 400);
-  }).catch((err) => {
+    req.body['user_password'] = hash
+    userModel.create(req.body).then((data) => {
 
-    return res.send(response = err.parent.sqlMessage, status = 500);
-  })
+      if (data) return res.send(response = "user was created", status = 200);
+      res.send(`${data}`, status = 400);
+    }).catch((err) => {
+
+      return res.send(response = err, status = 500);
+    })
+  });
 
 
-})
+
+});
 // accepts user_email , user_password , user_role
 router.post('/verify', securedWithToken, (req, res, next) => {
-res.send(response="ok",status=200)
+  res.send(response = "ok", status = 200)
 
-})
+});
 // accepts user_email , user_password , user_role
 router.post('/create/public', (req, res, next) => {
 
@@ -80,7 +103,7 @@ router.post('/create/public', (req, res, next) => {
       res.send(`${data}`, status = 400);
     }).catch((err) => {
 
-      return res.send(response = err.parent.sqlMessage, status = 500);
+      return res.send(response = err, status = 500);
     })
   }
 
@@ -89,8 +112,8 @@ router.post('/create/public', (req, res, next) => {
   }
 
 
-})
-// accepts the user_email
+});
+// accepts the user_email : updates the whole record with user-email.
 router.post('/update', securedWithToken, (req, res, next) => {
 
 
@@ -100,11 +123,11 @@ router.post('/update', securedWithToken, (req, res, next) => {
     res.send(`record not found, please try again.`, status = 400);
   }).catch((err) => {
 
-    return res.send(response = err.parent.sqlMessage, status = 500);
+    return res.send(response = err, status = 500);
   })
 
 
-})
+});
 // accepts the record id
 router.post('/updateById', securedWithToken, (req, res, next) => {
 
@@ -115,11 +138,11 @@ router.post('/updateById', securedWithToken, (req, res, next) => {
     res.send(`record not found, please try again.`, status = 400);
   }).catch((err) => {
 
-    return res.send(response = err.parent.sqlMessage, status = 500);
+    return res.send(response = err, status = 500);
   })
 
 
-})
+});
 // accepts the user_email
 router.post('/delete', securedWithToken, (req, res, next) => {
 
@@ -130,11 +153,11 @@ router.post('/delete', securedWithToken, (req, res, next) => {
     res.send(`record not found, please try again.`, status = 200);
   }).catch((err) => {
 
-    return res.send(response = err.parent.sqlMessage, status = 500);
+    return res.send(response = err, status = 500);
   })
 
 
-})
+});
 
 /**  ---testing purposes--- */
 //for testing
@@ -144,13 +167,37 @@ router.post('/test', securedWithToken, (req, res, next) => {
 
 
 })
+
 //ping
+router.post('/test/enc', securedWithToken, decryptReqBody, (req, res, next) => {
+  console.log(req.body)
+  let date = new Date();
+  let encrypted_response = encrypt(`${date.toUTCString()}: 
+  <h3 class="text-dark text-left"> <b>message from backend middleware</b>: displying data from an <code>encrypted response</code></h3>
+  <hr>
+
+  
+  `);
+  res.send({ "data": encrypted_response });
+
+})
 router.post('/ping', securedWithToken, (req, res, next) => {
 
-  return res.send(response = 'hello')
+  let prom = new Promise((resolve, reject) => {
+    let x = encrypt(payload);
+    resolve(x)
+  })
+
+  prom.then((data) => {
+
+    return res.send(response = data)
+  }).catch((err) => {
+    res.send(response = err)
+  })
 
 
 })
+
 /** ------ */
 
 

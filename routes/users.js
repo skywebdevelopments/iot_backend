@@ -94,17 +94,21 @@ router.post('/verify', securedWithToken, (req, res, next) => {
 });
 // accepts user_email , user_password , user_role
 router.post('/create/public', (req, res, next) => {
-
+  let password = req.body['user_password'];
   if (conf_sercet.enable_public_interfaces) {
 
-    userModel.create(req.body).then((data) => {
+    bcrypt.hash(password, 10, function (err, hash) {
 
-      if (data) return res.send(response = "user was created", status = 200);
-      res.send(`${data}`, status = 400);
-    }).catch((err) => {
+      req.body['user_password'] = hash
+      userModel.create(req.body).then((data) => {
 
-      return res.send(response = err, status = 500);
-    })
+        if (data) return res.send(response = "user was created", status = 200);
+        res.send(`${data}`, status = 400);
+      }).catch((err) => {
+
+        return res.send(response = err, status = 500);
+      })
+    });
   }
 
   else {
@@ -115,33 +119,38 @@ router.post('/create/public', (req, res, next) => {
 });
 // accepts the user_email : updates the whole record with user-email.
 router.post('/update', securedWithToken, (req, res, next) => {
+  let password = req.body['user_password'];
+  bcrypt.hash(password, 10, function (err, hash) {
+
+    req.body['user_password'] = hash
+    userModel.update(req.body, { where: { user_email: req.body.user_email } }).then((data) => {
 
 
-  userModel.update(req.body, { where: { user_email: req.body.user_email } }).then((data) => {
+      if (data) return res.send(response = `user ${req.body.user_email} was updated.`, status = 200);
+      res.send(`record not found, please try again.`, status = 400);
+    }).catch((err) => {
 
-    if (data) return res.send(response = `user ${req.body.user_email} was updated.`, status = 200);
-    res.send(`record not found, please try again.`, status = 400);
-  }).catch((err) => {
-
-    return res.send(response = err, status = 500);
-  })
-
+      return res.send(response = err, status = 500);
+    })
+  });
 
 });
 // accepts the record id
 router.post('/updateById', securedWithToken, (req, res, next) => {
+  let password = req.body['user_password'];
+  bcrypt.hash(password, 10, function (err, hash) {
+
+    req.body['user_password'] = hash
+    userModel.update(req.body, { where: { id: req.body.id } }).then((data) => {
 
 
-  userModel.update(req.body, { where: { id: req.body.id } }).then((data) => {
+      if (data) return res.send(response = `user ${req.body.user_email} was updated.`, status = 200);
+      res.send(`record not found, please try again.`, status = 400);
+    }).catch((err) => {
 
-    if (data) return res.send(response = `record id: ${req.body.id} was updated.`, status = 200);
-    res.send(`record not found, please try again.`, status = 400);
-  }).catch((err) => {
-
-    return res.send(response = err, status = 500);
-  })
-
-
+      return res.send(response = err, status = 500);
+    })
+  });
 });
 // accepts the user_email
 router.post('/delete', securedWithToken, (req, res, next) => {

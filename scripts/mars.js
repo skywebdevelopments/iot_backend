@@ -1,21 +1,49 @@
 const { tokenModel } = require('../models/token')
 const { userModel } = require('../models/user')
-try {
-    userModel.sync({ force: true }).catch((error) => {
-        console.error(error);
+const bcrypt = require('bcrypt');
+function createSchema() {
+    return new Promise((resolve, reject) => {
+        try {
+            userModel.sync({ force: true }).catch((error) => {
+                console.error(error);
 
-        console.log("please make sure to create a database: auth before running this script....");
-        console.log("==========================================================================");
+                console.log("please make sure to create a database: auth before running this script....");
+                console.log("==========================================================================");
+
+            });
+            tokenModel.sync({ force: true }).catch((error) => {
+                console.error(error);
+
+                console.log("please make sure to create a database: auth before running this script....");
+                console.log("==========================================================================");
+
+            });
+
+            resolve("success")
+        } catch (error) {
+            reject(error)
+
+        }
+    })
+}
+
+function createUser() {
+
+    bcrypt.hash("admin", 10, function (err, hash) {
+        userModel.create({
+            user_email: "admin",
+            user_password: hash,
+            user_role: "admin"
+
+        });
 
     });
-    tokenModel.sync({ force: true }).catch((error) => {
-        console.error(error);
-
-        console.log("please make sure to create a database: auth before running this script....");
-        console.log("==========================================================================");
-
-    });
-} catch (error) {
 
 
 }
+
+createSchema();
+setTimeout(() => {
+
+    createUser();
+}, 3000);

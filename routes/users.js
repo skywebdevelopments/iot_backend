@@ -76,11 +76,11 @@ router.post('/create', securedWithToken, (req, res, next) => {
     req.body['user_password'] = hash
     userModel.create(req.body).then((data) => {
 
-      if (data) return res.send(response = "user was created", status = 200);
+      if (data) return res.send(response = "user was created", status = 200, statusText = "success", statusClass = "success");
       res.send(`${data}`, status = 400);
     }).catch((err) => {
 
-      return res.send(response = err, status = 500);
+      return res.send(response = "error occured!", status = 500, statusText = "error", statusClass = "danger");
     })
   });
 
@@ -102,11 +102,17 @@ router.post('/create/public', (req, res, next) => {
       req.body['user_password'] = hash
       userModel.create(req.body).then((data) => {
 
-        if (data) return res.send(response = "user was created", status = 200);
-        res.send(`${data}`, status = 400);
+        if (data) {
+          return res.send(response = "user was created", status = 200);
+        }
+        else{
+          return res.send(response = "error while creating the user", status = 400);
+
+        }
+        
       }).catch((err) => {
 
-        return res.send(response = err, status = 500);
+        return res.send(response = "error occured!", status = 500);
       })
     });
   }

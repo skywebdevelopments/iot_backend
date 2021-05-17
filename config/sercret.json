@@ -1,6 +1,6 @@
 {
     "token_sercet_key": "ahmedshalaby",
-    "token_expiry_duration": "10m",
+    "token_expiry_duration": "1011m",
     "enable_public_interfaces": true,
     "admin_api_user":"admin",
     "admin_api_password":"adminpassword"

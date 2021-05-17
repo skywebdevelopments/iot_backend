@@ -1,5 +1,6 @@
 const { tokenModel } = require('../models/token')
 const { userModel } = require('../models/user')
+const { customerModel } = require('../models/customer')
 const bcrypt = require('bcrypt');
 function createSchema() {
     return new Promise((resolve, reject) => {
@@ -12,6 +13,13 @@ function createSchema() {
 
             });
             tokenModel.sync({ force: true }).catch((error) => {
+                console.error(error);
+
+                console.log("please make sure to create a database: auth before running this script....");
+                console.log("==========================================================================");
+
+            });
+            customerModel.sync({ force: true }).catch((error) => {
                 console.error(error);
 
                 console.log("please make sure to create a database: auth before running this script....");
@@ -47,3 +55,4 @@ setTimeout(() => {
 
     createUser();
 }, 3000);
+

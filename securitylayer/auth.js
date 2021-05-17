@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 var conf_sercet = require('../config/sercret.json')
-const { tokenModel } = require('../models/token');
+const { tokenModel } = require('../models/token.model');
 const CryptoJS = require('crypto-js');
 
 

@@ -1,8 +1,8 @@
 var express = require('express');
 var conf_sercet = require('../config/sercret.json')
 let { securedWithToken, decryptReqBody, encrypt, decrypt } = require('../securitylayer/auth')
-let { tokenModel } = require('../models/token');
-let { customerModel } = require('../models/customer');
+let { tokenModel } = require('../models/token.model');
+let { customerModel } = require('../models/customer.model');
 const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let { response, request } = require('express');
@@ -69,7 +69,7 @@ router.post('/updateById', securedWithToken, (req, res, next) => {
         return res.send(response = err, status = 500);
     });
 });
-// accepts the user_email
+// accepts the id
 router.post('/delete', securedWithToken, (req, res, next) => {
     let customer_id = req.body['id']
     customerModel.destroy({ where: { id: customer_id } }).then((data) => {

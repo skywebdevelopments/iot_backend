@@ -1,8 +1,8 @@
 var express = require('express');
 var conf_sercet = require('../config/sercret.json')
 let { securedWithToken, decryptReqBody, encrypt, decrypt } = require('../securitylayer/auth')
-let { tokenModel } = require('../models/token');
-let { userModel } = require('../models/user');
+let { tokenModel } = require('../models/token.model');
+let { userModel } = require('../models/user.model');
 const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let { response, request } = require('express');

@@ -26,7 +26,10 @@ function authToken(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null || token == undefined) return res.sendStatus(401);
   jwt.verify(token, conf_sercet.token_sercet_key, (err, data) => {
-    if (err) return res.sendStatus(401);
+    if (err) {
+      console.log(`token is expired -> ${token} `);
+      return res.sendStatus(401);
+    }
     next()
   })
 }

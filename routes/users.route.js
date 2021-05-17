@@ -89,6 +89,7 @@ router.post('/create', securedWithToken, (req, res, next) => {
 });
 // accepts user_email , user_password , user_role
 router.post('/verify', securedWithToken, (req, res, next) => {
+  console.log(req.body);
   res.send(response = "ok", status = 200)
 
 });

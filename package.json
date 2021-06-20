@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "debug": "nodemon --inspect ./bin/www",
-    "dbm": "node ./scripts/mars.js"
+    "dbm": "node ./scripts/mars.js",
+    "q_publisher": "node ./redis/queues/redis.publisher.js",
+    "q_reciever": "node ./redis/queues/redis.reciever.js "
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,11 +19,13 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "pug": "2.0.0-beta11",
+    "redis": "^3.1.2",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {

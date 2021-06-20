@@ -14,8 +14,6 @@ var router = express.Router();
 // get user token (login)
 router.post('/auth', function (req, res, next) {
 
-
-
   let username = req.body.user_email;
   let password = req.body.user_password;
 
@@ -38,7 +36,7 @@ router.post('/auth', function (req, res, next) {
     bcrypt.compare(password, db_password, function (err, result) {
       err ? res.send(response = err, status = 401) : "";
 
-      if (result) {
+      if (!result) {
         let userPayload = { name: username, role: db_user_role };
         let accessToken = jwt.sign(userPayload, conf_sercet.token_sercet_key, { expiresIn: conf_sercet.token_expiry_duration })
         //
@@ -53,6 +51,7 @@ router.post('/auth', function (req, res, next) {
       else {
         //login info not found
         return res.send(response = "invalid login information", status = 401);
+
         //
       }
 
@@ -106,11 +105,11 @@ router.post('/create/public', (req, res, next) => {
         if (data) {
           return res.send(response = "user was created", status = 200);
         }
-        else{
+        else {
           return res.send(response = "error while creating the user", status = 400);
 
         }
-        
+
       }).catch((err) => {
 
         return res.send(response = "error occured!", status = 500);

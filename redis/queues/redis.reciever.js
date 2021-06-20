@@ -18,10 +18,10 @@ subscriber.on("message", function (channel, message) {
   console.log("getting for messages");
   messageCount += 1;
 
-  logger.log.trace("tracing")
-  logger.log.info("tracing")
-  logger.log.error("tracing")
-  logger.log.warn("tracing")
+  // logger.log.trace("tracing")
+  // logger.log.info("tracing")
+  // logger.log.error("tracing")
+  // logger.log.warn("tracing")
 
   console.log("a message recieved");
 

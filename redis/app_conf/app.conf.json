@@ -1,3 +1,4 @@
 {
-    "log_file":"./redis/log/queue.log"
+    "log_file":"./redis/log/queue.log",
+    "log_level": "trace"
 }

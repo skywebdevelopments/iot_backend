@@ -1,7 +1,7 @@
 const redis = require('redis');
 let conf = require('./queue1.json')
 fs = require('fs');
-let logger = require('../../logger/logger.adapter')
+let logger = require('../../logger/redis.logger')
 
 
 const client = redis.createClient({

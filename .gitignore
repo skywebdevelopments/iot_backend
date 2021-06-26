@@ -287,3 +287,6 @@ auth_server-master/auth_server-master/docker_files/mysqldata/sys/x@0024waits_by_
 auth_server-master/auth_server-master/docker_files/mysqldata/sys/x@0024waits_by_user_by_latency.frm
 auth_server-master/auth_server-master/docker_files/mysqldata/sys/x@0024waits_global_by_latency.frm
 node_modules
+log/2021_5_26_14.log
+log/2021_5_26_15.log
+log/app_log.log

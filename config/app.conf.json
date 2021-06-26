@@ -1,4 +1,4 @@
 {
-    "log_path":"./log/app_log.log",
+    "log_path":"./log/",
     "log_level": "trace"
 }

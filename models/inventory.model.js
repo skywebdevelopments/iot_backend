@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const inventory = sequelize.define("inventory", {
     // Model attributes are defined here
     id: {
-        type: DataTypes.INTEGER(11),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true

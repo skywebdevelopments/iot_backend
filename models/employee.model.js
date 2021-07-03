@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const employee = sequelize.define("employee", {
     // Model attributes are defined here
     id: {
-        type: DataTypes.INTEGER(11),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true

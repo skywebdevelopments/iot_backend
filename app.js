@@ -9,6 +9,13 @@ var usersRouter = require('./routes/users.route');
 var customerRouter = require('./routes/customer.route');
 var employeeRouter = require('./routes/employee.route');
 var inventoryRouter = require('./routes/inventory.route');
+var studentRouter = require('./routes/student.route');
+
+const bodyParser = require("body-parser");
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart({
+  uploadDir: './uploads'
+});
 
 
 
@@ -22,6 +29,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes
 app.use('/', indexRouter);
@@ -29,6 +40,7 @@ app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/employee', employeeRouter);
 app.use('/inventory', inventoryRouter);
+app.use('/student', studentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

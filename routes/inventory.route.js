@@ -7,6 +7,9 @@ const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
+let { log } = require('../logger/app.logger')
+let { uuid } = require('uuidv4');
+
 var router = express.Router();
 
 
@@ -35,7 +38,10 @@ router.post('/one', securedWithToken, (req, res, next) => {
 // accepts user_email , user_password , user_role
 router.post('/create', securedWithToken, (req, res, next) => {
     inventoryModel.create(req.body).then((data) => {
-        if (data) return res.send(response = "product record was created", status = 200, statusText = "success", statusClass = "success");
+        if (data) {
+            log.trace(`a product was created`)
+            return res.send(response = "product record was created", status = 200, statusText = "success", statusClass = "success");
+        }
         res.send(`${data}`, status = 400);
     }).catch((err) => {
 

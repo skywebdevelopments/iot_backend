@@ -1,7 +1,7 @@
 const TLV = require('node-tlv');
 const cryptojs = require('crypto-js')
 
-let encrypt_secret = "thisismysecret";
+let encrypt_secret = "cyshield_secret123";
 
 
 function tlv_encoder(req, res, next) {

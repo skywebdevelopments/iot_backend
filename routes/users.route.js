@@ -7,15 +7,23 @@ const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
+let { log } = require('../logger/app.logger')
+let { uuid } = require('uuidv4');
 var router = express.Router();
+
 
 
 
 // get user token (login)
 router.post('/auth', function (req, res, next) {
+  let uuid_key = uuid()
+
 
   let username = req.body.user_email;
   let password = req.body.user_password;
+
+  log.trace(`${uuid_key} - inbound request - ${username}`);
+
 
   userModel.findAll({
     where: {
@@ -24,9 +32,8 @@ router.post('/auth', function (req, res, next) {
       ]
     },
   }).then((data) => {
-
     // user_email not found
-    data.length === 0 ? res.send(response = "user email wasn't found", status = 401) : "";
+    data.length === 0 ? () => { log.trace(`${uuid_key} - user not found`); res.send(response = "user email wasn't found", status = 401) } : log.trace(`${uuid_key} - user was found`);
     //user found
 
 
@@ -34,7 +41,7 @@ router.post('/auth', function (req, res, next) {
     let db_user_role = data[0].user_role
 
     bcrypt.compare(password, db_password, function (err, result) {
-      err ? res.send(response = err, status = 401) : "";
+      err ? () => { log.trace(`${uuid_key} - ${username} - 401 `); res.send(response = err, status = 401) }: "";
 
       if (!result) {
         let userPayload = { name: username, role: db_user_role };
@@ -42,14 +49,15 @@ router.post('/auth', function (req, res, next) {
         //
         //store token for reference.
         tokenModel.create({ user_email: username, token_key: accessToken }).then((data) => {
-          if (data) res.send(response = { accessToken: accessToken }, status = 200);
-          else res.send(response = "error caching the token key.", status = 401);
+          if (data)  { log.trace(`${uuid_key} - ${username} was authorized`); res.send(response = { accessToken: accessToken }, status = 200) }
+          else { log.trace(`${uuid_key} - error caching the token key`);res.send(response = "error caching the token key.", status = 401);}
         }).catch((err) => {
           next(err);
         });
       }
       else {
         //login info not found
+        log.trace(`${uuid_key} - ${username} - invalid login information`);
         return res.send(response = "invalid login information", status = 401);
 
         //
@@ -89,6 +97,7 @@ router.post('/create', securedWithToken, (req, res, next) => {
 // accepts user_email , user_password , user_role
 router.post('/verify', securedWithToken, (req, res, next) => {
   console.log(req.body);
+
   res.send(response = "ok", status = 200)
 
 });

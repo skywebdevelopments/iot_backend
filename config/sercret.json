@@ -1,5 +1,5 @@
 {
-    "token_sercet_key": "ahmedshalaby",
+    "token_sercet_key": "cyshield_secret123@",
     "token_expiry_duration": "1011m",
     "enable_public_interfaces": true,
     "admin_api_user":"admin",

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 var conf_sercet = require('../config/sercret.json')
 const { tokenModel } = require('../models/token.model');
 const CryptoJS = require('crypto-js');
+const { json } = require('express');
 
 
 function encrypt(value) {
@@ -10,13 +11,15 @@ function encrypt(value) {
 }
 
 function decrypt(textToDecrypt) {
+  
   return CryptoJS.AES.decrypt(textToDecrypt, conf_sercet.token_sercet_key.trim()).toString(CryptoJS.enc.Utf8);
 }
 
 
 function decryptReqBody(req, res, next) {
 
-  let msg = CryptoJS.AES.decrypt(req.body['message'], conf_sercet.token_sercet_key.trim()).toString(CryptoJS.enc.Utf8);
+  let msg = decrypt(req.body.message)
+  
   req.body['message'] = msg;
   next();
 }

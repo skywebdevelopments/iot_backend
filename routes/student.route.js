@@ -13,15 +13,16 @@ let fs = require('fs')
 const multipartMiddleware = multipart({
     uploadDir: './uploads'
 
-},);
+});
 
 var router = express.Router();
 
 
-router.post('/create',(req, res, next) => {
+router.post('/create',decryptReqBody, (req, res, next) => {
+    req.body = JSON.parse(req.body.message);
 
     req.body.track = req.body.track.toString();
- 
+
     studentModel.create(req.body).then((data) => {
         if (data) return res.send(response = "student was created", status = 200, statusText = "success", statusClass = "success");
         res.send(`${data}`, status = 400);
@@ -32,16 +33,16 @@ router.post('/create',(req, res, next) => {
 });
 router.post('/upload', multipartMiddleware, (req, res, next) => {
     let uploaded_file_name = req.files.file.path
-    
+
     let new_file_name = `./uploads/${req.body.dest_file_name}`
-    fs.rename(uploaded_file_name, new_file_name,(err)=>{
-        
+    fs.rename(uploaded_file_name, new_file_name, (err) => {
+
         res.json({
             'message': 'File uploaded succesfully.'
         });
     })
-    
-    
+
+
 });
 
 

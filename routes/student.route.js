@@ -27,7 +27,7 @@ router.post('/create',decryptReqBody, (req, res, next) => {
         if (data) return res.send(response = "student was created", status = 200, statusText = "success", statusClass = "success");
         res.send(`${data}`, status = 400);
     }).catch((err) => {
-
+        console.error(err);
         return res.send(response = "error occured!", status = 500, statusText = "error", statusClass = "danger");
     })
 });

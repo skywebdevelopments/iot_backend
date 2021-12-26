@@ -7,7 +7,7 @@ let date = new Date()
 
 // app - logs rotates every an hour
 log4js_app.configure({
-    appenders: { app: { type: "file", filename: `${app_conf.log_path}/${date.getFullYear()}_${date.getMonth()}_${date.getDate()}_${date.getHours()}.log`} },
+    appenders: { app: { type: "file", filename: `${app_conf.log_path}/${date.getFullYear()}_${date.getMonth()}_${date.getDate()}_${date.getHours()}.log` } },
     categories: { default: { appenders: ["app"], level: app_conf.log_level } }
 });
 

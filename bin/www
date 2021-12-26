@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('auth-server:server');
+var debug = require('debug')('iot_middleware:server');
 var http = require('http');
 
 /**

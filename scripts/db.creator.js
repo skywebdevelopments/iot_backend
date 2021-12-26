@@ -1,20 +1,26 @@
 const { tokenModel } = require('../models/token.model')
 const { userModel } = require('../models/user.model')
-const { customerModel } = require('../models/customer.model')
-const { employeeModel } = require('../models/employee.model')
-const { inventoryModel } = require('../models/inventory.model')
-const { studentModel } = require('../models/student.model')
+// iot models.
+const { groupModel } = require('../models/group.iot.model')
+const { mqtt_userModel } = require('../models/mqtt_user.iot.model')
+const { sensor_groupModel } = require('../models/sensor_group.iot.model')
+const { sensorModel } = require('../models/sensor.iot.model')
+// end of Model
+
 const bcrypt = require('bcrypt');
+
+
+// 
 function createSchema() {
     return new Promise((resolve, reject) => {
         try {
             console.log("=> please make sure to create the database before executing this script...");
-            // userModel.sync({ force: true })
-            // tokenModel.sync({ force: true })
-            // customerModel.sync({ force: true })
-            // employeeModel.sync({ force: true });
-            // inventoryModel.sync({ force: true });
-            studentModel.sync({ force: true });
+            // to create the db/
+
+            // mqtt_userModel.sync({ force: true });
+            // sensorModel.sync({ force: true });
+            // groupModel.sync({ force: true });
+            sensor_groupModel.sync({ force: true });
 
 
             resolve("success")
@@ -32,10 +38,10 @@ function createUser() {
             user_email: "admin@admin.com",
             user_password: hash,
             user_role: "admin",
-            user_gender : "system",
+            user_gender: "system",
             user_location: "location",
-            user_address : "address",
-            user_mobile:"0100"
+            user_address: "address",
+            user_mobile: "0100"
 
         });
 
@@ -53,5 +59,5 @@ try {
 
 
 } catch (error) {
-console.error(error);    
+    console.error(error);
 }

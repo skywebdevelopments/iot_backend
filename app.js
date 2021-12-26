@@ -5,12 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users.route');
-var customerRouter = require('./routes/customer.route');
-var employeeRouter = require('./routes/employee.route');
-var inventoryRouter = require('./routes/inventory.route');
-var studentRouter = require('./routes/student.route');
-
+// routes for the iot
+var groupRoute = require('./routes/groups.iot.route')
+// end
 const bodyParser = require("body-parser");
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({
@@ -36,11 +33,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/customer', customerRouter);
-app.use('/employee', employeeRouter);
-app.use('/inventory', inventoryRouter);
-app.use('/student', studentRouter);
+
+// routes/microservices for the iot 
+app.use('/group', groupRoute);
+// 
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

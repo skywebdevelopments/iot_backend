@@ -1,15 +1,16 @@
 {
-  "name": "auth-server",
+  "name": "iot_middleware",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "debug": "nodemon --inspect ./bin/www",
-    "dbm": "node ./scripts/mars.js",
+    "create_db": "node ./scripts/db.creator.js",
     "q_publisher": "node ./redis/queues/redis.publisher.js",
     "q_reciever": "node ./redis/queues/redis.reciever.js "
   },
   "dependencies": {
+    "@types/sequelize": "^4.28.11",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-multiparty": "^2.2.0",

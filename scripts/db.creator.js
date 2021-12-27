@@ -1,10 +1,15 @@
 const { tokenModel } = require('../models/token.model')
-const { userModel } = require('../models/user.model')
 // iot models.
+const { communicationModel } = require('../models/communication.iot.model')
 const { groupModel } = require('../models/group.iot.model')
-const { mqtt_userModel } = require('../models/mqtt_user.iot.model')
-const { sensor_groupModel } = require('../models/sensor_group.iot.model')
+const { locationModel } = require('../models/location.iot.model')
+const { mqtt_userModel } = require('../models/mqttUser.iot.model')
 const { sensorModel } = require('../models/sensor.iot.model')
+const { sensor_communicationModel } = require('../models/sensorCommunication.iot.model')
+const { sensor_groupModel } = require('../models/sensorGroup.iot.model')
+const { userModel } = require('../models/user.iot.model')
+const { usergroupModel } = require('../models/usergroup.iot.model')
+
 // end of Model
 
 const bcrypt = require('bcrypt');
@@ -18,9 +23,8 @@ function createSchema() {
             // to create the db/
 
             // mqtt_userModel.sync({ force: true });
-            // sensorModel.sync({ force: true });
-            // groupModel.sync({ force: true });
-            sensor_groupModel.sync({ force: true });
+
+            sequelize.sync();
 
 
             resolve("success")

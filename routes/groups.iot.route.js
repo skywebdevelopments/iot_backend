@@ -13,9 +13,10 @@ const { groupModel } = require('../models/group.iot.model');
 
 
 
-// get all groups
-// path: {url}:{port}/groups/all
-router.get('/all', function (req, res, next) {
+// GET / api / v1 / groups
+// Return all sensors’ groups 
+
+router.get('/', function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
     groupModel.findAll({

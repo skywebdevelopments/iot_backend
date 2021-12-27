@@ -28,4 +28,5 @@ const mqtt_user = sequelize.define('mqtt_user', {
 
 // user.sync({ force: true });
 
+
 exports.mqtt_userModel = mqtt_user

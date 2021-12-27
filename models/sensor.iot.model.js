@@ -1,6 +1,6 @@
 const sequelize = require('../database/connection');
 const { Sequelize, DataTypes } = require('sequelize');
-
+let {mqtt_userModel} = require('../models/mqttUser.iot.model')
 const sensor = sequelize.define('sensor', {
     // Model attributes are defined here
     id: {
@@ -86,5 +86,9 @@ const sensor = sequelize.define('sensor', {
 
 );
 // user.sync({ force: true });
+
+
+
+sensor.belongsTo(mqtt_userModel);
 
 exports.sensorModel = sensor

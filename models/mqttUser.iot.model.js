@@ -20,6 +20,12 @@ const mqtt_user = sequelize.define('mqtt_user', {
     },
     salt: {
         type: Sequelize.STRING
+    },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
     }
 }, {
     tableName: 'mqtt_user',

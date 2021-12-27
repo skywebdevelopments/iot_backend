@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 const sequelize = require('../database/connection');
-let {sensorModel} = require('./sensor.iot.model');
+let { sensorModel } = require('./sensor.iot.model');
 
 const location = sequelize.define("location", {
   id: {
@@ -20,6 +20,11 @@ const location = sequelize.define("location", {
   latitude: {
     type: Sequelize.FLOAT,
     allowNull: false,
+  }, rec_id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false
+
   }
 },
   {

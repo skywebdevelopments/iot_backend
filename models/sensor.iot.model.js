@@ -78,6 +78,12 @@ const sensor = sequelize.define('sensor', {
     flags: {
         type: Sequelize.STRING
     },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
+    }
 },
     {
         tableName: 'sensor',

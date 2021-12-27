@@ -22,6 +22,12 @@ const user = sequelize.define('user', {
     },
     active:{
         type: Sequelize.BOOLEAN
+    },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
     }
 },
 {

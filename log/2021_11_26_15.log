@@ -1,9 +1,0 @@
-[2021-12-26T15:01:30.947] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:31.797] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:32.332] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:32.517] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:32.810] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:32.973] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:01:33.157] [TRACE] app - UUIDV4 - inbound request - /all - localhost
-[2021-12-26T15:03:11.292] [TRACE] app - UUIDV4 - inbound request - /all - [object SequelizeInstance:group],[object SequelizeInstance:group]
-[2021-12-26T15:03:59.820] [TRACE] app - UUIDV4 - inbound request - /all - [object SequelizeInstance:group]

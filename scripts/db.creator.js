@@ -24,7 +24,12 @@ function createSchema() {
 
             // mqtt_userModel.sync({ force: true });
 
-            sequelize.sync();
+            sensorModel.create({
+                ap_name:"sensor 2",
+                  
+            })
+       
+            // sequelize.sync({force:true});
 
 
             resolve("success")

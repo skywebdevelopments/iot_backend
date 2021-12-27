@@ -15,6 +15,13 @@ const communication = sequelize.define('communication', {
     active: {
         type: Sequelize.BOOLEAN
     }
+    ,
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
+    }
 },
     {
         tableName: 'communication',

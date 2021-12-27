@@ -32,10 +32,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes
-app.use('/', indexRouter);
+app.use('/api/v1/', indexRouter);
 
 // routes/microservices for the iot 
-app.use('/group', groupRoute);
+app.use('/api/v1/group', groupRoute);
 // 
 
 

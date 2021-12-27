@@ -12,14 +12,19 @@ const usergroup = sequelize.define('usergroup', {
     groupname: {
         type: Sequelize.STRING
     },
-    active:{
+    active: {
         type: Sequelize.BOOLEAN
+    },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
     }
 },
-{
-    tableName: 'usergroup',
-    timestamps: false
-}
+    {
+        tableName: 'usergroup',
+        timestamps: false
+    }
 );
 
 // to create table if doesn't exist

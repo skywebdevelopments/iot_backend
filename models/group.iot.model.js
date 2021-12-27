@@ -14,6 +14,12 @@ const group = sequelize.define('group', {
     },
     active: {
         type: Sequelize.BOOLEAN
+    },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
     }
 },
     {

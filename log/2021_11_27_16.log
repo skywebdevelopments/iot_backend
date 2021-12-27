@@ -1,0 +1,10 @@
+[2021-12-27T16:16:46.653] [TRACE] app - 5ffdecc8-b92b-4df2-8747-673eb3ab3ccc - inbound request - request payload is missing
+[2021-12-27T16:17:09.087] [TRACE] app - 93635bf2-18b7-4a6c-9d8f-cf1a7ca3c96a - inbound request - query with 628a5497-15af-4a49-b26e-f71d4c8a25c3
+[2021-12-27T16:17:09.326] [TRACE] app - 93635bf2-18b7-4a6c-9d8f-cf1a7ca3c96a - inbound request - check data length
+[2021-12-27T16:17:09.326] [TRACE] app - 93635bf2-18b7-4a6c-9d8f-cf1a7ca3c96a - inbound request - send a response
+[2021-12-27T16:50:50.647] [TRACE] app - 746d6433-17f2-455e-a0d1-8f5f628861ae - inbound request - create group - invalid group name 
+[2021-12-27T16:51:28.352] [TRACE] app - b21223fe-4c4f-4ccc-a42e-4420ce2da718 - ERROR - inbound request - create group - invalid group name 
+[2021-12-27T16:51:39.829] [TRACE] app - 0f31f9a8-a5d3-4a7a-9fef-e64f490305d8 - ERROR - inbound request - create group - active flag is missing
+[2021-12-27T16:52:05.621] [TRACE] app - db1761b1-ad3b-4395-ac63-ce5867379e55 - ERROR - inbound request - create group - active flag is missing
+[2021-12-27T16:52:45.768] [TRACE] app - 74faaa70-a0d8-4741-aa3b-cd12c0601a1a - inbound request - executing the create query
+[2021-12-27T16:52:45.769] [TRACE] app - 74faaa70-a0d8-4741-aa3b-cd12c0601a1a - inbound request - send a response

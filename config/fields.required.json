@@ -1,0 +1,19 @@
+{
+    "sensor": {
+        "create": [
+            "ap_name",
+            "mac_address",
+            "client_id",
+            "sensor_type",
+            "dns1",
+            "gateway",
+            "subnet",
+            "serial_number",
+            "subnet",
+            "ap_ip",
+            "ap_password",
+            "node_profile",
+            "host_ip"
+        ]
+    }
+}

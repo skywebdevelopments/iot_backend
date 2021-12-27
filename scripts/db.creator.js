@@ -1,12 +1,12 @@
 const { tokenModel } = require('../models/token.model')
 // iot models.
 const { communicationModel } = require('../models/communication.iot.model')
-const { groupModel } = require('../models/group.iot.model')
 const { locationModel } = require('../models/location.iot.model')
 const { mqtt_userModel } = require('../models/mqttUser.iot.model')
-const { sensorModel } = require('../models/sensor.iot.model')
 const { sensor_communicationModel } = require('../models/sensorCommunication.iot.model')
 const { sensor_groupModel } = require('../models/sensorGroup.iot.model')
+const { sensorModel } = require('../models/sensor.iot.model')
+const { groupModel } = require('../models/group.iot.model')
 const { userModel } = require('../models/user.iot.model')
 const { usergroupModel } = require('../models/usergroup.iot.model')
 
@@ -24,13 +24,15 @@ function createSchema() {
 
             // mqtt_userModel.sync({ force: true });
 
-            sensorModel.create({
-                ap_name:"sensor 2",
-                  
-            })
-       
-            // sequelize.sync({force:true});
+            // sensorModel.create({
+            //     ap_name:"sensor 2",
 
+            // })
+
+            // sequelize.sync({force:true});
+            groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
+                console.log(data);
+            });
 
             resolve("success")
         } catch (error) {

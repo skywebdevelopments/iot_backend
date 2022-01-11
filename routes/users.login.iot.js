@@ -11,11 +11,11 @@ Parameters:username and password of a user
 */
 router.post('/GenerateToken', (req, res) => {
    console.log(req.body)
-    const { username, password } = req.body;
+    const { email, password } = req.body;
    
     userModel.findOne({
         where: {
-            username: username,
+            email: email,
             password: password
         }
     }).then((user) => {

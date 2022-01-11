@@ -25,5 +25,5 @@ const session = sequelize.define('session', {
 
 userModel.hasMany(session, { as: 'sessions' });
 
-session.sync();
+
 exports.sessionModel = session;

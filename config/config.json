@@ -11,5 +11,6 @@
     "clientID": "878044526860-48am0i1b2skdml1tif9ldf6j39ror00h.apps.googleusercontent.com",
     "clientSecrete": "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",
     "callbackURL": "http://localhost:3000/auth/google/callback"
-  }
+  },
+  "secretKey": "12345-67890-09876-54321"
 }

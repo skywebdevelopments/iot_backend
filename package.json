@@ -29,6 +29,7 @@
     "node-tlv": "^1.5.14",
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
     "pug": "2.0.0-beta11",

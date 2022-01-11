@@ -9,6 +9,9 @@ const GoogleStrategy=require('./auth/GoogleStrategy');
 const passport = require("passport");
 const GoogleRouter=require("./routes/google.user.iot")
 
+//UserLogin
+var usersRouter = require('./routes/users.login.iot');
+
 var cors = require('cors')
 var indexRouter = require('./routes/index');
 // routes for the iot
@@ -28,8 +31,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(passport.initialize());
-app.use('/auth',GoogleRouter);
+
 
 app.use(cors());
 app.use(logger('dev'));
@@ -40,6 +42,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+//Google auth and login auth
+app.use(passport.initialize());
+app.use('/auth',GoogleRouter);
+app.use('/users', usersRouter);
+
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes
 app.use('/api/v1/', indexRouter);

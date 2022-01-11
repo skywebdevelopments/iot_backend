@@ -23,6 +23,9 @@ const user = sequelize.define('user', {
     active:{
         type: Sequelize.BOOLEAN
     },
+    googleID: {
+        type: Sequelize.STRING
+    },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,

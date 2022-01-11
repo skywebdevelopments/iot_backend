@@ -1,0 +1,10 @@
+[2022-01-09T12:50:03.390] [TRACE] app - 54ced36a-9617-4fa4-b3f0-64c58dfb7d42 - inbound request - executing the create query
+[2022-01-09T12:50:03.390] [TRACE] app - 54ced36a-9617-4fa4-b3f0-64c58dfb7d42 - inbound request - send a response
+[2022-01-09T12:52:30.552] [TRACE] app - fb5ac1b4-853a-4a06-98d7-46b492d5ab79 - inbound request - executing the create query
+[2022-01-09T12:52:30.552] [TRACE] app - fb5ac1b4-853a-4a06-98d7-46b492d5ab79 - inbound request - send a response
+[2022-01-09T12:53:50.021] [TRACE] app - 1d6583ce-cdc6-4e3d-9f61-d7873018d465 - inbound request - executing the update query
+[2022-01-09T12:53:50.021] [TRACE] app - 1d6583ce-cdc6-4e3d-9f61-d7873018d465 - inbound request - send a response
+[2022-01-09T13:40:10.117] [TRACE] app - 233f1c7d-dfee-4c5e-867e-9098dc1d36a6 - ERROR - inbound request - create sensor - check required fields
+[2022-01-09T13:40:10.117] [TRACE] app - 233f1c7d-dfee-4c5e-867e-9098dc1d36a6 - ERROR - inbound request - create sensor - missing 12 field(s) (ap_name,mac_address,client_id,sensor_type,dns1,subnet,serial_number,subnet,ap_ip,ap_password,node_profile,host_ip)
+[2022-01-09T13:41:10.425] [TRACE] app - b83cd8e5-97be-4778-a680-c612917d69bf - ERROR - inbound request - create sensor - check required fields
+[2022-01-09T13:41:10.425] [TRACE] app - b83cd8e5-97be-4778-a680-c612917d69bf - ERROR - inbound request - create sensor - missing 12 field(s) (ap_name,mac_address,client_id,sensor_type,dns1,subnet,serial_number,subnet,ap_ip,ap_password,node_profile,host_ip)

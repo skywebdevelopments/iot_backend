@@ -3,6 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+//authentacation
+const GoogleStrategy=require('./auth/GoogleStrategy');
+const passport = require("passport");
+const GoogleRouter=require("./routes/google.user.iot")
+
 var cors = require('cors')
 var indexRouter = require('./routes/index');
 // routes for the iot
@@ -21,6 +27,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(passport.initialize());
+app.use('/auth',GoogleRouter);
 
 app.use(cors());
 app.use(logger('dev'));

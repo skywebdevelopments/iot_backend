@@ -9,6 +9,8 @@ const { sensorModel } = require('../models/sensor.iot.model')
 const { groupModel } = require('../models/group.iot.model')
 const { userModel } = require('../models/user.iot.model')
 const { usergroupModel } = require('../models/usergroup.iot.model')
+const { sessionModel } = require('../models/session.iot.model')
+
 
 // end of Model
 
@@ -23,6 +25,8 @@ function createSchema() {
             // to create the db/
 
             // mqtt_userModel.sync({ force: true });
+           // userModel.sync();
+         //  sessionModel.sync();
 
             // sensorModel.create({
             //     ap_name:"sensor 2",
@@ -30,9 +34,9 @@ function createSchema() {
             // })
 
             // sequelize.sync({force:true});
-            groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
+           /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                 console.log(data);
-            });
+            });*/
 
             resolve("success")
         } catch (error) {

@@ -9,6 +9,8 @@ let { Op, json } = require("sequelize");
 let { log } = require('../logger/app.logger')
 let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
+
+
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
 let { groupModel } = require('../models/group.iot.model')
@@ -247,7 +249,7 @@ router.put('/update', function (req, res, next) {
 // Delete / api / v1 /  sensor / delete
 // Delete a sensors profile by rec_id
 
-router.delete('/delete', function (req, res, next) {
+router.post('/delete', function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc

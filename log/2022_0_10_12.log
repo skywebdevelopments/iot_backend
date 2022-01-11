@@ -1,0 +1,2 @@
+[2022-01-10T12:22:13.226] [TRACE] app - 127882bf-a3d9-4a7a-9cdb-954a3e530e7f - inbound request - executing the create query
+[2022-01-10T12:22:13.229] [TRACE] app - 127882bf-a3d9-4a7a-9cdb-954a3e530e7f - inbound request - send a response

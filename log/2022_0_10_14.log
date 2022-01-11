@@ -1,0 +1,356 @@
+[2022-01-10T14:04:54.852] [TRACE] app - dcd0edf8-c0fb-4523-951e-fbf2b714dd1d - inbound request - executing the delete query
+[2022-01-10T14:04:54.853] [TRACE] app - dcd0edf8-c0fb-4523-951e-fbf2b714dd1d - inbound request - send a response
+[2022-01-10T14:14:42.629] [TRACE] app - 52ec7aac-5d0e-4ec3-8295-ebf0962836bc - inbound request - executing the delete query
+[2022-01-10T14:14:42.630] [TRACE] app - 52ec7aac-5d0e-4ec3-8295-ebf0962836bc - inbound request - send a response
+[2022-01-10T14:20:26.055] [TRACE] app - 87ecce4f-7336-4754-9ca9-2e8ead930001 - inbound request - executing the delete query
+[2022-01-10T14:20:26.055] [TRACE] app - 87ecce4f-7336-4754-9ca9-2e8ead930001 - inbound request - send a response
+[2022-01-10T14:27:27.042] [TRACE] app - fe526252-abd4-4a72-8b7d-8819f54916b3 - ERROR - inbound request - create sensor - check required fields
+[2022-01-10T14:27:27.112] [TRACE] app - fe526252-abd4-4a72-8b7d-8819f54916b3 - inbound request - executing the create query
+[2022-01-10T14:27:27.112] [TRACE] app - fe526252-abd4-4a72-8b7d-8819f54916b3 - inbound request - send a response
+[2022-01-10T14:43:23.155] [TRACE] app - 17954325-e0b8-4d6b-b208-3a0bffe389b8 - inbound request - executing the delete query
+[2022-01-10T14:43:23.156] [TRACE] app - 17954325-e0b8-4d6b-b208-3a0bffe389b8 - inbound request - send a response
+[2022-01-10T14:43:23.160] [TRACE] app - f612512c-5466-4430-b87c-1c101e56bf91 - inbound request - executing the delete query
+[2022-01-10T14:43:23.167] [TRACE] app - f612512c-5466-4430-b87c-1c101e56bf91 - inbound request - send a response
+[2022-01-10T14:43:23.170] [TRACE] app - f612512c-5466-4430-b87c-1c101e56bf91 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.193] [TRACE] app - 152a9e49-36f7-4d65-954f-9361fe2f7519 - inbound request - executing the delete query
+[2022-01-10T14:43:23.194] [TRACE] app - 152a9e49-36f7-4d65-954f-9361fe2f7519 - inbound request - send a response
+[2022-01-10T14:43:23.196] [TRACE] app - 152a9e49-36f7-4d65-954f-9361fe2f7519 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.219] [TRACE] app - c23b260e-fcc1-4b6e-9544-1b6238796378 - inbound request - executing the delete query
+[2022-01-10T14:43:23.220] [TRACE] app - c23b260e-fcc1-4b6e-9544-1b6238796378 - inbound request - send a response
+[2022-01-10T14:43:23.220] [TRACE] app - c23b260e-fcc1-4b6e-9544-1b6238796378 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.236] [TRACE] app - 4788d4bc-93c9-4a5f-9336-899273b645b4 - inbound request - executing the delete query
+[2022-01-10T14:43:23.238] [TRACE] app - 4788d4bc-93c9-4a5f-9336-899273b645b4 - inbound request - send a response
+[2022-01-10T14:43:23.239] [TRACE] app - 4788d4bc-93c9-4a5f-9336-899273b645b4 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.274] [TRACE] app - cef6cdff-fd14-4ad6-8e00-ac1a8475c071 - inbound request - executing the delete query
+[2022-01-10T14:43:23.283] [TRACE] app - cef6cdff-fd14-4ad6-8e00-ac1a8475c071 - inbound request - send a response
+[2022-01-10T14:43:23.284] [TRACE] app - cef6cdff-fd14-4ad6-8e00-ac1a8475c071 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.319] [TRACE] app - 873328d5-7393-4e00-a468-78cc43b16b93 - inbound request - executing the delete query
+[2022-01-10T14:43:23.320] [TRACE] app - 873328d5-7393-4e00-a468-78cc43b16b93 - inbound request - send a response
+[2022-01-10T14:43:23.320] [TRACE] app - 873328d5-7393-4e00-a468-78cc43b16b93 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.418] [TRACE] app - 13db30d6-3f0a-47e2-8e36-7c5d97077e5a - inbound request - executing the delete query
+[2022-01-10T14:43:23.419] [TRACE] app - 13db30d6-3f0a-47e2-8e36-7c5d97077e5a - inbound request - send a response
+[2022-01-10T14:43:23.419] [TRACE] app - 13db30d6-3f0a-47e2-8e36-7c5d97077e5a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.491] [TRACE] app - 4f1ef04f-5fd1-4885-879b-edc12817fb80 - inbound request - executing the delete query
+[2022-01-10T14:43:23.492] [TRACE] app - 4f1ef04f-5fd1-4885-879b-edc12817fb80 - inbound request - send a response
+[2022-01-10T14:43:23.493] [TRACE] app - 4f1ef04f-5fd1-4885-879b-edc12817fb80 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.644] [TRACE] app - 6ff6031b-1836-4da3-9af3-9b4f9bd33d46 - inbound request - executing the delete query
+[2022-01-10T14:43:23.645] [TRACE] app - 6ff6031b-1836-4da3-9af3-9b4f9bd33d46 - inbound request - send a response
+[2022-01-10T14:43:23.648] [TRACE] app - 6ff6031b-1836-4da3-9af3-9b4f9bd33d46 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.669] [TRACE] app - 686fe44f-dd4e-4479-9e82-c50643a28c6f - inbound request - executing the delete query
+[2022-01-10T14:43:23.670] [TRACE] app - 686fe44f-dd4e-4479-9e82-c50643a28c6f - inbound request - send a response
+[2022-01-10T14:43:23.671] [TRACE] app - 686fe44f-dd4e-4479-9e82-c50643a28c6f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.691] [TRACE] app - 6f3194a8-4339-41ac-988f-e45b90090d57 - inbound request - executing the delete query
+[2022-01-10T14:43:23.692] [TRACE] app - 6f3194a8-4339-41ac-988f-e45b90090d57 - inbound request - send a response
+[2022-01-10T14:43:23.693] [TRACE] app - 6f3194a8-4339-41ac-988f-e45b90090d57 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.711] [TRACE] app - 17bfe16b-28c6-4301-915b-c3ad171a48f1 - inbound request - executing the delete query
+[2022-01-10T14:43:23.721] [TRACE] app - 17bfe16b-28c6-4301-915b-c3ad171a48f1 - inbound request - send a response
+[2022-01-10T14:43:23.722] [TRACE] app - 17bfe16b-28c6-4301-915b-c3ad171a48f1 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.735] [TRACE] app - e2c7e407-56be-4fcc-9b84-c6a822a01612 - inbound request - executing the delete query
+[2022-01-10T14:43:23.736] [TRACE] app - e2c7e407-56be-4fcc-9b84-c6a822a01612 - inbound request - send a response
+[2022-01-10T14:43:23.737] [TRACE] app - e2c7e407-56be-4fcc-9b84-c6a822a01612 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.751] [TRACE] app - a1759371-2b9b-4070-a17c-6de1d34b679d - inbound request - executing the delete query
+[2022-01-10T14:43:23.752] [TRACE] app - a1759371-2b9b-4070-a17c-6de1d34b679d - inbound request - send a response
+[2022-01-10T14:43:23.752] [TRACE] app - a1759371-2b9b-4070-a17c-6de1d34b679d - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.827] [TRACE] app - 7f1e8b1c-53d9-4df1-9869-daf6d69e8624 - inbound request - executing the delete query
+[2022-01-10T14:43:23.827] [TRACE] app - 7f1e8b1c-53d9-4df1-9869-daf6d69e8624 - inbound request - send a response
+[2022-01-10T14:43:23.828] [TRACE] app - 7f1e8b1c-53d9-4df1-9869-daf6d69e8624 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.853] [TRACE] app - f1c1978f-f05f-4087-bd6e-b9e945a67a50 - inbound request - executing the delete query
+[2022-01-10T14:43:23.859] [TRACE] app - f1c1978f-f05f-4087-bd6e-b9e945a67a50 - inbound request - send a response
+[2022-01-10T14:43:23.860] [TRACE] app - f1c1978f-f05f-4087-bd6e-b9e945a67a50 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.875] [TRACE] app - 174bec25-ca44-492f-b70f-b2b43fc6760b - inbound request - executing the delete query
+[2022-01-10T14:43:23.878] [TRACE] app - 174bec25-ca44-492f-b70f-b2b43fc6760b - inbound request - send a response
+[2022-01-10T14:43:23.885] [TRACE] app - 174bec25-ca44-492f-b70f-b2b43fc6760b - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.893] [TRACE] app - c41dd9af-4b99-45eb-8840-2e419e627784 - inbound request - executing the delete query
+[2022-01-10T14:43:23.894] [TRACE] app - c41dd9af-4b99-45eb-8840-2e419e627784 - inbound request - send a response
+[2022-01-10T14:43:23.894] [TRACE] app - c41dd9af-4b99-45eb-8840-2e419e627784 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.910] [TRACE] app - 80ec15ec-9b92-4c3c-a362-38c021d07ad7 - inbound request - executing the delete query
+[2022-01-10T14:43:23.911] [TRACE] app - 80ec15ec-9b92-4c3c-a362-38c021d07ad7 - inbound request - send a response
+[2022-01-10T14:43:23.912] [TRACE] app - 80ec15ec-9b92-4c3c-a362-38c021d07ad7 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.923] [TRACE] app - a5388596-7b61-4159-9aff-77ebbfa2b470 - inbound request - executing the delete query
+[2022-01-10T14:43:23.923] [TRACE] app - a5388596-7b61-4159-9aff-77ebbfa2b470 - inbound request - send a response
+[2022-01-10T14:43:23.924] [TRACE] app - a5388596-7b61-4159-9aff-77ebbfa2b470 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.958] [TRACE] app - 0efa7e45-f974-4a0e-b382-f8a45a57189f - inbound request - executing the delete query
+[2022-01-10T14:43:23.959] [TRACE] app - 0efa7e45-f974-4a0e-b382-f8a45a57189f - inbound request - send a response
+[2022-01-10T14:43:23.960] [TRACE] app - 0efa7e45-f974-4a0e-b382-f8a45a57189f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:23.989] [TRACE] app - 45b459f5-3fac-47a5-85ba-c59ec33eabd6 - inbound request - executing the delete query
+[2022-01-10T14:43:23.992] [TRACE] app - 45b459f5-3fac-47a5-85ba-c59ec33eabd6 - inbound request - send a response
+[2022-01-10T14:43:23.993] [TRACE] app - 45b459f5-3fac-47a5-85ba-c59ec33eabd6 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.010] [TRACE] app - f152fcd2-09f8-4071-9eea-699317bf904a - inbound request - executing the delete query
+[2022-01-10T14:43:24.010] [TRACE] app - f152fcd2-09f8-4071-9eea-699317bf904a - inbound request - send a response
+[2022-01-10T14:43:24.011] [TRACE] app - f152fcd2-09f8-4071-9eea-699317bf904a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.028] [TRACE] app - e8f9a0f8-e391-4141-9f5f-f338febaae99 - inbound request - executing the delete query
+[2022-01-10T14:43:24.030] [TRACE] app - e8f9a0f8-e391-4141-9f5f-f338febaae99 - inbound request - send a response
+[2022-01-10T14:43:24.032] [TRACE] app - e8f9a0f8-e391-4141-9f5f-f338febaae99 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.041] [TRACE] app - 92291908-a838-44ae-9ced-b9547a8465a0 - inbound request - executing the delete query
+[2022-01-10T14:43:24.042] [TRACE] app - 92291908-a838-44ae-9ced-b9547a8465a0 - inbound request - send a response
+[2022-01-10T14:43:24.043] [TRACE] app - 92291908-a838-44ae-9ced-b9547a8465a0 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.066] [TRACE] app - 3a4ebb5d-d410-497d-bf52-6ec35a701924 - inbound request - executing the delete query
+[2022-01-10T14:43:24.069] [TRACE] app - 3a4ebb5d-d410-497d-bf52-6ec35a701924 - inbound request - send a response
+[2022-01-10T14:43:24.069] [TRACE] app - 3a4ebb5d-d410-497d-bf52-6ec35a701924 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.089] [TRACE] app - e8cac1fe-6e3f-430d-8c4c-37fc258d306c - inbound request - executing the delete query
+[2022-01-10T14:43:24.090] [TRACE] app - e8cac1fe-6e3f-430d-8c4c-37fc258d306c - inbound request - send a response
+[2022-01-10T14:43:24.090] [TRACE] app - e8cac1fe-6e3f-430d-8c4c-37fc258d306c - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.107] [TRACE] app - 975c2207-513d-4799-b254-65d43137348a - inbound request - executing the delete query
+[2022-01-10T14:43:24.108] [TRACE] app - 975c2207-513d-4799-b254-65d43137348a - inbound request - send a response
+[2022-01-10T14:43:24.108] [TRACE] app - 975c2207-513d-4799-b254-65d43137348a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.123] [TRACE] app - eae34ade-0c3a-4505-88cd-8dd009b32ffd - inbound request - executing the delete query
+[2022-01-10T14:43:24.123] [TRACE] app - eae34ade-0c3a-4505-88cd-8dd009b32ffd - inbound request - send a response
+[2022-01-10T14:43:24.124] [TRACE] app - eae34ade-0c3a-4505-88cd-8dd009b32ffd - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.142] [TRACE] app - a9e9bd91-58bf-4ceb-a629-da43f7e60026 - inbound request - executing the delete query
+[2022-01-10T14:43:24.143] [TRACE] app - a9e9bd91-58bf-4ceb-a629-da43f7e60026 - inbound request - send a response
+[2022-01-10T14:43:24.143] [TRACE] app - a9e9bd91-58bf-4ceb-a629-da43f7e60026 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.155] [TRACE] app - c6f5ab06-2f28-47e4-8cd1-e86b1cdb6d8f - inbound request - executing the delete query
+[2022-01-10T14:43:24.156] [TRACE] app - c6f5ab06-2f28-47e4-8cd1-e86b1cdb6d8f - inbound request - send a response
+[2022-01-10T14:43:24.157] [TRACE] app - c6f5ab06-2f28-47e4-8cd1-e86b1cdb6d8f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.222] [TRACE] app - d365197c-c5ef-4335-86b3-3f3206d603fd - inbound request - executing the delete query
+[2022-01-10T14:43:24.223] [TRACE] app - d365197c-c5ef-4335-86b3-3f3206d603fd - inbound request - send a response
+[2022-01-10T14:43:24.223] [TRACE] app - d365197c-c5ef-4335-86b3-3f3206d603fd - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.240] [TRACE] app - c6aa8276-4dcf-4840-8985-64f33b3c882c - inbound request - executing the delete query
+[2022-01-10T14:43:24.241] [TRACE] app - c6aa8276-4dcf-4840-8985-64f33b3c882c - inbound request - send a response
+[2022-01-10T14:43:24.242] [TRACE] app - c6aa8276-4dcf-4840-8985-64f33b3c882c - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.254] [TRACE] app - ba662428-5fd5-4db2-af9b-eaa0c6219184 - inbound request - executing the delete query
+[2022-01-10T14:43:24.255] [TRACE] app - ba662428-5fd5-4db2-af9b-eaa0c6219184 - inbound request - send a response
+[2022-01-10T14:43:24.256] [TRACE] app - ba662428-5fd5-4db2-af9b-eaa0c6219184 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.266] [TRACE] app - fa560a18-a8f0-482a-9534-1984b0bf7074 - inbound request - executing the delete query
+[2022-01-10T14:43:24.268] [TRACE] app - fa560a18-a8f0-482a-9534-1984b0bf7074 - inbound request - send a response
+[2022-01-10T14:43:24.269] [TRACE] app - fa560a18-a8f0-482a-9534-1984b0bf7074 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.278] [TRACE] app - fece9c47-89f4-4d6b-b17e-2c1da4e6354e - inbound request - executing the delete query
+[2022-01-10T14:43:24.284] [TRACE] app - fece9c47-89f4-4d6b-b17e-2c1da4e6354e - inbound request - send a response
+[2022-01-10T14:43:24.285] [TRACE] app - fece9c47-89f4-4d6b-b17e-2c1da4e6354e - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.292] [TRACE] app - 6f283744-5337-42d5-9df1-44f543c66e9f - inbound request - executing the delete query
+[2022-01-10T14:43:24.293] [TRACE] app - 6f283744-5337-42d5-9df1-44f543c66e9f - inbound request - send a response
+[2022-01-10T14:43:24.293] [TRACE] app - 6f283744-5337-42d5-9df1-44f543c66e9f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.348] [TRACE] app - 5917f010-79fd-440b-bbf1-78280f0f2959 - inbound request - executing the delete query
+[2022-01-10T14:43:24.351] [TRACE] app - 5917f010-79fd-440b-bbf1-78280f0f2959 - inbound request - send a response
+[2022-01-10T14:43:24.351] [TRACE] app - 5917f010-79fd-440b-bbf1-78280f0f2959 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.360] [TRACE] app - 9d0ae3ee-3f9d-40f1-a10e-6ad3154bba0d - inbound request - executing the delete query
+[2022-01-10T14:43:24.360] [TRACE] app - 9d0ae3ee-3f9d-40f1-a10e-6ad3154bba0d - inbound request - send a response
+[2022-01-10T14:43:24.361] [TRACE] app - 9d0ae3ee-3f9d-40f1-a10e-6ad3154bba0d - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.390] [TRACE] app - 8965bc5b-5be4-4083-b2f4-fcbd236dcbbe - inbound request - executing the delete query
+[2022-01-10T14:43:24.392] [TRACE] app - 8965bc5b-5be4-4083-b2f4-fcbd236dcbbe - inbound request - send a response
+[2022-01-10T14:43:24.392] [TRACE] app - 8965bc5b-5be4-4083-b2f4-fcbd236dcbbe - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.424] [TRACE] app - 939dd085-1f9d-485c-9910-d673b486cc7b - inbound request - executing the delete query
+[2022-01-10T14:43:24.445] [TRACE] app - 939dd085-1f9d-485c-9910-d673b486cc7b - inbound request - send a response
+[2022-01-10T14:43:24.447] [TRACE] app - 939dd085-1f9d-485c-9910-d673b486cc7b - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.470] [TRACE] app - 16d3ef84-5581-4b66-b21b-8c37aaf28890 - inbound request - executing the delete query
+[2022-01-10T14:43:24.471] [TRACE] app - 16d3ef84-5581-4b66-b21b-8c37aaf28890 - inbound request - send a response
+[2022-01-10T14:43:24.472] [TRACE] app - 16d3ef84-5581-4b66-b21b-8c37aaf28890 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.488] [TRACE] app - 80844940-a2f0-4fca-9b04-986af7c774b0 - inbound request - executing the delete query
+[2022-01-10T14:43:24.490] [TRACE] app - 80844940-a2f0-4fca-9b04-986af7c774b0 - inbound request - send a response
+[2022-01-10T14:43:24.491] [TRACE] app - 80844940-a2f0-4fca-9b04-986af7c774b0 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.551] [TRACE] app - 50ebfa05-2abf-4d56-948a-64409c9632a2 - inbound request - executing the delete query
+[2022-01-10T14:43:24.552] [TRACE] app - 50ebfa05-2abf-4d56-948a-64409c9632a2 - inbound request - send a response
+[2022-01-10T14:43:24.553] [TRACE] app - 50ebfa05-2abf-4d56-948a-64409c9632a2 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.559] [TRACE] app - 634018fd-44c4-4598-aec5-9fd9e74eac16 - inbound request - executing the delete query
+[2022-01-10T14:43:24.561] [TRACE] app - 634018fd-44c4-4598-aec5-9fd9e74eac16 - inbound request - send a response
+[2022-01-10T14:43:24.561] [TRACE] app - 634018fd-44c4-4598-aec5-9fd9e74eac16 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.587] [TRACE] app - 6025de52-cd1b-421a-9132-eed0c39fc512 - inbound request - executing the delete query
+[2022-01-10T14:43:24.588] [TRACE] app - 6025de52-cd1b-421a-9132-eed0c39fc512 - inbound request - send a response
+[2022-01-10T14:43:24.589] [TRACE] app - 6025de52-cd1b-421a-9132-eed0c39fc512 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.607] [TRACE] app - 6d9200e7-2757-40cc-89de-ede4479799cf - inbound request - executing the delete query
+[2022-01-10T14:43:24.610] [TRACE] app - 6d9200e7-2757-40cc-89de-ede4479799cf - inbound request - send a response
+[2022-01-10T14:43:24.611] [TRACE] app - 6d9200e7-2757-40cc-89de-ede4479799cf - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.621] [TRACE] app - f4389f0e-7915-4e41-a82a-40b98252fa1a - inbound request - executing the delete query
+[2022-01-10T14:43:24.622] [TRACE] app - f4389f0e-7915-4e41-a82a-40b98252fa1a - inbound request - send a response
+[2022-01-10T14:43:24.623] [TRACE] app - f4389f0e-7915-4e41-a82a-40b98252fa1a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.634] [TRACE] app - 41d05994-ec1a-486a-980b-bd7ac5aa8c9e - inbound request - executing the delete query
+[2022-01-10T14:43:24.635] [TRACE] app - 41d05994-ec1a-486a-980b-bd7ac5aa8c9e - inbound request - send a response
+[2022-01-10T14:43:24.636] [TRACE] app - 41d05994-ec1a-486a-980b-bd7ac5aa8c9e - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.665] [TRACE] app - 7c480350-afc8-4fcb-a286-237322622762 - inbound request - executing the delete query
+[2022-01-10T14:43:24.665] [TRACE] app - 7c480350-afc8-4fcb-a286-237322622762 - inbound request - send a response
+[2022-01-10T14:43:24.666] [TRACE] app - 7c480350-afc8-4fcb-a286-237322622762 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.673] [TRACE] app - 4357c15f-731f-4fab-ac30-288e7b259d19 - inbound request - executing the delete query
+[2022-01-10T14:43:24.674] [TRACE] app - 4357c15f-731f-4fab-ac30-288e7b259d19 - inbound request - send a response
+[2022-01-10T14:43:24.674] [TRACE] app - 4357c15f-731f-4fab-ac30-288e7b259d19 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.688] [TRACE] app - 8570ff37-c6b7-4f1b-97c9-c68f20377b65 - inbound request - executing the delete query
+[2022-01-10T14:43:24.689] [TRACE] app - 8570ff37-c6b7-4f1b-97c9-c68f20377b65 - inbound request - send a response
+[2022-01-10T14:43:24.690] [TRACE] app - 8570ff37-c6b7-4f1b-97c9-c68f20377b65 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.702] [TRACE] app - ef8be1cb-813c-441b-b8bd-5d92f86a59ec - inbound request - executing the delete query
+[2022-01-10T14:43:24.703] [TRACE] app - ef8be1cb-813c-441b-b8bd-5d92f86a59ec - inbound request - send a response
+[2022-01-10T14:43:24.703] [TRACE] app - ef8be1cb-813c-441b-b8bd-5d92f86a59ec - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.712] [TRACE] app - 8ff60ae3-78ae-428d-ba62-84ae0f2be452 - inbound request - executing the delete query
+[2022-01-10T14:43:24.713] [TRACE] app - 8ff60ae3-78ae-428d-ba62-84ae0f2be452 - inbound request - send a response
+[2022-01-10T14:43:24.714] [TRACE] app - 8ff60ae3-78ae-428d-ba62-84ae0f2be452 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.734] [TRACE] app - 1abb0584-e619-468e-8386-51ba0c4904d6 - inbound request - executing the delete query
+[2022-01-10T14:43:24.734] [TRACE] app - 1abb0584-e619-468e-8386-51ba0c4904d6 - inbound request - send a response
+[2022-01-10T14:43:24.735] [TRACE] app - 1abb0584-e619-468e-8386-51ba0c4904d6 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.785] [TRACE] app - 8373b686-ad34-4da5-b451-11f164fca1ed - inbound request - executing the delete query
+[2022-01-10T14:43:24.786] [TRACE] app - 8373b686-ad34-4da5-b451-11f164fca1ed - inbound request - send a response
+[2022-01-10T14:43:24.787] [TRACE] app - 8373b686-ad34-4da5-b451-11f164fca1ed - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.794] [TRACE] app - 189b1763-88fb-451b-bef6-7228b5eab632 - inbound request - executing the delete query
+[2022-01-10T14:43:24.795] [TRACE] app - 189b1763-88fb-451b-bef6-7228b5eab632 - inbound request - send a response
+[2022-01-10T14:43:24.797] [TRACE] app - 189b1763-88fb-451b-bef6-7228b5eab632 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.805] [TRACE] app - 7b595206-47fc-4dc2-bf62-8fc77ca9768c - inbound request - executing the delete query
+[2022-01-10T14:43:24.806] [TRACE] app - 7b595206-47fc-4dc2-bf62-8fc77ca9768c - inbound request - send a response
+[2022-01-10T14:43:24.806] [TRACE] app - 7b595206-47fc-4dc2-bf62-8fc77ca9768c - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.813] [TRACE] app - 0cc67243-7bcc-4021-ac55-f939dc94fd76 - inbound request - executing the delete query
+[2022-01-10T14:43:24.814] [TRACE] app - 0cc67243-7bcc-4021-ac55-f939dc94fd76 - inbound request - send a response
+[2022-01-10T14:43:24.815] [TRACE] app - 0cc67243-7bcc-4021-ac55-f939dc94fd76 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.821] [TRACE] app - 32d0ed27-6c36-499a-9a53-290883437d8d - inbound request - executing the delete query
+[2022-01-10T14:43:24.822] [TRACE] app - 32d0ed27-6c36-499a-9a53-290883437d8d - inbound request - send a response
+[2022-01-10T14:43:24.822] [TRACE] app - 32d0ed27-6c36-499a-9a53-290883437d8d - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.830] [TRACE] app - 49c5dff5-fbc7-4299-987b-d8007a8a2570 - inbound request - executing the delete query
+[2022-01-10T14:43:24.831] [TRACE] app - 49c5dff5-fbc7-4299-987b-d8007a8a2570 - inbound request - send a response
+[2022-01-10T14:43:24.831] [TRACE] app - 49c5dff5-fbc7-4299-987b-d8007a8a2570 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.855] [TRACE] app - eaad0084-88f0-4d51-b8e5-0490ad36f23a - inbound request - executing the delete query
+[2022-01-10T14:43:24.856] [TRACE] app - eaad0084-88f0-4d51-b8e5-0490ad36f23a - inbound request - send a response
+[2022-01-10T14:43:24.857] [TRACE] app - eaad0084-88f0-4d51-b8e5-0490ad36f23a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.864] [TRACE] app - 9668d388-5f5c-4948-b8e3-2f081e7e7843 - inbound request - executing the delete query
+[2022-01-10T14:43:24.865] [TRACE] app - 9668d388-5f5c-4948-b8e3-2f081e7e7843 - inbound request - send a response
+[2022-01-10T14:43:24.865] [TRACE] app - 9668d388-5f5c-4948-b8e3-2f081e7e7843 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.872] [TRACE] app - f6dd14e6-1d5e-48bc-9ba4-40f0e9129f9f - inbound request - executing the delete query
+[2022-01-10T14:43:24.873] [TRACE] app - f6dd14e6-1d5e-48bc-9ba4-40f0e9129f9f - inbound request - send a response
+[2022-01-10T14:43:24.873] [TRACE] app - f6dd14e6-1d5e-48bc-9ba4-40f0e9129f9f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.881] [TRACE] app - ac09a6fc-cd08-45d1-a30e-27c5f401927f - inbound request - executing the delete query
+[2022-01-10T14:43:24.882] [TRACE] app - ac09a6fc-cd08-45d1-a30e-27c5f401927f - inbound request - send a response
+[2022-01-10T14:43:24.883] [TRACE] app - ac09a6fc-cd08-45d1-a30e-27c5f401927f - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.890] [TRACE] app - ed8c4356-955c-49e1-9d46-6e83fb3e878a - inbound request - executing the delete query
+[2022-01-10T14:43:24.891] [TRACE] app - ed8c4356-955c-49e1-9d46-6e83fb3e878a - inbound request - send a response
+[2022-01-10T14:43:24.892] [TRACE] app - ed8c4356-955c-49e1-9d46-6e83fb3e878a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.898] [TRACE] app - 507870f7-a278-461c-ac0c-6b43d590d98c - inbound request - executing the delete query
+[2022-01-10T14:43:24.899] [TRACE] app - 507870f7-a278-461c-ac0c-6b43d590d98c - inbound request - send a response
+[2022-01-10T14:43:24.899] [TRACE] app - 507870f7-a278-461c-ac0c-6b43d590d98c - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.919] [TRACE] app - fae7fb5b-2dcc-483b-bd38-d7a22cfdbd19 - inbound request - executing the delete query
+[2022-01-10T14:43:24.920] [TRACE] app - fae7fb5b-2dcc-483b-bd38-d7a22cfdbd19 - inbound request - send a response
+[2022-01-10T14:43:24.921] [TRACE] app - fae7fb5b-2dcc-483b-bd38-d7a22cfdbd19 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.926] [TRACE] app - e065bd5f-c835-499c-8917-4f86d6a0a711 - inbound request - executing the delete query
+[2022-01-10T14:43:24.927] [TRACE] app - e065bd5f-c835-499c-8917-4f86d6a0a711 - inbound request - send a response
+[2022-01-10T14:43:24.928] [TRACE] app - e065bd5f-c835-499c-8917-4f86d6a0a711 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.937] [TRACE] app - 77e9f35c-48ec-4a73-a2af-965d65bf3bee - inbound request - executing the delete query
+[2022-01-10T14:43:24.938] [TRACE] app - 77e9f35c-48ec-4a73-a2af-965d65bf3bee - inbound request - send a response
+[2022-01-10T14:43:24.938] [TRACE] app - 77e9f35c-48ec-4a73-a2af-965d65bf3bee - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.944] [TRACE] app - a45dd550-e511-491c-9d85-4cfaa9e76623 - inbound request - executing the delete query
+[2022-01-10T14:43:24.945] [TRACE] app - a45dd550-e511-491c-9d85-4cfaa9e76623 - inbound request - send a response
+[2022-01-10T14:43:24.945] [TRACE] app - a45dd550-e511-491c-9d85-4cfaa9e76623 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.952] [TRACE] app - 8c9f2fed-5496-43f4-8218-d4818434bf15 - inbound request - executing the delete query
+[2022-01-10T14:43:24.953] [TRACE] app - 8c9f2fed-5496-43f4-8218-d4818434bf15 - inbound request - send a response
+[2022-01-10T14:43:24.954] [TRACE] app - 8c9f2fed-5496-43f4-8218-d4818434bf15 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.964] [TRACE] app - 7150ff78-6499-4231-9f36-bb56708e9a96 - inbound request - executing the delete query
+[2022-01-10T14:43:24.965] [TRACE] app - 7150ff78-6499-4231-9f36-bb56708e9a96 - inbound request - send a response
+[2022-01-10T14:43:24.965] [TRACE] app - 7150ff78-6499-4231-9f36-bb56708e9a96 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.985] [TRACE] app - 1a3434e5-640a-49bc-ac0d-d8e6fd4f64f6 - inbound request - executing the delete query
+[2022-01-10T14:43:24.986] [TRACE] app - 1a3434e5-640a-49bc-ac0d-d8e6fd4f64f6 - inbound request - send a response
+[2022-01-10T14:43:24.987] [TRACE] app - 1a3434e5-640a-49bc-ac0d-d8e6fd4f64f6 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:24.997] [TRACE] app - 64179a91-8f1b-4d34-9a0c-78d17e02be90 - inbound request - executing the delete query
+[2022-01-10T14:43:24.998] [TRACE] app - 64179a91-8f1b-4d34-9a0c-78d17e02be90 - inbound request - send a response
+[2022-01-10T14:43:24.999] [TRACE] app - 64179a91-8f1b-4d34-9a0c-78d17e02be90 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:43:25.007] [TRACE] app - d11fc32a-7290-4f25-a7e8-bf9dbdd1d800 - inbound request - executing the delete query
+[2022-01-10T14:43:25.008] [TRACE] app - d11fc32a-7290-4f25-a7e8-bf9dbdd1d800 - inbound request - send a response
+[2022-01-10T14:43:25.008] [TRACE] app - d11fc32a-7290-4f25-a7e8-bf9dbdd1d800 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.251] [TRACE] app - cab9571e-d9f0-47fc-bd5d-fa4bc28dc0d1 - inbound request - executing the delete query
+[2022-01-10T14:44:26.262] [TRACE] app - cab9571e-d9f0-47fc-bd5d-fa4bc28dc0d1 - inbound request - send a response
+[2022-01-10T14:44:26.266] [TRACE] app - cab9571e-d9f0-47fc-bd5d-fa4bc28dc0d1 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.285] [TRACE] app - 861c94b6-3a26-4c30-b419-ff9c01200640 - inbound request - executing the delete query
+[2022-01-10T14:44:26.288] [TRACE] app - 861c94b6-3a26-4c30-b419-ff9c01200640 - inbound request - send a response
+[2022-01-10T14:44:26.291] [TRACE] app - 861c94b6-3a26-4c30-b419-ff9c01200640 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.304] [TRACE] app - 1a42976e-621c-4050-8dde-8d68a2c1f80e - inbound request - executing the delete query
+[2022-01-10T14:44:26.306] [TRACE] app - 1a42976e-621c-4050-8dde-8d68a2c1f80e - inbound request - send a response
+[2022-01-10T14:44:26.307] [TRACE] app - 1a42976e-621c-4050-8dde-8d68a2c1f80e - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.324] [TRACE] app - d16aeb6a-fb07-4363-a176-4373122b71f5 - inbound request - executing the delete query
+[2022-01-10T14:44:26.326] [TRACE] app - d16aeb6a-fb07-4363-a176-4373122b71f5 - inbound request - send a response
+[2022-01-10T14:44:26.327] [TRACE] app - d16aeb6a-fb07-4363-a176-4373122b71f5 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.336] [TRACE] app - 184e0316-36fe-4fbb-be78-86a4d617780a - inbound request - executing the delete query
+[2022-01-10T14:44:26.338] [TRACE] app - 184e0316-36fe-4fbb-be78-86a4d617780a - inbound request - send a response
+[2022-01-10T14:44:26.338] [TRACE] app - 184e0316-36fe-4fbb-be78-86a4d617780a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.354] [TRACE] app - 624f9eab-30e9-4e4c-97a0-74e8bd9ce3b3 - inbound request - executing the delete query
+[2022-01-10T14:44:26.356] [TRACE] app - 624f9eab-30e9-4e4c-97a0-74e8bd9ce3b3 - inbound request - send a response
+[2022-01-10T14:44:26.357] [TRACE] app - 624f9eab-30e9-4e4c-97a0-74e8bd9ce3b3 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.370] [TRACE] app - 404949c5-7bd2-478d-a7bd-8f41ca90c84a - inbound request - executing the delete query
+[2022-01-10T14:44:26.371] [TRACE] app - 404949c5-7bd2-478d-a7bd-8f41ca90c84a - inbound request - send a response
+[2022-01-10T14:44:26.372] [TRACE] app - 404949c5-7bd2-478d-a7bd-8f41ca90c84a - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.399] [TRACE] app - 70e4cc89-cc59-41e2-8080-2866d6fba808 - inbound request - executing the delete query
+[2022-01-10T14:44:26.401] [TRACE] app - 70e4cc89-cc59-41e2-8080-2866d6fba808 - inbound request - send a response
+[2022-01-10T14:44:26.403] [TRACE] app - 70e4cc89-cc59-41e2-8080-2866d6fba808 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.425] [TRACE] app - 33be419d-284e-4f44-8112-17b87f4b59f5 - inbound request - executing the delete query
+[2022-01-10T14:44:26.429] [TRACE] app - 33be419d-284e-4f44-8112-17b87f4b59f5 - inbound request - send a response
+[2022-01-10T14:44:26.430] [TRACE] app - 33be419d-284e-4f44-8112-17b87f4b59f5 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.452] [TRACE] app - c88140f4-a120-4e11-bc17-0e3c6af28174 - inbound request - executing the delete query
+[2022-01-10T14:44:26.453] [TRACE] app - c88140f4-a120-4e11-bc17-0e3c6af28174 - inbound request - send a response
+[2022-01-10T14:44:26.454] [TRACE] app - c88140f4-a120-4e11-bc17-0e3c6af28174 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.464] [TRACE] app - a29b272c-6c88-45c3-a434-9253faef5b1e - inbound request - executing the delete query
+[2022-01-10T14:44:26.465] [TRACE] app - a29b272c-6c88-45c3-a434-9253faef5b1e - inbound request - send a response
+[2022-01-10T14:44:26.466] [TRACE] app - a29b272c-6c88-45c3-a434-9253faef5b1e - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.487] [TRACE] app - 75aae08c-81ab-46c7-8e1f-ea634db390ce - inbound request - executing the delete query
+[2022-01-10T14:44:26.489] [TRACE] app - 75aae08c-81ab-46c7-8e1f-ea634db390ce - inbound request - send a response
+[2022-01-10T14:44:26.489] [TRACE] app - 75aae08c-81ab-46c7-8e1f-ea634db390ce - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.500] [TRACE] app - e64ffdb6-ed1e-48e6-9a02-0f6491e29cbe - inbound request - executing the delete query
+[2022-01-10T14:44:26.501] [TRACE] app - e64ffdb6-ed1e-48e6-9a02-0f6491e29cbe - inbound request - send a response
+[2022-01-10T14:44:26.502] [TRACE] app - e64ffdb6-ed1e-48e6-9a02-0f6491e29cbe - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.527] [TRACE] app - dccd1540-1f77-41bf-bed7-85c9ba921dd4 - inbound request - executing the delete query
+[2022-01-10T14:44:26.530] [TRACE] app - dccd1540-1f77-41bf-bed7-85c9ba921dd4 - inbound request - send a response
+[2022-01-10T14:44:26.531] [TRACE] app - dccd1540-1f77-41bf-bed7-85c9ba921dd4 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.550] [TRACE] app - 2a7d4bc8-4b4d-46be-9c42-48a702e94a97 - inbound request - executing the delete query
+[2022-01-10T14:44:26.551] [TRACE] app - 2a7d4bc8-4b4d-46be-9c42-48a702e94a97 - inbound request - send a response
+[2022-01-10T14:44:26.551] [TRACE] app - 2a7d4bc8-4b4d-46be-9c42-48a702e94a97 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.616] [TRACE] app - 8de8634e-de92-4005-9ebb-9972a300d155 - inbound request - executing the delete query
+[2022-01-10T14:44:26.617] [TRACE] app - 8de8634e-de92-4005-9ebb-9972a300d155 - inbound request - send a response
+[2022-01-10T14:44:26.618] [TRACE] app - 8de8634e-de92-4005-9ebb-9972a300d155 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.628] [TRACE] app - 189bc607-181e-4d9a-96e6-ed6f8bc303c9 - inbound request - executing the delete query
+[2022-01-10T14:44:26.630] [TRACE] app - 189bc607-181e-4d9a-96e6-ed6f8bc303c9 - inbound request - send a response
+[2022-01-10T14:44:26.631] [TRACE] app - 189bc607-181e-4d9a-96e6-ed6f8bc303c9 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.641] [TRACE] app - 48dd7dba-15fe-4817-a26d-196f19dfabc3 - inbound request - executing the delete query
+[2022-01-10T14:44:26.642] [TRACE] app - 48dd7dba-15fe-4817-a26d-196f19dfabc3 - inbound request - send a response
+[2022-01-10T14:44:26.643] [TRACE] app - 48dd7dba-15fe-4817-a26d-196f19dfabc3 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.662] [TRACE] app - 9d9f2ca8-5405-4d47-a12a-995c6b5c53a1 - inbound request - executing the delete query
+[2022-01-10T14:44:26.663] [TRACE] app - 9d9f2ca8-5405-4d47-a12a-995c6b5c53a1 - inbound request - send a response
+[2022-01-10T14:44:26.664] [TRACE] app - 9d9f2ca8-5405-4d47-a12a-995c6b5c53a1 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.687] [TRACE] app - b37554c6-4a77-4351-8d39-d6685c4ef822 - inbound request - executing the delete query
+[2022-01-10T14:44:26.688] [TRACE] app - b37554c6-4a77-4351-8d39-d6685c4ef822 - inbound request - send a response
+[2022-01-10T14:44:26.690] [TRACE] app - b37554c6-4a77-4351-8d39-d6685c4ef822 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.700] [TRACE] app - 576f42fc-ac9d-444a-b7c5-46a3857d7467 - inbound request - executing the delete query
+[2022-01-10T14:44:26.701] [TRACE] app - 576f42fc-ac9d-444a-b7c5-46a3857d7467 - inbound request - send a response
+[2022-01-10T14:44:26.702] [TRACE] app - 576f42fc-ac9d-444a-b7c5-46a3857d7467 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.715] [TRACE] app - ea43af0f-49a2-46d4-aded-11950e0f19a5 - inbound request - executing the delete query
+[2022-01-10T14:44:26.716] [TRACE] app - ea43af0f-49a2-46d4-aded-11950e0f19a5 - inbound request - send a response
+[2022-01-10T14:44:26.717] [TRACE] app - ea43af0f-49a2-46d4-aded-11950e0f19a5 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.728] [TRACE] app - 80440922-4059-4d7e-945a-f01fe7f4c804 - inbound request - executing the delete query
+[2022-01-10T14:44:26.729] [TRACE] app - 80440922-4059-4d7e-945a-f01fe7f4c804 - inbound request - send a response
+[2022-01-10T14:44:26.730] [TRACE] app - 80440922-4059-4d7e-945a-f01fe7f4c804 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.742] [TRACE] app - 4cbcb394-63c7-45a7-8d6c-e0200a3d8866 - inbound request - executing the delete query
+[2022-01-10T14:44:26.744] [TRACE] app - 4cbcb394-63c7-45a7-8d6c-e0200a3d8866 - inbound request - send a response
+[2022-01-10T14:44:26.744] [TRACE] app - 4cbcb394-63c7-45a7-8d6c-e0200a3d8866 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.756] [TRACE] app - cef114c9-af6f-48bf-b295-913f4b8446d3 - inbound request - executing the delete query
+[2022-01-10T14:44:26.757] [TRACE] app - cef114c9-af6f-48bf-b295-913f4b8446d3 - inbound request - send a response
+[2022-01-10T14:44:26.758] [TRACE] app - cef114c9-af6f-48bf-b295-913f4b8446d3 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.768] [TRACE] app - 99901f8d-93e9-48ea-ab42-c91f14693471 - inbound request - executing the delete query
+[2022-01-10T14:44:26.769] [TRACE] app - 99901f8d-93e9-48ea-ab42-c91f14693471 - inbound request - send a response
+[2022-01-10T14:44:26.769] [TRACE] app - 99901f8d-93e9-48ea-ab42-c91f14693471 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.785] [TRACE] app - 65559d4a-4a49-4737-a453-11a4756f557e - inbound request - executing the delete query
+[2022-01-10T14:44:26.786] [TRACE] app - 65559d4a-4a49-4737-a453-11a4756f557e - inbound request - send a response
+[2022-01-10T14:44:26.787] [TRACE] app - 65559d4a-4a49-4737-a453-11a4756f557e - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.798] [TRACE] app - d204e230-542e-4681-ba5c-c5d0e9ff860d - inbound request - executing the delete query
+[2022-01-10T14:44:26.799] [TRACE] app - d204e230-542e-4681-ba5c-c5d0e9ff860d - inbound request - send a response
+[2022-01-10T14:44:26.800] [TRACE] app - d204e230-542e-4681-ba5c-c5d0e9ff860d - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.812] [TRACE] app - e2962386-ac47-4205-8bc6-4602b83e0415 - inbound request - executing the delete query
+[2022-01-10T14:44:26.813] [TRACE] app - e2962386-ac47-4205-8bc6-4602b83e0415 - inbound request - send a response
+[2022-01-10T14:44:26.814] [TRACE] app - e2962386-ac47-4205-8bc6-4602b83e0415 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.830] [TRACE] app - c15dd7e5-652f-49f5-8470-3754b954e1f9 - inbound request - executing the delete query
+[2022-01-10T14:44:26.831] [TRACE] app - c15dd7e5-652f-49f5-8470-3754b954e1f9 - inbound request - send a response
+[2022-01-10T14:44:26.831] [TRACE] app - c15dd7e5-652f-49f5-8470-3754b954e1f9 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.847] [TRACE] app - f92c6748-71bb-4d4d-9dfa-a0fe0e1a8503 - inbound request - executing the delete query
+[2022-01-10T14:44:26.848] [TRACE] app - f92c6748-71bb-4d4d-9dfa-a0fe0e1a8503 - inbound request - send a response
+[2022-01-10T14:44:26.848] [TRACE] app - f92c6748-71bb-4d4d-9dfa-a0fe0e1a8503 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.864] [TRACE] app - fbbe4c15-4b3a-4b0d-96e3-5275add4cbf9 - inbound request - executing the delete query
+[2022-01-10T14:44:26.865] [TRACE] app - fbbe4c15-4b3a-4b0d-96e3-5275add4cbf9 - inbound request - send a response
+[2022-01-10T14:44:26.866] [TRACE] app - fbbe4c15-4b3a-4b0d-96e3-5275add4cbf9 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.876] [TRACE] app - 624d48b6-10a2-4b09-a7a5-6a4766110b07 - inbound request - executing the delete query
+[2022-01-10T14:44:26.877] [TRACE] app - 624d48b6-10a2-4b09-a7a5-6a4766110b07 - inbound request - send a response
+[2022-01-10T14:44:26.879] [TRACE] app - 624d48b6-10a2-4b09-a7a5-6a4766110b07 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.895] [TRACE] app - 7c899b6f-c590-44b6-8add-7818dd45eea4 - inbound request - executing the delete query
+[2022-01-10T14:44:26.896] [TRACE] app - 7c899b6f-c590-44b6-8add-7818dd45eea4 - inbound request - send a response
+[2022-01-10T14:44:26.897] [TRACE] app - 7c899b6f-c590-44b6-8add-7818dd45eea4 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.911] [TRACE] app - e18a449f-f1c6-4f0f-a8fe-aee525c96d34 - inbound request - executing the delete query
+[2022-01-10T14:44:26.912] [TRACE] app - e18a449f-f1c6-4f0f-a8fe-aee525c96d34 - inbound request - send a response
+[2022-01-10T14:44:26.912] [TRACE] app - e18a449f-f1c6-4f0f-a8fe-aee525c96d34 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.926] [TRACE] app - 73194d14-816c-48bb-a0af-98b5df167362 - inbound request - executing the delete query
+[2022-01-10T14:44:26.927] [TRACE] app - 73194d14-816c-48bb-a0af-98b5df167362 - inbound request - send a response
+[2022-01-10T14:44:26.928] [TRACE] app - 73194d14-816c-48bb-a0af-98b5df167362 - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.940] [TRACE] app - 0cbba89c-dd99-4603-82fe-e075adccbb8b - inbound request - executing the delete query
+[2022-01-10T14:44:26.941] [TRACE] app - 0cbba89c-dd99-4603-82fe-e075adccbb8b - inbound request - send a response
+[2022-01-10T14:44:26.942] [TRACE] app - 0cbba89c-dd99-4603-82fe-e075adccbb8b - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T14:44:26.953] [TRACE] app - 702095fd-7337-4261-bbf3-9922cb0db6be - inbound request - executing the delete query
+[2022-01-10T14:44:26.955] [TRACE] app - 702095fd-7337-4261-bbf3-9922cb0db6be - inbound request - send a response
+[2022-01-10T14:44:26.955] [TRACE] app - 702095fd-7337-4261-bbf3-9922cb0db6be - ERROR - inbound request - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[2022-01-10T15:00:37.961] [TRACE] app - 34b69cee-4913-434f-b6be-fbf10116fc8f - ERROR - inbound request - create sensor - check required fields
+[2022-01-10T15:00:38.057] [TRACE] app - 34b69cee-4913-434f-b6be-fbf10116fc8f - inbound request - executing the create query
+[2022-01-10T15:00:38.057] [TRACE] app - 34b69cee-4913-434f-b6be-fbf10116fc8f - inbound request - send a response

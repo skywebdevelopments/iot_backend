@@ -1,10 +1,15 @@
 {
   "development": {
     "username": "postgres",
-    "password": "root",
-    "database": "iot_db",
+    "password": "postgres",
+    "database": "postgres",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
+  },
+  "google": {
+    "clientID": "878044526860-48am0i1b2skdml1tif9ldf6j39ror00h.apps.googleusercontent.com",
+    "clientSecrete": "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",
+    "callbackURL": "http://localhost:3000/auth/google/callback"
   }
 }

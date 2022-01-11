@@ -248,7 +248,7 @@ router.put('/update', function (req, res, next) {
 // Delete / api / v1 / group / delete
 // Delete a sensors’ group by rec_id
 
-router.delete('/delete', function (req, res, next) {
+router.post('/delete', function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc

@@ -10,7 +10,6 @@ Return a Token for a specific user.
 Parameters:username and password of a user
 */
 router.post('/GenerateToken', (req, res) => {
-   console.log(req.body)
     const { email, password } = req.body;
    
     userModel.findOne({
@@ -62,6 +61,6 @@ Parameters:None
 Success Response is the jwt send by header is correct
 */
 router.get('/VerifyToken',authenticate.verifyUser,authenticate.authenticateUser, (req, res) => {
-    res.redirect("http://localhost:4200/addSensor")
+    res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
 });
 module.exports = router;

@@ -1,0 +1,8 @@
+[2022-01-13T10:41:28.948] [TRACE] app - 29b0ba22-23bc-4284-9345-a39202994329 - ERROR - inbound request - create sensor - check required fields
+[2022-01-13T10:41:29.036] [TRACE] app - 29b0ba22-23bc-4284-9345-a39202994329 - inbound request - executing the create query
+[2022-01-13T10:41:29.036] [TRACE] app - 29b0ba22-23bc-4284-9345-a39202994329 - inbound request - send a response
+[2022-01-13T10:42:05.102] [TRACE] app - f7b22348-ad1d-4152-8e81-f3232c2584e8 - inbound request - executing the delete query
+[2022-01-13T10:42:05.103] [TRACE] app - f7b22348-ad1d-4152-8e81-f3232c2584e8 - inbound request - send a response
+[2022-01-13T11:10:39.724] [TRACE] app - 17fafdc9-776b-493c-b159-dc60f0128d0f - ERROR - inbound request - create sensor - check required fields
+[2022-01-13T11:10:39.807] [TRACE] app - 17fafdc9-776b-493c-b159-dc60f0128d0f - inbound request - executing the create query
+[2022-01-13T11:10:39.807] [TRACE] app - 17fafdc9-776b-493c-b159-dc60f0128d0f - inbound request - send a response

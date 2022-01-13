@@ -25,8 +25,8 @@ function createSchema() {
             // to create the db/
 
             // mqtt_userModel.sync({ force: true });
-           // userModel.sync();
-         //  sessionModel.sync();
+           //userModel.sync();
+        // sessionModel.sync();
 
             // sensorModel.create({
             //     ap_name:"sensor 2",

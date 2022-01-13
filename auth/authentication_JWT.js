@@ -52,6 +52,7 @@ exports.verifyUser = passport.authenticate('jwt', { session: false }); // veify 
 exports.authenticateUser= function (req, res, next) {
 
     let token = req.headers['authorization'];
+    //console.log(token);
     let { id } = jwt.decode(token.split(' ')[1]);
 
     sessionModel.findOne({

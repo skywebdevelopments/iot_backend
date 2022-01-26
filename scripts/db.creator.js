@@ -21,7 +21,7 @@ const bcrypt = require('bcrypt');
 function createSchema() {
     return new Promise((resolve, reject) => {
         try {
-            console.log("=> please make sure to create the database before executing this script...");
+            //console.log("=> please make sure to create the database before executing this script...");
             // to create the db/
 
             // mqtt_userModel.sync({ force: true });
@@ -33,7 +33,7 @@ function createSchema() {
 
             // })
 
-            // sequelize.sync({force:true});
+            sequelize.sync({force:true});
            /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                 console.log(data);
             });*/

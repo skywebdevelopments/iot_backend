@@ -1,0 +1,10 @@
+[2022-01-24T14:08:06.630] [TRACE] app - f1833013-7cf0-4f75-857d-79dfb286cad4 - inbound request - executing the create query
+[2022-01-24T14:08:06.631] [TRACE] app - f1833013-7cf0-4f75-857d-79dfb286cad4 - inbound request - send a response
+[2022-01-24T14:08:58.759] [TRACE] app - f2e94473-43cb-4449-808e-0e5d0593ede1 - inbound request - executing the update query
+[2022-01-24T14:08:58.760] [TRACE] app - f2e94473-43cb-4449-808e-0e5d0593ede1 - inbound request - send a response
+[2022-01-24T14:09:18.893] [TRACE] app - 9915c37e-288f-483b-be00-b5832180002a - inbound request - executing the delete query
+[2022-01-24T14:09:18.893] [TRACE] app - 9915c37e-288f-483b-be00-b5832180002a - inbound request - send a response
+[2022-01-24T14:09:34.150] [TRACE] app - e0da5eb8-9244-46ce-b54c-d30279d49190 - inbound request - executing the delete query
+[2022-01-24T14:09:34.151] [TRACE] app - e0da5eb8-9244-46ce-b54c-d30279d49190 - inbound request - send a response
+[2022-01-24T14:09:34.157] [TRACE] app - f64f300d-617a-47da-bb41-8b6006875c9a - inbound request - executing the delete query
+[2022-01-24T14:09:34.157] [TRACE] app - f64f300d-617a-47da-bb41-8b6006875c9a - inbound request - send a response

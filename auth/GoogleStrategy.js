@@ -5,7 +5,7 @@ const keys = require('../config/config.json')
 const { userModel } = require('../models/user.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+    localStorage = new LocalStorage('./scratch');
 
 passport.use(new GoogleStrategy({
     // Options of google sterategy
@@ -15,6 +15,10 @@ passport.use(new GoogleStrategy({
 
 }, (accessToken, refreshToken, profile, done) => {
     //passport callback function
+
+    userProfile = {
+        profile: profile
+    };
 
     ///check if the user already exist in my database
     userModel.findOne(
@@ -27,8 +31,7 @@ passport.use(new GoogleStrategy({
             if (currentUser) {
                 //User Already exist
                 generate_session_google(currentUser)
-              
-                done(null, currentUser)
+                done(null, userProfile)
             }
             else {
                 //User Not exist
@@ -40,15 +43,12 @@ passport.use(new GoogleStrategy({
                     active: true
                 }).then((newUser) => {
                     generate_session_google(newUser)
-                    done(null, newUser)
+                    done(null, userProfile)
                 })
 
             }
 
         })
-
-
-
 })
 )
 
@@ -61,15 +61,15 @@ function generate_session_google(user) {
             active: true
         }
     }).then((session) => {
+
         if (!session) {
             sessionModel.create({
                 token: token,
                 active: true,
                 userId: user.id
             })
-            localStorage.setItem('token',token); //to store token in local storage 
-         
-            return;
+            // localStorage.setItem('token', token); //to store token in local storage 
+            return token;
         }
         sessionModel.update({ active: false }, {
             where: {
@@ -81,7 +81,7 @@ function generate_session_google(user) {
             active: true,
             userId: user.id
         })
-        localStorage.setItem('token',token); //to store token in local storage 
-     
+        return token;
     })
+    localStorage.setItem('token', token); //to store token in local storage
 }

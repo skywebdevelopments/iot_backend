@@ -1,0 +1,3 @@
+[2022-01-20T23:36:57.133] [TRACE] app - 8cc37252-8948-4360-90d1-d475a320e5d4 - ERROR - inbound request - create group - invalid group name 
+[2022-01-20T23:37:18.126] [TRACE] app - 6c3c18fb-c509-4c1e-8302-02760e261b0e - inbound request - executing the create query
+[2022-01-20T23:37:18.126] [TRACE] app - 6c3c18fb-c509-4c1e-8302-02760e261b0e - inbound request - send a response

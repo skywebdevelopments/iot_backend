@@ -19,7 +19,7 @@ exports.getToken = function (user) {
     const signedToken = jwt.sign(payload, config.secretKey, {
         expiresIn: expiresIn
     });
-    return "Bearer " + signedToken
+    return  signedToken
 
 };
 

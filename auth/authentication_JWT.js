@@ -10,9 +10,11 @@ var config = require('../config/config.json');
 // sign a token (create a token for a user)
 exports.getToken = function (user) {
     const id = user.id;
+    const name = user.username;
     const expiresIn = "1d";
     const payload = {
         id: id,
+        name:name,
         iat: Date.now(),
     };
     

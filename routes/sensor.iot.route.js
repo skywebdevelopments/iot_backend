@@ -14,6 +14,8 @@ var router = express.Router();
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
 let { groupModel } = require('../models/group.iot.model')
+let { mqtt_userModel } = require('../models/mqttUser.iot.model')
+
 // end
 
 // middleware
@@ -433,6 +435,35 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, function (req, re
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
+});
+
+
+
+
+// GET / api / v1 /sensor/mqtt_user
+// Return all mqtt_user profiles 
+
+router.get('/mqtt_user', function (req, res, next) {
+    // code block
+    // 1. db_operation: select all query
+    mqtt_userModel.findAll().then((data) => {
+
+        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        // send the response.
+        res.send({ data: data, status: responseList.success });
+
+        //end
+    }).catch((error) => {
+        console.error(error);
+        res.send(error.message)
+
+    });
 });
 
 // 

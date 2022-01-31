@@ -67,7 +67,6 @@ function generate_session_google(user) {
                 active: true,
                 userId: user.id
             })
-            localStorage.setItem('token',token); //to store token in local storage 
          
             return;
         }
@@ -81,7 +80,7 @@ function generate_session_google(user) {
             active: true,
             userId: user.id
         })
-        localStorage.setItem('token',token); //to store token in local storage 
-     
+        
     })
+    localStorage.setItem('token',token); //to store token in local storage 
 }

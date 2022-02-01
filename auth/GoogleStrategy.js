@@ -4,8 +4,8 @@ var authenticate = require('../auth/authentication_JWT');
 const keys = require('../config/config.json')
 const { userModel } = require('../models/user.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
-var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+//var LocalStorage = require('node-localstorage').LocalStorage,
+//localStorage = new LocalStorage('./scratch');
 
 passport.use(new GoogleStrategy({
     // Options of google sterategy
@@ -82,5 +82,5 @@ function generate_session_google(user) {
         })
         
     })
-    localStorage.setItem('token',token); //to store token in local storage 
+    //localStorage.setItem('token',token); //to store token in local storage 
 }

@@ -60,7 +60,7 @@ GET /users/GenerateToken
 Parameters:None
 Success Response is the jwt send by header is correct
 */
-router.get('/VerifyToken',authenticate.verifyUser,authenticate.authenticateUser, (req, res) => {
-    res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
+router.get('/VerifyToken',authenticate.authenticateUser,authenticate.UserRoles(["sensor:update"]),(req, res) => {
+    //res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
 });
 module.exports = router;

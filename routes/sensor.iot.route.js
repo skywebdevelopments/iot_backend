@@ -3,6 +3,7 @@ var express = require('express');
 var conf_sercet = require('../config/sercret.json')
 var responseList = require('../config/response.code.json')
 var fieldsList = require('../config/fields.required.json')
+var authenticate = require('../auth/authentication_JWT');
 // end
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
@@ -15,7 +16,6 @@ var router = express.Router();
 let { sensorModel } = require('../models/sensor.iot.model')
 let { groupModel } = require('../models/group.iot.model')
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
-
 // end
 
 // middleware
@@ -29,7 +29,7 @@ const { sensor_groupModel } = require('../models/sensorGroup.iot.model');
 // GET / api / v1 / sensor
 // Return all sensors profiles 
 
-router.get('/', function (req, res, next) {
+router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
     sensorModel.findAll().then((data) => {
@@ -120,7 +120,7 @@ router.post('/', function (req, res, next) {
 // Post / api / v1 / sensor / create
 // Create a sensors profile
 
-router.post('/create', function (req, res, next) {
+router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
     let request_key = uuid();
     let missing_keys = [];
     try {
@@ -180,7 +180,7 @@ router.post('/create', function (req, res, next) {
 // Post / api / v1 / sensor / update
 // update a sensor's profile by rec_id
 
-router.put('/update', function (req, res, next) {
+router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["sensor:update"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -251,7 +251,7 @@ router.put('/update', function (req, res, next) {
 // Delete / api / v1 /  sensor / delete
 // Delete a sensors profile by rec_id
 
-router.post('/delete', function (req, res, next) {
+router.post('/delete',authenticate.authenticateUser,authenticate.UserRoles(["sensor:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -320,7 +320,7 @@ router.post('/delete', function (req, res, next) {
 
 
 // Map sensor to a group
-router.put('/update/map', resolve_sensor_id, resolve_group_id, function (req, res, next) {
+router.put('/update/map', resolve_sensor_id, resolve_group_id,authenticate.authenticateUser,authenticate.UserRoles(["group:create"]), function (req, res, next) {
 
     let request_key = uuid();
     try {

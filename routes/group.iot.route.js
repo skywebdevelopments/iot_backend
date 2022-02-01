@@ -9,6 +9,7 @@ var router = express.Router();
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
 const { groupModel } = require('../models/group.iot.model');
+var authenticate = require('../auth/authentication_JWT');
 // end
 
 
@@ -16,7 +17,7 @@ const { groupModel } = require('../models/group.iot.model');
 // GET / api / v1 / groups
 // Return all sensors’ groups 
 
-router.get('/', function (req, res, next) {
+router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["group:list"]), function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
     groupModel.findAll({
@@ -53,7 +54,7 @@ router.get('/', function (req, res, next) {
 // }
 
 
-router.post('/', function (req, res, next) {
+router.post('/',authenticate.authenticateUser,authenticate.UserRoles(["group:list"]), function (req, res, next) {
     let request_key = uuid();
     try {
 
@@ -119,7 +120,7 @@ router.post('/', function (req, res, next) {
 // Post / api / v1 / group / create
 // Create a sensors’ group 
 
-router.post('/create', function (req, res, next) {
+router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["group:create"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -172,7 +173,7 @@ router.post('/create', function (req, res, next) {
 // Post / api / v1 / group / update
 // update a sensors’ group by rec_id
 
-router.put('/update', function (req, res, next) {
+router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["group:update"]),function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -248,11 +249,10 @@ router.put('/update', function (req, res, next) {
 // Delete / api / v1 / group / delete
 // Delete a sensors’ group by rec_id
 
-router.post('/delete', function (req, res, next) {
+router.post('/delete',authenticate.authenticateUser,authenticate.UserRoles(["group:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
-        // code bloc
-
+        // code block
         let rec_id = req.body['rec_id']
         console.log(rec_id)
         // 1.validation: rec_id is uuid v4

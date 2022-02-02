@@ -93,5 +93,5 @@ exports.UserRoles = (roles_user) => function (req, res, next) {
         }
 
     }
-    res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!" });
+    next()
 }

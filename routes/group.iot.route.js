@@ -17,7 +17,7 @@ var authenticate = require('../auth/authentication_JWT');
 // GET / api / v1 / groups
 // Return all sensors’ groups 
 
-router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["group:list"]), function (req, res, next) {
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["group:list"]), function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
     groupModel.findAll({
@@ -54,7 +54,7 @@ router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["group:list
 // }
 
 
-router.post('/',authenticate.authenticateUser,authenticate.UserRoles(["group:list"]), function (req, res, next) {
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:list"]), function (req, res, next) {
     let request_key = uuid();
     try {
 
@@ -120,7 +120,7 @@ router.post('/',authenticate.authenticateUser,authenticate.UserRoles(["group:lis
 // Post / api / v1 / group / create
 // Create a sensors’ group 
 
-router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["group:create"]), function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -169,11 +169,87 @@ router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["gro
 });
 
 
+
+// Assign Sensors to group
+// Post / api / v1 / group / map
+
+router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
+    let request_key = uuid();
+    try {
+        // 1.validation : check if the req has a body
+        if (!req.body || req.body === undefined || !req.body['group_rec_id'] || !req.body['sensorId']) {
+
+            log.trace(`${request_key} - inbound request - ${responseList.error.error_missing_payload.message}`);
+            res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
+            return;
+        }
+        // code block
+        let sensorId = req.body['sensorId']
+        let rec_id = req.body['group_rec_id']
+
+        // 2.validation: rec_id is uuid v4
+
+        if (!isUuid(rec_id)) {
+            log.trace(`${request_key} - ERROR - inbound request - sensor mapping -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
+
+            res.send({
+                status: responseList.error.error_invalid_payload.code,
+                message: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`
+            });
+            return;
+        }
+        // 3.validation: rec_id and sensorID isn't an empty value
+        if (rec_id == 0 || sensorId.length == 0) {
+            log.trace(`${request_key} - ERROR - inbound request - sensor mapping - ${responseList.error.error_missing_payload.message}`);
+            res.send({
+                status: responseList.error.error_missing_payload.code,
+                message: responseList.error.error_missing_payload.message
+            });
+            return;
+        }
+        log.trace(`${request_key} - inbound request - query with ${rec_id}`);
+        groupModel.findOne({
+            include: {
+                model: sensorModel,
+                as: "sensor"
+            }
+            ,
+            where: {
+                rec_id: rec_id
+            }
+        }).then((data) => {
+
+            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+            // 2. return data in a response.
+            log.trace(`${request_key} - inbound request - check data length`);
+            if (!data || data.length === 0) {
+                res.send(
+                    { status: responseList.error.error_no_data }
+                );
+            }
+            // send the response.
+            log.trace(`${request_key} - inbound request - send a response`);
+            return data.addSensor(sensorId)
+            //end
+        }).then(() => {
+            res.send({ status: responseList.success });
+        }).catch((error) => {
+            log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+        });
+    } catch (error) {
+        log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+    }
+});
+
+
+
 // Update a Group
 // Post / api / v1 / group / update
 // update a sensors’ group by rec_id
 
-router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["group:update"]),function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["group:update"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -249,7 +325,7 @@ router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["grou
 // Delete / api / v1 / group / delete
 // Delete a sensors’ group by rec_id
 
-router.post('/delete',authenticate.authenticateUser,authenticate.UserRoles(["group:delete"]), function (req, res, next) {
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["group:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code block

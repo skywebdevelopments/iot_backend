@@ -52,13 +52,12 @@ passport.use(
         })
 );
 
-//exports.verifyUser = passport.authenticate('jwt', { session: false }); // veify using jwt staregy and set session to false as we will not use it 
+// exports.verifyUser = passport.authenticate('jwt', { session: false }); // veify using jwt staregy and set session to false as we will not use it 
 
 exports.authenticateUser = function (req, res, next) {
     passport.authenticate('jwt', { session: false });
     let token = req.headers['authorization'];
     let { id } = jwt.decode(token.split(' ')[1]);
-
     sessionModel.findOne({
         where: {
             userId: id,
@@ -93,5 +92,6 @@ exports.UserRoles = (roles_user) => function (req, res, next) {
         }
 
     }
+    // res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!" });
     next()
 }

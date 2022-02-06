@@ -32,7 +32,15 @@ const { sensor_groupModel } = require('../models/sensorGroup.iot.model');
 router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
-    sensorModel.findAll().then((data) => {
+    sensorModel.findAll(
+        {
+            include: [{
+              model: mqtt_userModel,
+              required: true,
+              attributes: ['username']
+             }]
+          }
+    ).then((data) => {
 
         // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
         // 2. return data in a response.

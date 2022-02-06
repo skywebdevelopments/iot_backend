@@ -3,6 +3,7 @@ var router = express.Router();
 var authenticate = require('../auth/authentication_JWT');
 let { userModel } = require('../models/user.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
+var responseList = require('../config/response.code.json');
 
 /*
 POST /users/GenerateToken
@@ -11,7 +12,7 @@ Parameters:username and password of a user
 */
 router.post('/GenerateToken', (req, res) => {
     const { email, password } = req.body;
-   
+
     userModel.findOne({
         where: {
             email: email,
@@ -19,23 +20,23 @@ router.post('/GenerateToken', (req, res) => {
         }
     }).then((user) => {
         if (!user) {
-            res.status(401).json({ success: false, msg: "could not find user" });
+            res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
         var token = authenticate.getToken(user); //create token using id and you can add other inf
         sessionModel.findOne({
             where: {
                 userId: user.id,
-                active:true
+                active: true
             }
         }).then((session) => {
             if (!session) {
                 sessionModel.create({
-                    token:token,
-                    active:true,
-                    userId:user.id
-                  })
-                  return;
+                    token: token,
+                    active: true,
+                    userId: user.id
+                })
+                return;
             }
             sessionModel.update({ active: false }, {
                 where: {
@@ -43,25 +44,15 @@ router.post('/GenerateToken', (req, res) => {
                 }
             })
             sessionModel.create({
-                token:token,
-                active:true,
-                userId:user.id
-              })
+                token: token,
+                active: true,
+                userId: user.id
+            })
         })
-        res.status(200).json({ success: true, token: token, status: 'You are successfully logged in!' });
+        res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
-        console.log("Error ", err);
-        res.send(err);
+        res.send({ status: err, code: responseList.error.error_not_found.code })
     });
 });
-
-/*
-GET /users/GenerateToken
-Parameters:None
-Success Response is the jwt send by header is correct
-*/
-// router.get('/VerifyToken',authenticate.authenticateUser,(req, res) => {
-//     //res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
-// });
 
 module.exports = router;

@@ -4,8 +4,10 @@ const ExtractJwt = passportJwt.ExtractJwt;
 const StartegyJwt = passportJwt.Strategy;
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 let { sessionModel } = require('../models/session.iot.model');
-var config = require('../config/config.json');
-//const { any } = require("sequelize/types/lib/operators");
+var secret = require('../config/sercret.json');
+const cryptojs = require('crypto-js');
+var responseList = require('../config/response.code.json')
+
 
 
 // sign a token (create a token for a user)
@@ -21,17 +23,37 @@ exports.getToken = function (user) {
         iat: Date.now(),
     };
 
-    const signedToken = jwt.sign(payload, config.secretKey, {
+    const signedToken = jwt.sign(payload, secret.secretKey, {
         expiresIn: expiresIn
     });
-    return signedToken
 
-};
+    return cryptojs.AES.encrypt(signedToken, secret.token_sercet_key).toString();
+
+}
+
+function TokenExtractor(req) {
+    var token = null;
+
+    if (req.headers && req.headers['authorization']) {
+
+        var header_token = req.headers['authorization'].split(' ');
+
+        if (header_token.length == 2) {
+            var scheme = header_token[0],
+                enc_token = header_token[1];
+
+            if (scheme === 'Bearer') {
+                token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
+            }
+        }
+    }
+    return token;
+}
 
 //options used in passport token startegy 
 var opts = {}; //options for jwt passport
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); // extract from header l token
-opts.secretOrKey = config.secretKey; // l secret key bt3 l token mn l config file
+opts.jwtFromRequest = TokenExtractor; // extract from header l token
+opts.secretOrKey = secret.secretKey; // l secret key bt3 l token mn l secret file
 passport.use(
     new StartegyJwt(opts,
         //done is a function 
@@ -55,30 +77,31 @@ passport.use(
 // exports.verifyUser = passport.authenticate('jwt', { session: false }); // veify using jwt staregy and set session to false as we will not use it 
 
 exports.authenticateUser = function (req, res, next) {
+
     passport.authenticate('jwt', { session: false });
-    let token = req.headers['authorization'];
-    let { id } = jwt.decode(token.split(' ')[1]);
+
+    let header_token = req.headers['authorization'];
+    header_token = header_token.split(' ')[1];
+
     sessionModel.findOne({
         where: {
-            userId: id,
             active: true,
-            token: token.split(' ')[1]
+            token: header_token
         }
     }).then((session) => {
         if (session) {
             next()
         } else {
-            res.status(401).json({ msg: "You are UnAuthorized!" });
+            res.send({ status: responseList.error.error_unauthorized.message, code: responseList.error.error_unauthorized.code })
         }
     }).catch((err) => {
-        res.status(404).json({ msg: err });
+        res.send({ status: err, code: responseList.error.error_not_found.code })
     })
 }
 
-
 exports.UserRoles = (roles_user) => function (req, res, next) {
-    let token = req.headers['authorization'];
-    let { roles } = jwt.decode(token.split(' ')[1]);
+    var token = TokenExtractor(req);
+    let { roles } = jwt.decode(token);
     for (var i = 0; i < roles_user.length; i++) {
         let flag = false;
         for (var j = 0; j < roles.length; j++) {
@@ -88,10 +111,8 @@ exports.UserRoles = (roles_user) => function (req, res, next) {
             }
         }
         if (!flag) {
-            res.status(403).json({ msg: "Forbidden Access!" });
+            res.send({ status: responseList.error.error_forbidden_access.message, code: responseList.error.error_forbidden_access.code })
         }
-
     }
-    // res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!" });
     next()
 }

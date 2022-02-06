@@ -1,7 +1,10 @@
 {
     "success": {
         "code": 200,
-        "message": "successfully"
+        "message": "successfully",
+        "sucess_login": {
+            "message": "Logged in Successfully"
+        }
     },
     "error": {
         "error_general": {
@@ -12,13 +15,29 @@
             "code": 1100,
             "message": "no data found"
         },
-        "error_missing_payload":{
-            "code":2100,
-            "message":"request payload is missing"
+        "error_missing_payload": {
+            "code": 2100,
+            "message": "request payload is missing"
         },
-        "error_invalid_payload":{
-            "code":2101,
-            "message":"request payload is invalid"
+        "error_invalid_payload": {
+            "code": 2101,
+            "message": "request payload is invalid"
+        },
+        "error_no_user_found": {
+            "code": 404,
+            "message": "could not find user!"
+        },
+        "error_unauthorized": {
+            "code": 401,
+            "message": "You are unauthorized!"
+        },
+        "error_forbidden_access": {
+            "code": 403,
+            "message": "Access forbidden!"
+        },
+        "error_not_found": {
+            "code": 404,
+            "message": "Not found!"
         }
     }
 }

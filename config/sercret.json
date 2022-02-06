@@ -1,7 +1,8 @@
 {
-    "token_sercet_key": "cyshield_secret123@",
+    "token_sercet_key": "cyshield_secret@123",
+    "secretKey": "12345-67890-09876-54321",
     "token_expiry_duration": "1011m",
     "enable_public_interfaces": true,
-    "admin_api_user":"admin",
-    "admin_api_password":"adminpassword"
+    "admin_api_user": "admin",
+    "admin_api_password": "adminpassword"
 }

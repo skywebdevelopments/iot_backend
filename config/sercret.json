@@ -1,5 +1,6 @@
 {
     "token_sercet_key": "cyshield_secret@123",
+    "hash_secret" : "as1en2la3",
     "secretKey": "12345-67890-09876-54321",
     "token_expiry_duration": "1011m",
     "enable_public_interfaces": true,

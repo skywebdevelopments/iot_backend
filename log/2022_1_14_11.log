@@ -1,0 +1,13 @@
+[2022-02-14T11:25:16.876] [TRACE] app - 6d2bdc2a-38c5-4a3e-920e-96f54fd0e2e7 - inbound request - executing the create query
+[2022-02-14T11:25:16.877] [TRACE] app - 6d2bdc2a-38c5-4a3e-920e-96f54fd0e2e7 - inbound request - send a response
+[2022-02-14T11:27:48.907] [TRACE] app - 73393631-9caa-466b-b16c-32a5f61e4185 - inbound request - executing the create query
+[2022-02-14T11:27:48.908] [TRACE] app - 73393631-9caa-466b-b16c-32a5f61e4185 - inbound request - send a response
+[2022-02-14T11:35:41.257] [TRACE] app - a6978cf7-ac5e-449f-ba20-2c91f45a5c5e - ERROR - inbound request - SequelizeUniqueConstraintError: Validation error
+[2022-02-14T11:36:37.483] [TRACE] app - d9c046ab-e8b3-4d9f-84c0-06806732cbc4 - inbound request - executing the create query
+[2022-02-14T11:36:37.483] [TRACE] app - d9c046ab-e8b3-4d9f-84c0-06806732cbc4 - inbound request - send a response
+[2022-02-14T11:37:00.709] [TRACE] app - 7c6b0ddc-69bf-4416-868f-cfb74e919a09 - inbound request - executing the create query
+[2022-02-14T11:37:00.709] [TRACE] app - 7c6b0ddc-69bf-4416-868f-cfb74e919a09 - inbound request - send a response
+[2022-02-14T11:37:15.727] [TRACE] app - b6580661-5a57-4085-b6c1-5835c26d7a87 - ERROR - inbound request - SequelizeUniqueConstraintError: Validation error
+[2022-02-14T11:38:19.101] [TRACE] app - 0a28669e-0ad6-4a5a-a5c5-3f46db33887f - ERROR - inbound request - SequelizeUniqueConstraintError: Validation error
+[2022-02-14T11:46:43.117] [TRACE] app - 8eb282bb-c82b-42b2-953b-579e9b03645e - ERROR - inbound request - SequelizeUniqueConstraintError: Validation error
+[2022-02-14T11:52:38.566] [TRACE] app - 6eafdab0-df5e-41f6-91a2-e2c22420a99f - ERROR - inbound request - SequelizeUniqueConstraintError: Validation error

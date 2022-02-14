@@ -144,24 +144,41 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
             })
             return;
         };
-        groupModel.create(req.body).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            log.trace(`${request_key} - inbound request - executing the create query`);
-            if (!data || data.length === 0) {
-                res.send(
-                    { status: responseList.error.error_no_data }
-                );
-            };
-            // send the response.
-            log.trace(`${request_key} - inbound request - send a response`);
-            res.send({ data: data, status: responseList.success });
 
-            //end
+
+        groupModel.findOne(
+            {
+                where:
+                    { name: group_name }
+            }
+        ).then((group) => {
+            if (!group) {
+                groupModel.create(req.body).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the create query`);
+                    if (!data || data.length === 0) {
+                        res.send(
+                            { status: responseList.error.error_no_data }
+                        );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - send a response`);
+                    res.send({ data: data, status: responseList.success });
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            }
+            else{
+            log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
+            res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
+            }
         }).catch((error) => {
-            log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
+        log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+        })
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })

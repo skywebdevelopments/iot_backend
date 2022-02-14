@@ -1,0 +1,4 @@
+[2022-02-08T15:39:58.378] [TRACE] app - d189b6f6-501c-4e46-900a-d3f62c1c42a0 - inbound request - executing the update query
+[2022-02-08T15:39:58.380] [TRACE] app - d189b6f6-501c-4e46-900a-d3f62c1c42a0 - inbound request - send a response
+[2022-02-08T17:45:29.849] [TRACE] app - 41f8d434-65b7-45fa-a983-319cd7e45731 - inbound request - executing the create query
+[2022-02-08T17:45:29.850] [TRACE] app - 41f8d434-65b7-45fa-a983-319cd7e45731 - inbound request - send a response

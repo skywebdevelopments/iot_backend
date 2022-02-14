@@ -11,8 +11,7 @@ let { sensorModel } = require('../models/sensor.iot.model')
 const { groupModel } = require('../models/group.iot.model');
 var authenticate = require('../auth/authentication_JWT');
 // end
-
-
+var Sequelize =require('sequelize');
 
 // GET / api / v1 / groups
 // Return all sensors’ groups 
@@ -148,8 +147,10 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
 
         groupModel.findOne(
             {
-                where:
-                    { name: group_name }
+                where: Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('name')),
+                    Sequelize.fn('lower', group_name)
+                )
             }
         ).then((group) => {
             if (!group) {
@@ -171,13 +172,13 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
                     res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
                 });
             }
-            else{
-            log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
-            res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
+            else {
+                log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
+                res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
             }
         }).catch((error) => {
-        log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-        res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+            log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
         })
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);

@@ -37,7 +37,7 @@ router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["sensor:lis
             include: [{
               model: mqtt_userModel,
               required: true,
-              attributes: ['username']
+              attributes: ['username','id']
              }]
           }
     ).then((data) => {

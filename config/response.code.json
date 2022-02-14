@@ -38,6 +38,10 @@
         "error_not_found": {
             "code": 404,
             "message": "Not found!"
+        },
+        "error_already_exists": {
+            "code": 3100,
+            "message": "already exists!"
         }
     }
 }

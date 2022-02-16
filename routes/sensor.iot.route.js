@@ -29,17 +29,17 @@ const { sensor_groupModel } = require('../models/sensorGroup.iot.model');
 // GET / api / v1 / sensor
 // Return all sensors profiles 
 
-router.get('/',authenticate.authenticateUser,authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
     sensorModel.findAll(
         {
             include: [{
-              model: mqtt_userModel,
-              required: true,
-              attributes: ['username','id']
-             }]
-          }
+                model: mqtt_userModel,
+                required: true,
+                attributes: ['username', 'id']
+            }]
+        }
     ).then((data) => {
 
         // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
@@ -127,129 +127,107 @@ router.post('/', function (req, res, next) {
 // Create a sensor
 // Post / api / v1 / sensor / create
 // Create a sensors profile
-function validation (res){
-    let fault_inputs =[];
-    let mac_address =res['data']['mac_address'];
-    if( mac_address!=="undefined" || mac_address!=="null" ||!(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/.test(mac_address)))
-    {
-      fault_inputs.push(mac_address);
+function validation(req) {
+    let fault_inputs = [];
+    let mac_address = req.body['mac_address'];
+    if (typeof mac_address === "undefined" || mac_address === "null" || !(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/.test(mac_address))) {
+        fault_inputs.push('mac_address');
     }
-    let client_id =res['data']['client_id'];
-    if( client_id!=="undefined" || client_id!=="null" ||client_id.length<4)
-    {
-      fault_inputs.push(client_id);
+    let client_id = req.body['client_id'];
+    if (typeof client_id === "undefined" || client_id === "null" || client_id.length < 4) {
+        fault_inputs.push('client_id');
     }
-    let active =res['data']['active'];
-    if( active!=="undefined" || active!=="null" ||typeof active !== "boolean")
-    {
-      fault_inputs.push(active);
+    let active = req.body['active'];
+    if (typeof active === "undefined" || active === "null" || typeof active !== "boolean") {
+        fault_inputs.push('active');
     }
-    let ota_password =res['data']['ota_password'];
-    if(ota_password && ota_password.length<4)
-    {
-      fault_inputs.push(ota_password);
+    let ota_password = req.body['ota_password'];
+    if (ota_password && ota_password.length < 4) {
+        fault_inputs.push('ota_password');
     }
-    let ap_password=res['data']['ap_password'];
-    if(ap_password&&ap_password.length<4)
-    {
-      fault_inputs.push(ap_password);
+    let ap_password = req.body['ap_password'];
+    if (ap_password && ap_password.length < 4) {
+        fault_inputs.push('ap_password');
     }
-    let sensor_type =res['data']['sensor_type'];
-    if( sensor_type!=="undefined" || sensor_type!=="null" ||typeof sensor_type !== "string")
-    {
-      fault_inputs.push(sensor_type);
+    let sensor_type = req.body['sensor_type'];
+    if (typeof sensor_type === "undefined" || sensor_type === "null" || typeof sensor_type !== "string") {
+        fault_inputs.push('sensor_type');
     }
-    let dns1 =res['data']['dns1'];
-    if( dns1.length<4)
-    {
-      fault_inputs.push(dns1);
+    let dns1 = req.body['dns1'];
+    if (dns1.length < 4) {
+        fault_inputs.push('dns1');
     }
-     // length of null
-     let dns2 =res['data']['dns2'];
-     if( dns2.length<4)
-     {
-       fault_inputs.push(dns2);
-     }
-    let gateway =res['data']['gateway'];
-    if( gateway.length<4)
-    {
-      fault_inputs.push(gateway);
+    // length of null
+    let dns2 = req.body['dns2'];
+    if (dns2.length < 4) {
+        fault_inputs.push('dns2');
     }
-    let subnet =res['data']['subnet'];
-    if(  subnet!=="undefined" || subnet!=="null" ||!(/255|254|252|248|240|224|192|128|0+/.test(subnet)))
-    {
-      fault_inputs.push(subnet);
+    let gateway = req.body['gateway'];
+    if (gateway.length < 4) {
+        fault_inputs.push('gateway');
     }
-    let serial_number =res['data']['serial_number'];
-    if( serial_number && serial_number.length<4)
-    {
-      fault_inputs.push(serial_number);
+    let subnet = req.body['subnet'];
+    if (typeof subnet === "undefined" || subnet === "null" || !(/255|254|252|248|240|224|192|128|0+/.test(subnet))) {
+        fault_inputs.push('subnet');
     }
-    let sleep_time =res['data']['sleep_time'];
-    if( sleep_time!=="undefined" || sleep_time!=="null" ||typeof sleep_time !== "integer")
-    {
-      fault_inputs.push(sleep_time);
+    let serial_number = req.body['serial_number'];
+    if (serial_number && serial_number.length < 4) {
+        fault_inputs.push('serial_number');
     }
-    let ap_name =res['data']['ap_name'];
-    if( ap_name&&ap_name.length<4)
-    {
-      fault_inputs.push(ap_name);
+    let sleep_time = req.body['sleep_time'];
+    if (typeof sleep_time === "undefined" || sleep_time === "null" || typeof sleep_time !== "number") {
+        fault_inputs.push('sleep_time');
     }
-    let node_profile =res['data']['node_profile'];
-    if( node_profile!=="undefined" || node_profile!=="null" ||node_profile.length<3)
-    {
-      fault_inputs.push(node_profile);
+    let ap_name = req.body['ap_name'];
+    if (ap_name && ap_name.length < 4) {
+        fault_inputs.push('ap_name');
     }
-    let board_name =res['data']['board_name'];
-    if( board_name!=="undefined" || board_name!=="null" ||board_name.length<4)
-    {
-      fault_inputs.push(board_name);
+    let node_profile = req.body['node_profile'];
+    if (typeof node_profile === "undefined" || node_profile === "null" || node_profile.length < 3) {
+        fault_inputs.push('node_profile');
     }
-    let board_model =res['data']['board_model'];
-    if( board_model!=="undefined" || board_model!=="null" ||board_model.length<4)
-    {
-      fault_inputs.push(board_model);
+    let board_name = req.body['board_name'];
+    if (typeof board_name === "undefined" || board_name === "null" || board_name.length < 4) {
+        fault_inputs.push('board_name');
     }
-    let sim_serial =res['data']['sim_serial'];
-    if( sim_serial&&sim_serial.length<4)
-    {
-      fault_inputs.push(sim_serial);
+    let board_model = req.body['board_model'];
+    if (typeof board_model === "undefined" || board_model === "null" || board_model.length < 4) {
+        fault_inputs.push('board_model');
     }
-    let flags =res['data']['flags'];
-    if( flags!=="undefined" || flags!=="null" ||flags.length<4)
-    {
-      fault_inputs.push(flags);
+    let sim_serial = req.body['sim_serial'];
+    if (sim_serial && sim_serial.length < 4) {
+        fault_inputs.push('sim_serial');
     }
-    let mqttUserId =res['data']['mqttUserId'];
-    if( mqttUserId!=="undefined" || mqttUserId!=="null" ||mqttUserId.length<1 ||typeof mqttUserId !== "integer")
-    {
-      fault_inputs.push(mqttUserId);
+
+    let flags = req.body['flags'];
+    if (typeof flags === "undefined" || flags === "null" || flags.length < 4) {
+        fault_inputs.push('flags');
     }
-    let static_ip =res['data']['static_ip'];
-    if(  static_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(static_ip)))
-    {
-      fault_inputs.push(static_ip);
+    let mqttUserId = req.body['mqttUserId'];
+    if (typeof mqttUserId === "undefined" || mqttUserId === "null" || mqttUserId.length < 1 || typeof mqttUserId !== "number") {
+        fault_inputs.push('mqttUserId');
     }
-    let ap_ip =res['data']['ap_ip'];
-    if( ap_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(ap_ip)))
-    {
-      fault_inputs.push(ap_ip);
+    let static_ip = req.body['static_ip'];
+    if (static_ip && !(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$/.test(static_ip))) {
+        fault_inputs.push('static_ip');
     }
-    let host_ip =res['data']['host_ip'];
-    if( host_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(host_ip)))
-    {
-      fault_inputs.push(host_ip);
+    let ap_ip = req.body['ap_ip'];
+    if (ap_ip && !(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$/.test(ap_ip))) {
+        fault_inputs.push('ap_ip');
     }
-    let sim_msidm =res['data']['sim_msidm'];
-    if( sim_msidm&& !(/[0-9]{11}/.test(sim_msidm)))
-    {
-      fault_inputs.push(sim_msidm);
+    let host_ip = req.body['host_ip'];
+    if (host_ip && !(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$/.test(host_ip))) {
+        fault_inputs.push('host_ip');
+    }
+    let sim_msidm = req.body['sim_msidm'];
+    if (sim_msidm && !(/[0-9]{11}/.test(sim_msidm))) {
+        fault_inputs.push('sim_msidm');
     }
     return fault_inputs;
 }
-router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
     let request_key = uuid();
-    var fault_inputs=validation(res);
+    var fault_inputs = validation(req);
     let missing_keys = [];
     try {
         // code bloc
@@ -275,13 +253,13 @@ router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sen
             return;
         }
 
-        
+
         if (fault_inputs.length > 0) {
             // log the step
-            log.trace(`${request_key} - ERROR - inbound request - create sensor - invalid inputs ${fault_inputs.length} field(s) (${fault_inputs.toString()})`);
+            log.trace(`${request_key} - ERROR - inbound request - create sensor - invalid input ${fault_inputs.length} field(s) (${fault_inputs.toString()})`);
 
             // send a response
-            res.send({ status: `${responseList.error.error_missing_payload.message} - invalid inputs ${fault_inputs.toString()} field(s) `, code: responseList.error.error_missing_payload.code })
+            res.send({ status: `${responseList.error.error_invalid_input.message} for ${fault_inputs.length} field(s) `, code: responseList.error.error_invalid_input.code, data: fault_inputs, client_id: req.body['client_id'] })
             return;
         }
 
@@ -316,7 +294,7 @@ router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sen
 // Post / api / v1 / sensor / update
 // update a sensor's profile by rec_id
 
-router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["sensor:update"]), function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["sensor:update"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -387,7 +365,7 @@ router.put('/update',authenticate.authenticateUser,authenticate.UserRoles(["sens
 // Delete / api / v1 /  sensor / delete
 // Delete a sensors profile by rec_id
 
-router.post('/delete',authenticate.authenticateUser,authenticate.UserRoles(["sensor:delete"]), function (req, res, next) {
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -456,7 +434,7 @@ router.post('/delete',authenticate.authenticateUser,authenticate.UserRoles(["sen
 
 
 // Map sensor to a group
-router.put('/update/map', resolve_sensor_id, resolve_group_id,authenticate.authenticateUser,authenticate.UserRoles(["group:create"]), function (req, res, next) {
+router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
 
     let request_key = uuid();
     try {
@@ -524,7 +502,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id,authenticate.authe
                     // get the pk 
                     // update the groupId with the new_group_pk (req.body)
 
-                    console.log(`g ${req.body.group_pk} == > s ${req.body.sensor_pk } `);
+                    console.log(`g ${req.body.group_pk} == > s ${req.body.sensor_pk} `);
                     // destroy query
                     sensor_groupModel.findOne({
                         where: {
@@ -535,11 +513,11 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id,authenticate.authe
                         }
                     }).then(data => {
                         if (data) {
-                          
+
                             // update
                             sensor_groupModel.update(
 
-                                
+
                                 { groupId: req.body.new_group_pk }
                                 , {
                                     where: {
@@ -551,7 +529,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id,authenticate.authe
                                 })
 
                         }
-                       
+
                     })
                     // report 
 

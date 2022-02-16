@@ -23,6 +23,10 @@
             "code": 2101,
             "message": "request payload is invalid"
         },
+        "error_invalid_input": {
+            "code": 2102,
+            "message": "request inputs is/are invalid"
+        },
         "error_no_user_found": {
             "code": 404,
             "message": "could not find user!"

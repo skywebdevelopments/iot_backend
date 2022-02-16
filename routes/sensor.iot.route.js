@@ -127,9 +127,129 @@ router.post('/', function (req, res, next) {
 // Create a sensor
 // Post / api / v1 / sensor / create
 // Create a sensors profile
-
+function validation (res){
+    let fault_inputs =[];
+    let mac_address =res['data']['mac_address'];
+    if( mac_address!=="undefined" || mac_address!=="null" ||!(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/.test(mac_address)))
+    {
+      fault_inputs.push(mac_address);
+    }
+    let client_id =res['data']['client_id'];
+    if( client_id!=="undefined" || client_id!=="null" ||client_id.length<4)
+    {
+      fault_inputs.push(client_id);
+    }
+    let active =res['data']['active'];
+    if( active!=="undefined" || active!=="null" ||typeof active !== "boolean")
+    {
+      fault_inputs.push(active);
+    }
+    let ota_password =res['data']['ota_password'];
+    if(ota_password && ota_password.length<4)
+    {
+      fault_inputs.push(ota_password);
+    }
+    let ap_password=res['data']['ap_password'];
+    if(ap_password&&ap_password.length<4)
+    {
+      fault_inputs.push(ap_password);
+    }
+    let sensor_type =res['data']['sensor_type'];
+    if( sensor_type!=="undefined" || sensor_type!=="null" ||typeof sensor_type !== "string")
+    {
+      fault_inputs.push(sensor_type);
+    }
+    let dns1 =res['data']['dns1'];
+    if( dns1.length<4)
+    {
+      fault_inputs.push(dns1);
+    }
+     // length of null
+     let dns2 =res['data']['dns2'];
+     if( dns2.length<4)
+     {
+       fault_inputs.push(dns2);
+     }
+    let gateway =res['data']['gateway'];
+    if( gateway.length<4)
+    {
+      fault_inputs.push(gateway);
+    }
+    let subnet =res['data']['subnet'];
+    if(  subnet!=="undefined" || subnet!=="null" ||!(/255|254|252|248|240|224|192|128|0+/.test(subnet)))
+    {
+      fault_inputs.push(subnet);
+    }
+    let serial_number =res['data']['serial_number'];
+    if( serial_number && serial_number.length<4)
+    {
+      fault_inputs.push(serial_number);
+    }
+    let sleep_time =res['data']['sleep_time'];
+    if( sleep_time!=="undefined" || sleep_time!=="null" ||typeof sleep_time !== "integer")
+    {
+      fault_inputs.push(sleep_time);
+    }
+    let ap_name =res['data']['ap_name'];
+    if( ap_name&&ap_name.length<4)
+    {
+      fault_inputs.push(ap_name);
+    }
+    let node_profile =res['data']['node_profile'];
+    if( node_profile!=="undefined" || node_profile!=="null" ||node_profile.length<3)
+    {
+      fault_inputs.push(node_profile);
+    }
+    let board_name =res['data']['board_name'];
+    if( board_name!=="undefined" || board_name!=="null" ||board_name.length<4)
+    {
+      fault_inputs.push(board_name);
+    }
+    let board_model =res['data']['board_model'];
+    if( board_model!=="undefined" || board_model!=="null" ||board_model.length<4)
+    {
+      fault_inputs.push(board_model);
+    }
+    let sim_serial =res['data']['sim_serial'];
+    if( sim_serial&&sim_serial.length<4)
+    {
+      fault_inputs.push(sim_serial);
+    }
+    let flags =res['data']['flags'];
+    if( flags!=="undefined" || flags!=="null" ||flags.length<4)
+    {
+      fault_inputs.push(flags);
+    }
+    let mqttUserId =res['data']['mqttUserId'];
+    if( mqttUserId!=="undefined" || mqttUserId!=="null" ||mqttUserId.length<1 ||typeof mqttUserId !== "integer")
+    {
+      fault_inputs.push(mqttUserId);
+    }
+    let static_ip =res['data']['static_ip'];
+    if(  static_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(static_ip)))
+    {
+      fault_inputs.push(static_ip);
+    }
+    let ap_ip =res['data']['ap_ip'];
+    if( ap_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(ap_ip)))
+    {
+      fault_inputs.push(ap_ip);
+    }
+    let host_ip =res['data']['host_ip'];
+    if( host_ip&& !(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(host_ip)))
+    {
+      fault_inputs.push(host_ip);
+    }
+    let sim_msidm =res['data']['sim_msidm'];
+    if( sim_msidm&& !(/[0-9]{11}/.test(sim_msidm)))
+    {
+      fault_inputs.push(sim_msidm);
+    }
+    return fault_inputs;
+}
 router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
     let request_key = uuid();
+    var fault_inputs=validation(res);
     let missing_keys = [];
     try {
         // code bloc
@@ -153,8 +273,16 @@ router.post('/create',authenticate.authenticateUser,authenticate.UserRoles(["sen
             // send a response
             res.send({ status: `${responseList.error.error_missing_payload.message} - ${missing_keys.length} field(s) (${missing_keys.toString()})`, code: responseList.error.error_missing_payload.code })
             return;
+        }
 
+        
+        if (fault_inputs.length > 0) {
+            // log the step
+            log.trace(`${request_key} - ERROR - inbound request - create sensor - invalid inputs ${fault_inputs.length} field(s) (${fault_inputs.toString()})`);
 
+            // send a response
+            res.send({ status: `${responseList.error.error_missing_payload.message} - invalid inputs ${fault_inputs.toString()} field(s) `, code: responseList.error.error_missing_payload.code })
+            return;
         }
 
         // else: create the profile

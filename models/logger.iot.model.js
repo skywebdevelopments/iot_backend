@@ -15,15 +15,17 @@ const log = sequelize.define('log', {
     log_message: {
         type: Sequelize.TEXT
     },
-    user_rec_id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+    log_level: {
+        type: Sequelize.STRING
+    },
+    user_id: {
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 },
     {
-        tableName: 'log',
-        timestamps: false
+        tableName: 'log'
+        //timestamps: false
     }
 );
 

@@ -152,4 +152,74 @@ router.post('/signup', (req, res) => {
 
 });
 
+// GET /users
+// Return all user's names
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
+    // code block
+    // 1. db_operation: select all query
+    userModel.findAll().then((data) => {
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        // send the response.
+        res.send({ data: data, status: responseList.success });
+        //end
+    }).catch((error) => {
+        console.error(error);
+        res.send(error.message)
+
+    });
+});
+
+
+// Update a user permissions
+// Post /users/update
+// update a user's premissions by userid
+
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
+    try {
+        // code bloc
+
+        let user_id = req.body['userid']
+        let permissions = req.body['permissions']
+        
+        // 1.validation: id isn't an empty value
+        if (user_id.length == 0) {
+            log.trace(` - ERROR - inbound request - update sensor - ${responseList.error.error_missing_payload.message}`);
+            res.send({
+                status: responseList.error.error_missing_payload.code,
+                message: responseList.error.error_missing_payload.message
+            });
+            return;
+        }
+        // update the record 
+        userModel.update(
+            { roles:permissions},
+            { where: {id: user_id} }
+        ).then((data) => {
+            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+            // 2. return data in a response.
+            log.trace(`${user_id} - inbound request - executing the update query`);
+            if (!data || data.length === 0 || data[0] === 0) {
+                res.send(
+                    { status: responseList.error.error_no_data }
+                );
+            };
+            // send the response.
+            log.trace(`${user_id} - inbound request - send a response`);
+            res.send({ data: data, status: responseList.success });
+
+            //end
+        }).catch((error) => {
+            log.trace(`${user_id} - ERROR - inbound request - ${error}`);
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+        });
+    } catch (error) {
+        log.trace(`${user_id} - ERROR - inbound request - ${error}`);
+        res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+    }
+});
 module.exports = router;

@@ -17,6 +17,9 @@ var indexRouter = require('./routes/index');
 // routes for the iot
 var groupRoute = require('./routes/group.iot.route')
 var sensorRoute = require('./routes/sensor.iot.route')
+
+var logRoute = require('./routes/logs.iot')
+
 // end
 const bodyParser = require("body-parser");
 const multipart = require('connect-multiparty');
@@ -55,6 +58,9 @@ app.use('/api/v1/', indexRouter);
 // routes/microservices for the iot 
 app.use('/api/v1/group', groupRoute);
 app.use('/api/v1/sensor', sensorRoute);
+app.use('/api/v1/logs', logRoute);
+
+
 
 // 
 

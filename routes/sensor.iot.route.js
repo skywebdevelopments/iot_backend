@@ -4,6 +4,9 @@ var conf_sercet = require('../config/sercret.json')
 var responseList = require('../config/response.code.json')
 var fieldsList = require('../config/fields.required.json')
 var authenticate = require('../auth/authentication_JWT');
+var jwt = require("jsonwebtoken");
+const cryptojs = require('crypto-js');
+var secret = require('../config/sercret.json');
 // end
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
@@ -16,6 +19,7 @@ var router = express.Router();
 let { sensorModel } = require('../models/sensor.iot.model')
 let { groupModel } = require('../models/group.iot.model')
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
+let { logModel } = require('../models/logger.iot.model')
 // end
 
 // middleware
@@ -24,7 +28,37 @@ let { resolve_group_id } = require('../middleware/group.middleware');
 const { sensor_groupModel } = require('../models/sensorGroup.iot.model');
 // end
 
+function create_log(operation, log_level, log_message, user_id) {
+    logModel.create({
+        operation: operation,
+        log_level: log_level,
+        log_message: log_message,
+        user_id: user_id
+    })
 
+}
+
+// Extracts user id from token that is sent in headers of the request
+function get_user_id(req) {
+    var token = null;
+
+    if (req.headers && req.headers['authorization']) {
+
+        var header_token = req.headers['authorization'].split(' ');
+
+        if (header_token.length == 2) {
+            var scheme = header_token[0],
+                enc_token = header_token[1];
+
+            if (scheme === 'Bearer') {
+                token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
+            }
+        }
+    }
+    var token_payload = jwt.decode(token);
+    var user_id = token_payload.id
+    return user_id;
+}
 
 // GET / api / v1 / sensor
 // Return all sensors profiles 
@@ -45,28 +79,31 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:l
         // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
         // 2. return data in a response.
         if (!data || data.length === 0) {
+            create_log("list sensor", "INFO", "No data found in sensors table", get_user_id(req))
             res.send(
                 { status: responseList.error.error_no_data }
             );
         }
+        create_log("list sensor", "INFO", "Success retrieving sensor data", get_user_id(req))
         // send the response.
         res.send({ data: data, status: responseList.success });
 
         //end
     }).catch((error) => {
-        console.error(error);
+
+        create_log("list sensor", "ERROR", error.message, get_user_id(req))
         res.send(error.message)
 
     });
 });
 
+
 // Post / api / v1 / sensor /
 //     Return a sensor profile
 // Parameters:
 // {
-// “groupId”: 1
+// "rec_id": uuid
 // }
-
 
 router.post('/', function (req, res, next) {
     let request_key = uuid();
@@ -79,6 +116,7 @@ router.post('/', function (req, res, next) {
         if (!req.body || req.body === undefined || !req.body['rec_id']) {
 
             log.trace(`${request_key} - inbound request - ${responseList.error.error_missing_payload.message}`);
+            create_log("list sensor with ID", "ERROR", "Error [missing payload] in request body", get_user_id(req))
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
             return;
         }
@@ -88,6 +126,7 @@ router.post('/', function (req, res, next) {
         // validation2 : check group id is a number
         if (!isUuid(sensor_id)) {
             log.trace(`${request_key} - inbound request - ${responseList.error.error_invalid_payload.message}`);
+            create_log("list sensor with ID", "ERROR", "Error [invalid payload] in request body", get_user_id(req))
             res.send({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code })
             return;
         }
@@ -99,9 +138,9 @@ router.post('/', function (req, res, next) {
             }
         }).then((data) => {
 
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - check data length`);
+            create_log("list sensor with ID", "INFO", "No data found in sensors table", get_user_id(req))
             if (!data || data.length === 0) {
                 res.send(
                     { status: responseList.error.error_no_data }
@@ -109,24 +148,26 @@ router.post('/', function (req, res, next) {
             }
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("list sensor with ID", "INFO", "Success retrieving sensor data", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("list sensor", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
 
 
         });
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("list sensor", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
 
-// Create a sensor
-// Post / api / v1 / sensor / create
-// Create a sensors profile
+
+// validate sensor input from json file
 function validation(req) {
     let fault_inputs = [];
     let mac_address = req.body['mac_address'];
@@ -225,6 +266,11 @@ function validation(req) {
     }
     return fault_inputs;
 }
+
+// Create a sensor
+// Post / api / v1 / sensor / create
+// Create a sensors profile
+
 router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
     let request_key = uuid();
     var fault_inputs = validation(req);
@@ -247,7 +293,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
         if (missing_keys.length > 0) {
             // log the step
             log.trace(`${request_key} - ERROR - inbound request - create sensor - missing ${missing_keys.length} field(s) (${missing_keys.toString()})`);
-
+            create_log("create sensor", "ERROR", `missing ${missing_keys.length} field(s) (${missing_keys.toString()})`, get_user_id(req))
             // send a response
             res.send({ status: `${responseList.error.error_missing_payload.message} - ${missing_keys.length} field(s) (${missing_keys.toString()})`, code: responseList.error.error_missing_payload.code })
             return;
@@ -257,6 +303,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
         if (fault_inputs.length > 0) {
             // log the step
             log.trace(`${request_key} - ERROR - inbound request - create sensor - invalid input ${fault_inputs.length} field(s) (${fault_inputs.toString()})`);
+            create_log("create sensor", "ERROR", `invalid input ${fault_inputs.length} field(s) (${fault_inputs.toString()})`, get_user_id(req))
 
             // send a response
             res.send({ status: `${responseList.error.error_invalid_input.message} for ${fault_inputs.length} field(s) `, code: responseList.error.error_invalid_input.code, data: fault_inputs, client_id: req.body['client_id'] })
@@ -268,23 +315,27 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - executing the create query`);
             if (!data || data.length === 0) {
+                create_log("create sensor", "ERROR", "No sensor was created", get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             };
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("create sensor", "INFO", "Success creating new sensor", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("create sensor", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
 
 
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("create sensor", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -305,7 +356,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["se
 
         if (!isUuid(rec_id)) {
             log.trace(`${request_key} - ERROR - inbound request - update sensor -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
-
+            create_log("update sensor", "ERROR", ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, get_user_id(req))
             res.send({
                 status: responseList.error.error_invalid_payload.code,
                 message: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`
@@ -316,7 +367,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["se
         // 2.validation: rec_id isn't an empty value
         if (rec_id.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - update sensor - ${responseList.error.error_missing_payload.message}`);
-
+            create_log("update sensor", "ERROR", ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
             res.send({
                 status: responseList.error.error_missing_payload.code,
@@ -341,21 +392,25 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["se
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - executing the update query`);
             if (!data || data.length === 0 || data[0] === 0) {
+                create_log("update sensor", "ERROR", "No sensor data updated", get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             };
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("update sensor", "INFO", "Success updating sensor", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("update sensor", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("update sensor", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -375,7 +430,8 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
         // 1.validation: rec_id is uuid v4
 
         if (!isUuid(rec_id)) {
-            log.trace(`${request_key} - ERROR - inbound request - delete group -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
+            log.trace(`${request_key} - ERROR - inbound request - delete sensor -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
+            create_log("delete sensor", "ERROR", ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
             res.send({
                 status: responseList.error.error_invalid_payload.code,
@@ -387,6 +443,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
         // 2.validation: rec_id isn't an empty value
         if (rec_id.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - delete group - ${responseList.error.error_missing_payload.message}`);
+            create_log("delete sensor", "ERROR", ` ${responseList.error.error_missing_payload.message}`, get_user_id(req))
 
 
             res.send({
@@ -411,26 +468,29 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - executing the delete query`);
             if (!data || data.length === 0 || data[0] == 0) {
+                create_log("delete sensor", "ERROR", "No sensor data deleted", get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             };
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("delete sensor", "INFO", "Success deleting sensor", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("delete sensor", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
 
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("delete sensor", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
-
 
 
 // Map sensor to a group
@@ -451,6 +511,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
 
         if (!isUuid(group_rec_id) || !isUuid(sensor_rec_id)) {
             log.trace(`${request_key} - ERROR - inbound request - update sensor mapping -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
+            create_log("update sensor mapping", "ERROR", `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
             res.send({
                 status: responseList.error.error_invalid_payload.code,
@@ -462,7 +523,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
         // 2.validation: rec_id isn't an empty value
         if (sensor_rec_id.length == 0 || group_rec_id.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - update sensor mapping - ${responseList.error.error_missing_payload.message}`);
-
+            create_log("update sensor mapping", "ERROR", `${responseList.error.error_missing_payload.message}`, get_user_id(req))
 
             res.send({
                 status: responseList.error.error_missing_payload.code,
@@ -492,6 +553,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
                     // report 
 
                     log.trace(`${request_key} - inbound request - remove group-sensor mapping ${req.body.group_pk} -> ${req.body.sensor_pk}`);
+                    create_log("update sensor mapping", "INFO", `Success  remove group-sensor mapping ${req.body.group_pk} -> ${req.body.sensor_pk}`, get_user_id(req))
 
                     // response
                     res.send({ status: responseList.success.code, message: responseList.success.code })
@@ -534,6 +596,7 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
                     // report 
 
                     log.trace(`${request_key} - inbound request - remove group-sensor mapping ${req.body.group_pk} -> ${req.body.sensor_pk}`);
+                    create_log("update sensor mapping", "INFO", `Success  remove group-sensor mapping ${req.body.group_pk} -> ${req.body.sensor_pk}`, get_user_id(req))
 
                     // response
                     res.send({ status: responseList.success.code, message: responseList.success.code })
@@ -543,10 +606,12 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
             }
         }
         else {
+            create_log("update sensor mapping", "ERROR", "invaild payload", get_user_id(req))
             res.send({ status: responseList.error.error_invalid_payload.code, message: responseList.error.error_invalid_payload.message });
         }
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("update sensor mapping", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -565,16 +630,18 @@ router.get('/mqtt_user', function (req, res, next) {
         // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
         // 2. return data in a response.
         if (!data || data.length === 0) {
+            create_log("list mqtt_user", "INFO", "No data in mqtt_user found", get_user_id(req))
             res.send(
                 { status: responseList.error.error_no_data }
             );
         }
         // send the response.
+        create_log("list mqtt_user", "INFO", "Success retrieving mqtt_user data", get_user_id(req))
         res.send({ data: data, status: responseList.success });
 
         //end
     }).catch((error) => {
-        console.error(error);
+        create_log("list mqtt_user", "INFO", error.message, get_user_id(req))
         res.send(error.message)
 
     });

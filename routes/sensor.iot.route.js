@@ -322,20 +322,20 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
             };
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
-            create_log("create", "INFO", "Success creating new sensor", get_user_id(req))
+            create_log("create sensor", "INFO", "Success creating new sensor", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-            create_log("list sensor", "ERROR", error.message, get_user_id(req))
+            create_log("create sensor", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
 
 
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-        create_log("list sensor", "ERROR", error.message, get_user_id(req))
+        create_log("create sensor", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });

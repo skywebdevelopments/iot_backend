@@ -7,7 +7,44 @@ var secret = require('../config/sercret.json');
 let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
+let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
+var jwt = require("jsonwebtoken");
+
+
+
+function create_log(operation, log_level, log_message, user_id) {
+    logModel.create({
+        operation: operation,
+        log_level: log_level,
+        log_message: log_message,
+        user_id: user_id
+    })
+
+}
+
+// Extracts user id from token that is sent in headers of the request
+function get_user_id(req) {
+    var token = null;
+
+    if (req.headers && req.headers['authorization']) {
+
+        var header_token = req.headers['authorization'].split(' ');
+
+        if (header_token.length == 2) {
+            var scheme = header_token[0],
+                enc_token = header_token[1];
+
+            if (scheme === 'Bearer') {
+                token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
+            }
+        }
+    }
+    var token_payload = jwt.decode(token);
+    var user_id = token_payload.id
+    return user_id;
+}
+
 
 /*
 POST /users/GenerateToken
@@ -53,8 +90,10 @@ router.post('/GenerateToken', (req, res) => {
                 userId: user.id
             })
         })
+        create_log("login","INFO","Successful user login",user.id)
         res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
+        create_log("login","ERROR",err,null)
         res.send({ status: err, code: responseList.error.error_not_found.code })
     });
 });
@@ -127,6 +166,7 @@ router.post('/signup', (req, res) => {
                     };
                     // send the response.
                     log.trace(`${request_key} - inbound request - send a response`);
+                    create_log("signup","INFO","New user was created",data.id)
                     res.send({ data: data, status: responseList.success });
 
                     //end

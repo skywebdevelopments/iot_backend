@@ -61,7 +61,7 @@ router.post('/GenerateToken', (req, res) => {
         }
     }).then((user) => {
         if (!user) {
-            create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, null);
+            create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, -1);
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
@@ -94,7 +94,7 @@ router.post('/GenerateToken', (req, res) => {
         create_log("login", "INFO", "Successful user login", user.id)
         res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
-        create_log("login", "ERROR", err, null)
+        create_log("login", "ERROR", err, -1)
         res.send({ status: err, code: responseList.error.error_not_found.code })
     });
 });
@@ -178,7 +178,7 @@ router.post('/signup', (req, res) => {
             }
             else {
                 log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
-                create_log("signup", "ERROR", `Invalid signup email exists: [ ${email} ]`, null);
+                create_log("signup", "ERROR", `Invalid signup email exists: [ ${email} ]`, -1);
                 res.send({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
             }
 
@@ -189,7 +189,7 @@ router.post('/signup', (req, res) => {
 
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-        create_log("signup", "ERROR", `Invalid signup with email : [ ${email} ] - ${error.message}`, null);
+        create_log("signup", "ERROR", `Invalid signup with email : [ ${email} ] - ${error.message}`, -1);
         res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
     }
 

@@ -61,6 +61,7 @@ router.post('/GenerateToken', (req, res) => {
         }
     }).then((user) => {
         if (!user) {
+            create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, -1);
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
@@ -90,10 +91,10 @@ router.post('/GenerateToken', (req, res) => {
                 userId: user.id
             })
         })
-        create_log("login","INFO","Successful user login",user.id)
+        create_log("login", "INFO", "Successful user login", user.id)
         res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
-        create_log("login","ERROR",err,null)
+        create_log("login", "ERROR", err, -1)
         res.send({ status: err, code: responseList.error.error_not_found.code })
     });
 });
@@ -166,7 +167,7 @@ router.post('/signup', (req, res) => {
                     };
                     // send the response.
                     log.trace(`${request_key} - inbound request - send a response`);
-                    create_log("signup","INFO","New user was created",data.id)
+                    create_log("signup", "INFO", "New user was created", data.id)
                     res.send({ data: data, status: responseList.success });
 
                     //end
@@ -177,6 +178,7 @@ router.post('/signup', (req, res) => {
             }
             else {
                 log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
+                create_log("signup", "ERROR", `Invalid signup email exists: [ ${email} ]`, -1);
                 res.send({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
             }
 
@@ -187,6 +189,7 @@ router.post('/signup', (req, res) => {
 
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("signup", "ERROR", `Invalid signup with email : [ ${email} ] - ${error.message}`, -1);
         res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
     }
 
@@ -200,15 +203,17 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
     userModel.findAll({attributes: ['id', 'username','email','roles']}).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
+            create_log("list users", "WARN", `No data found in users table`, get_user_id(req));
             res.send(
                 { status: responseList.error.error_no_data }
             );
         }
         // send the response.
+        create_log("list users", "INFO", `Success retrieving user data`, get_user_id(req));
         res.send({ data: data, status: responseList.success });
         //end
     }).catch((error) => {
-        console.error(error);
+        create_log("list users", "ERROR", error.message, get_user_id(req));
         res.send(error.message)
 
     });
@@ -225,10 +230,11 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["ad
 
         let user_id = req.body['userid']
         let permissions = req.body['permissions']
-        
+
         // 1.validation: id isn't an empty value
         if (user_id.length == 0) {
-            log.trace(` - ERROR - inbound request - update sensor - ${responseList.error.error_missing_payload.message}`);
+            log.trace(` - ERROR - inbound request - update user permission - ${responseList.error.error_missing_payload.message}`);
+            create_log("update users' permission", "ERROR", ` ${responseList.error.error_missing_payload.message}`, get_user_id(req));
             res.send({
                 status: responseList.error.error_missing_payload.code,
                 message: responseList.error.error_missing_payload.message
@@ -237,28 +243,32 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["ad
         }
         // update the record 
         userModel.update(
-            { roles:permissions},
-            { where: {id: user_id} }
+            { roles: permissions },
+            { where: { id: user_id } }
         ).then((data) => {
             // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
             // 2. return data in a response.
             log.trace(`${user_id} - inbound request - executing the update query`);
             if (!data || data.length === 0 || data[0] === 0) {
+                create_log("update users' permission", "ERROR", `No data updated in users table`, get_user_id(req));
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             };
             // send the response.
             log.trace(`${user_id} - inbound request - send a response`);
+            create_log("update users' permission", "INFO", `Success updating user data`, get_user_id(req));
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${user_id} - ERROR - inbound request - ${error}`);
+            create_log("update users' permission", "ERROR", error.message, get_user_id(req));
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
     } catch (error) {
         log.trace(`${user_id} - ERROR - inbound request - ${error}`);
+        create_log("update users' permission", "ERROR", error.message, get_user_id(req));
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });

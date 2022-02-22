@@ -197,7 +197,7 @@ router.post('/signup', (req, res) => {
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
-    userModel.findAll().then((data) => {
+    userModel.findAll({attributes: ['id', 'username','email','roles']}).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
             res.send(

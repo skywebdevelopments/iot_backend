@@ -10,6 +10,7 @@ const { groupModel } = require('../models/group.iot.model')
 const { userModel } = require('../models/user.iot.model')
 const { usergroupModel } = require('../models/usergroup.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
+const { logModel } = require('../models/logger.iot.model');
 
 
 // end of Model
@@ -21,22 +22,30 @@ const bcrypt = require('bcrypt');
 function createSchema() {
     return new Promise((resolve, reject) => {
         try {
-            console.log("=> please make sure to create the database before executing this script...");
+            // console.log("=> please make sure to create the database before executing this script...");
             // to create the db/
 
+            // logModel.sync({ force: true })
             // mqtt_userModel.sync({ force: true });
-           //userModel.sync();
-        // sessionModel.sync();
+            //userModel.sync();
+            // sessionModel.sync();
 
             // sensorModel.create({
             //     ap_name:"sensor 2",
 
             // })
 
+<<<<<<< HEAD
             sequelize.sync({force:true});
            /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                 console.log(data);
             });*/
+=======
+            // sequelize.sync({force:true});
+            /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
+                 console.log(data);
+             });*/
+>>>>>>> 21c55cf5f386f52b5926135bc8251fafcdf2207c
 
             resolve("success")
         } catch (error) {

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
 
-let { usergroupModel } =  require('./usergroup.iot.model');
+let { usergroupModel } = require('./usergroup.iot.model');
 
 const user = sequelize.define('user', {
     // Model attributes are defined here
@@ -17,16 +17,17 @@ const user = sequelize.define('user', {
     password: {
         type: Sequelize.STRING
     },
-    email:{
-        type: Sequelize.STRING
+    email: {
+        type: Sequelize.STRING,
+        unique: true
     },
-    active:{
+    active: {
         type: Sequelize.BOOLEAN
     },
     googleID: {
         type: Sequelize.STRING
     },
-    roles:{
+    roles: {
         type: Sequelize.JSON
     },
     rec_id: {
@@ -36,11 +37,11 @@ const user = sequelize.define('user', {
 
     }
 },
-{
-    tableName: 'user',
-    timestamps: false
-}
+    {
+        tableName: 'user',
+        timestamps: false
+    }
 );
 
-usergroupModel.hasMany( user, { as: 'users' } );
+usergroupModel.hasMany(user, { as: 'users' });
 exports.userModel = user;

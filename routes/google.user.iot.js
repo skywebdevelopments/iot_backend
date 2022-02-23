@@ -16,7 +16,7 @@ router.get('/google', passport.authenticate('google', {
 // Callback URL ( redirectURL )
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
     res.cookie('token', localStorage.getItem('token'), { maxAge: 360000 });
-    res.redirect("http://localhost:4200/")
+    res.redirect("http://localhost:4200/(first:index)")
 })
 
 

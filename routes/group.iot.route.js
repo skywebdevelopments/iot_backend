@@ -6,12 +6,102 @@ let { Op, json } = require("sequelize");
 let { log } = require('../logger/app.logger')
 let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
+var jwt = require("jsonwebtoken");
+const cryptojs = require('crypto-js');
+var secret = require('../config/sercret.json');
+
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
 const { groupModel } = require('../models/group.iot.model');
 var authenticate = require('../auth/authentication_JWT');
-// end
+let { logModel } = require('../models/logger.iot.model')
 
+// end
+var Sequelize = require('sequelize');
+
+
+
+function create_log(operation, log_level, log_message, user_id) {
+    logModel.create({
+        operation: operation,
+        log_level: log_level,
+        log_message: log_message,
+        user_id: user_id
+    })
+
+}
+
+// Extracts user id from token that is sent in headers of the request
+function get_user_id(req) {
+    var token = null;
+
+    if (req.headers && req.headers['authorization']) {
+
+        var header_token = req.headers['authorization'].split(' ');
+
+        if (header_token.length == 2) {
+            var scheme = header_token[0],
+                enc_token = header_token[1];
+
+            if (scheme === 'Bearer') {
+                token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
+            }
+        }
+    }
+    var token_payload = jwt.decode(token);
+    var user_id = token_payload.id
+    return user_id;
+}
+
+function update_sensor(group_id, active) {
+    let request_key = uuid();
+    groupModel.findOne(
+        {
+            where: {
+                id: group_id
+            },
+            include: [{
+                model: sensorModel,
+                as: 'sensor'
+            }]
+        }
+    ).then((data) => {
+        if (data) {
+            for (let sensor of data['sensor']) {
+                sensorModel.update({ active: active },
+                    {
+                        where: {
+                            id: {
+                                [Op.eq]: sensor['id']
+                            }
+                        },
+                    }
+
+                ).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the update query`);
+                    if (!data || data.length === 0 || data[0] === 0) {
+                        // create_log("update sensor", "ERROR", "No sensor data updated", get_user_id(req))
+                        // res.send(
+                        //     { status: responseList.error.error_no_data }
+                        // );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - sensor updated successfully`);
+                    // create_log("update sensor", "INFO", "Success updating sensor", get_user_id(req))
+                    //res.send({ data: data, status: responseList.success });
+
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    // create_log("update sensor", "ERROR", responseList.error.error_general.message, get_user_id(req))
+                    //res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            }
+        }
+    })
+}
 
 
 // GET / api / v1 / groups
@@ -31,16 +121,18 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["group:li
         // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
         // 2. return data in a response.
         if (!data || data.length === 0) {
+            create_log("list group", "INFO", "No data found in groups table", get_user_id(req))
             res.send(
                 { status: responseList.error.error_no_data }
             );
         }
+        create_log("list group", "INFO", "Success retrieving group data", get_user_id(req))
         // send the response.
         res.send({ data: data, status: responseList.success });
 
         //end
     }).catch((error) => {
-        console.error(error);
+        create_log("list group", "ERROR", error.message, get_user_id(req))
         res.send(error.message)
 
     });
@@ -65,6 +157,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:l
         if (!req.body || req.body === undefined || !req.body['groupId']) {
 
             log.trace(`${request_key} - inbound request - ${responseList.error.error_missing_payload.message}`);
+            create_log("list group with ID", "ERROR", "Error [missing payload] in request body", get_user_id(req))
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
             return;
         }
@@ -74,6 +167,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:l
         // validation2 : check group id is a number
         if (group_id.length !== 36) {
             log.trace(`${request_key} - inbound request - ${responseList.error.error_invalid_payload.message}`);
+            create_log("list group with ID", "ERROR", "Error [invalid payload] in request body", get_user_id(req))
             res.send({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code })
             return;
         }
@@ -95,23 +189,27 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:l
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - check data length`);
             if (!data || data.length === 0) {
+                create_log("list group with ID", "INFO", "No data found in groups table", get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             }
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("list group with ID", "INFO", "Success retrieving group data", get_user_id(req))
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("list group with ID", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
 
 
         });
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("list group with ID", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -128,6 +226,8 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
         // 1.validation : name
         if (!group_name || group_name.length === 0 || group_name == undefined) {
             log.trace(`${request_key} - ERROR - inbound request - create group - invalid group name `);
+            create_log("create group", "ERROR", `invalid group name `, get_user_id(req))
+
             res.send({
                 status: responseList.error.error_invalid_payload.code,
                 message: responseList.error.error_invalid_payload.message
@@ -138,32 +238,58 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
         let active_flag = req.body['active']
         if (active_flag.length === 0 || active_flag == undefined) {
             log.trace(`${request_key} - ERROR - inbound request - create group - active flag is missing`);
+            create_log("create group", "ERROR", `active flag is missing`, get_user_id(req))
             res.send({
                 status: responseList.error.error_missing_payload.code,
                 message: `${responseList.error.error_missing_payload.message} - active flag is missing`
             })
             return;
         };
-        groupModel.create(req.body).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            log.trace(`${request_key} - inbound request - executing the create query`);
-            if (!data || data.length === 0) {
-                res.send(
-                    { status: responseList.error.error_no_data }
-                );
-            };
-            // send the response.
-            log.trace(`${request_key} - inbound request - send a response`);
-            res.send({ data: data, status: responseList.success });
 
-            //end
+
+        groupModel.findOne(
+            {
+                where: Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('name')),
+                    Sequelize.fn('lower', group_name)
+                )
+            }
+        ).then((group) => {
+            if (!group) {
+                groupModel.create(req.body).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the create query`);
+                    if (!data || data.length === 0) {
+                        create_log("create group", "INFO", "No group was created", get_user_id(req))
+                        res.send(
+                            { status: responseList.error.error_no_data }
+                        );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - send a response`);
+                    create_log("create group", "INFO", "Success creating new group", get_user_id(req))
+                    res.send({ data: data, status: responseList.success });
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    create_log("create group", "ERROR", error.message, get_user_id(req))
+                    res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            }
+            else {
+                log.trace(`${request_key} - ERROR - inbound request - Group name already exists!`);
+                create_log("create group", "ERROR", "Group name already exists!", get_user_id(req))
+                res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
+            }
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
+            create_log("create group", "ERROR", error.message, get_user_id(req))
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+        })
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("create group", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -180,6 +306,7 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
         if (!req.body || req.body === undefined || !req.body['group_rec_id'] || !req.body['sensorId']) {
 
             log.trace(`${request_key} - inbound request - ${responseList.error.error_missing_payload.message}`);
+            create_log("map sensor group", "ERROR", `${responseList.error.error_missing_payload.message} `, get_user_id(req))
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
             return;
         }
@@ -191,7 +318,7 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
 
         if (!isUuid(rec_id)) {
             log.trace(`${request_key} - ERROR - inbound request - sensor mapping -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
-
+            create_log("map sensor group", "ERROR", `${responseList.error.error_invalid_payload.message} `, get_user_id(req))
             res.send({
                 status: responseList.error.error_invalid_payload.code,
                 message: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`
@@ -201,6 +328,7 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
         // 3.validation: rec_id and sensorID isn't an empty value
         if (rec_id == 0 || sensorId.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - sensor mapping - ${responseList.error.error_missing_payload.message}`);
+            create_log("map sensor group", "ERROR", `${responseList.error.error_missing_payload.message} `, get_user_id(req))
             res.send({
                 status: responseList.error.error_missing_payload.code,
                 message: responseList.error.error_missing_payload.message
@@ -223,12 +351,14 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - check data length`);
             if (!data || data.length === 0) {
+                create_log("map sensor group", "ERROR", `group not found  `, get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             }
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("map sensor group", "INFO", `Success mapping sensor(s) to group `, get_user_id(req))
             return data.addSensor(sensorId)
             //end
         }).then(() => {
@@ -244,7 +374,6 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
 });
 
 
-
 // Update a Group
 // Post / api / v1 / group / update
 // update a sensors’ group by rec_id
@@ -255,12 +384,12 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
         // code bloc
 
         let rec_id = req.body['rec_id']
-        console.log(rec_id)
+        let group_name = req.body['name']
         // 1.validation: rec_id is uuid v4
 
         if (!isUuid(rec_id)) {
             log.trace(`${request_key} - ERROR - inbound request - update group -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
-
+            create_log("update group", "ERROR", ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, get_user_id(req))
             res.send({
                 status: responseList.error.error_invalid_payload.code,
                 message: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`
@@ -271,6 +400,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
         // 2.validation: rec_id isn't an empty value
         if (rec_id.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - update group - ${responseList.error.error_missing_payload.message}`);
+            create_log("update group", "ERROR", ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
 
             res.send({
@@ -279,43 +409,68 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
             });
             return;
         }
-
-        // update the record 
-
-        groupModel.update(req.body,
+        
+        groupModel.findOne(
             {
-                where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
-                    }
-                },
-
+                where: Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('name')),
+                    Sequelize.fn('lower', group_name)
+                )
             }
-
-        ).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            log.trace(`${request_key} - inbound request - executing the update query`);
-            if (!data || data[0] === 0 || data.length === 0) {
-                res.send(
-                    { status: responseList.error.error_no_data }
-                );
-            };
-            // send the response.
-            log.trace(`${request_key} - inbound request - send a response`);
-            res.send({ data: data, status: responseList.success });
-
-            //end
+        ).then((group) => {
+            if (!group || rec_id === group['rec_id']) {
+                groupModel.update(req.body,
+                    {
+                        where: {
+                            rec_id: {
+                                [Op.eq]: rec_id
+                            }
+                        },
+        
+                    }
+        
+                ).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the update query`);
+                    if (!data || data[0] === 0 || data.length === 0) {
+                        create_log("update group", "ERROR", "No group data updated", get_user_id(req))
+                        res.send(
+                            { status: responseList.error.error_no_data }
+                        );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - send a response`);
+                    create_log("update group", "INFO", "Success updating group", get_user_id(req))
+                    //update sensors under group
+                    if (req.body['active'] === false) {
+                        update_sensor(req.body['id'], false);
+                    } else {
+                        update_sensor(req.body['id'], true);
+                    }
+                    //
+                    res.send({ data: data, status: responseList.success });
+        
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    create_log("update group", "ERROR", error.message, get_user_id(req))
+                    res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            }
+            else {
+                log.trace(`${request_key} - ERROR - inbound request - Group name already exists!`);
+                create_log("create group", "ERROR", "Group name already exists!", get_user_id(req))
+                res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
+            }
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
-
-
-
-
+            create_log("create group", "ERROR", error.message, get_user_id(req))
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+        })  
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("update group", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -335,6 +490,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
 
         if (!isUuid(rec_id)) {
             log.trace(`${request_key} - ERROR - inbound request - delete group -  ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`);
+            create_log("delete group", "ERROR", ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
             res.send({
                 status: responseList.error.error_invalid_payload.code,
@@ -346,6 +502,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
         // 2.validation: rec_id isn't an empty value
         if (rec_id.length == 0) {
             log.trace(`${request_key} - ERROR - inbound request - delete group - ${responseList.error.error_missing_payload.message}`);
+            create_log("delete group", "ERROR", ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, get_user_id(req))
 
 
             res.send({
@@ -354,6 +511,9 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
             });
             return;
         }
+
+        //update sensor active to false under group deleted
+        update_sensor(req.body['id'], false);
 
         // update the record 
 
@@ -371,25 +531,26 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
             // 2. return data in a response.
             log.trace(`${request_key} - inbound request - executing the delete query`);
             if (!data || data.length === 0 || data[0] == 0) {
+                create_log("delete group", "ERROR", "No group data deleted", get_user_id(req))
                 res.send(
                     { status: responseList.error.error_no_data }
                 );
             };
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
+            create_log("delete group", "INFO", "Success deleting group", get_user_id(req))
+
             res.send({ data: data, status: responseList.success });
 
             //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+            create_log("delete group", "ERROR", error.message, get_user_id(req))
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
-
-
-
-
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+        create_log("delete group", "ERROR", error.message, get_user_id(req))
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });

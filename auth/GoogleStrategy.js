@@ -37,7 +37,7 @@ passport.use(new GoogleStrategy({
                     username: profile.displayName,
                     email: profile.emails[0].value,
                     googleID: profile.id,
-                    roles: ["sensor","group"],
+                    roles: [],
                     active: true
                 }).then((newUser) => {
                     generate_session_google(newUser)

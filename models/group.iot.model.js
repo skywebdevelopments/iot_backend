@@ -10,7 +10,8 @@ const group = sequelize.define('group', {
         autoIncrement: true
     },
     name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
     },
     active: {
         type: Sequelize.BOOLEAN
@@ -19,7 +20,6 @@ const group = sequelize.define('group', {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false
-
     }
 },
     {

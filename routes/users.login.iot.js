@@ -155,6 +155,7 @@ router.post('/signup', (req, res) => {
                     username: username,
                     password: hashInBase64,
                     email: email,
+                    roles : [],
                     active: true
 
                 }).then((data) => {

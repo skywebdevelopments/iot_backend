@@ -647,6 +647,42 @@ router.get('/mqtt_user', function (req, res, next) {
     });
 });
 
+router.get('/Group-sensor', authenticate.authenticateUser, function (req, res, next) {
+    // code bloc
+    // 1. db_operation: select all query
+    groupModel.findAll(
+        {
+            include: [{
+                model: sensorModel,
+                as:'sensor'
+            }]
+        }
+    ).then((data) => {
+
+        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            create_log(" Group-sensor", "INFO", "No data found in the table", get_user_id(req))
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        create_log("Group-sensor", "INFO", "Success retrieving sensor data", get_user_id(req))
+        // send the response.
+        res.send({ data: data, status: responseList.success });
+
+        //end
+    }).catch((error) => {
+
+        create_log("Group-sensor", "ERROR", error.message, get_user_id(req))
+        res.send(error.message)
+
+    });
+});
+
+
+
+
 // 
 /** ------ */
 

@@ -384,7 +384,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
         // code bloc
 
         let rec_id = req.body['rec_id']
-        console.log(rec_id)
+        let group_name = req.body['name']
         // 1.validation: rec_id is uuid v4
 
         if (!isUuid(rec_id)) {
@@ -409,47 +409,65 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
             });
             return;
         }
-
-        // update the record 
-
-        groupModel.update(req.body,
+        
+        groupModel.findOne(
             {
-                where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
+                where: Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('name')),
+                    Sequelize.fn('lower', group_name)
+                )
+            }
+        ).then((group) => {
+            if (!group || rec_id === group['rec_id']) {
+                groupModel.update(req.body,
+                    {
+                        where: {
+                            rec_id: {
+                                [Op.eq]: rec_id
+                            }
+                        },
+        
                     }
-                },
-
+        
+                ).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the update query`);
+                    if (!data || data[0] === 0 || data.length === 0) {
+                        create_log("update group", "ERROR", "No group data updated", get_user_id(req))
+                        res.send(
+                            { status: responseList.error.error_no_data }
+                        );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - send a response`);
+                    create_log("update group", "INFO", "Success updating group", get_user_id(req))
+                    //update sensors under group
+                    if (req.body['active'] === false) {
+                        update_sensor(req.body['id'], false);
+                    } else {
+                        update_sensor(req.body['id'], true);
+                    }
+                    //
+                    res.send({ data: data, status: responseList.success });
+        
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    create_log("update group", "ERROR", error.message, get_user_id(req))
+                    res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
             }
-
-        ).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            log.trace(`${request_key} - inbound request - executing the update query`);
-            if (!data || data[0] === 0 || data.length === 0) {
-                create_log("update group", "ERROR", "No group data updated", get_user_id(req))
-                res.send(
-                    { status: responseList.error.error_no_data }
-                );
-            };
-            // send the response.
-            log.trace(`${request_key} - inbound request - send a response`);
-            create_log("update group", "INFO", "Success updating group", get_user_id(req))
-            //update sensors under group
-            if (req.body['active'] === false) {
-                update_sensor(req.body['id'], false);
-            } else {
-                update_sensor(req.body['id'], true);
+            else {
+                log.trace(`${request_key} - ERROR - inbound request - Group name already exists!`);
+                create_log("create group", "ERROR", "Group name already exists!", get_user_id(req))
+                res.send({ status: responseList.error.error_already_exists.code, code: responseList.error.error_already_exists.message });
             }
-            //
-            res.send({ data: data, status: responseList.success });
-
-            //end
         }).catch((error) => {
             log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-            create_log("update group", "ERROR", error.message, get_user_id(req))
-            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
+            create_log("create group", "ERROR", error.message, get_user_id(req))
+            res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
+        })  
     } catch (error) {
         log.trace(`${request_key} - ERROR - inbound request - ${error}`);
         create_log("update group", "ERROR", error.message, get_user_id(req))

@@ -53,6 +53,56 @@ function get_user_id(req) {
     return user_id;
 }
 
+function update_sensor(group_id, active) {
+    let request_key = uuid();
+    groupModel.findOne(
+        {
+            where: {
+                id: group_id
+            },
+            include: [{
+                model: sensorModel,
+                as: 'sensor'
+            }]
+        }
+    ).then((data) => {
+        if (data) {
+            for (let sensor of data['sensor']) {
+                sensorModel.update({ active: active },
+                    {
+                        where: {
+                            id: {
+                                [Op.eq]: sensor['id']
+                            }
+                        },
+                    }
+
+                ).then((data) => {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the update query`);
+                    if (!data || data.length === 0 || data[0] === 0) {
+                        // create_log("update sensor", "ERROR", "No sensor data updated", get_user_id(req))
+                        // res.send(
+                        //     { status: responseList.error.error_no_data }
+                        // );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - sensor updated successfully`);
+                    // create_log("update sensor", "INFO", "Success updating sensor", get_user_id(req))
+                    //res.send({ data: data, status: responseList.success });
+
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    // create_log("update sensor", "ERROR", responseList.error.error_general.message, get_user_id(req))
+                    //res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            }
+        }
+    })
+}
+
 
 // GET / api / v1 / groups
 // Return all sensors’ groups 
@@ -385,6 +435,13 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
             create_log("update group", "INFO", "Success updating group", get_user_id(req))
+            //update sensors under group
+            if (req.body['active'] === false) {
+                update_sensor(req.body['id'], false);
+            } else {
+                update_sensor(req.body['id'], true);
+            }
+            //
             res.send({ data: data, status: responseList.success });
 
             //end
@@ -437,6 +494,9 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
             return;
         }
 
+        //update sensor active to false under group deleted
+        update_sensor(req.body['id'], false);
+
         // update the record 
 
         groupModel.destroy(
@@ -461,6 +521,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
             // send the response.
             log.trace(`${request_key} - inbound request - send a response`);
             create_log("delete group", "INFO", "Success deleting group", get_user_id(req))
+
             res.send({ data: data, status: responseList.success });
 
             //end

@@ -1,4 +1,4 @@
-let { groupModel } = require('../models/group.iot.model')
+let { s_groupModel } = require('../models/s_group.iot.model')
 const { Op } = require("sequelize");
 let { log } = require('../logger/app.logger')
 function resolve_group_id(req, res, next) {
@@ -6,7 +6,7 @@ function resolve_group_id(req, res, next) {
 
     // get the pk by rec_id
 
-    groupModel.findOne(
+    s_groupModel.findOne(
         {
             where:
             {

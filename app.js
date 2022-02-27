@@ -15,7 +15,7 @@ var usersRouter = require('./routes/users.login.iot');
 var cors = require('cors')
 var indexRouter = require('./routes/index');
 // routes for the iot
-var groupRoute = require('./routes/group.iot.route')
+var s_groupRoute = require('./routes/s_group.iot.route')
 var sensorRoute = require('./routes/sensor.iot.route')
 
 var logRoute = require('./routes/logs.iot')
@@ -46,17 +46,17 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-//Google auth and login auth
+//Google login and login
 app.use(passport.initialize());
-app.use('/auth',GoogleRouter);
-app.use('/users', usersRouter);
+app.use('/api/v1/googleusers',GoogleRouter);
+app.use('/api/v1/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes
 app.use('/api/v1/', indexRouter);
 
 // routes/microservices for the iot 
-app.use('/api/v1/group', groupRoute);
+app.use('/api/v1/s_group', s_groupRoute);
 app.use('/api/v1/sensor', sensorRoute);
 app.use('/api/v1/logs', logRoute);
 

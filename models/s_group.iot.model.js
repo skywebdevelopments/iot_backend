@@ -1,7 +1,7 @@
 const sequelize = require('../database/connection');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const group = sequelize.define('group', {
+const s_group = sequelize.define('s_group', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -23,10 +23,10 @@ const group = sequelize.define('group', {
     }
 },
     {
-        tableName: 'group',
+        tableName: 's_group',
         timestamps: false
     }
 );
 // user.sync({ force: true });
 
-exports.groupModel = group
+exports.s_groupModel = s_group

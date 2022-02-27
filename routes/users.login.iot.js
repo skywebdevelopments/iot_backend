@@ -11,7 +11,7 @@ let { sessionModel } = require('../models/session.iot.model');
 let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
 var jwt = require("jsonwebtoken");
-const { groupModel } = require('../models/group.iot.model');
+const { groupModel } = require('../models/s_group.iot.model');
 const { users_groupsModel } = require('../models/users_groups.iot.model');
 
 
@@ -50,11 +50,11 @@ function get_user_id(req) {
 
 
 /*
-POST /users/GenerateToken
+POST /api/v1/users/token
 Return a Token for a specific user.
 Parameters:username and password of a user
 */
-router.post('/GenerateToken', (req, res) => {
+router.post('/token', (req, res) => {
     const { email, password } = req.body;
 
     userModel.findOne({
@@ -75,7 +75,7 @@ router.post('/GenerateToken', (req, res) => {
 
         // /////////////////////////////////////////
         // console.log(user['usergroup'])
-        //user.addUsergroup(2);
+        //user.addUsergroup(3);
         // /////////////////////////////////////////
 
         var token = authenticate.getToken(user); //create token using id and you can add other inf
@@ -113,11 +113,10 @@ router.post('/GenerateToken', (req, res) => {
 });
 
 /*
-POST /users/signup
-Return a Token for a specific user.
-Parameters:username and password of a user
+POST /api/v1/users/create
+Parameters:username,email and password of a user
 */
-router.post('/signup', (req, res) => {
+router.post('/create', (req, res) => {
     let request_key = uuid();
     try {
 
@@ -209,12 +208,18 @@ router.post('/signup', (req, res) => {
 
 });
 
-// GET /users
-// Return all user's names
+// GET /api/v1/users
+// Return all user
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
-    userModel.findAll({ attributes: ['id', 'username', 'email', 'roles'] }).then((data) => {
+    userModel.findAll({
+        attributes: ['id', 'username', 'email', 'roles'],
+        include: [{
+            model: usergroupModel,
+            as: 'usergroup'
+        }]
+    }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
             create_log("list users", "WARN", `No data found in users table`, get_user_id(req));
@@ -234,11 +239,12 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
 });
 
 
-// Update a user permissions
-// Post /users/update
-// update a user's premissions by userid
 
-router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
+// Update a user roles
+// Post /api/v1/users/updaterole
+// update a user's role by userid
+
+router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     try {
         // code bloc
 
@@ -286,4 +292,29 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["ad
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
+
+// GET /api/v1/users/usergroups
+// Return all usergroups
+router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
+    // code block
+    // 1. db_operation: select all query
+    usergroupModel.findAll().then((data) => {
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            create_log("list usergroups", "WARN", `No data found in users table`, get_user_id(req));
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        // send the response.
+        create_log("list usergroups", "INFO", `Success retrieving user data`, get_user_id(req));
+        res.send({ data: data, status: responseList.success });
+        //end
+    }).catch((error) => {
+        create_log("list usergroups", "ERROR", error.message, get_user_id(req));
+        res.send(error.message)
+
+    });
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
+const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
-const { Sequelize, DataTypes } = require('sequelize');
 
-const group = sequelize.define('group', {
+const u_group = sequelize.define('u_group', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -9,9 +9,11 @@ const group = sequelize.define('group', {
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
-        type: Sequelize.STRING,
-        unique: true
+    groupname: {
+        type: Sequelize.STRING
+    },
+    roles: {
+        type: Sequelize.JSON
     },
     active: {
         type: Sequelize.BOOLEAN
@@ -23,10 +25,11 @@ const group = sequelize.define('group', {
     }
 },
     {
-        tableName: 'group',
+        tableName: 'u_group',
         timestamps: false
     }
 );
-// user.sync({ force: true });
 
-exports.groupModel = group
+// to create table if doesn't exist
+
+exports.u_groupModel = u_group;

@@ -17,7 +17,7 @@ var router = express.Router();
 
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
-let { groupModel } = require('../models/group.iot.model')
+let { s_groupModel } = require('../models/s_group.iot.model')
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
 let { logModel } = require('../models/logger.iot.model')
 let { SensorTypeModel } = require('../models/sensortype.iot.model')
@@ -506,6 +506,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
 
 
 // Map sensor to a group
+// we don't use it till now //
 router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
 
     let request_key = uuid();
@@ -631,10 +632,10 @@ router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.auth
 
 
 
-// GET / api / v1 /sensor/mqtt_user
+// GET / api / v1 /sensor/mqttuser
 // Return all mqtt_user profiles 
 
-router.get('/mqtt_user', function (req, res, next) {
+router.get('/mqttuser', function (req, res, next) {
     // code block
     // 1. db_operation: select all query
     mqtt_userModel.findAll().then((data) => {
@@ -660,6 +661,9 @@ router.get('/mqtt_user', function (req, res, next) {
 });
 
 
+
+// GET / api / v1 /sensor/sensortype
+// Return all sensortypes
 
 router.get('/sensortype', function (req, res, next) {
     // code block
@@ -687,38 +691,6 @@ router.get('/sensortype', function (req, res, next) {
 });
 
 
-router.get('/Group-sensor', authenticate.authenticateUser, function (req, res, next) {
-    // code bloc
-    // 1. db_operation: select all query
-    groupModel.findAll(
-        {
-            include: [{
-                model: sensorModel,
-                as: 'sensor'
-            }]
-        }
-    ).then((data) => {
-
-        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-        // 2. return data in a response.
-        if (!data || data.length === 0) {
-            create_log(" Group-sensor", "INFO", "No data found in the table", get_user_id(req))
-            res.send(
-                { status: responseList.error.error_no_data }
-            );
-        }
-        create_log("Group-sensor", "INFO", "Success retrieving sensor data", get_user_id(req))
-        // send the response.
-        res.send({ data: data, status: responseList.success });
-
-        //end
-    }).catch((error) => {
-
-        create_log("Group-sensor", "ERROR", error.message, get_user_id(req))
-        res.send(error.message)
-
-    });
-});
 
 
 

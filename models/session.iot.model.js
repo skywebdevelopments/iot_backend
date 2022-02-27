@@ -11,7 +11,7 @@ const session = sequelize.define('session', {
         autoIncrement: true
     },
     token: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
     },
     active: {
         type: Sequelize.BOOLEAN

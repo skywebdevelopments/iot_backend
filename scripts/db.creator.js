@@ -11,6 +11,7 @@ const { userModel } = require('../models/user.iot.model')
 const { usergroupModel } = require('../models/usergroup.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
+const { users_groupsModel } = require('../models/users_groups.iot.model')
 
 
 // end of Model
@@ -35,17 +36,10 @@ function createSchema() {
 
             // })
 
-<<<<<<< HEAD
-            sequelize.sync({force:true});
-           /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
-                console.log(data);
-            });*/
-=======
-            // sequelize.sync({force:true});
+            sequelize.sync({ force: true });
             /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                  console.log(data);
              });*/
->>>>>>> 21c55cf5f386f52b5926135bc8251fafcdf2207c
 
             resolve("success")
         } catch (error) {

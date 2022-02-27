@@ -12,7 +12,7 @@ let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
 var jwt = require("jsonwebtoken");
 const { groupModel } = require('../models/s_group.iot.model');
-const { users_groupsModel } = require('../models/users_groups.iot.model');
+const { users_groupsModel } = require('../models/userGroup.iot.model');
 
 
 

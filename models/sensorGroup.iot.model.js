@@ -10,7 +10,7 @@ const sensor_group = sequelize.define('sensor_group', {},
         timestamps: false
     });
 
-sensorModel.belongsToMany(s_groupModel, { through: 'sensor_group', as: 'group', onDelete: 'cascade' });
+sensorModel.belongsToMany(s_groupModel, { through: 'sensor_group', as: 's_group', onDelete: 'cascade' });
 s_groupModel.belongsToMany(sensorModel, { through: 'sensor_group', as: 'sensor', onDelete: 'cascade' });
 
 

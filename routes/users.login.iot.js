@@ -6,7 +6,7 @@ let { uuid, isUuid } = require('uuidv4');
 var secret = require('../config/sercret.json');
 let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
-let { usergroupModel } = require('../models/usergroup.iot.model');
+let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
 let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
@@ -63,8 +63,8 @@ router.post('/token', (req, res) => {
             password: password
         },
         include: [{
-            model: usergroupModel,
-            as: 'usergroup'
+            model: u_groupModel,
+            as: 'u_group'
         }]
     }).then((user) => {
         if (!user) {
@@ -216,7 +216,7 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
     userModel.findAll({
         attributes: ['id', 'username', 'email', 'roles'],
         include: [{
-            model: usergroupModel,
+            model: u_groupModel,
             as: 'usergroup'
         }]
     }).then((data) => {
@@ -298,7 +298,7 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
-    usergroupModel.findAll().then((data) => {
+    u_groupModel.findAll().then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
             create_log("list usergroups", "WARN", `No data found in users table`, get_user_id(req));

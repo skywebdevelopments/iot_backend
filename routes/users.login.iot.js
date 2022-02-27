@@ -1,53 +1,21 @@
 var express = require('express');
 var router = express.Router();
+let { uuid } = require('uuidv4');
+
+//configs
 var authenticate = require('../auth/authentication_JWT');
-const cryptojs = require('crypto-js');
-let { uuid, isUuid } = require('uuidv4');
 var secret = require('../config/sercret.json');
+var responseList = require('../config/response.code.json');
+var cryptojs = require('crypto-js');
+
+//middleware
+let { create_log } = require('../middleware/logger.middleware')
+
+//database models
 let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
 let { usergroupModel } = require('../models/usergroup.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
-let { logModel } = require('../models/logger.iot.model');
-var responseList = require('../config/response.code.json');
-var jwt = require("jsonwebtoken");
-const { groupModel } = require('../models/group.iot.model');
-const { users_groupsModel } = require('../models/users_groups.iot.model');
-
-
-
-function create_log(operation, log_level, log_message, user_id) {
-    logModel.create({
-        operation: operation,
-        log_level: log_level,
-        log_message: log_message,
-        user_id: user_id
-    })
-
-}
-
-// Extracts user id from token that is sent in headers of the request
-function get_user_id(req) {
-    var token = null;
-
-    if (req.headers && req.headers['authorization']) {
-
-        var header_token = req.headers['authorization'].split(' ');
-
-        if (header_token.length == 2) {
-            var scheme = header_token[0],
-                enc_token = header_token[1];
-
-            if (scheme === 'Bearer') {
-                token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
-            }
-        }
-    }
-    var token_payload = jwt.decode(token);
-    var user_id = token_payload.id
-    return user_id;
-}
-
 
 /*
 POST /users/GenerateToken
@@ -57,10 +25,34 @@ Parameters:username and password of a user
 router.post('/GenerateToken', (req, res) => {
     const { email, password } = req.body;
 
+    // 1.validation : email
+    if (!email || email.length === 0 || email == undefined) {
+        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  email `);
+        res.send({
+            status: responseList.error.error_invalid_payload.message,
+            code: responseList.error.error_invalid_payload.code
+        });
+        return;
+    };
+
+    // 2.validation : password
+    if (!password || password.length === 0) {
+        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
+        res.send({
+            status: responseList.error.error_invalid_payload.message,
+            code: responseList.error.error_invalid_payload.code
+        });
+        return;
+    };
+
+    //Hashing password from req body before finding in DB
+    var hash = cryptojs.HmacSHA256(password, secret.hash_secret);
+    var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+
     userModel.findOne({
         where: {
             email: email,
-            password: password
+            password: hashInBase64
         },
         include: [{
             model: usergroupModel,
@@ -68,13 +60,12 @@ router.post('/GenerateToken', (req, res) => {
         }]
     }).then((user) => {
         if (!user) {
-            create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, -1);
+           // create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, req);
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
 
         // /////////////////////////////////////////
-        // console.log(user['usergroup'])
         //user.addUsergroup(2);
         // /////////////////////////////////////////
 
@@ -135,7 +126,7 @@ router.post('/signup', (req, res) => {
             return;
         };
         // 2.validation : password
-        if (!password || password.length === 0 || !email || email.length === 0 || email == undefined) {
+        if (!password || password.length === 0) {
             log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
             res.send({
                 status: responseList.error.error_invalid_payload.message,

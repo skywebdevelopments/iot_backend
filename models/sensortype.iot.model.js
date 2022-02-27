@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
-let { userModel } = require('./user.iot.model');
 
-const session = sequelize.define('session', {
+const sensortype = sequelize.define('sensortype', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -10,20 +9,22 @@ const session = sequelize.define('session', {
         primaryKey: true,
         autoIncrement: true
     },
-    token: {
-        type: Sequelize.TEXT
+    type: {
+        type: Sequelize.STRING
     },
-    active: {
-        type: Sequelize.BOOLEAN
-    },
+    rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
+    }
 },
     {
-        tableName: 'session',
+        tableName: 'sensortype',
         timestamps: false
     }
 );
 
-userModel.hasMany(session, { as: 'sessions' });
 
 
-exports.sessionModel = session;
+exports.SensorTypeModel = sensortype;

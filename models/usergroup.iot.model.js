@@ -12,6 +12,9 @@ const usergroup = sequelize.define('usergroup', {
     groupname: {
         type: Sequelize.STRING
     },
+    roles: {
+        type: Sequelize.JSON
+    },
     active: {
         type: Sequelize.BOOLEAN
     },

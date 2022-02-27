@@ -20,6 +20,7 @@ let { sensorModel } = require('../models/sensor.iot.model')
 let { groupModel } = require('../models/group.iot.model')
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
 let { logModel } = require('../models/logger.iot.model')
+let { SensorTypeModel } = require('../models/sensortype.iot.model')
 // end
 
 // middleware
@@ -72,6 +73,11 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:l
                 model: mqtt_userModel,
                 required: true,
                 attributes: ['username', 'id']
+            },
+            {
+                model: SensorTypeModel,
+                required: true,
+                attributes: ['type', 'id']
             }]
         }
     ).then((data) => {
@@ -190,10 +196,16 @@ function validation(req) {
     if (ap_password && ap_password.length < 4) {
         fault_inputs.push('ap_password');
     }
-    let sensor_type = req.body['sensor_type'];
-    if (typeof sensor_type === "undefined" || sensor_type === "null" || typeof sensor_type !== "string") {
+
+    let sensor_type = req.body['sensortypeId'];
+    if (typeof sensor_type === "undefined" || sensor_type === "null" || sensor_type.length < 1 || typeof sensor_type !== "number") {
         fault_inputs.push('sensor_type');
+        console.log("============================")
+        console.log(sensor_type)
+        console.log("============================")
     }
+
+
     let dns1 = req.body['dns1'];
     if (dns1.length < 4) {
         fault_inputs.push('dns1');
@@ -647,6 +659,34 @@ router.get('/mqtt_user', function (req, res, next) {
     });
 });
 
+
+
+router.get('/sensortype', function (req, res, next) {
+    // code block
+    // 1. db_operation: select all query
+    SensorTypeModel.findAll().then((data) => {
+
+        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            create_log("list Sensor_Type", "INFO", "No data in Sensor_type found", get_user_id(req))
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        // send the response.
+        create_log("list sensor_type", "INFO", "Success retrieving sensor_type data", get_user_id(req))
+        res.send({ data: data, status: responseList.success });
+
+        //end
+    }).catch((error) => {
+        create_log("list sensor_type", "INFO", error.message, get_user_id(req))
+        res.send(error.message)
+
+    });
+});
+
+
 router.get('/Group-sensor', authenticate.authenticateUser, function (req, res, next) {
     // code bloc
     // 1. db_operation: select all query
@@ -654,7 +694,7 @@ router.get('/Group-sensor', authenticate.authenticateUser, function (req, res, n
         {
             include: [{
                 model: sensorModel,
-                as:'sensor'
+                as: 'sensor'
             }]
         }
     ).then((data) => {

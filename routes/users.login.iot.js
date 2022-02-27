@@ -6,10 +6,13 @@ let { uuid, isUuid } = require('uuidv4');
 var secret = require('../config/sercret.json');
 let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
+let { usergroupModel } = require('../models/usergroup.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
 let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
 var jwt = require("jsonwebtoken");
+const { groupModel } = require('../models/group.iot.model');
+const { users_groupsModel } = require('../models/users_groups.iot.model');
 
 
 
@@ -58,13 +61,23 @@ router.post('/GenerateToken', (req, res) => {
         where: {
             email: email,
             password: password
-        }
+        },
+        include: [{
+            model: usergroupModel,
+            as: 'usergroup'
+        }]
     }).then((user) => {
         if (!user) {
             create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, -1);
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
+
+        // /////////////////////////////////////////
+        // console.log(user['usergroup'])
+        //user.addUsergroup(2);
+        // /////////////////////////////////////////
+
         var token = authenticate.getToken(user); //create token using id and you can add other inf
         sessionModel.findOne({
             where: {
@@ -94,7 +107,7 @@ router.post('/GenerateToken', (req, res) => {
         create_log("login", "INFO", "Successful user login", user.id)
         res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
-        create_log("login", "ERROR", err, -1)
+        create_log("login", "ERROR", err.message, -1)
         res.send({ status: err, code: responseList.error.error_not_found.code })
     });
 });
@@ -155,7 +168,7 @@ router.post('/signup', (req, res) => {
                     username: username,
                     password: hashInBase64,
                     email: email,
-                    roles : [],
+                    roles: [],
                     active: true
 
                 }).then((data) => {
@@ -201,7 +214,7 @@ router.post('/signup', (req, res) => {
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
-    userModel.findAll({attributes: ['id', 'username','email','roles']}).then((data) => {
+    userModel.findAll({ attributes: ['id', 'username', 'email', 'roles'] }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
             create_log("list users", "WARN", `No data found in users table`, get_user_id(req));

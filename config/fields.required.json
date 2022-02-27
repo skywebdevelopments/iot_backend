@@ -4,7 +4,7 @@
             "ap_name",
             "mac_address",
             "client_id",
-            "sensor_type",
+            "sensortypeId",
             "dns1",
             "gateway",
             "subnet",

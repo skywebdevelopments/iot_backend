@@ -1,6 +1,7 @@
 const sequelize = require('../database/connection');
 const { Sequelize, DataTypes } = require('sequelize');
-let {mqtt_userModel} = require('../models/mqttUser.iot.model')
+let { mqtt_userModel } = require('../models/mqttUser.iot.model')
+let { SensorTypeModel } = require('../models/sensortype.iot.model')
 const sensor = sequelize.define('sensor', {
     // Model attributes are defined here
     id: {
@@ -19,9 +20,6 @@ const sensor = sequelize.define('sensor', {
         type: Sequelize.BOOLEAN
     },
     ota_password: {
-        type: Sequelize.STRING
-    },
-    sensor_type: {
         type: Sequelize.STRING
     },
     static_ip: {
@@ -96,5 +94,6 @@ const sensor = sequelize.define('sensor', {
 
 
 sensor.belongsTo(mqtt_userModel);
+sensor.belongsTo(SensorTypeModel);
 
 exports.sensorModel = sensor

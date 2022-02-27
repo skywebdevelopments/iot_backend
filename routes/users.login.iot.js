@@ -1,13 +1,22 @@
 var express = require('express');
 var router = express.Router();
+let { uuid } = require('uuidv4');
+
+//configs
 var authenticate = require('../auth/authentication_JWT');
-const cryptojs = require('crypto-js');
-let { uuid, isUuid } = require('uuidv4');
 var secret = require('../config/sercret.json');
+var responseList = require('../config/response.code.json');
+var cryptojs = require('crypto-js');
+
+//middleware
+let { create_log } = require('../middleware/logger.middleware')
+
+//database models
 let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
+<<<<<<< HEAD
 let { logModel } = require('../models/logger.iot.model');
 var responseList = require('../config/response.code.json');
 var jwt = require("jsonwebtoken");
@@ -48,19 +57,45 @@ function get_user_id(req) {
     return user_id;
 }
 
+=======
+>>>>>>> 42c91d23bbc308ea61d9485fd5220ecc968214c5
 
 /*
 POST /api/v1/users/token
 Return a Token for a specific user.
-Parameters:username and password of a user
+Parameters:email and password of a user
 */
 router.post('/token', (req, res) => {
     const { email, password } = req.body;
 
+    // 1.validation : email
+    if (!email || email.length === 0 || email == undefined) {
+        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  email `);
+        res.send({
+            status: responseList.error.error_invalid_payload.message,
+            code: responseList.error.error_invalid_payload.code
+        });
+        return;
+    };
+
+    // 2.validation : password
+    if (!password || password.length === 0) {
+        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
+        res.send({
+            status: responseList.error.error_invalid_payload.message,
+            code: responseList.error.error_invalid_payload.code
+        });
+        return;
+    };
+
+    //Hashing password from req body before finding in DB
+    var hash = cryptojs.HmacSHA256(password, secret.hash_secret);
+    var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+
     userModel.findOne({
         where: {
             email: email,
-            password: password
+            password: hashInBase64
         },
         include: [{
             model: u_groupModel,
@@ -68,14 +103,13 @@ router.post('/token', (req, res) => {
         }]
     }).then((user) => {
         if (!user) {
-            create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, -1);
+           // create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, req);
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
 
         // /////////////////////////////////////////
-        // console.log(user['usergroup'])
-        //user.addUsergroup(3);
+        //user.addUsergroup(2);
         // /////////////////////////////////////////
 
         var token = authenticate.getToken(user); //create token using id and you can add other inf
@@ -134,7 +168,7 @@ router.post('/create', (req, res) => {
             return;
         };
         // 2.validation : password
-        if (!password || password.length === 0 || !email || email.length === 0 || email == undefined) {
+        if (!password || password.length === 0) {
             log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
             res.send({
                 status: responseList.error.error_invalid_payload.message,

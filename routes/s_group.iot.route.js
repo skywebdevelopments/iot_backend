@@ -85,7 +85,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group
             return;
         }
 
-        create_log(`query for sensor group with ${group_id}`, log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+        create_log(`query for sensor group with ${group_id}`, log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
         s_groupModel.findOne({
 
             include: {
@@ -164,7 +164,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
                 s_groupModel.create(req.body).then((data) => {
                     // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
                     // 2. return data in a response.
-                    create_log("create sensor group", log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+                    create_log("create sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
                     if (!data || data.length === 0) {
                         create_log("create sensor group", log.log_level.warn, responseList.error.error_no_data_created.message, log.req_type.inbound, request_key, req)
                         res.send(
@@ -234,6 +234,7 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
         }
         // 3.validation: rec_id and sensorID isn't an empty value
         if (rec_id == 0 || sensorId.length == 0) {
+            
             create_log("map sensor to group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
             res.send({
                 code: responseList.error.error_missing_payload.code,
@@ -241,7 +242,7 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
             });
             return;
         }
-        create_log(`query for group with ${rec_id}`, log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+        create_log(`query for group with ${rec_id}`, log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
         s_groupModel.findOne({
             include: {
                 model: sensorModel,
@@ -264,13 +265,13 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
                 );
             }
             // send the response.
-            create_log("map sensor to group", log.log_level.info, responseList.error.success.message, log.req_type.inbound, request_key, req)
             return data.addSensor(sensorId)
             //end
         }).then(() => {
+            create_log("map sensor to group", log.log_level.info, responseList.success.message, log.req_type.inbound, request_key, req)
             res.send({
-                code: responseList.error.success.code,
-                status: responseList.error.success.message
+                code: responseList.success.code,
+                status: responseList.success.message
             });
         }).catch((error) => {
             create_log("map sensor to group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
@@ -294,6 +295,8 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
 
         let rec_id = req.body['rec_id']
         let group_name = req.body['name']
+        let active = req.body['active']
+
         // 1.validation: rec_id is uuid v4
 
         if (!isUuid(rec_id)) {
@@ -312,6 +315,26 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
             res.send({
                 status: responseList.error.error_missing_payload.message,
                 code: responseList.error.error_missing_payload.code
+            });
+            return;
+        }
+        // 3.validation: groupname and active both aren't an empty value
+        if (group_name === undefined && active === undefined) {
+            create_log("update sensor group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+
+            res.send({
+                status: responseList.error.error_missing_payload.message,
+                code: responseList.error.error_missing_payload.code
+            });
+            return;
+        }
+        // 4.validation: active is valid
+        if (typeof active !== "boolean") {
+            create_log("update sensor group", log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
+
+            res.send({
+                status: responseList.error.error_invalid_payload.message,
+                code: responseList.error.error_invalid_payload.code
             });
             return;
         }
@@ -337,7 +360,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
 
                 ).then((data) => {
                     // 2. return data in a response.
-                    create_log("update sensor group", log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+                    create_log("update sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
                     if (!data || data[0] === 0 || data.length === 0) {
                         create_log("update sensor group", log.log_level.error, responseList.error.error_no_data_updated.message, log.req_type.inbound, request_key, req)
                         res.send(
@@ -351,9 +374,9 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
                     create_log("update sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
                     //update sensors under group
                     if (req.body['active'] === false) {
-                        update_sensor(req.body['id'], false,req);
+                        update_sensor(req.body['id'], false, req);
                     } else {
-                        update_sensor(req.body['id'], true,req);
+                        update_sensor(req.body['id'], true, req);
                     }
                     //
                     res.send({
@@ -364,7 +387,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
                     //end
                 }).catch((error) => {
                     create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-                    res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+                    res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
                 });
             }
             else {
@@ -373,11 +396,11 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
             }
         }).catch((error) => {
             create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+            res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         })
     } catch (error) {
         create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+        res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -430,7 +453,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
 
         ).then((data) => {
             // 2. return data in a response.
-            create_log("delete sensor group", log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+            create_log("delete sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
             if (!data || data.length === 0 || data[0] == 0) {
                 create_log("delete sensor group", log.log_level.error, responseList.error.error_no_data_delete.message, log.req_type.inbound, request_key, req)
                 res.send(
@@ -463,6 +486,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
 router.get('/sensors', authenticate.authenticateUser, function (req, res, next) {
     // code block
     // 1. db_operation: select all query
+    let request_key = uuid();
     s_groupModel.findAll(
         {
             include: [{

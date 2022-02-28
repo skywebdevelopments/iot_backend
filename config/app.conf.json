@@ -14,7 +14,10 @@
             "info": "INFO",
             "warn": "WARN",
             "error": "ERROR"
+        },
+        "req_type": {
+            "inbound": "inbound request",
+            "outbound": "outbound request"
         }
-
     }
 }

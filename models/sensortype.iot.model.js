@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
 
-const sensortype = sequelize.define('sensortype', {
+const sensortype = sequelize.define('sensor_type', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -20,7 +20,7 @@ const sensortype = sequelize.define('sensortype', {
     }
 },
     {
-        tableName: 'sensortype',
+        tableName: 'sensor_type',
         timestamps: false
     }
 );

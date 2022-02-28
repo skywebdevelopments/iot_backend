@@ -1,6 +1,7 @@
 const cryptojs = require('crypto-js');
 var secret = require('../config/sercret.json');
 var { log } = require('../config/app.conf.json');
+var jwt = require("jsonwebtoken");
 
 function create_log(operation, log_level, log_message, req) {
 

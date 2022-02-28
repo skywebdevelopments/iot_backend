@@ -4,18 +4,18 @@ const passport = require('passport');
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
 
-// GET /api/v1/googleusers
+// GET /auth
 // Return  google user
 //Auth with google
-router.get('/', passport.authenticate('google', {
+router.get('/google', passport.authenticate('google', {
     //Telling passoprt what i want to retrieve profile or emails
     scope: ['profile', 'email']
 }))
 
 
-// GET /api/v1/googleusers/callback
+// GET /auth/google/callback
 // Callback URL ( redirectURL )
-router.get('/callback', passport.authenticate('google', { session: false }), (req, res) => {
+router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
     res.cookie('token', localStorage.getItem('token'), { maxAge: 360000 });
     res.redirect("http://localhost:4200/(first:index)")
 })

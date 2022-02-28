@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
 
-let { usergroupModel } = require('./usergroup.iot.model');
-
 const user = sequelize.define('user', {
     // Model attributes are defined here
     id: {
@@ -43,5 +41,4 @@ const user = sequelize.define('user', {
     }
 );
 
-usergroupModel.hasMany(user, { as: 'users' });
 exports.userModel = user;

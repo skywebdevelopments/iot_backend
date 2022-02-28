@@ -12,7 +12,7 @@ var secret = require('../config/sercret.json');
 
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
-const { groupModel } = require('../models/group.iot.model');
+const { s_groupModel } = require('../models/s_group.iot.model');
 var authenticate = require('../auth/authentication_JWT');
 let { logModel } = require('../models/logger.iot.model')
 
@@ -55,7 +55,7 @@ function get_user_id(req) {
 
 function update_sensor(group_id, active) {
     let request_key = uuid();
-    groupModel.findOne(
+    s_groupModel.findOne(
         {
             where: {
                 id: group_id
@@ -104,13 +104,13 @@ function update_sensor(group_id, active) {
 }
 
 
-// GET / api / v1 / groups
+// GET / api / v1 / s_groups
 // Return all sensors’ groups 
 
-router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["group:list"]), function (req, res, next) {
-    // code bloc
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group:list"]), function (req, res, next) {
+    // code block
     // 1. db_operation: select all query
-    groupModel.findAll({
+    s_groupModel.findAll({
 
         include: {
             model: sensorModel,
@@ -138,15 +138,13 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["group:li
     });
 });
 
-// Post / api / v1 / group /
+// Post / api / v1 / s_group /
 //     Return a group and all correlated sensors by a groupId
 // Parameters:
 // {
 // “groupId”: 1
 // }
-
-
-router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:list"]), function (req, res, next) {
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group:list"]), function (req, res, next) {
     let request_key = uuid();
     try {
 
@@ -173,7 +171,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:l
         }
 
         log.trace(`${request_key} - inbound request - query with ${group_id}`);
-        groupModel.findOne({
+        s_groupModel.findOne({
 
             include: {
                 model: sensorModel,
@@ -215,10 +213,10 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["group:l
 });
 
 // Create a Group
-// Post / api / v1 / group / create
+// Post / api / v1 / s_group / create
 // Create a sensors’ group 
 
-router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s_group:create"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -247,7 +245,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
         };
 
 
-        groupModel.findOne(
+        s_groupModel.findOne(
             {
                 where: Sequelize.where(
                     Sequelize.fn('lower', Sequelize.col('name')),
@@ -256,7 +254,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
             }
         ).then((group) => {
             if (!group) {
-                groupModel.create(req.body).then((data) => {
+                s_groupModel.create(req.body).then((data) => {
                     // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
                     // 2. return data in a response.
                     log.trace(`${request_key} - inbound request - executing the create query`);
@@ -296,10 +294,10 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["g
 
 
 
-// Assign Sensors to group
-// Post / api / v1 / group / map
+// Assign Sensors to s_group
+// Post / api / v1 / s_group / sensormap
 
-router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
+router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(["s_group:create"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // 1.validation : check if the req has a body
@@ -336,7 +334,7 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
             return;
         }
         log.trace(`${request_key} - inbound request - query with ${rec_id}`);
-        groupModel.findOne({
+        s_groupModel.findOne({
             include: {
                 model: sensorModel,
                 as: "sensor"
@@ -375,10 +373,10 @@ router.post('/map', authenticate.authenticateUser, authenticate.UserRoles(["grou
 
 
 // Update a Group
-// Post / api / v1 / group / update
+// Post / api / v1 / s_group / update
 // update a sensors’ group by rec_id
 
-router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["group:update"]), function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_group:update"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -410,7 +408,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
             return;
         }
         
-        groupModel.findOne(
+        s_groupModel.findOne(
             {
                 where: Sequelize.where(
                     Sequelize.fn('lower', Sequelize.col('name')),
@@ -419,7 +417,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
             }
         ).then((group) => {
             if (!group || rec_id === group['rec_id']) {
-                groupModel.update(req.body,
+                s_groupModel.update(req.body,
                     {
                         where: {
                             rec_id: {
@@ -477,10 +475,10 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["gr
 
 
 // Delete a Group
-// Delete / api / v1 / group / delete
+// Delete / api / v1 / s_group / delete
 // Delete a sensors’ group by rec_id
 
-router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["group:delete"]), function (req, res, next) {
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s_group:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code block
@@ -517,7 +515,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
 
         // update the record 
 
-        groupModel.destroy(
+        s_groupModel.destroy(
             {
                 where: {
                     rec_id: {
@@ -555,6 +553,40 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["g
     }
 });
 
+// GET / api /  v1 / s_group /sensors
+// Return for all groups it's associated sensors
+router.get('/sensors', authenticate.authenticateUser, function (req, res, next) {
+    // code bloc
+    // 1. db_operation: select all query
+    s_groupModel.findAll(
+        {
+            include: [{
+                model: sensorModel,
+                as: 'sensor'
+            }]
+        }
+    ).then((data) => {
+
+        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+        // 2. return data in a response.
+        if (!data || data.length === 0) {
+            create_log(" Group-sensor", "INFO", "No data found in the table", get_user_id(req))
+            res.send(
+                { status: responseList.error.error_no_data }
+            );
+        }
+        create_log("Group-sensor", "INFO", "Success retrieving sensor data", get_user_id(req))
+        // send the response.
+        res.send({ data: data, status: responseList.success });
+
+        //end
+    }).catch((error) => {
+
+        create_log("Group-sensor", "ERROR", error.message, get_user_id(req))
+        res.send(error.message)
+
+    });
+});
 
 // 
 /** ------ */

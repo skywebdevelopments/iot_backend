@@ -3,13 +3,14 @@ var conf_sercet = require('../config/sercret.json')
 var responseList = require('../config/response.code.json')
 let { response, request } = require('express');
 let { Op, json } = require("sequelize");
-let { log } = require('../logger/app.logger')
+let { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 const cryptojs = require('crypto-js');
 var secret = require('../config/sercret.json');
 let { update_sensor } = require('../middleware/sensor.middleware')
+
 // models
 let { sensorModel } = require('../models/sensor.iot.model')
 const { s_groupModel } = require('../models/s_group.iot.model');
@@ -17,6 +18,7 @@ var authenticate = require('../auth/authentication_JWT');
 let { logModel } = require('../models/logger.iot.model')
 // end
 var Sequelize = require('sequelize');
+let { create_log } = require('../middleware/logger.middleware');
 
 
 
@@ -48,8 +50,8 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group:
 
         //end
     }).catch((error) => {
-        create_log('list sensor group', log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log('list sensor group', log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     });
 });
 
@@ -111,12 +113,12 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group
 
             //end
         }).catch((error) => {
-            create_log('list sensor group with ID', log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-            res.send({ code: error.code, status: error.message })
+            create_log('list sensor group with ID', log.log_level.error,error.message, log.req_type.inbound, request_key, req)
+            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         });
     } catch (error) {
-        create_log('list sensor group with ID', log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log('list sensor group with ID', log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -131,7 +133,7 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
         let group_name = req.body['name']
         // 1.validation : name
         if (!group_name || group_name.length === 0 || group_name == undefined) {
-            create_log("create sensor group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+            create_log("create sensor group",log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
             res.send({
                 code: responseList.error.error_missing_payload.code,
                 status: responseList.error.error_missing_payload.message
@@ -180,8 +182,8 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
                     });
                     //end
                 }).catch((error) => {
-                    create_log("create sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-                    res.send({ code: error.code, status: error.message });
+                    create_log("create sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+                    res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message });
                 });
             }
             else {
@@ -189,12 +191,12 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
                 res.send({ code: responseList.error.error_already_exists.code, status: responseList.error.error_already_exists.message });
             }
         }).catch((error) => {
-            create_log("create sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-            res.send({ code: error.code, status: error.message })
+            create_log("create sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         })
     } catch (error) {
-        create_log("create sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log("create sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -253,11 +255,11 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
             // 2. return data in a response.
             create_log('map sensor to group', log.log_level.trace, responseList.trace.check_data_length.message, log.req_type.inbound, request_key, req)
             if (!data || data.length === 0) {
-                create_log("map sensor to group", log.log_level.warn, responseList.error.error_no_data_created.message, log.req_type.inbound, request_key, req)
+                create_log("map sensor to group", log.log_level.warn, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
                 res.send(
                     {
-                        code: responseList.error.error_no_data_created.code,
-                        status: responseList.error.error_no_data_created.message
+                        code: responseList.error.error_no_data.code,
+                        status: responseList.error.error_no_data.message
                     }
                 );
             }
@@ -271,12 +273,12 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
                 status: responseList.error.success.message
             });
         }).catch((error) => {
-            create_log("map sensor to group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-            res.send({ code: error.code, status: error.message })
+            create_log("map sensor to group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         });
     } catch (error) {
-        create_log("map sensor to group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log("map sensor to group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -361,8 +363,8 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
 
                     //end
                 }).catch((error) => {
-                    create_log("update sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-                    res.send({ code: error.code, status: error.message })
+                    create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+                    res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
                 });
             }
             else {
@@ -370,12 +372,12 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
                 res.send({ code: responseList.error.error_already_exists.code, status: responseList.error.error_already_exists.message });
             }
         }).catch((error) => {
-            create_log("update sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-            res.send({ code: error.code, status: error.message })
+            create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         })
     } catch (error) {
-        create_log("update sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -447,12 +449,12 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
 
             //end
         }).catch((error) => {
-            create_log("delete sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-            res.send({ code: error.code, status: error.message })
+            create_log("delete sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
         });
     } catch (error) {
-        create_log("delete sensor group", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log("delete sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
 
@@ -469,8 +471,6 @@ router.get('/sensors', authenticate.authenticateUser, function (req, res, next) 
             }]
         }
     ).then((data) => {
-
-        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
         // 2. return data in a response.
         if (!data || data.length === 0) {
             create_log("list group's sensors ", log.log_level.warn, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
@@ -482,8 +482,8 @@ router.get('/sensors', authenticate.authenticateUser, function (req, res, next) 
         // send the response.
         res.send({ data: data, code: responseList.success.code, status: responseList.success.sucess_data.message });
     }).catch((error) => {
-        create_log("list group's sensors", log.log_level.error, responseList.error.error_general.message, log.req_type.inbound, request_key, req)
-        res.send({ code: error.code, status: error.message })
+        create_log("list group's sensors", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })
 
     });
 });

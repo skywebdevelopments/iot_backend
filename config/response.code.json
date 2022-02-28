@@ -4,6 +4,29 @@
         "message": "successfully",
         "sucess_login": {
             "message": "Logged in Successfully"
+        },
+        "sucess_data": {
+            "message": "Success retrieving  data"
+        },
+        "success_creating_data": {
+            "message": "Success creating new data"
+        },
+        "success_updating_data": {
+            "message": "Success updating new data"
+        },
+        "success_deleting_data": {
+            "message": "Success deleting data"
+        }
+    },
+    "trace": {
+        "executing_query": {
+            "message": "Data is executing"
+        },
+        "required_fields": {
+            "message": "check required fields"
+        },
+        "check_data_length": {
+            "message": "check payload length"
         }
     },
     "error": {
@@ -46,6 +69,18 @@
         "error_already_exists": {
             "code": 3100,
             "message": "already exists!"
+        },
+        "error_no_data_created": {
+            "code": 1102,
+            "message": "no data was created"
+        },
+        "error_no_data_updated": {
+            "code": 1103,
+            "message": "no data was updated"
+        },
+        "error_no_data_delete": {
+            "code": 1104,
+            "message": "no data deleted"
         }
     }
 }

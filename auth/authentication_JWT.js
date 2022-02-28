@@ -14,22 +14,22 @@ var responseList = require('../config/response.code.json')
 exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
-    const usergroup = user['usergroup'];
-    const roles = new Set();
-    console.log(usergroup)
-    for(var userProfile of usergroup){
-        for(var role of userProfile['roles']){
-            roles.add(role);
-        }
-    }
-
-    
+    const roles = user.roles;
+    // const usergroup = user['usergroup'];
+    // const roles = new Set();
+    // console.log(usergroup)
+    // for(var userProfile of usergroup){
+    //     for(var role of userProfile['roles']){
+    //         roles.add(role);
+    //     }
+    // }
 
     const expiresIn = "1d";
     const payload = {
         id: id,
         name: name,
-        roles: Array.from(roles),
+        // roles: Array.from(roles),
+        roles: roles,
         iat: Date.now(),
     };
 
@@ -91,8 +91,12 @@ exports.authenticateUser = function (req, res, next) {
 
     passport.authenticate('jwt', { session: false });
 
-    let header_token = req.headers['authorization'];
-    header_token = header_token.split(' ')[1];
+    let header_token = ""
+
+    if (req.headers['authorization']) {
+        header_token = req.headers['authorization']
+        header_token = header_token.split(' ')[1];
+    }
 
     sessionModel.findOne({
         where: {

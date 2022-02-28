@@ -7,7 +7,7 @@ var authenticate = require('../auth/authentication_JWT');
 var secret = require('../config/sercret.json');
 var responseList = require('../config/response.code.json');
 var cryptojs = require('crypto-js');
-let { log } = require('../logger/app.logger')
+let { log } = require('../config/app.conf.json')
 
 //middleware
 let { create_log } = require('../middleware/logger.middleware')
@@ -23,11 +23,20 @@ Return a Token for a specific user.
 Parameters:email and password of a user
 */
 router.post('/token', (req, res) => {
+    let request_key = uuid();
     const { email, password } = req.body;
-    
-    // 1.validation : email
+
+    // 1.validation : check if the req has a body
+    if (!req.body || req.body === undefined || !req.body['password'] || !req.body['email']) {
+        create_log("login", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+        res.send({ status: responseList.error.error_missing_payload.code, message: responseList.error.error_missing_payload.message })
+        return;
+    }
+
+    // 2.validation : email
     if (!email || email.length === 0 || email == undefined) {
-        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  email `);
+        // log.trace(`${request_key} - ERROR - inbound request - create group - invalid  email `);
+        create_log("login", log.log_level.error, `${responseList.error.error_invalid_payload.message} - email`, log.req_type.inbound, request_key, 0)
         res.send({
             status: responseList.error.error_invalid_payload.message,
             code: responseList.error.error_invalid_payload.code
@@ -35,30 +44,22 @@ router.post('/token', (req, res) => {
         return;
     };
 
-    // 2.validation : password
+    // 3.validation : password
     if (!password || password.length === 0) {
-        log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
+        create_log("login", log.log_level.error, `${responseList.error.error_invalid_payload.message} - password`, log.req_type.inbound, request_key, 0)
+
         res.send({
             status: responseList.error.error_invalid_payload.message,
             code: responseList.error.error_invalid_payload.code
         });
         return;
     };
-  
 
-    //////
-    u_groupModel.findOne({
-        where: {
-            id:1
-        }
-    }).then((group) => {
-        console.log(group)
-        group.addUser(1);
-    })
-    //////
     //Hashing password from req body before finding in DB
     var hash = cryptojs.HmacSHA256(password, secret.hash_secret);
     var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+    //end
+
     userModel.findOne({
         where: {
             email: email,
@@ -69,17 +70,15 @@ router.post('/token', (req, res) => {
             as: 'usergroup'
         }]*/
     }).then((user) => {
+      
         if (!user) {
-           // create_log("login", "ERROR", `Invalid login with email : [ ${email} ]`, req);
+            create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, log.req_type.inbound, request_key, 0)
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
             return;
         }
 
-        // /////////////////////////////////////////
-        console.log("asmaa")
-        user.setUsergroup(1);
-        // /////////////////////////////////////////
         var token = authenticate.getToken(user); //create token using id and you can add other inf
+        console.log(user);
         sessionModel.findOne({
             where: {
                 userId: user.id,
@@ -105,11 +104,11 @@ router.post('/token', (req, res) => {
                 userId: user.id
             })
         })
-        create_log("login", "INFO", "Successful user login", user.id)
+        create_log("login", log.log_level.info, responseList.success.sucess_login.message, log.req_type.inbound, request_key, user.id)
         res.send({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
     }).catch((err) => {
-        //create_log("login", "ERROR", err.message, -1)
-        res.send({ status: err, code: responseList.error.error_not_found.code })
+        create_log("login", log.log_level.error, err.message, log.req_type.inbound, request_key, 0)
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
     });
 });
 
@@ -119,25 +118,34 @@ Parameters:username,email and password of a user
 */
 router.post('/create', (req, res) => {
     let request_key = uuid();
+    let username = req.body['username'];
+    let password = req.body['password'];
+    let email = req.body['email'];
+
     try {
 
-        let username = req.body['username'];
-        let password = req.body['password'];
-        let email = req.body['email'];
-        console.log(username,password,email);
+        // validation1 : check if the req has a body
+        if (!req.body || req.body === undefined || !req.body['username'] || !req.body['password'] || !req.body['email']) {
+            create_log("create user", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
+            return;
+        }
 
-        // 1.validation : username
+        // 2.validation : username
         if (!username || username.length === 0 || username == undefined) {
-            log.trace(`${request_key} - ERROR - inbound request - create group - invalid username `);
+            create_log("create user", log.log_level.error, `${responseList.error.error_invalid_payload.message} - username`, log.req_type.inbound, request_key, 0)
+
             res.send({
                 status: responseList.error.error_invalid_payload.message,
                 code: responseList.error.error_invalid_payload.code
             });
             return;
         };
-        // 2.validation : password
-        if (!password || password.length === 0) {
-            log.trace(`${request_key} - ERROR - inbound request - create group - invalid  password `);
+        // 3.validation : password
+        if (!(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}/.test(password)) || !password || password.length === 0) {
+
+            create_log("create user", log.log_level.error, `${responseList.error.error_invalid_payload.message} - password`, log.req_type.inbound, request_key, 0)
+
             res.send({
                 status: responseList.error.error_invalid_payload.message,
                 code: responseList.error.error_invalid_payload.code
@@ -146,8 +154,9 @@ router.post('/create', (req, res) => {
         };
 
         // 3.validation : email
-        if (!email || email.length === 0 || email == undefined) {
-            log.trace(`${request_key} - ERROR - inbound request - create group - invalid  email `);
+        if (!(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email)) || !email || email.length === 0 || email == undefined) {
+            create_log("create user", log.log_level.error, `${responseList.error.error_invalid_payload.message} - email`, log.req_type.inbound, request_key, 0)
+
             res.send({
                 status: responseList.error.error_invalid_payload.message,
                 code: responseList.error.error_invalid_payload.code
@@ -155,9 +164,10 @@ router.post('/create', (req, res) => {
             return;
         };
 
-
+        //Hashing password from req body before inserting in DB
         var hash = cryptojs.HmacSHA256(password, secret.hash_secret);
         var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+        //end
 
         userModel.findOne({
             where: {
@@ -174,38 +184,39 @@ router.post('/create', (req, res) => {
 
                 }).then((data) => {
                     // 2. return data in a response.
-                    log.trace(`${request_key} - inbound request - executing the create query`);
+                    create_log("create user", log.log_level.trace, responseList.trace.excuting_query, log.req_type.inbound, request_key, 0)
                     if (!data || data.length === 0) {
+
+                        create_log("create user", log.log_level.error, responseList.error.error_no_data_created.message, log.req_type.inbound, request_key, 0)
+
                         res.send(
-                            { status: responseList.error.error_no_data }
+                            { status: responseList.error.error_no_data_created.message, code: responseList.error.error_no_data_created.code }
                         );
                     };
-                    // send the response.
-                    log.trace(`${request_key} - inbound request - send a response`);
-                    //create_log("signup", "INFO", "New user was created", data.id)
-                    res.send({ data: data, status: responseList.success });
+                    create_log("create user", log.log_level.info, responseList.success.success_creating_data.message, log.req_type.inbound, request_key, data.id)
+                    res.send({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
 
                     //end
                 }).catch((err) => {
-                    log.trace(`${request_key} - ERROR - inbound request - ${err}`);
+
+                    create_log("create user", log.log_level.error, err.message, log.req_type.inbound, request_key, 0)
                     res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
                 })
             }
             else {
-                log.trace(`${request_key} - ERROR - inbound request - email already exists!`);
-                //create_log("signup", "ERROR", `Invalid signup email exists: [ ${email} ]`, -1);
+                create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, log.req_type.inbound, request_key, 0)
                 res.send({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
             }
 
         }).catch(err => {
+            create_log("create user", log.log_level.error, err.message, log.req_type.inbound, request_key, 0)
             console.log(err);
         })
 
 
     } catch (error) {
-        log.trace(`${request_key} - ERROR - inbound request - ${error}`);
-        //create_log("signup", "ERROR", `Invalid signup with email : [ ${email} ] - ${error.message}`, -1);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+        create_log("create user", log.log_level.error, `${responseList.error.error_invalid_input} - [ ${email} ] `, log.req_type.inbound, request_key, 0)
+        res.send({ status: responseList.error.error_invalid_input.message, code: responseList.error.error_invalid_input.code })
     }
 
 });
@@ -215,35 +226,35 @@ router.post('/create', (req, res) => {
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
+    let request_key = uuid();
     userModel.findAll({
-        attributes: ['id', 'username', 'email', 'roles'],
-        include: [{
-            model: u_groupModel,
-            as: 'usergroup'
-        }]
+        attributes: ['id', 'username', 'email', 'roles']
+        //, include: [{
+        //     model: u_groupModel,
+        //     as: 'usergroup'
+        // }]
     }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
-            create_log("list users", "WARN", `No data found in users table`,req);
-            res.send(
-                { status: responseList.error.error_no_data }
-            );
+            create_log("list users", log.log_level.warn, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
         }
         // send the response.
-        create_log("list users", "INFO", `Success retrieving user data`,req);
-        res.send({ data: data, status: responseList.success });
+        create_log("list users", log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req)
+        res.send({ data: data, status: responseList.success.sucess_data.message, code: responseList.success.code });
         //end
     }).catch((error) => {
-        create_log("list users", "ERROR", error.message,req);
-        res.send(error.message)
+        create_log("list users", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
 
     });
 });
 
 
+// TODO -- later untill checked with logic
 
 // Update a user roles
-// Post /api/v1/users/updaterole
+// Put /api/v1/users/updaterole
 // update a user's role by userid
 
 router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
@@ -254,43 +265,38 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
         let permissions = req.body['permissions']
 
         // 1.validation: id isn't an empty value
-        if (user_id.length == 0) {
-            log.trace(` - ERROR - inbound request - update user permission - ${responseList.error.error_missing_payload.message}`);
-            create_log("update users' permission", "ERROR", ` ${responseList.error.error_missing_payload.message}`,req);
-            res.send({
-                status: responseList.error.error_missing_payload.code,
-                message: responseList.error.error_missing_payload.message
-            });
+        if (!user_id || !permissions || user_id.length == 0) {
+            create_log("update users' permission", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
             return;
         }
+
         // update the record 
         userModel.update(
             { roles: permissions },
             { where: { id: user_id } }
         ).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+
             // 2. return data in a response.
-            log.trace(`${user_id} - inbound request - executing the update query`);
+            create_log("update users' permission", log.log_level.trace, responseList.trace.excuting_query.message, log.req_type.inbound, request_key, req)
+
             if (!data || data.length === 0 || data[0] === 0) {
-                create_log("update users' permission", "ERROR", `No data updated in users table`,req);
-                res.send(
-                    { status: responseList.error.error_no_data }
-                );
+                create_log("update users' permission", log.log_level.error, responseList.error.error_no_data_updated.message, log.req_type.inbound, request_key, req)
+                res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
             };
             // send the response.
-            log.trace(`${user_id} - inbound request - send a response`);
-            create_log("update users' permission", "INFO", `Success updating user data`,req);
-            res.send({ data: data, status: responseList.success });
+            create_log("update users' permission", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
+            res.send({ data: data, status: responseList.success.success_updating_data.message, code: responseList.success.success_updating_data.code });
 
             //end
         }).catch((error) => {
-            log.trace(`${user_id} - ERROR - inbound request - ${error}`);
-            create_log("update users' permission", "ERROR", error.message,req);
+
+            create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });
     } catch (error) {
-        log.trace(`${user_id} - ERROR - inbound request - ${error}`);
-        create_log("update users' permission", "ERROR", error.message,req);
+
+        create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }
 });
@@ -300,21 +306,21 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     // code block
     // 1. db_operation: select all query
+    let request_key = uuid();
     u_groupModel.findAll().then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
-            create_log("list usergroups", "WARN", `No data found in users table`,req);
-            res.send(
-                { status: responseList.error.error_no_data }
-            );
+            create_log("list usergroups", log.log_level.warn, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
+            return;
         }
         // send the response.
-        create_log("list usergroups", "INFO", `Success retrieving user data`,req);
-        res.send({ data: data, status: responseList.success });
+        create_log("list usergroups", log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req)
+        res.send({ data: data, status: responseList.success.sucess_data.message, code: responseList.success.sucess_data.code });
         //end
     }).catch((error) => {
-        create_log("list usergroups", "ERROR", error.message,req);
-        res.send(error.message)
+        create_log("list usergroups", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
 
     });
 });

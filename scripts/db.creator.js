@@ -1,4 +1,3 @@
-const { tokenModel } = require('../models/token.model')
 // iot models.
 const { communicationModel } = require('../models/communication.iot.model')
 const { locationModel } = require('../models/location.iot.model')
@@ -6,13 +5,13 @@ const { mqtt_userModel } = require('../models/mqttUser.iot.model')
 const { sensor_communicationModel } = require('../models/sensorCommunication.iot.model')
 const { sensor_groupModel } = require('../models/sensorGroup.iot.model')
 const { sensorModel } = require('../models/sensor.iot.model')
-const { groupModel } = require('../models/group.iot.model')
+const { s_groupModel } = require('../models/s_group.iot.model')
 const { userModel } = require('../models/user.iot.model')
-const { usergroupModel } = require('../models/usergroup.iot.model')
+const { u_groupModel } = require('../models/u_group.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
-const { users_groupsModel } = require('../models/users_groups.iot.model')
-
+const { user_groupModel } = require('../models/userGroup.iot.model')
+const { SensorTypeModel } = require('../models/sensortype.iot.model')
 
 // end of Model
 
@@ -28,15 +27,15 @@ function createSchema() {
 
             // logModel.sync({ force: true })
             // mqtt_userModel.sync({ force: true });
-            //userModel.sync();
-            // sessionModel.sync();
+            //SensorTypeModel.sync();
+            //u_groupModel.sync();
 
             // sensorModel.create({
             //     ap_name:"sensor 2",
 
             // })
 
-            sequelize.sync({ force: true });
+            sequelize.sync({});
             /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                  console.log(data);
              });*/

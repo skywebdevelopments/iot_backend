@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({
 
 //Google login and login
 app.use(passport.initialize());
-app.use('/api/v1/googleusers',GoogleRouter);
+app.use('/auth',GoogleRouter);
 app.use('/api/v1/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));

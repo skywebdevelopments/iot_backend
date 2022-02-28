@@ -7,12 +7,12 @@ var authenticate = require('../auth/authentication_JWT');
 var secret = require('../config/sercret.json');
 var responseList = require('../config/response.code.json');
 var cryptojs = require('crypto-js');
+let { log } = require('../logger/app.logger')
 
 //middleware
 let { create_log } = require('../middleware/logger.middleware')
 
 //database models
-let { log } = require('../logger/app.logger')
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');

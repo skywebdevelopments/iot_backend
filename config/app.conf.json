@@ -8,6 +8,13 @@
             "log_path": "./log/",
             "enable_file_log": true,
             "log_level": "trace"
+        },
+        "log_level": {
+            "trace": "TRACE",
+            "info": "INFO",
+            "warn": "WARN",
+            "error": "ERROR"
         }
+
     }
 }

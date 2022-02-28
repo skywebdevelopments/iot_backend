@@ -184,7 +184,7 @@ router.post('/create', (req, res) => {
 
                 }).then((data) => {
                     // 2. return data in a response.
-                    create_log("create user", log.log_level.trace, responseList.trace.excuting_query, log.req_type.inbound, request_key, 0)
+                    create_log("create user", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, 0)
                     if (!data || data.length === 0) {
 
                         create_log("create user", log.log_level.error, responseList.error.error_no_data_created.message, log.req_type.inbound, request_key, 0)

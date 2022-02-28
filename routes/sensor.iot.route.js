@@ -200,9 +200,7 @@ function validation(req) {
     let sensor_type = req.body['sensortypeId'];
     if (typeof sensor_type === "undefined" || sensor_type === "null" || sensor_type.length < 1 || typeof sensor_type !== "number") {
         fault_inputs.push('sensor_type');
-        console.log("============================")
-        console.log(sensor_type)
-        console.log("============================")
+
     }
 
 
@@ -685,6 +683,29 @@ router.get('/sensortype', function (req, res, next) {
 
     });
 });
+
+router.post('/sensortype/create', authenticate.authenticateUser, function (req, res, next) {
+    let request_key = uuid();
+                SensorTypeModel.create(req.body).then((data) => 
+                {
+                    // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+                    // 2. return data in a response.
+                    log.trace(`${request_key} - inbound request - executing the create query`);
+                    if (!data || data.length === 0) {
+                        res.send(
+                            { status: responseList.error.error_no_data }
+                        );
+                    };
+                    // send the response.
+                    log.trace(`${request_key} - inbound request - send a response`);
+                    res.send({ data: data, status: responseList.success });
+                    //end
+                }).catch((error) => {
+                    log.trace(`${request_key} - ERROR - inbound request - ${error}`);
+                    res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
+                });
+            });
+
 
 
 router.get('/Group-sensor', authenticate.authenticateUser, function (req, res, next) {

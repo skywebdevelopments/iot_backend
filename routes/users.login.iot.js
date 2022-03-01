@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let { uuid } = require('uuidv4');
-
+let { Op } = require("sequelize");
 //configs
 var authenticate = require('../auth/authentication_JWT');
 var secret = require('../config/sercret.json');
@@ -16,7 +16,7 @@ let { create_log } = require('../middleware/logger.middleware')
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
-let { user_groupModel} = require('../models/userGroup.iot.model');
+let { user_groupModel } = require('../models/userGroup.iot.model');
 
 /*
 POST /api/v1/users/token
@@ -70,7 +70,7 @@ router.post('/token', (req, res) => {
             as: 'u_groups'
         }]
     }).then((user) => {
-      
+
         if (!user) {
             create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, log.req_type.inbound, request_key, 0)
             res.send({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
@@ -230,9 +230,9 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
     userModel.findAll({
         attributes: ['id', 'username', 'email']
         , include: [{
-             model: u_groupModel,
+            model: u_groupModel,
             as: 'u_groups'
-         }]
+        }]
     }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
@@ -252,8 +252,9 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
 
 
 // TODO -- later untill checked with logic
+// error in cannot set header after sent??
 
-// Update a user roles
+// Update user's userGroup 
 // Put /api/v1/users/updaterole
 // update a user's role by userid
 
@@ -270,7 +271,106 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
             return;
         }
-    // update the record 
+        // update the record 
+
+        userModel.findOne({
+            where: {
+                id: user_id
+            },
+            include: [{
+                model: u_groupModel,
+                as: "u_groups",
+                attributes: ["groupname", "id"]
+            }]
+        }).then((user) => {
+            //  Check if user is found
+            if (!user || user.length === 0) {
+                create_log("update users' permission", log.log_level.error, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
+                res.send({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
+                return;
+            }
+            else {
+
+                //check for newly added permissions
+                for (let permission of permissions) {
+
+                    //find new user permissions added to a user
+                    //if undefiend add permission to user
+                    let found = user['u_groups'].find((elem) => {
+                        return (elem['groupname'] === permission)
+                    })
+
+                    if (found === undefined) {
+
+                        //find new add permission in u_group table
+                        //add found permission (groupname) to user 
+                        u_groupModel.findOne({
+                            where: {
+                                groupname: permission
+                            }
+                        }).then((u_group) => {
+                            //check if groupname exists
+                            if (!u_group) {
+                                create_log("update users' permission", log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
+                                res.send({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code });
+                                return;
+                            }
+                            else {
+                                user.addU_groups(u_group.id)
+                                //log
+                                create_log("update users' permission", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.outbound, request_key, req)
+                            }
+                        }).catch(error => {
+
+                            //log
+                            create_log("update users' permission", log.log_level.error, error.message, log.req_type.outbound, request_key, req)
+                            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+                        })
+                    }
+
+                }
+
+                //check if user has existing permissions
+                if (user['u_groups']) {
+
+                    //iterate through user's existing permissions
+                    for (let u_group of user['u_groups']) {
+
+                        //if false delete " u_group['groupname'] " from user's existing permissions
+                        let found = permissions.includes(u_group['groupname'])
+
+                        if (!found) {
+                            user_groupModel.destroy({
+                                where: {
+                                    [Op.and]: [
+                                        { uGroupId: u_group['id'] },
+                                        { userId: user_id }
+                                    ]
+                                }
+                            }).then((data) => {
+                                //success removing permission
+                                create_log("update users' permission", log.log_level.info, responseList.success.success_deleting_data.message, log.req_type.outbound, request_key, req)
+
+                            }).catch(error => {
+                                create_log("update users' permission", log.log_level.error, error.message, log.req_type.outbound, request_key, req)
+                                res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+                                return;
+                            })
+                        }
+
+                    }
+                }
+
+                // send the response.
+                // create_log("update users' permission", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
+                res.send({ user: user, status: responseList.success.success_updating_data.message, code: responseList.success.code });
+                //end
+            }
+        }).catch(error => {
+            create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+        })
+
         /*userModel.update(
             { roles: permissions },
             { where: { id: user_id } }
@@ -293,6 +393,7 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
             create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
         });*/
+
     } catch (error) {
         create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })

@@ -25,11 +25,10 @@ Parameters:email and password of a user
 router.post('/token', (req, res) => {
     let request_key = uuid();
     const { email, password } = req.body;
-
     // 1.validation : check if the req has a body
     if (!req.body || req.body === undefined || !req.body['password'] || !req.body['email']) {
         create_log("login", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
-        res.send({ status: responseList.error.error_missing_payload.code, message: responseList.error.error_missing_payload.message })
+        res.send({ code: responseList.error.error_missing_payload.code, status: responseList.error.error_missing_payload.message })
         return;
     }
 
@@ -260,7 +259,7 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
 router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     try {
         // code bloc
-
+        let request_key = uuid();
         let user_id = req.body['userid']
         let permissions = req.body['permissions']
 

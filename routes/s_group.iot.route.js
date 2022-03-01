@@ -285,7 +285,7 @@ router.post('/sensormap', authenticate.authenticateUser, authenticate.UserRoles(
 
 
 // Update a Group
-// Post / api / v1 / s_group / update
+// Put / api / v1 / s_group / update
 // update a sensors’ group by rec_id
 
 router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_group:update"]), function (req, res, next) {
@@ -319,7 +319,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
             return;
         }
         // 3.validation: groupname and active both aren't an empty value
-        if (group_name === undefined && active === undefined) {
+        if (group_name === undefined && active === undefined ) {
             create_log("update sensor group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
 
             res.send({
@@ -374,9 +374,9 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
                     create_log("update sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
                     //update sensors under group
                     if (req.body['active'] === false) {
-                        update_sensor(req.body['id'], false, req);
+                        update_sensor(rec_id, false, req,res);
                     } else {
-                        update_sensor(req.body['id'], true, req);
+                        update_sensor(rec_id, true, req,res);
                     }
                     //
                     res.send({
@@ -406,7 +406,7 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_
 
 
 // Delete a Group
-// Delete / api / v1 / s_group / delete
+// post / api / v1 / s_group / delete
 // Delete a sensors’ group by rec_id
 
 router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s_group:delete"]), function (req, res, next) {
@@ -414,7 +414,6 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
     try {
         // code block
         let rec_id = req.body['rec_id']
-        console.log(rec_id)
         // 1.validation: rec_id is uuid v4
 
         if (!isUuid(rec_id)) {
@@ -438,10 +437,8 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
         }
 
         //update sensor active to false under group deleted
-        update_sensor(req.body['id'], false);
-
+        update_sensor(rec_id, false, req,res);
         // update the record 
-
         s_groupModel.destroy(
             {
                 where: {
@@ -502,9 +499,11 @@ router.get('/sensors', authenticate.authenticateUser, function (req, res, next) 
                 { code: responseList.error.error_no_data.code, status: responseList.error.error_no_data.message }
             );
         }
+        else{
         create_log("list group's sensors", log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req)
         // send the response.
         res.send({ data: data, code: responseList.success.code, status: responseList.success.sucess_data.message });
+        }
     }).catch((error) => {
         create_log("list group's sensors", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({  code: responseList.error.error_general.code, status: responseList.error.error_general.message })

@@ -16,6 +16,7 @@ let { create_log } = require('../middleware/logger.middleware')
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
+let { user_groupModel} = require('../models/userGroup.iot.model');
 
 /*
 POST /api/v1/users/token
@@ -25,11 +26,10 @@ Parameters:email and password of a user
 router.post('/token', (req, res) => {
     let request_key = uuid();
     const { email, password } = req.body;
-
     // 1.validation : check if the req has a body
     if (!req.body || req.body === undefined || !req.body['password'] || !req.body['email']) {
         create_log("login", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
-        res.send({ status: responseList.error.error_missing_payload.code, message: responseList.error.error_missing_payload.message })
+        res.send({ code: responseList.error.error_missing_payload.code, status: responseList.error.error_missing_payload.message })
         return;
     }
 
@@ -64,11 +64,11 @@ router.post('/token', (req, res) => {
         where: {
             email: email,
             password: hashInBase64
-        }/*,
+        },
         include: [{
             model: u_groupModel,
-            as: 'usergroup'
-        }]*/
+            as: 'u_groups'
+        }]
     }).then((user) => {
       
         if (!user) {
@@ -228,11 +228,11 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
     // 1. db_operation: select all query
     let request_key = uuid();
     userModel.findAll({
-        attributes: ['id', 'username', 'email', 'roles']
-        //, include: [{
-        //     model: u_groupModel,
-        //     as: 'usergroup'
-        // }]
+        attributes: ['id', 'username', 'email']
+        , include: [{
+             model: u_groupModel,
+            as: 'u_groups'
+         }]
     }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
@@ -260,7 +260,7 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
 router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res, next) {
     try {
         // code bloc
-
+        let request_key = uuid();
         let user_id = req.body['userid']
         let permissions = req.body['permissions']
 
@@ -270,9 +270,8 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
             return;
         }
-
-        // update the record 
-        userModel.update(
+    // update the record 
+        /*userModel.update(
             { roles: permissions },
             { where: { id: user_id } }
         ).then((data) => {
@@ -293,9 +292,8 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 
             create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
+        });*/
     } catch (error) {
-
         create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }

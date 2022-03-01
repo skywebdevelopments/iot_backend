@@ -627,7 +627,139 @@ router.post('/sensortype/create', authenticate.authenticateUser, function (req, 
 
 
 
+// Delete a sensor stype
+// Delete / api / v1 /  sensor / sensortype / delete
+// Delete a sensors type profile by rec_id
 
+router.post('/sensortype/delete', authenticate.authenticateUser, function (req, res, next) {
+    let request_key = uuid();
+    try {
+        // code bloc
+
+        let rec_id = req.body['rec_id']
+
+        // 1.validation: rec_id is uuid v4
+
+        if (!isUuid(rec_id)) {
+
+            create_log("delete sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
+            res.send({
+                status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`,
+                message: responseList.error.error_invalid_payload.code
+            });
+            return;
+        }
+
+        // 2.validation: rec_id isn't an empty value
+        if (rec_id.length == 0) {
+            create_log("delete sensor type", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_missing_payload.message, message: responseList.error.error_missing_payload.code });
+            return;
+        }
+
+        // update the record 
+        SensorTypeModel.destroy(
+            {
+                where: {
+                    rec_id: {
+                        [Op.eq]: rec_id
+                    }
+                },
+            }
+
+        ).then((data) => {
+            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
+            // 2. return data in a response.
+            create_log("delete sensor type", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
+            if (!data || data.length === 0 || data[0] == 0) {
+                create_log("delete sensor type", log.log_level.error, responseList.error.error_no_data_delete.message, log.req_type.inbound, request_key, req);
+                res.send({ status: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code });
+            };
+            // send the response.
+            create_log("delete sensor type", log.log_level.info, responseList.success.success_deleting_data.message, log.req_type.inbound, request_key, req);
+            res.send({ data: data, status: responseList.success.success_deleting_data.message, code: responseList.success.success_deleting_data.code });
+
+            //end
+        }).catch((error) => {
+
+            create_log("delete sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
+            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+        });
+
+    } catch (error) {
+        create_log("delete sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+    }
+});
+
+
+// Update a sensor type profile
+// Post / api / v1 / sensor / sensortype / update
+// update a sensor type profile by rec_id
+
+router.put('/sensortype/update', authenticate.authenticateUser, function (req, res, next) {
+    let request_key = uuid();
+    try {
+        // code bloc
+
+        let rec_id = req.body['rec_id']
+        // 1.validation: rec_id is uuid v4
+
+        if (!isUuid(rec_id)) {
+            create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
+            res.send({
+                status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`,
+                code: responseList.error.error_invalid_payload.code
+            });
+            return;
+        }
+
+        // 2.validation: rec_id isn't an empty value
+        if (rec_id.length == 0) {
+            create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req);
+            res.send({
+                status: responseList.error.error_missing_payload.message,
+                code: responseList.error.error_missing_payload.code
+            });
+            return;
+        }
+
+        // update the record 
+
+        SensorTypeModel.update(req.body,
+            {
+                where: {
+                    rec_id: {
+                        [Op.eq]: rec_id
+                    }
+                },
+            }
+
+        ).then((data) => {
+            
+            // 2. return data in a response.
+            create_log("update sensor type", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
+
+            if (!data || data.length === 0 || data[0] === 0) {
+                create_log("update sensor type", log.log_level.error, responseList.error.error_no_data_updated, log.req_type.inbound, request_key, req);
+                res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
+            };
+            // send the response.
+            create_log("update sensor type", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req);
+            res.send({ data: data, status: responseList.success.success_updating_data.message, code: responseList.success.success_updating_data.code });
+
+            //end
+        }).catch((error) => {
+
+            create_log("update sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
+            res.send({ status: responseList.error.error_general.message, message: responseList.error.error_general.code });
+        });
+    } catch (error) {
+
+        create_log("update sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+    }
+});
 
 
 

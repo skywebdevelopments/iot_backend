@@ -30,12 +30,12 @@ function resolve_sensor_id(req, res, next) {
 
 }
 
-function update_sensor(group_id, active,req) {
+function update_sensor(rec_group_id, active,req,res) {
     let request_key = uuid();
     s_groupModel.findOne(
         {
             where: {
-                id: group_id
+                rec_id: rec_group_id
             },
             include: [{
                 model: sensorModel,
@@ -56,7 +56,7 @@ function update_sensor(group_id, active,req) {
 
                 ).then((data) => {
                     //null for req
-                    create_log('executing the update query', log.log_level.trace,responseList.trace.excuting_query.message,log.req_type.inbound,request_key,req)
+                    create_log('executing the update query', log.log_level.trace,responseList.trace.executing_query.message,log.req_type.inbound,request_key,req)
                     if (!data || data.length === 0 || data[0] === 0) {
                         create_log("update sensor", log.log_level.error,responseList.error.error_no_data,log.req_type.inbound,request_key,req)
                          res.send(
@@ -65,7 +65,6 @@ function update_sensor(group_id, active,req) {
                     };
                     // send the response.
                     create_log("update sensor", log.log_level.info,responseList.success.sucess_data.message,log.req_type.inbound,request_key,req)
-                    res.send({ data: data, code: responseList.success.code,status:responseList.success.sucess_data.message });
 
                     //end
                 }).catch((error) => {

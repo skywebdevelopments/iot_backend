@@ -17,6 +17,7 @@ var indexRouter = require('./routes/index');
 // routes for the iot
 var s_groupRoute = require('./routes/s_group.iot.route')
 var sensorRoute = require('./routes/sensor.iot.route')
+var mqttRoute = require('./routes/mqttuser.iot.route')
 
 var logRoute = require('./routes/logs.iot')
 
@@ -58,6 +59,7 @@ app.use('/api/v1/', indexRouter);
 // routes/microservices for the iot 
 app.use('/api/v1/s_group', s_groupRoute);
 app.use('/api/v1/sensor', sensorRoute);
+app.use('/api/v1/mqttuser', mqttRoute);
 app.use('/api/v1/logs', logRoute);
 
 

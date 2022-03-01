@@ -78,7 +78,6 @@ router.post('/token', (req, res) => {
         }
 
         var token = authenticate.getToken(user); //create token using id and you can add other inf
-        console.log(user);
         sessionModel.findOne({
             where: {
                 userId: user.id,
@@ -210,7 +209,8 @@ router.post('/create', (req, res) => {
 
         }).catch(err => {
             create_log("create user", log.log_level.error, err.message, log.req_type.inbound, request_key, 0)
-            console.log(err);
+            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+
         })
 
 

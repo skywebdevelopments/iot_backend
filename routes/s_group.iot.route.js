@@ -122,7 +122,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group
     }
 });
 
-// Create a Group
+// Create a Sensor Group
 // Post / api / v1 / s_group / create
 // Create a sensors’ group 
 

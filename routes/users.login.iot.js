@@ -16,6 +16,7 @@ let { create_log } = require('../middleware/logger.middleware')
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
+let { user_groupModel} = require('../models/userGroup.iot.model');
 
 /*
 POST /api/v1/users/token
@@ -63,11 +64,11 @@ router.post('/token', (req, res) => {
         where: {
             email: email,
             password: hashInBase64
-        }/*,
+        },
         include: [{
             model: u_groupModel,
-            as: 'usergroup'
-        }]*/
+            as: 'u_groups'
+        }]
     }).then((user) => {
       
         if (!user) {
@@ -227,11 +228,11 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
     // 1. db_operation: select all query
     let request_key = uuid();
     userModel.findAll({
-        attributes: ['id', 'username', 'email', 'roles']
-        //, include: [{
-        //     model: u_groupModel,
-        //     as: 'usergroup'
-        // }]
+        attributes: ['id', 'username', 'email']
+        , include: [{
+             model: u_groupModel,
+            as: 'u_groups'
+         }]
     }).then((data) => {
         // 2. return data in a response.
         if (!data || data.length === 0) {
@@ -269,9 +270,8 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
             return;
         }
-
-        // update the record 
-        userModel.update(
+    // update the record 
+        /*userModel.update(
             { roles: permissions },
             { where: { id: user_id } }
         ).then((data) => {
@@ -292,9 +292,8 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 
             create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message });
-        });
+        });*/
     } catch (error) {
-
         create_log("update users' permission", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({ status: responseList.error.error_general.code, message: responseList.error.error_general.message })
     }

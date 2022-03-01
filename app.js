@@ -11,7 +11,8 @@ const GoogleRouter=require("./routes/google.user.iot")
 
 //UserLogin
 var usersRouter = require('./routes/users.login.iot');
-
+//usersgroups
+var u_groupRoute = require('./routes/u_group.iot.route');
 var cors = require('cors')
 var indexRouter = require('./routes/index');
 // routes for the iot
@@ -50,6 +51,7 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize());
 app.use('/auth',GoogleRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/u_group', u_groupRoute);
 
 app.use(express.static(path.join(__dirname, 'public')));
 // model routes

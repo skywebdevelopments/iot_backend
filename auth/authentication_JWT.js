@@ -14,22 +14,21 @@ var responseList = require('../config/response.code.json')
 exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
-    const roles = user.roles;
-    // const usergroup = user['usergroup'];
-    // const roles = new Set();
-    // console.log(usergroup)
-    // for(var userProfile of usergroup){
-    //     for(var role of userProfile['roles']){
-    //         roles.add(role);
-    //     }
-    // }
+    //const roles = user.roles;
+    const usergroup = user['u_groups'];
+    const roles = new Set();
+    for (var userProfile of usergroup) {
+        for (var role of userProfile['roles']) {
+            roles.add(role);
+        }
+    }
 
     const expiresIn = "1d";
     const payload = {
         id: id,
         name: name,
-        // roles: Array.from(roles),
-        roles: roles,
+        roles: Array.from(roles),
+        //roles: roles,
         iat: Date.now(),
     };
 

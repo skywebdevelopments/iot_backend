@@ -1,0 +1,24 @@
+[2022-03-01T13:31:00.913] [INFO] app - 5aeb1660-f6a1-4386-a35d-446ba53a286d - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:31:50.847] [INFO] app - 5463aed3-9915-4b8c-8227-b912e60c1ba3 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:32:01.132] [INFO] app - 7be18738-811a-4d2e-8599-c5f2aec1d818 - INFO - inbound request - login - Logged in Successfully - 1
+[2022-03-01T13:32:03.053] [INFO] app - 7331c12b-3d16-4b60-923a-bebb092ab5b5 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:32:05.558] [INFO] app - 8fa4ae31-605a-4f1c-a566-1781d94b943b - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:32:05.610] [INFO] app - 6938caaa-1bd3-4826-ae82-92149932cdb0 - INFO - inbound request - list mqtt_user - Success retrieving  data - 1
+[2022-03-01T13:32:05.628] [INFO] app - e7723157-a84d-4d98-a229-9fdc805930dd - INFO - inbound request - list sensor - Success retrieving  data - 1
+[2022-03-01T13:34:44.949] [INFO] app - d9237662-c213-46f1-8b11-3015c5753d03 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:34:47.096] [INFO] app - 54edf51f-09a2-45c1-a457-9303c4d83a1d - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:34:47.121] [INFO] app - 7a875db9-07ae-4be7-9dea-4a790b954a03 - INFO - inbound request - list mqtt_user - Success retrieving  data - 1
+[2022-03-01T13:34:48.016] [INFO] app - 7592c6d8-cb32-44c1-9f9d-903454d34a8e - INFO - inbound request - list users - Success retrieving  data - 1
+[2022-03-01T13:34:50.043] [INFO] app - d81b37b7-90ed-4d5a-9f5d-ccd23027e231 - INFO - inbound request - list mqtt_user - Success retrieving  data - 1
+[2022-03-01T13:34:50.095] [INFO] app - b8c26ab9-50b7-4eb2-b393-0cbd61d65662 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:34:50.112] [INFO] app - a0f9b2b2-3201-42f2-a343-47a0c4784e31 - INFO - inbound request - list sensor - Success retrieving  data - 1
+[2022-03-01T13:34:53.418] [INFO] app - 30777982-411f-487a-9f8a-c000cbef2f36 - INFO - inbound request - list group's sensors - Success retrieving  data - 1
+[2022-03-01T13:34:54.405] [INFO] app - 75ca0087-dd09-4ba6-95bc-754d4cf065cd - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-01T13:34:55.525] [INFO] app - c72280fa-0f36-4b12-81b9-9c707f0c2e15 - INFO - inbound request - list group's sensors - Success retrieving  data - 1
+[2022-03-01T13:35:45.771] [INFO] app - ee822d97-d446-4d47-98d3-8a00c12a4c4d - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:35:58.338] [INFO] app - 773b9e57-6170-41ce-b6b4-780a326b6998 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:36:17.638] [INFO] app - 10b9f257-9ed4-4c67-98e0-b403007f2f68 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:36:20.175] [INFO] app - 7a4039ed-ce8f-4df1-a6c5-58e12aa0d3ed - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:36:22.985] [INFO] app - a379395e-49d5-4b89-bd0a-a64d1f5800f2 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:38:06.144] [INFO] app - 47708feb-c9bf-4647-8663-1c72819d6626 - INFO - inbound request - list sensor_type - Success retrieving  data - 1
+[2022-03-01T13:42:39.654] [INFO] app - 6a77c89d-c725-479d-9a6f-7c19da06e9a6 - INFO - inbound request - list sensor - Success retrieving  data - 1

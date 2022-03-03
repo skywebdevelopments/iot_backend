@@ -25,10 +25,10 @@ function create_log(operation, log_level, log_message, req_type, uuid, req) {
 
 
     let user_id = get_user_id(req);
-    if(user_id === -1){
+    if (user_id === -1) {
         user_id = req
     }
-    
+
     if (logger.log.database.enable_database_log === true) {
 
         if (log.isTraceEnabled()) {
@@ -75,7 +75,7 @@ function create_log(operation, log_level, log_message, req_type, uuid, req) {
 function get_user_id(req) {
     var token = null;
 
-    if (req.headers && req.headers['authorization']) {
+    if (req !== undefined || req.headers && req.headers['authorization']) {
 
         var header_token = req.headers['authorization'].split(' ');
 

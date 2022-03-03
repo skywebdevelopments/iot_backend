@@ -24,7 +24,7 @@ function createSchema() {
             // console.log("=> please make sure to create the database before executing this script...");
             // to create the db/
 
-           // sensorModel.sync({ force: true })
+        //    sensorModel.sync({ force: true })
             // mqtt_userModel.sync({ force: true });
             //SensorTypeModel.sync();
             //u_groupModel.sync();
@@ -34,7 +34,7 @@ function createSchema() {
 
             // })
 
-            sequelize.sync({});
+           // sequelize.sync({});
             /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                  console.log(data);
              });*/

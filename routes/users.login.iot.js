@@ -133,7 +133,7 @@ router.post('/create', body('email').isEmail(), body('password').isStrongPasswor
             return;
         }
 
-        // validation : check if the req has a body
+        // 1.validation : check if the req has a body
         if (!req.body || req.body === undefined || !req.body['username'] || !req.body['password'] || !req.body['email']) {
             create_log("create user", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
@@ -149,7 +149,6 @@ router.post('/create', body('email').isEmail(), body('password').isStrongPasswor
     }
 
 });
-
 
 
 // GET /api/v1/users
@@ -193,8 +192,20 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
             return;
         }
 
+        // 3.validation : check if permissions array has valid strings
+        let getusergroup_promises = [];
+        for (let permission of permissions) {
+            //compare permissions in body with u_group groupnames
+            getusergroup_promises.push(userControl.get_usergroup(req, res, permission))
+        }
+        Promise.all(getusergroup_promises).then(() => {
+            userControl.update_permission(req, res);
 
-        userControl.update_permission(req, res);
+        }).catch((error) => {
+            create_log("update users' permission", log.log_level.error, error.message, request_key, req)
+            res.send({ status: error.message, code: error.code })
+            return;
+        })
 
     } catch (error) {
         create_log("update users' permission", log.log_level.error, error.message, request_key, req)

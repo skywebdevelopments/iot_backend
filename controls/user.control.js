@@ -100,6 +100,31 @@ function getall_usergroups(req, res) {
     })
 }
 
+function get_usergroup(req, res, groupname) {
+    let request_key = uuid();
+    return new Promise((resolve, reject) => {
+
+        usermodel.getUsergroup(groupname)
+            .then((u_group) => {
+                //check if groupname is not found
+                if (!u_group || u_group.length === 0) {
+
+                    create_log("update users' permission", log.log_level.error, responseList.error.error_invalid_payload.message, request_key, req)
+                    reject(responseList.error.error_invalid_payload)
+                }
+                else {
+                    resolve(u_group[0])
+                }
+
+            }).catch(error => {
+                create_log("update users' permission", log.log_level.error, error.message, request_key, req)
+                error.code = responseList.error.error_general.code
+                reject(error);
+            })
+    })
+
+}
+
 function create_token(req, res) {
 
     const { email, password } = req.body;
@@ -130,29 +155,6 @@ function deleteall_permissions(req, res) {
     })
 }
 
-function get_usergroup(req, res, groupname) {
-    let request_key = uuid();
-    return new Promise((resolve, reject) => {
-
-        usermodel.getUsergroup(groupname)
-            .then((u_group) => {
-                //check if groupname is not found
-                if (!u_group || u_group.length === 0) {
-
-                    create_log("update users' permission", log.log_level.error, responseList.error.error_no_data.message, request_key, req)
-                    reject(responseList.error.error_no_data)
-                }
-                else {
-                    resolve(u_group[0])
-                }
-
-            }).catch(error => {
-                create_log("update users' permission", log.log_level.error, error.message, request_key, req)
-                reject(error);
-            })
-    })
-
-}
 function update_permission(req, res) {
     let request_key = uuid();
 
@@ -161,25 +163,18 @@ function update_permission(req, res) {
 
     return new Promise((resolve, reject) => {
 
+
         deleteall_permissions(req, res, user_id)
             .then(() => {
+
                 //check for newly added permissions and add them to user_group table
                 for (let permission of permissions) {
                     //find new added permission in u_group table
-                    get_usergroup(req, res, permission)
-                        .then((u_group) => {
-                            usermodel.addPermissions(user_id, u_group.id)
-                        }).catch(error => {
-                            console.log('====================================');
-                            console.log(error.message);
-                            console.log('====================================');
-
-                            res.send({ status: error.message, code: responseList.error.error_general.code })
-                            reject(error);
-                        })
+                    get_usergroup(req, res, permission).then((u_group) => {
+                        usermodel.addPermissions(user_id, u_group.id)
+                    })
                 }
 
-            }).then(() => {
                 create_log("update users' permission", log.log_level.info, responseList.success.success_updating_data.message, request_key, req)
                 res.send({ status: responseList.success.success_updating_data.message, code: responseList.success.code });
                 resolve();
@@ -202,5 +197,6 @@ module.exports = {
     create_token,
     getall_users,
     getall_usergroups,
-    update_permission
+    update_permission,
+    get_usergroup
 }

@@ -1,0 +1,41 @@
+[2022-03-03T00:21:11.561] [TRACE] app - ff7146ef-5f7d-49b9-9cfc-c9173d2d4d62 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:21:11.567] [ERROR] app - ff7146ef-5f7d-49b9-9cfc-c9173d2d4d62 - ERROR - inbound request - list sensor group with ID - s_group is not defined - 4
+[2022-03-03T00:28:26.706] [TRACE] app - 2b9deb48-66c5-4a28-aecb-bda35d37e854 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:28:26.717] [ERROR] app - 2b9deb48-66c5-4a28-aecb-bda35d37e854 - ERROR - inbound request - list sensor group with ID - this.on(...).where is not a function - 4
+[2022-03-03T00:29:51.933] [TRACE] app - 4f1a60f4-8707-48bc-94df-da94237f3a0b - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:29:52.070] [TRACE] app - 4f1a60f4-8707-48bc-94df-da94237f3a0b - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:29:52.072] [INFO] app - 4f1a60f4-8707-48bc-94df-da94237f3a0b - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:30:28.856] [TRACE] app - fa6dedd5-66fa-40af-87d6-0aea79c398bf - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:30:28.985] [TRACE] app - fa6dedd5-66fa-40af-87d6-0aea79c398bf - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:30:28.986] [INFO] app - fa6dedd5-66fa-40af-87d6-0aea79c398bf - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:31:22.714] [TRACE] app - 5de5c297-dbc4-4e16-9aa8-0adaee00cd1b - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:31:22.940] [TRACE] app - 5de5c297-dbc4-4e16-9aa8-0adaee00cd1b - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:31:22.943] [INFO] app - 5de5c297-dbc4-4e16-9aa8-0adaee00cd1b - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:31:44.599] [TRACE] app - b590a87b-0603-41ba-a083-ffaab4934f4e - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:31:44.777] [TRACE] app - b590a87b-0603-41ba-a083-ffaab4934f4e - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:31:44.781] [INFO] app - b590a87b-0603-41ba-a083-ffaab4934f4e - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:32:07.622] [TRACE] app - cc047597-efdb-4b44-9369-fd3fde04e35a - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:32:07.773] [TRACE] app - cc047597-efdb-4b44-9369-fd3fde04e35a - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:32:07.776] [INFO] app - cc047597-efdb-4b44-9369-fd3fde04e35a - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:32:44.155] [TRACE] app - aa210800-dc50-410d-a19c-4189b1813fc4 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:32:44.305] [TRACE] app - aa210800-dc50-410d-a19c-4189b1813fc4 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:32:44.306] [INFO] app - aa210800-dc50-410d-a19c-4189b1813fc4 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:33:15.924] [TRACE] app - 3c9fd639-34b4-48e1-8ce0-92f84f67c871 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:33:16.061] [TRACE] app - 3c9fd639-34b4-48e1-8ce0-92f84f67c871 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:33:16.064] [INFO] app - 3c9fd639-34b4-48e1-8ce0-92f84f67c871 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:33:29.822] [TRACE] app - d78c47e3-99d9-4b7e-8d57-8d8df305de61 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:33:29.851] [TRACE] app - d78c47e3-99d9-4b7e-8d57-8d8df305de61 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:33:29.856] [INFO] app - d78c47e3-99d9-4b7e-8d57-8d8df305de61 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:33:40.677] [TRACE] app - 4d9f0b84-dc92-4d4e-8563-d5092fbcf93c - TRACE - inbound request - query for sensor group with 5 - Data is executing - 4
+[2022-03-03T00:33:40.696] [TRACE] app - 4d9f0b84-dc92-4d4e-8563-d5092fbcf93c - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:38:07.078] [TRACE] app - 33ae5ca9-bbcd-4e25-8f17-5806fa282cc9 - TRACE - inbound request - query for sensor group with 525 - Data is executing - 4
+[2022-03-03T00:38:07.083] [ERROR] app - 33ae5ca9-bbcd-4e25-8f17-5806fa282cc9 - ERROR - inbound request - list sensor group with ID - Cannot read properties of undefined (reading 'then') - 4
+[2022-03-03T00:40:55.989] [TRACE] app - f95f9b1d-200d-4f1f-920f-44deb0bd5323 - TRACE - inbound request - query for sensor group with 525 - Data is executing - 4
+[2022-03-03T00:40:56.122] [TRACE] app - f95f9b1d-200d-4f1f-920f-44deb0bd5323 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:40:56.124] [INFO] app - f95f9b1d-200d-4f1f-920f-44deb0bd5323 - INFO - inbound request - list sensor group with ID - no data found - 4
+[2022-03-03T00:41:02.173] [TRACE] app - d261cadd-b6ed-4390-8580-cddfc834cdf6 - TRACE - inbound request - query for sensor group with 17 - Data is executing - 4
+[2022-03-03T00:41:02.197] [TRACE] app - d261cadd-b6ed-4390-8580-cddfc834cdf6 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:41:02.199] [INFO] app - d261cadd-b6ed-4390-8580-cddfc834cdf6 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-03T00:41:13.381] [TRACE] app - 3fdf650c-99b7-422a-82bb-10a128642729 - TRACE - inbound request - query for sensor group with 5 - Data is executing - 4
+[2022-03-03T00:41:13.400] [TRACE] app - 3fdf650c-99b7-422a-82bb-10a128642729 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-03T00:41:13.403] [INFO] app - 3fdf650c-99b7-422a-82bb-10a128642729 - INFO - inbound request - list sensor group with ID - no data found - 4

@@ -1,0 +1,29 @@
+[2022-03-03T12:15:10.403] [TRACE] app - 26b22814-db49-458a-90c8-f05be4b81974 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:15:10.404] [INFO] app - 26b22814-db49-458a-90c8-f05be4b81974 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-03T12:15:22.871] [TRACE] app - 5f5267ba-3219-4643-82aa-20cb2465cdf3 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:15:22.876] [INFO] app - 5f5267ba-3219-4643-82aa-20cb2465cdf3 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-03T12:15:43.997] [ERROR] app - 98528c2e-c646-4546-b7ac-50b93e3e59c0 - ERROR - inbound request - update sensor group - update "s_group" set "rec_id" = $1, "active" = $2, "name" = $3 where "s_group"."rec_id" = $4 - duplicate key value violates unique constraint "s_group_name_key" - 4
+[2022-03-03T12:42:00.495] [TRACE] app - 6fa52718-a95c-4a43-a18a-a90d11e44f81 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:42:00.498] [ERROR] app - 6fa52718-a95c-4a43-a18a-a90d11e44f81 - ERROR - inbound request - update sensor group - Cannot read properties of undefined (reading 'then') - 4
+[2022-03-03T12:44:30.597] [TRACE] app - 625e655a-d8f9-4eea-9fe3-2b8001f3ba2d - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:44:30.718] [ERROR] app - 625e655a-d8f9-4eea-9fe3-2b8001f3ba2d - ERROR - inbound request - update sensor group - update "s_group" set "rec_id" = $1, "active" = $2, "name" = $3 where "s_group"."rec_id" = $4 - duplicate key value violates unique constraint "s_group_name_key" - 4
+[2022-03-03T12:44:47.945] [ERROR] app - 78185b18-e436-4e88-b760-5b70da41dbb8 - ERROR - inbound request - update sensor group - request payload is invalid - 4
+[2022-03-03T12:46:44.256] [TRACE] app - 1f9908b4-ffe6-47ff-8678-edb2a6adb254 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:46:44.359] [ERROR] app - 1f9908b4-ffe6-47ff-8678-edb2a6adb254 - ERROR - inbound request - update sensor group - update "sensor" set "active" = $1 where "s_group"."rec_id" = $2 - missing FROM-clause entry for table "s_group" - 4
+[2022-03-03T12:47:09.788] [ERROR] app - 52022e6d-8490-41b2-8e1d-c8a007af2e32 - ERROR - inbound request - update sensor group - request payload is invalid - 4
+[2022-03-03T12:48:01.684] [TRACE] app - 483e21e4-7c29-429f-bd7a-0d006fa77dd2 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:48:37.930] [TRACE] app - 3ff39910-6d01-42ec-9637-e1cc2b48ad4d - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:49:50.392] [TRACE] app - 1f5e0a08-b4f8-4475-a5b0-04ea932a2029 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:49:50.483] [ERROR] app - 1f5e0a08-b4f8-4475-a5b0-04ea932a2029 - ERROR - inbound request - update sensor group - data is not defined - 4
+[2022-03-03T12:50:01.141] [TRACE] app - 6df13c25-3019-48ce-922b-276494987277 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:50:01.150] [ERROR] app - 6df13c25-3019-48ce-922b-276494987277 - ERROR - inbound request - update sensor group - update "s_group" set "rec_id" = $1, "active" = $2, "name" = $3 where "s_group"."rec_id" = $4 - duplicate key value violates unique constraint "s_group_name_key" - 4
+[2022-03-03T12:50:02.955] [TRACE] app - 6ad1c63e-632e-434f-b8bd-7e1a8d21d32e - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:50:02.966] [ERROR] app - 6ad1c63e-632e-434f-b8bd-7e1a8d21d32e - ERROR - inbound request - update sensor group - update "s_group" set "rec_id" = $1, "active" = $2, "name" = $3 where "s_group"."rec_id" = $4 - duplicate key value violates unique constraint "s_group_name_key" - 4
+[2022-03-03T12:50:39.264] [TRACE] app - fa487bd1-d37c-463d-b7f0-bc69f6231aae - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:50:39.271] [ERROR] app - fa487bd1-d37c-463d-b7f0-bc69f6231aae - ERROR - inbound request - update sensor group - update "s_group" set "rec_id" = $1, "active" = $2, "name" = $3 where "s_group"."rec_id" = $4 - duplicate key value violates unique constraint "s_group_name_key" - 4
+[2022-03-03T12:51:04.329] [TRACE] app - 9fe9087d-f07e-4667-8dca-3b16f39337e9 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:51:04.336] [ERROR] app - 9fe9087d-f07e-4667-8dca-3b16f39337e9 - ERROR - inbound request - update sensor group - data is not defined - 4
+[2022-03-03T12:52:03.837] [TRACE] app - 7db1fc0e-9767-4ecb-9b69-77563ea4cc22 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:52:03.951] [INFO] app - 7db1fc0e-9767-4ecb-9b69-77563ea4cc22 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-03T12:54:12.986] [TRACE] app - 41a47a09-695a-4328-b854-abbd6ff16723 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T12:54:13.018] [INFO] app - 41a47a09-695a-4328-b854-abbd6ff16723 - INFO - inbound request - update sensor group - Success updating new data - 4

@@ -3,13 +3,16 @@ let { create_log } = require('../middleware/logger.middleware');
 var responseList = require('../config/response.code.json')
 let { log } = require('../config/app.conf.json')
 
-function getAll_sgroups() {
-    return new Promise((resolve, reject) => {
-        resolve(s_groupmodel.getAll_sgroups()
-        );
-    }).catch((err) => {
-        reject(err)
-    });
+function getAll_sgroups(req, res, request_key) {
+    create_log('list sensor group', log.log_level.trace, responseList.trace.check_data_length.message, log.req_type.inbound, request_key, req)
+    s_groupmodel.getAll_sgroups().then(data => {
+
+        create_log('list sensor group', log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req)
+        res.send({ data: data, code: responseList.success.code, status: responseList.success.sucess_data.message });
+    }).catch((error) => {
+        create_log('list sensor group', log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+    })
 }
 
 
@@ -59,6 +62,11 @@ function create_sgroup(req, res, request_key) {
 function sensorMap_to_sgroup(req, res, request_key) {
     create_log('map sensor to group', log.log_level.trace, responseList.trace.check_data_length.message, log.req_type.inbound, request_key, req)
     s_groupmodel.sensorMap_to_sgroup(req).then(data => {
+        if (!data || data === 0) {
+            create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+            return;
+        }
         create_log("map sensor to group", log.log_level.info, responseList.success.message, log.req_type.inbound, request_key, req)
         res.send({
             code: responseList.success.code,
@@ -73,7 +81,12 @@ function sensorMap_to_sgroup(req, res, request_key) {
 function update_sgroup(req, res, request_key) {
     create_log("update sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
     s_groupmodel.update_sgroup(req).then(data => {
-        create_log("update sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)       
+        if (!data || data === 0) {
+            create_log("update sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+            return;
+        }
+        create_log("update sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
         res.send({
             status: responseList.success.message,
             code: responseList.success.code
@@ -87,8 +100,13 @@ function update_sgroup(req, res, request_key) {
 
 function delete_sgroup(req, res, request_key) {
     create_log("delete sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
-    s_groupmodel.delete_sgroup(req).then(() => {
-        create_log("delete sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)       
+    s_groupmodel.delete_sgroup(req).then((data) => {
+        if (!data || data === 0) {
+            create_log("delete sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+            res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
+            return;
+        }
+        create_log("delete sensor group", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req)
         res.send({
             status: responseList.success.message,
             code: responseList.success.code

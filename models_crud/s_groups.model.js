@@ -5,8 +5,8 @@ const { update_sensor } = require('../middleware/sensor.middleware');
 //get all s_groups include asscioated sensors 
 function getAll_sgroups() {
     return new Promise((resolve, reject) => {
-        db.knex('sensor_group').select('*')
-            .fullOuterJoin('s_group', function () {
+            db.knex('s_group').select('s_group','sensor')
+            .leftJoin('sensor_group', function () {
                 this.on('s_group.id', '=', 'sensor_group.sGroupId')
             })
             .leftJoin('sensor', function () {
@@ -129,8 +129,9 @@ function delete_sgroup(req) {
             if (update_sensor_active(req)==="true"){
             db.knex('s_group')
                 .where('s_group.rec_id', '=', req.body['rec_id'])
-                .del().then(() => {
-                    resolve();
+                .del().then((data) => {
+                    //console.log(data)
+                    resolve(data);
                 }
                 ).catch((err) => {
                     reject(err);

@@ -1,3 +1,11 @@
 [2022-03-03T16:02:37.351] [TRACE] app - 98006875-3cc0-47c9-b269-6382a9323e9b - TRACE - inbound request - update sensor group - Data is executing - 4
 [2022-03-03T16:02:37.537] [INFO] app - 98006875-3cc0-47c9-b269-6382a9323e9b - INFO - inbound request - update sensor group - Success updating new data - 4
 [2022-03-03T16:02:50.534] [ERROR] app - 6b60276c-3d57-4976-a39d-3a3e1a211c96 - ERROR - inbound request - update sensor group - request payload is missing - 4
+[2022-03-03T16:03:39.002] [ERROR] app - dcd019d3-97a5-402b-8326-fe97b52877ea - ERROR - inbound request - update sensor group - request payload is invalid - 4
+[2022-03-03T16:03:47.724] [TRACE] app - 1646e99f-0001-4559-b5ba-b5a9040a7c2d - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T16:03:47.892] [INFO] app - 1646e99f-0001-4559-b5ba-b5a9040a7c2d - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-03T16:06:19.179] [ERROR] app - 345352bb-2847-4af4-9a90-a050da8589e7 - ERROR - inbound request - update sensor group - request payload is invalid - 4
+[2022-03-03T16:06:30.072] [TRACE] app - 183eab93-1dc2-4277-b012-a469483bb0b4 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-03T16:06:30.103] [INFO] app - 183eab93-1dc2-4277-b012-a469483bb0b4 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-03T16:08:12.945] [ERROR] app - 9a230036-40c8-4b37-aaa1-bcb78b267271 - ERROR - inbound request - update sensor group - request payload is invalid - 4
+[2022-03-03T16:09:29.929] [ERROR] app - fafa4d4d-1ba2-4a9b-a7e2-b27ab07e2b96 - ERROR - inbound request - update sensor group - request payload is missing - 4

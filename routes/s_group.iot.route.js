@@ -1,23 +1,11 @@
 var express = require('express');
-var conf_sercet = require('../config/sercret.json')
 var responseList = require('../config/response.code.json')
-let { response, request } = require('express');
-let { Op, json } = require("sequelize");
 let { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
-var jwt = require("jsonwebtoken");
 const cryptojs = require('crypto-js');
-var secret = require('../config/sercret.json');
-let { update_sensor } = require('../middleware/sensor.middleware')
 const { body, validationResult } = require('express-validator');
-// models
-let { sensorModel } = require('../models/sensor.iot.model')
-const { s_groupModel } = require('../models/s_group.iot.model');
 var authenticate = require('../auth/authentication_JWT');
-let { logModel } = require('../models/logger.iot.model')
-// end
-var Sequelize = require('sequelize');
 let { create_log } = require('../middleware/logger.middleware');
 var control = require('../controls/s_groups.control')
 
@@ -27,25 +15,12 @@ var control = require('../controls/s_groups.control')
 // Return all sensors’ groups 
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["s_group:list"]), function (req, res, next) {
     let request_key = uuid();
-    // code block
-    // 1. db_operation: select all query
-    control.getAll_sgroups(req, res, request_key).then((data) => {
-        // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-        // 2. return data in a response.
-        /*if (!data || data.length === 0) {
-            create_log('list sensor group', log.log_level.warn, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
-            res.send(
-                { code: responseList.error.error_no_data.code, status: responseList.error.error_no_data.message }
-            );
-        }*/
-        create_log('list sensor group', log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req)
-        // send the response.
-        res.send({ data: data, code: responseList.success.code, status: responseList.success.sucess_data.message });
-        //end
-    }).catch((error) => {
+    try {
+        control.getAll_sgroups(req, res, request_key)
+    } catch (error) {
         create_log('list sensor group', log.log_level.error, error.message, log.req_type.inbound, request_key, req)
         res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
-    });
+    }
 });
 
 
@@ -82,6 +57,12 @@ router.post('/', body('groupId').isNumeric(), authenticate.authenticateUser, aut
 // Create a Sensor Group
 // Post / api / v1 / s_group / create
 // Create a sensors’ group 
+//// Parameters:
+//{
+//   "name": "group 2",
+//   "active": true
+//}
+
 router.post('/create', body('name').isString(), body('active').isBoolean(), authenticate.authenticateUser, authenticate.UserRoles(["s_group:create"]), function (req, res, next) {
     let request_key = uuid();
     try {
@@ -159,7 +140,7 @@ router.post('/sensormap', body('sensorId').isNumeric(), authenticate.authenticat
    "name": "group 2 - edited"
 }
 */
-router.put('/update', body('name').isString(), body('active').isBoolean(), authenticate.authenticateUser, authenticate.UserRoles(["s_group:update"]), function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["s_group:update"]), function (req, res, next) {
     let request_key = uuid();
     try {
         // code bloc
@@ -198,24 +179,15 @@ router.put('/update', body('name').isString(), body('active').isBoolean(), authe
 // post / api / v1 / s_group / delete
 // Delete a sensors’ group by rec_id
 /*{
-    "rec_id": "3c277450-4f02-4141-af3f-8e4e6436b2d0",
+    "rec_id": "3c277450-4f02-4141-af3f-8e4e6436b2d0"
  }
 */
 router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s_group:delete"]), function (req, res, next) {
     let request_key = uuid();
     try {
         let rec_id = req.body['rec_id']
-        // 1.validation: rec_id is uuid v4
-        if (!isUuid(rec_id)) {
-            create_log("delete sensor group", log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
-            res.send({
-                status: responseList.error.error_invalid_payload.message,
-                code: responseList.error.error_invalid_payload.code
-            });
-            return;
-        }
-        // 2.validation: rec_id isn't an empty value
-        if (rec_id.length == 0) {
+        // 1.validation: rec_id isn't an empty value
+           if (!req.body || req.body === undefined || !rec_id ||rec_id.length === 0) {
             create_log("delete sensor group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
 
             res.send({
@@ -224,6 +196,16 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
             });
             return;
         }
+        // 2.validation: rec_id is uuid v4
+        if (!isUuid(rec_id)) {
+            create_log("delete sensor group", log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
+            res.send({
+                status: responseList.error.error_invalid_payload.message,
+                code: responseList.error.error_invalid_payload.code
+            });
+            return;
+        }
+     
         control.delete_sgroup(req, res, request_key)
     } catch (error) {
         create_log("delete sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)

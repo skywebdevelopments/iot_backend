@@ -85,3 +85,7 @@
 [2022-03-05T22:37:51.901] [INFO] app - e0b01e9d-025f-49c2-813f-249c97e4194c - INFO - inbound request - delete sensor group - Success updating new data - 4
 [2022-03-05T22:38:34.584] [TRACE] app - 8339ba19-912f-427e-9c17-966878bc37b5 - TRACE - inbound request - delete sensor group - Data is executing - 4
 [2022-03-05T22:38:34.772] [INFO] app - 8339ba19-912f-427e-9c17-966878bc37b5 - INFO - inbound request - update sensor group - no data found - 4
+[2022-03-05T22:40:08.305] [TRACE] app - aa5231ee-bf62-4325-bedb-85bc1ea3a6c7 - TRACE - inbound request - delete sensor group - Data is executing - 4
+[2022-03-05T22:40:08.507] [ERROR] app - aa5231ee-bf62-4325-bedb-85bc1ea3a6c7 - ERROR - inbound request - delete sensor group - error is not defined - 4
+[2022-03-05T22:40:22.336] [TRACE] app - 60a599c0-ad6d-4884-bde4-c2f491407e21 - TRACE - inbound request - delete sensor group - Data is executing - 4
+[2022-03-05T22:40:22.369] [INFO] app - 60a599c0-ad6d-4884-bde4-c2f491407e21 - INFO - inbound request - delete sensor group - Success updating new data - 4

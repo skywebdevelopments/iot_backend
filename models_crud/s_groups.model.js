@@ -5,7 +5,10 @@ const { update_sensor } = require('../middleware/sensor.middleware');
 //get all s_groups include asscioated sensors 
 function getAll_sgroups() {
     return new Promise((resolve, reject) => {
-            db.knex('s_group').select('s_group','sensor')
+            db.knex('s_group').select('*',
+            's_group.id as group_id','sensor.id as sensor_id',
+            's_group.active as group_active','sensor.active as sensor_active',
+            's_group.rec_id as group_rec_id','sensor.rec_id as sensor_rec_id')
             .leftJoin('sensor_group', function () {
                 this.on('s_group.id', '=', 'sensor_group.sGroupId')
             })
@@ -72,12 +75,12 @@ function sensorMap_to_sgroup(req) {
 
 //update s_group 
 function update_sgroup(req) {
-   
+
     return new Promise((resolve, reject) => {
         if (!req.body['active']) {
             update_sensor_active(req)
-            if(update_sensor_active(req)!=="true")
-            reject(update_sensor_active(req));
+            if (update_sensor_active(req) !== "true")
+                reject(update_sensor_active(req));
         }
         db.knex('s_group')
             .where('s_group.rec_id', '=', req.body['rec_id'])
@@ -102,13 +105,13 @@ function update_sensor_active(req) {
                     this.on('s_group.id', '=', 'sensor_group.sGroupId')
                 }).then(function (rows) {
                     if (rows.length !== 0) {
-                        for(let row of rows){
-                        db.knex('sensor')
-                            .where('sensor.id', '=', row.sensorId)
-                            .update({ active: false }).then(data => {
-                            }).catch((err) => {
-                                return err;
-                            })
+                        for (let row of rows) {
+                            db.knex('sensor')
+                                .where('sensor.id', '=', row.sensorId)
+                                .update({ active: false }).then(data => {
+                                }).catch((err) => {
+                                    return err;
+                                })
                         }
                         return "true";
                     }
@@ -125,8 +128,8 @@ function update_sensor_active(req) {
 //delete s_group 
 function delete_sgroup(req) {
     update_sensor_active(req)
-        return new Promise((resolve, reject) => {
-            if (update_sensor_active(req)==="true"){
+    return new Promise((resolve, reject) => {
+        if (update_sensor_active(req) === "true") {
             db.knex('s_group')
                 .where('s_group.rec_id', '=', req.body['rec_id'])
                 .del().then((data) => {
@@ -136,12 +139,12 @@ function delete_sgroup(req) {
                 ).catch((err) => {
                     reject(err);
                 })
-            }
-            else{
-                reject(update_sensor_active(req));
-            }
-        })
-    
+        }
+        else {
+            reject(update_sensor_active(req));
+        }
+    })
+
 }
 
 

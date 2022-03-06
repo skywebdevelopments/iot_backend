@@ -35,16 +35,16 @@ router.post('/', body('groupId').isNumeric(), authenticate.authenticateUser, aut
     try {
         // code block
         // 1.validation : check if the req has a body
-        if (!req.body || req.body === undefined || !req.body['groupId']) {
+        /*if (!req.body || req.body === undefined || !req.body['groupId']) {
             create_log('list sensor group with ID', log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
             res.send({ code: responseList.error.error_missing_payload.code, status: responseList.error.error_missing_payload.message })
             return;
-        }
-        //2.validation :check if the req is valid
+        }*/
+        // validation for req body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             create_log('list sensor group with ID', log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
-            res.send({ code: responseList.error.error_invalid_payload.code, status: responseList.error.error_invalid_payload.message })
+            res.send({ code: responseList.error.error_invalid_payload.code, status: errors.array() })
             return;
         }
         control.get_gSensor_by_id(req, res, request_key)
@@ -67,7 +67,7 @@ router.post('/create', body('name').isString(), body('active').isBoolean(), auth
     let request_key = uuid();
     try {
         // code block
-        let group_name = req.body['name']
+        /*let group_name = req.body['name']
         let active_flag = req.body['active']
         // 1.validation : check if the req has a body
         if (!req.body || req.body === undefined || !group_name || group_name.length === 0 || group_name === undefined || active_flag == undefined) {
@@ -77,12 +77,12 @@ router.post('/create', body('name').isString(), body('active').isBoolean(), auth
                 status: responseList.error.error_missing_payload.message
             });
             return;
-        };
-        // 2.validation :check if the req is valid
+        };*/
+        // validation for req body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            create_log('create sensor group', log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
-            res.send({ code: responseList.error.error_invalid_payload.code, status: responseList.error.error_invalid_payload.message })
+            create_log('reate sensor group', log.log_level.error, responseList.error.error_invalid_payload.message, log.req_type.inbound, request_key, req)
+            res.send({ code: responseList.error.error_invalid_payload.code, status: errors.array() })
             return;
         }
 
@@ -187,7 +187,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
     try {
         let rec_id = req.body['rec_id']
         // 1.validation: rec_id isn't an empty value
-           if (!req.body || req.body === undefined || !rec_id ||rec_id.length === 0) {
+        if (!req.body || req.body === undefined || !rec_id || rec_id.length === 0) {
             create_log("delete sensor group", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
 
             res.send({
@@ -205,7 +205,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["s
             });
             return;
         }
-     
+
         control.delete_sgroup(req, res, request_key)
     } catch (error) {
         create_log("delete sensor group", log.log_level.error, error.message, log.req_type.inbound, request_key, req)

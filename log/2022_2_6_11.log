@@ -1,0 +1,8 @@
+[2022-03-06T11:17:01.450] [TRACE] app - 72cd76d0-f748-4deb-8afe-c008defbdc8d - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T11:17:01.641] [INFO] app - 72cd76d0-f748-4deb-8afe-c008defbdc8d - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-06T11:18:09.608] [TRACE] app - 522c537f-384b-4897-b37e-e8e61b0c953c - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T11:18:09.614] [INFO] app - 522c537f-384b-4897-b37e-e8e61b0c953c - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-06T11:25:41.289] [TRACE] app - 4e7007a9-3a6f-4dcd-9661-45bcde3fd294 - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T11:25:41.425] [INFO] app - 4e7007a9-3a6f-4dcd-9661-45bcde3fd294 - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-06T11:26:21.880] [TRACE] app - 98efd3ca-9444-4161-97d3-17fbbdc3730c - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T11:26:21.977] [INFO] app - 98efd3ca-9444-4161-97d3-17fbbdc3730c - INFO - inbound request - list sensor group - Success retrieving  data - 4

@@ -10,7 +10,8 @@ const sensortype = sequelize.define('sensor_type', {
         autoIncrement: true
     },
     type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
     },
     rec_id: {
         type: Sequelize.UUID,

@@ -5,9 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //authentacation
-const GoogleStrategy=require('./auth/GoogleStrategy');
+const GoogleStrategy = require('./auth/GoogleStrategy');
 const passport = require("passport");
-const GoogleRouter=require("./routes/google.user.iot")
+const GoogleRouter = require("./routes/google.user.iot")
 
 //UserLogin
 var usersRouter = require('./routes/users.login.iot');
@@ -19,6 +19,7 @@ var indexRouter = require('./routes/index');
 var s_groupRoute = require('./routes/s_group.iot.route')
 var sensorRoute = require('./routes/sensor.iot.route')
 var mqttRoute = require('./routes/mqttuser.iot.route')
+var sensortypeRoute = require('./routes/sensor_type.iot.route')
 
 var logRoute = require('./routes/logs.iot')
 
@@ -50,7 +51,7 @@ app.use(bodyParser.urlencoded({
 
 //Google login and login
 app.use(passport.initialize());
-app.use('/auth',GoogleRouter);
+app.use('/auth', GoogleRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/u_group', u_groupRoute);
 
@@ -62,22 +63,20 @@ app.use('/api/v1/', indexRouter);
 app.use('/api/v1/s_group', s_groupRoute);
 app.use('/api/v1/sensor', sensorRoute);
 app.use('/api/v1/mqttuser', mqttRoute);
+app.use('/api/v1/sensortype', sensortypeRoute);
 app.use('/api/v1/logs', logRoute);
-
-
-
 // 
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

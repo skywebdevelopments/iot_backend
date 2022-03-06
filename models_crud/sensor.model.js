@@ -1,5 +1,16 @@
 let db = require('../database/knex_connection')
+let { uuid, isUuid } = require('uuidv4');
 
+function create_sensor(req) {
+    req.body['rec_id'] = uuid();
+    return new Promise((resolve, reject) => {
+        db.knex('sensor').insert(req.body).then(data => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
 
 
 function getAll(req) {
@@ -66,11 +77,13 @@ function deleteSensor(req) {
 }
 
 
+
 module.exports = {
     getAll,
     getSensorbyId,
     UpdateSensor,
-    deleteSensor
+    deleteSensor,
+    create_sensor
 }
 
 

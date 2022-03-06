@@ -71,11 +71,12 @@ function create_log(operation, log_level, log_message, req_type, uuid, req) {
 
 }
 
+
 // Extracts user id from token that is sent in headers of the request
 function get_user_id(req) {
     var token = null;
 
-    if (req !== undefined || req.headers && req.headers['authorization']) {
+    if ( req.headers && req.headers['authorization']) {
 
         var header_token = req.headers['authorization'].split(' ');
 

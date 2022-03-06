@@ -4,7 +4,25 @@ var { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var responseList = require('../config/response.code.json')
 
-let request_key = uuid();
+function Createsensor(req, res) {
+    let request_key = uuid();
+    create_log("create sensor", log.log_level.error, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
+    sensor.create_sensor(req).then((data) => {
+        if (data.rowCount === 0) {
+            create_log('Create sensor', log.log_level.info, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
+            res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
+        }
+        else {
+            create_log("Create Sensor", log.log_level.info, responseList.success.success_creating_data.message, log.req_type.inbound, request_key, req)
+            res.send({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
+        }
+
+    }).catch((error) => {
+        create_log("Create sensor", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+    })
+
+}
 
 function GetSensors(req, res) {
     let request_key = uuid();
@@ -25,9 +43,9 @@ function GetSensors(req, res) {
 
 }
 
-function GetSensorbyId(req) {
+function GetSensorbyId(req,res) {
     let request_key = uuid();
-    sensor.getSensorbyId().then((data) => {
+    sensor.getSensorbyId(req).then((data) => {
         if (data.rowCount === 0) {
             create_log('list sensor by Id', log.log_level.info, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
@@ -113,5 +131,6 @@ module.exports = {
     GetSensorbyId,
     UpdateSensor,
     DeleteSensor,
+    Createsensor
 
 }

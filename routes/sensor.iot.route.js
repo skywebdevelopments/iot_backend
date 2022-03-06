@@ -34,6 +34,10 @@ let { create_log } = require('../middleware/logger.middleware');
 
 var control = require('../controls/sensor.control')
 
+//Express validators
+//const { body, validationResult } = require('express-validator');
+//end
+
 
 // GET / api / v1 / sensor
 // Return all sensors profiles 
@@ -54,7 +58,7 @@ router.get('/', function (req, res, next) {
 // "rec_id": uuid
 // }
 
-router.get('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
     try {
         control.GetSensorbyId(req, res)
     } catch (error) {
@@ -170,60 +174,14 @@ function validation(req) {
 // Post / api / v1 / sensor / create
 // Create a sensors profile
 
-
-
-router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), function (req, res, next) {
-    let request_key = uuid();
-    var fault_inputs = validation(req);
-    let missing_keys = [];
+router.post('/create', function (req, res, next) {
     try {
-
-        create_log("create sensor", log.log_level.error, responseList.trace.required_field.message, log.req_type.inbound, request_key, req)
-        //  1.validation: request required fields.
-        fieldsList.sensor.create.forEach(required_field => {
-            if (!Object.keys(req.body).includes(required_field)) {
-                missing_keys.push(required_field)
-            }
-        });
-
-        // if a required key is missing, will raise and error.
-        if (missing_keys.length > 0) {
-            create_log("create sensor", log.log_level.error, `${responseList.error.error_missing_payload.message} length : ${missing_keys.length}  and ${responseList.error.error_missing_payload.message}: (${missing_keys.toString()})`, log.req_type.inbound, request_key, req)
-            // send a response
-            res.send({ status: `${responseList.error.error_missing_payload.message} - ${missing_keys.length} field(s) (${missing_keys.toString()})`, code: responseList.error.error_missing_payload.code })
-            return;
-        }
-
-
-        if (fault_inputs.length > 0) {
-            create_log("create sensor", log.log_level.error, `${responseList.error.error_invalid_payload.message}: (${fault_inputs.toString()}) and length: ${fault_inputs.length} `, log.req_type.inbound, request_key, req)
-            // send a response
-            res.send({ status: `${responseList.error.error_invalid_input.message} for ${fault_inputs.length} field(s) `, code: responseList.error.error_invalid_input.code, data: fault_inputs, client_id: req.body['client_id'] })
-            return;
-        }
-
-        // else: create the profile
-        sensorModel.create(req.body).then((data) => {
-            // 2. return data in a response.
-            create_log("create sensor", log.log_level.trace, responseList.trace.exceuting_query.message, log.req_type.inbound, request_key, req)
-            if (!data || data.length === 0) {
-                create_log("create sensor", log.log_level.error, responseList.error.error_no_data_created.message, log.req_type.inbound, request_key, req)
-                res.send({ status: responseList.error.error_no_data_created.message, code: responseList.error.error_no_data_created.code });
-            };
-            // send the response.
-            create_log("create sensor", log.log_level.info, responseList.success.success_creating_data.message, log.req_type.inbound, request_key, req)
-            res.send({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.success_creating_data.code });
-
-            //end
-        }).catch((error) => {
-            create_log("create sensor", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
-        });
+        control.Createsensor(req, res)
     } catch (error) {
-        create_log("create sensor", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+        res.send({ status: error.message, code: 400 })
     }
-});
+}
+)
 
 
 // Update a sensor profile
@@ -256,69 +214,6 @@ router.post('/delete', function (req, res, next) {
 )
 
 
-/*
-router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), function (req, res, next) {
-    let request_key = uuid();
-    try {
-        // code bloc
-
-        let rec_id = req.body['rec_id']
-
-        // 1.validation: rec_id is uuid v4
-
-        if (!isUuid(rec_id)) {
-
-            create_log("delete sensor", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
-            res.send({
-                status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`,
-                message: responseList.error.error_invalid_payload.code
-            });
-            return;
-        }
-
-        // 2.validation: rec_id isn't an empty value
-        if (rec_id.length == 0) {
-            create_log("delete sensor", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
-            res.send({ status: responseList.error.error_missing_payload.message, message: responseList.error.error_missing_payload.code });
-            return;
-        }
-
-        // update the record 
-        sensorModel.destroy(
-            {
-                where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
-                    }
-                },
-            }
-
-        ).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            create_log("delete sensor", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
-            if (!data || data.length === 0 || data[0] == 0) {
-                create_log("delete sensor", log.log_level.error, responseList.error.error_no_data_delete.message, log.req_type.inbound, request_key, req);
-                res.send({ status: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code });
-            };
-            // send the response.
-            create_log("delete sensor", log.log_level.info, responseList.success.success_deleting_data.message, log.req_type.inbound, request_key, req);
-            res.send({ data: data, status: responseList.success.success_deleting_data.message, code: responseList.success.success_deleting_data.code });
-
-            //end
-        }).catch((error) => {
-
-            create_log("delete sensor", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
-        });
-
-    } catch (error) {
-        create_log("delete sensor", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-    }
-});
-
-*/
 // Map sensor to a group
 // we don't use it till now //
 router.put('/update/map', resolve_sensor_id, resolve_group_id, authenticate.authenticateUser, authenticate.UserRoles(["group:create"]), function (req, res, next) {
@@ -475,189 +370,5 @@ router.get('/mqttuser', function (req, res, next) {
 });
 
 
-
-// GET / api / v1 /sensor/sensortype
-// Return all sensortypes
-
-router.get('/sensortype', function (req, res, next) {
-    let request_key = uuid();
-    // code block
-    // 1. db_operation: select all query
-    SensorTypeModel.findAll().then((data) => {
-
-        // 2. return data in a response.
-        if (!data || data.length === 0) {
-            create_log("list Sensor_Type", log.log_level.error, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req);
-            res.send({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
-        }
-        // send the response.
-        create_log("list sensor_type", log.log_level.info, responseList.success.sucess_data.message, log.req_type.inbound, request_key, req);
-        res.send({ data: data, status: responseList.success.sucess_data.message, code: responseList.success.sucess_data.code });
-
-        //end
-    }).catch((error) => {
-        create_log("list sensor_type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-
-    });
-});
-
-router.post('/sensortype/create', authenticate.authenticateUser, function (req, res, next) {
-    let request_key = uuid();
-    SensorTypeModel.create(req.body).then((data) => {
-        // 2. return data in a response.
-        create_log("create sensor_type", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
-        if (!data || data.length === 0) {
-            create_log("create sensor_type", log.log_level.error, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req);
-            res.send({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
-        };
-        res.send({ data: data, status: responseList.success.message, code: responseList.success.code });
-        //end
-    }).catch((error) => {
-        create_log("create sensor_type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-    });
-});
-
-
-
-// Delete a sensor stype
-// Delete / api / v1 /  sensor / sensortype / delete
-// Delete a sensors type profile by rec_id
-
-router.post('/sensortype/delete', authenticate.authenticateUser, function (req, res, next) {
-    let request_key = uuid();
-    try {
-        // code bloc
-
-        let rec_id = req.body['rec_id']
-
-        // 1.validation: rec_id is uuid v4
-
-        if (!isUuid(rec_id)) {
-
-            create_log("delete sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
-            res.send({
-                status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`,
-                message: responseList.error.error_invalid_payload.code
-            });
-            return;
-        }
-
-        // 2.validation: rec_id isn't an empty value
-        if (rec_id.length == 0) {
-            create_log("delete sensor type", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
-            res.send({ status: responseList.error.error_missing_payload.message, message: responseList.error.error_missing_payload.code });
-            return;
-        }
-
-        // update the record 
-        SensorTypeModel.destroy(
-            {
-                where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
-                    }
-                },
-            }
-
-        ).then((data) => {
-            // log.trace(`${uuid()} - inbound request - ${req.url} - ${data}`);
-            // 2. return data in a response.
-            create_log("delete sensor type", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
-            if (!data || data.length === 0 || data[0] == 0) {
-                create_log("delete sensor type", log.log_level.error, responseList.error.error_no_data_delete.message, log.req_type.inbound, request_key, req);
-                res.send({ status: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code });
-            };
-            // send the response.
-            create_log("delete sensor type", log.log_level.info, responseList.success.success_deleting_data.message, log.req_type.inbound, request_key, req);
-            res.send({ data: data, status: responseList.success.success_deleting_data.message, code: responseList.success.success_deleting_data.code });
-
-            //end
-        }).catch((error) => {
-
-            create_log("delete sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-            res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
-        });
-
-    } catch (error) {
-        create_log("delete sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-    }
-});
-
-
-// Update a sensor type profile
-// Post / api / v1 / sensor / sensortype / update
-// update a sensor type profile by rec_id
-
-router.put('/sensortype/update', authenticate.authenticateUser, function (req, res, next) {
-    let request_key = uuid();
-    try {
-        // code bloc
-
-        let rec_id = req.body['rec_id']
-        // 1.validation: rec_id is uuid v4
-
-        if (!isUuid(rec_id)) {
-            create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
-            res.send({
-                status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`,
-                code: responseList.error.error_invalid_payload.code
-            });
-            return;
-        }
-
-        // 2.validation: rec_id isn't an empty value
-        if (rec_id.length == 0) {
-            create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req);
-            res.send({
-                status: responseList.error.error_missing_payload.message,
-                code: responseList.error.error_missing_payload.code
-            });
-            return;
-        }
-
-        // update the record 
-
-        SensorTypeModel.update(req.body,
-            {
-                where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
-                    }
-                },
-            }
-
-        ).then((data) => {
-
-            // 2. return data in a response.
-            create_log("update sensor type", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req);
-
-            if (!data || data.length === 0 || data[0] === 0) {
-                create_log("update sensor type", log.log_level.error, responseList.error.error_no_data_updated, log.req_type.inbound, request_key, req);
-                res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
-            };
-            // send the response.
-            create_log("update sensor type", log.log_level.info, responseList.success.success_updating_data.message, log.req_type.inbound, request_key, req);
-            res.send({ data: data, status: responseList.success.success_updating_data.message, code: responseList.success.success_updating_data.code });
-
-            //end
-        }).catch((error) => {
-
-            create_log("update sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-            res.send({ status: responseList.error.error_general.message, message: responseList.error.error_general.code });
-        });
-    } catch (error) {
-
-        create_log("update sensor type", log.log_level.error, error.message, log.req_type.inbound, request_key, req);
-        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-    }
-});
-
-
-
-// 
-/** ------ */
 
 module.exports = router;

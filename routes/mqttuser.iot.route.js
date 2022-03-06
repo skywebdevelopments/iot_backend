@@ -21,6 +21,8 @@ let { mqtt_userModel } = require('../models/mqttUser.iot.model')
 let { create_log } = require('../middleware/logger.middleware');
 // end
 
+var control = require('../controls/mqttUser.control')
+
 
 // GET / api / v1 /mqttuser
 // Return all mqtt_user profiles 
@@ -149,6 +151,17 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["m
 // Post / api / v1 / mqttuser / update
 // update mqttuser  by rec_id
 
+
+router.put('/update', function (req, res, next) {
+    try {
+        control.UpdateMqttUser(req, res)
+    } catch (error) {
+        res.send({ status: error.message, code: 400 })
+
+    }
+}
+)
+/*
 router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["mqttuser:update"]), function (req, res) {
     let request_key = uuid();
 
@@ -215,11 +228,22 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["mq
         res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
-
+*/
 
 // Delete a mqtt_user
 // Delete / api / v1 / mqttuser / delete
 // Delete a mqttuser by rec_id
+
+router.post('/delete', function (req, res, next) {
+    try {
+        control.DeleteMqttUser(req, res)
+    } catch (error) {
+        res.send({ status: error.message, code: 400 })
+
+    }
+}
+)
+/*
 
 router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["mqttuser:delete"]), function (req, res) {
     let request_key = uuid();
@@ -275,7 +299,7 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["m
         res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
     }
 });
-
+*/
 
 
 module.exports = router;

@@ -15,11 +15,13 @@ exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
     //const roles = user.roles;
-    const usergroup = user['u_groups'];
+    const usergroup = user.roles;
     const roles = new Set();
     for (var userProfile of usergroup) {
-        for (var role of userProfile['roles']) {
-            roles.add(role);
+        if (userProfile) {
+            for (var role of userProfile) {
+                roles.add(role);
+            }
         }
     }
 
@@ -36,7 +38,7 @@ exports.getToken = function (user) {
         expiresIn: expiresIn
     });
 
-    console.log(signedToken)
+    // console.log(signedToken)
     return cryptojs.AES.encrypt(signedToken, secret.token_sercet_key).toString();
 
 }

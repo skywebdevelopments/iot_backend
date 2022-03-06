@@ -8,16 +8,15 @@ function createUser(req) {
 
 }
 
-function createToken(email, password) {
-    console.log('====================================');
-    console.log(email, password);
-    console.log('====================================');
+//retrieve user using email and password
+function getUser(email, password) {
+
     return db.knex('user')
         .where({
             email: email,
             password: password
         })
-        .select('*')
+        .select('user.id', 'username', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
         .fullOuterJoin('user_group', function () {
             this.on('user.id', '=', 'user_group.userId')
         })
@@ -27,25 +26,43 @@ function createToken(email, password) {
 
 }
 
-//missing group name for each user 
+function createSession(user_id, token) {
+    return new Promise((resolve, reject) => {
+        db.knex('session').insert({
+            userId: user_id,
+            active: true,
+            token: token
+        }).then((data) => {
+            resolve(data)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+function updateSession(user_id) {
+    return new Promise((resolve, reject) => {
+        db.knex('session')
+            .where('userId', '=', user_id)
+            .update({ active: false })
+            .then((data) => {
+                resolve(data)
+            }).catch((error) => {
+                reject(error)
+            })
+    })
+}
+
 function getallUsers() {
 
     return db.knex('user')
-        .select('user.id', 'username', 'email', 'user.rec_id')
+        .select('user.id', 'username', 'email', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
         .fullOuterJoin('user_group', function () {
             this.on('user.id', '=', 'user_group.userId')
         })
         .fullOuterJoin('u_group', function () {
             this.on('u_group.id', '=', 'user_group.uGroupId')
         })
-
-
-    db.knex.raw('(SELECT u.id ,u.username ,u.email ,u.rec_id ,ug.groupname ' +
-        '  FROM "user" AS  u' +
-        ' full outer join "user_group" ' +
-        ' ON u."id" = "user_group"."userId"' +
-        ' full outer join u_group as ug  ' +
-        ' ON ug."id" = "user_group"."uGroupId" )')
 
 }
 
@@ -81,6 +98,7 @@ function deleteUgroup(ugroup_rec_id) {
     })
 
 }
+
 function deleteallPermissions(user_id) {
     return new Promise((resolve, reject) => {
         db.knex('user_group')
@@ -110,10 +128,12 @@ function addPermissions(user_id, u_group_id) {
 
 module.exports = {
     createUser,
-    createToken,
+    getUser,
     getallUsers,
     getallUsergroups,
     getUsergroup,
     deleteallPermissions,
-    addPermissions
+    addPermissions,
+    createSession,
+    updateSession
 }

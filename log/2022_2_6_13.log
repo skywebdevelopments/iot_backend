@@ -1,2 +1,7 @@
 [2022-03-06T13:02:24.855] [TRACE] app - 9bc02686-7d24-4d8d-82b8-66b00f16c28f - TRACE - inbound request - list sensor group - check payload length - 4
 [2022-03-06T13:02:25.005] [INFO] app - 9bc02686-7d24-4d8d-82b8-66b00f16c28f - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-06T13:23:22.340] [TRACE] app - d48bc0dd-e3cf-478d-ba2d-78f4fe431c4e - TRACE - inbound request - list mqtt_user - check payload length - 4
+[2022-03-06T13:23:22.431] [INFO] app - d48bc0dd-e3cf-478d-ba2d-78f4fe431c4e - INFO - inbound request - list mqtt_user - Success retrieving  data - 4
+[2022-03-06T13:24:32.109] [INFO] app - 7b8d4bb4-3831-4cab-a20f-b08b17119e5d - INFO - inbound request - login - Logged in Successfully - 4
+[2022-03-06T13:24:48.437] [TRACE] app - 7e869d65-3480-482e-bbd4-e7b5b5b30bff - TRACE - inbound request - list mqtt_user - check payload length - 4
+[2022-03-06T13:24:48.518] [INFO] app - 7e869d65-3480-482e-bbd4-e7b5b5b30bff - INFO - inbound request - list mqtt_user - Success retrieving  data - 4

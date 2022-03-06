@@ -1,6 +1,6 @@
 let db = require('../database/knex_connection')
 let { uuid } = require('uuidv4');
-const { update_sensor } = require('../middleware/sensor.middleware');
+
 
 //get all s_groups include asscioated sensors 
 function getAll_sgroups() {

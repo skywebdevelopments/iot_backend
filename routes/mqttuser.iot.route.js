@@ -1,8 +1,6 @@
 var express = require('express');
 // conf
-var conf_sercet = require('../config/sercret.json')
 var responseList = require('../config/response.code.json')
-var fieldsList = require('../config/fields.required.json')
 var authenticate = require('../auth/authentication_JWT');
 let { log } = require('../config/app.conf.json')
 var cryptojs = require('crypto-js');
@@ -12,16 +10,17 @@ let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
 
 // models
-let { sensorModel } = require('../models/sensor.iot.model')
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
 // end
 
 // middleware
 let { create_log } = require('../middleware/logger.middleware');
 // end
-
-const { body, validationResult } = require('express-validator');
 var control = require('../controls/mqttUser.control')
+let { validateRequestSchema } = require('../middleware/validate-request-schema');
+var validators = require('../validators/mqttusers.validator.iot');
+
+
 
 // GET / api / v1 /mqttuser
 // Return all mqtt_user profiles 
@@ -29,63 +28,49 @@ var control = require('../controls/mqttUser.control')
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["mqttuser:list"]), function (req, res) {
     // code block
     let request_key = uuid();
-    try {
-        control.getAll_mqttUsers(req, res, request_key)
-    } catch (error) {
-        create_log("list mqtt_user", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
+    control.getAll_mqttUsers(req, request_key).then(data => {
+        if (!data || data.length === 0) {
+            res.send(
+                { code: responseList.error.error_no_data.code, status: responseList.error.error_no_data.message }
+            );
+            return;
+        }
+        res.send({ data: data, code: responseList.success.code, status: responseList.success.sucess_data.message });
+    }).catch((error) => {
         res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
-    }
+    })
+
 });
 
 
 
 /*
+// create mqtt_user profile 
 POST / api / v1 / mqttuser /create
 Parameters:username and password of mqttuser
 */
-router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["mqttuser:create"]), (req, res) => {
+router.post('/create',validators.mqttuser_create, validateRequestSchema, authenticate.authenticateUser, authenticate.UserRoles(["mqttuser:create"]), (req, res) => {
     let request_key = uuid();
-    let username = req.body['username'];
     let password = req.body['password'];
-
-    try {
-
-        // validation1 : check if the req has a body
-        if (!req.body || req.body === undefined) {
-            create_log("create mqtt_user", log.log_level.error, responseList.error.error_missing_payload.message, log.req_type.inbound, request_key, req)
-            res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code })
-            return;
-        }
-
-        // 2.validation : username
-        if (!username || username.length === 0 || username === undefined) {
-            create_log("create mqtt_user", log.log_level.error, `${responseList.error.error_missing_payload.message} - username`, log.req_type.inbound, request_key, 0)
-
-            res.send({
-                status: responseList.error.error_missing_payload.message,
-                code: responseList.error.error_missing_payload.code
-            });
+    var hash = cryptojs.SHA256(password);
+    req.body['password'] = cryptojs.enc.Base64.stringify(hash);
+    control.create_mqttUsers(req, request_key).then(data => {
+        if (data.rowCount === 0) {
+            res.send(
+                {
+                    code: responseList.error.error_already_exists.code,
+                    status: responseList.error.error_already_exists.message
+                }
+            );
             return;
         };
-        // 3.validation : password
-        if (!password || password.length === 0 || password === undefined) {
-
-            create_log("create mqtt_user", log.log_level.error, `${responseList.error.error_missing_payload.message} - password`, log.req_type.inbound, request_key, 0)
-
-            res.send({
-                status: responseList.error.error_missing_payload.message,
-                code: responseList.error.error_missing_payload.code
-            });
-            return;
-        };
-
-        var hash = cryptojs.SHA256(password);
-        req.body['password'] = cryptojs.enc.Base64.stringify(hash);
-        control.create_mqttUsers(req, res, request_key);
-    } catch (error) {
-        create_log("create mqtt_user", log.log_level.error, error.message, log.req_type.inbound, request_key, req)
-        res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message })
-    }
+        res.send({
+            code: responseList.success.success_creating_data.code,
+            status: responseList.success.success_creating_data.message
+        });
+    }).catch((error) => {
+        res.send({ code: responseList.error.error_general.code, status: responseList.error.error_general.message });
+    });
 
 });
 

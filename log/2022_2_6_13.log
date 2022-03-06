@@ -1,0 +1,2 @@
+[2022-03-06T13:02:24.855] [TRACE] app - 9bc02686-7d24-4d8d-82b8-66b00f16c28f - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T13:02:25.005] [INFO] app - 9bc02686-7d24-4d8d-82b8-66b00f16c28f - INFO - inbound request - list sensor group - Success retrieving  data - 4

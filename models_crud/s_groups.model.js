@@ -108,13 +108,14 @@ function update_sensor_active(req) {
                         for (let row of rows) {
                             db.knex('sensor')
                                 .where('sensor.id', '=', row.sensorId)
-                                .update({ active: false }).then(data => {
+                                .update({ active: false }).then(() => {
+                                    return "true";
                                 }).catch((err) => {
                                     return err;
                                 })
                         }
-                        return "true";
                     }
+                    return "true";
                 }
                 ).catch((err) => {
                     return err;
@@ -133,7 +134,6 @@ function delete_sgroup(req) {
             db.knex('s_group')
                 .where('s_group.rec_id', '=', req.body['rec_id'])
                 .del().then((data) => {
-                    //console.log(data)
                     resolve(data);
                 }
                 ).catch((err) => {

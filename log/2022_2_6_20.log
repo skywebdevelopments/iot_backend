@@ -35,3 +35,17 @@
 [2022-03-06T20:20:32.816] [INFO] app - ee0799f9-ddec-40e9-bd96-205223c4e072 - INFO - inbound request - delete mqtt_user - no data found - 4
 [2022-03-06T20:21:06.824] [TRACE] app - 97cedabf-e3ed-4e1a-b528-7d01ab8ad8bf - TRACE - inbound request - delete mqtt_user - Data is executing - 4
 [2022-03-06T20:21:06.844] [INFO] app - 97cedabf-e3ed-4e1a-b528-7d01ab8ad8bf - INFO - inbound request - delete mqtt_user - Success deleting data - 4
+[2022-03-06T20:28:59.030] [TRACE] app - 93424abf-3e3d-438a-8120-ac0e1cc00717 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T20:28:59.171] [INFO] app - 93424abf-3e3d-438a-8120-ac0e1cc00717 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-06T20:29:17.524] [TRACE] app - 31a1df12-e865-4cc0-ad2c-8ccad549a664 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T20:29:17.543] [INFO] app - 31a1df12-e865-4cc0-ad2c-8ccad549a664 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-06T20:30:28.377] [TRACE] app - a87683cf-ebc5-4d66-b54d-ed5c465881b8 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T20:30:28.405] [INFO] app - a87683cf-ebc5-4d66-b54d-ed5c465881b8 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-06T20:31:15.466] [TRACE] app - fa669dd0-82bd-459f-b56c-c30607197424 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T20:31:15.536] [INFO] app - fa669dd0-82bd-459f-b56c-c30607197424 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-06T20:32:40.404] [TRACE] app - 6383c12f-a314-42be-bf3f-9612e069a8de - TRACE - inbound request - delete sensor group - Data is executing - 4
+[2022-03-06T20:32:40.418] [INFO] app - 6383c12f-a314-42be-bf3f-9612e069a8de - INFO - inbound request - delete sensor group - no data found - 4
+[2022-03-06T20:32:47.450] [TRACE] app - c643e030-f692-4063-8c75-88a1a943b759 - TRACE - inbound request - delete sensor group - Data is executing - 4
+[2022-03-06T20:32:47.463] [ERROR] app - c643e030-f692-4063-8c75-88a1a943b759 - ERROR - inbound request - delete sensor group - delete from "s_group" where "s_group"."rec_id" = $1 - invalid input syntax for type uuid: "22ad1092-45dd-4f2b-a651-e3f3" - 4
+[2022-03-06T20:32:55.279] [TRACE] app - 461922e3-e76c-45dc-84ec-fed848ae9460 - TRACE - inbound request - delete sensor group - Data is executing - 4
+[2022-03-06T20:32:55.311] [INFO] app - 461922e3-e76c-45dc-84ec-fed848ae9460 - INFO - inbound request - delete sensor group - Success updating new data - 4

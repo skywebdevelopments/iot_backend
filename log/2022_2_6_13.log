@@ -5,3 +5,17 @@
 [2022-03-06T13:24:32.109] [INFO] app - 7b8d4bb4-3831-4cab-a20f-b08b17119e5d - INFO - inbound request - login - Logged in Successfully - 4
 [2022-03-06T13:24:48.437] [TRACE] app - 7e869d65-3480-482e-bbd4-e7b5b5b30bff - TRACE - inbound request - list mqtt_user - check payload length - 4
 [2022-03-06T13:24:48.518] [INFO] app - 7e869d65-3480-482e-bbd4-e7b5b5b30bff - INFO - inbound request - list mqtt_user - Success retrieving  data - 4
+[2022-03-06T13:53:07.769] [INFO] app - b5c370b5-8e4d-44d2-b172-67376a861047 - INFO - inbound request - login - Logged in Successfully - 4
+[2022-03-06T13:53:22.905] [TRACE] app - c79d97b3-f652-41eb-bb5f-0e697e543e4b - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T13:53:23.109] [ERROR] app - c79d97b3-f652-41eb-bb5f-0e697e543e4b - ERROR - inbound request - update sensor group - error is not defined - 4
+[2022-03-06T13:55:47.893] [TRACE] app - bfe21d12-15fe-431e-a01e-87c83b516ce5 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T13:55:48.131] [ERROR] app - bfe21d12-15fe-431e-a01e-87c83b516ce5 - ERROR - inbound request - update sensor group - error is not defined - 4
+[2022-03-06T13:56:04.312] [TRACE] app - 49963c74-af4e-481e-b627-8cf0f0d14ee5 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T13:56:04.339] [INFO] app - 49963c74-af4e-481e-b627-8cf0f0d14ee5 - INFO - inbound request - update sensor group - Success updating new data - 4
+[2022-03-06T13:56:47.593] [ERROR] app - 137f38d2-a7ff-4768-984e-054fed9f603d - ERROR - inbound request - create sensor group - request payload is invalid - 4
+[2022-03-06T13:58:18.578] [ERROR] app - fc74a21f-bb62-4905-9021-cb4743711ae5 - ERROR - inbound request - create sensor group - request payload is invalid - 4
+[2022-03-06T14:27:46.139] [TRACE] app - a9557115-4187-4a96-968b-9f6ef0210e57 - TRACE - inbound request - list mqtt_user - check payload length - 4
+[2022-03-06T14:27:46.229] [INFO] app - a9557115-4187-4a96-968b-9f6ef0210e57 - INFO - inbound request - list mqtt_user - Success retrieving  data - 4
+[2022-03-06T14:27:54.226] [INFO] app - 0348b468-9470-411f-8f0e-c55a81dfc189 - INFO - inbound request - login - Logged in Successfully - 4
+[2022-03-06T14:29:19.923] [TRACE] app - 4e861141-6d92-40ef-a47f-61e0a4a0e468 - TRACE - inbound request - list mqtt_user - check payload length - 4
+[2022-03-06T14:29:19.928] [INFO] app - 4e861141-6d92-40ef-a47f-61e0a4a0e468 - INFO - inbound request - list mqtt_user - Success retrieving  data - 4

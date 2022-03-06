@@ -1,0 +1,21 @@
+[2022-03-06T16:03:16.672] [TRACE] app - 4c2de00d-3515-441c-949c-ed391cc8eacc - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:03:16.843] [TRACE] app - 4c2de00d-3515-441c-949c-ed391cc8eacc - TRACE - inbound request - query for group with 22ad1092-45dd-4f2b-a651-e3f373cb4314 - Data is executing - 4
+[2022-03-06T16:03:16.845] [INFO] app - 4c2de00d-3515-441c-949c-ed391cc8eacc - INFO - inbound request - map sensor to group - successfully - 4
+[2022-03-06T16:04:23.482] [TRACE] app - 71184a24-77ae-4a95-936a-aabd0a431ecb - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:04:23.658] [ERROR] app - 71184a24-77ae-4a95-936a-aabd0a431ecb - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - insert or update on table "sensor_group" violates foreign key constraint "sensor_group_sensorId_fkey" - 4
+[2022-03-06T16:04:53.174] [TRACE] app - 765693e4-4f3d-44bf-aebb-8d7981ee599e - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:04:53.208] [ERROR] app - 765693e4-4f3d-44bf-aebb-8d7981ee599e - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - duplicate key value violates unique constraint "sensor_group_pkey" - 4
+[2022-03-06T16:05:04.902] [TRACE] app - 673f6afd-4fe5-476b-8582-fe9fcfa0f4df - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:05:04.927] [TRACE] app - 673f6afd-4fe5-476b-8582-fe9fcfa0f4df - TRACE - inbound request - query for group with 22ad1092-45dd-4f2b-a651-e3f373cb4314 - Data is executing - 4
+[2022-03-06T16:05:04.928] [INFO] app - 673f6afd-4fe5-476b-8582-fe9fcfa0f4df - INFO - inbound request - map sensor to group - successfully - 4
+[2022-03-06T16:18:50.169] [TRACE] app - 687428b5-336e-4ad2-947d-06f8860be223 - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:18:50.373] [ERROR] app - 687428b5-336e-4ad2-947d-06f8860be223 - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - insert or update on table "sensor_group" violates foreign key constraint "sensor_group_sensorId_fkey" - 4
+[2022-03-06T16:19:50.277] [TRACE] app - f376ae3b-9e19-416e-aa86-d1c0a1fc247d - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:19:50.410] [ERROR] app - f376ae3b-9e19-416e-aa86-d1c0a1fc247d - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - insert or update on table "sensor_group" violates foreign key constraint "sensor_group_sensorId_fkey" - 4
+[2022-03-06T16:20:25.788] [TRACE] app - f2e7ae5d-06fc-4c83-ba79-b07a4ac6aaba - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:20:25.926] [ERROR] app - f2e7ae5d-06fc-4c83-ba79-b07a4ac6aaba - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - insert or update on table "sensor_group" violates foreign key constraint "sensor_group_sensorId_fkey" - 4
+[2022-03-06T16:22:16.916] [TRACE] app - ed0843a9-b577-4662-936a-5c8ea6d38015 - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T16:22:17.087] [TRACE] app - ed0843a9-b577-4662-936a-5c8ea6d38015 - TRACE - inbound request - query for group with 22ad1092-45dd-4f2b-a651-e3f373cb4314 - Data is executing - 4
+[2022-03-06T16:22:17.089] [INFO] app - ed0843a9-b577-4662-936a-5c8ea6d38015 - INFO - inbound request - map sensor to group - successfully - 4
+[2022-03-06T17:00:21.386] [TRACE] app - c456d74e-00bb-411b-8699-7954279b8ff3 - TRACE - inbound request - update sensor group - Data is executing - 4
+[2022-03-06T17:00:21.798] [INFO] app - c456d74e-00bb-411b-8699-7954279b8ff3 - INFO - inbound request - update sensor group - Success updating new data - 4

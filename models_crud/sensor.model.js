@@ -13,10 +13,11 @@ function create_sensor(req) {
 }
 
 
+
 function getAll(req) {
     return new Promise((resolve, reject) => {
         db.knex('sensor')
-            .select()
+            .select('*','sensor_type.active as sensor_type_active ')
             .innerJoin('mqtt_user', function () {
                 this.on('sensor.mqttUserId', '=', 'mqtt_user.id')
             }).innerJoin('sensor_type', function () {

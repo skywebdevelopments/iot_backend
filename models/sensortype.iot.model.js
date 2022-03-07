@@ -13,6 +13,9 @@ const sensortype = sequelize.define('sensor_type', {
         type: Sequelize.STRING,
         unique: true
     },
+    active: {
+        type: Sequelize.BOOLEAN
+    },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,

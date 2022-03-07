@@ -17,14 +17,11 @@ function getUser(email, password) {
                 password: password
             })
             .select('user.id', 'username', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
-            .fullOuterJoin('user_group', function () {
-                this.on('user.id', '=', 'user_group.userId')
-            })
-            .fullOuterJoin('u_group', function () {
-                this.on('u_group.id', '=', 'user_group.uGroupId')
+            .join('u_group', function () {
+                this.on('u_group.id', '=', 'user.uGroupId')
             })
             .then((data) => {
-                resolve(data);
+                resolve(data[0]);
             }).catch((err) => {
                 reject(err);
             })
@@ -64,11 +61,8 @@ function getallUsers() {
     return new Promise((resolve, reject) => {
         db.knex('user')
             .select('user.id', 'username', 'email', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
-            .fullOuterJoin('user_group', function () {
-                this.on('user.id', '=', 'user_group.userId')
-            })
-            .fullOuterJoin('u_group', function () {
-                this.on('u_group.id', '=', 'user_group.uGroupId')
+            .join('u_group', function () {
+                this.on('u_group.id', '=', 'user.uGroupId')
             })
             .then((data) => {
                 resolve(data);
@@ -84,11 +78,8 @@ function getallUsergroups() {
     return new Promise((resolve, reject) => {
         db.knex('u_group')
             .select('*')
-            .fullOuterJoin('user_group', function () {
-                this.on('u_group.id', '=', 'user_group.uGroupId')
-            })
-            .fullOuterJoin('user', function () {
-                this.on('user.id', '=', 'user_group.userId')
+            .join('user', function () {
+                this.on('u_group.id', '=', 'user.uGroupId')
             }).then((data) => {
                 resolve(data);
             }).catch((err) => {
@@ -145,10 +136,11 @@ function deleteallPermissions(user_id) {
     })
 }
 
-function addPermissions(user_id, u_group_id) {
+function updatePermission(user_id, u_group_id) {
     return new Promise((resolve, reject) => {
-        db.knex('user_group')
-            .insert({ userId: user_id, uGroupId: u_group_id })
+        db.knex('user')
+            .where('user.id', '=', user_id)
+            .update({ uGroupId: u_group_id })
             .then((data) => {
                 resolve(data);
             }).catch((err) => {
@@ -179,7 +171,7 @@ module.exports = {
     getallUsergroups,
     getUsergroup,
     deleteallPermissions,
-    addPermissions,
+    updatePermission,
     createSession,
     updateSession,
     findUser

@@ -14,22 +14,13 @@ var responseList = require('../config/response.code.json')
 exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
-    //const roles = user.roles;
-    const usergroup = user.roles;
-    const roles = new Set();
-    for (var userProfile of usergroup) {
-        if (userProfile) {
-            for (var role of userProfile) {
-                roles.add(role);
-            }
-        }
-    }
+    const roles = user.roles;
 
     const expiresIn = "1d";
     const payload = {
         id: id,
         name: name,
-        roles: Array.from(roles),
+        roles: roles,
         //roles: roles,
         iat: Date.now(),
     };
@@ -38,7 +29,6 @@ exports.getToken = function (user) {
         expiresIn: expiresIn
     });
 
-    // console.log(signedToken)
     return cryptojs.AES.encrypt(signedToken, secret.token_sercet_key).toString();
 
 }

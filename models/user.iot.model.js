@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
+const { u_groupModel } = require('./u_group.iot.model');
 
 const user = sequelize.define('user', {
     // Model attributes are defined here
@@ -25,9 +26,6 @@ const user = sequelize.define('user', {
     googleID: {
         type: Sequelize.STRING
     },
-    roles: {
-        type: Sequelize.JSON
-    },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -40,5 +38,8 @@ const user = sequelize.define('user', {
         timestamps: false
     }
 );
+
+u_groupModel.hasMany(user, { as: 'users', onDelete: 'cascade'});
+user.belongsTo(u_groupModel);
 
 exports.userModel = user;

@@ -25,8 +25,8 @@ const createTokenValidator = [
 const updatePermissionValidator = [
     body('userid')
         .isNumeric(),
-    body('permissions')
-        .isArray()
+    body('permission')
+        .isString()
 ];
 
 

@@ -97,7 +97,7 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
     let request_key = uuid();
 
     let user_id = req.body['userid']
-    let permissions = req.body['permissions']
+    let permission = req.body['permission']
 
 
     //check again this validation it catches cannot set headers if user id isnt correct
@@ -109,13 +109,8 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
     })
 
 
-    // validation : check if permissions array has valid strings
-    let getusergroup_promises = [];
-    for (let permission of permissions) {
-        //compare permissions in body with u_group groupnames
-        getusergroup_promises.push(userControl.get_usergroup(req, request_key, permission))
-    }
-    Promise.all(getusergroup_promises).then(() => {
+    // validation : check if permission is valid string in db
+    userControl.get_usergroup(req, request_key, permission).then(() => {
 
         userControl.update_permission(req, request_key)
             .then((data) => {
@@ -127,7 +122,6 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
     }).catch((error) => {
         res.send(error)
     })
-
 
 });
 

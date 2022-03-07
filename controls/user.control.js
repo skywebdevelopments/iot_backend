@@ -65,20 +65,12 @@ function create_token(email, password, request_key) {
     return new Promise((resolve, reject) => {
 
         usermodel.getUser(email, hashed_password)
-            .then((data) => {
-                if (data.length === 0) {
+            .then((user) => {
+                if (user.length === 0) {
                     create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key, 0)
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
-                    let user = {
-                        roles: []
-                    };
-                    for (let u of data) {
-                        user.id = u.id,
-                            user.username = u.username,
-                            user.roles.push(u.roles)
-                    }
 
                     var token = authenticate.getToken(user); //create token using id and you can add other inf
                     usermodel.updateSession(user.id)
@@ -213,31 +205,25 @@ function update_permission(req, request_key) {
 
 
     let user_id = req.body['userid']
-    let permissions = req.body['permissions']
+    let permission = req.body['permission']
 
 
     return new Promise((resolve, reject) => {
 
-        deleteall_permissions(req, user_id)
-            .then(() => {
-
-                for (let permission of permissions) {
-
-                    get_usergroup(req, request_key, permission)
-                        .then((u_group) => {
-                            add_permissions(req, request_key, user_id, u_group.id)
-                        })
-                }
+        get_usergroup(req, request_key, permission)
+            .then((u_group) => {
+                return usermodel.updatePermission(user_id, u_group.id)
+            }).then(() => {
                 // success
                 create_log("update users' permission", log.log_level.info, responseList.success.success_updating_data.message, request_key, req)
                 resolve({ status: responseList.success.success_updating_data.message, code: responseList.success.code });
                 //end
             })
-            .catch(error => {
-                create_log("update users' permission", log.log_level.error, error.message, request_key, req)
-                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-
+            .catch((err) => {
+                reject(err)
             })
+
+
 
 
 

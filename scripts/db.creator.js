@@ -10,7 +10,6 @@ const { userModel } = require('../models/user.iot.model')
 const { u_groupModel } = require('../models/u_group.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
-const { user_groupModel } = require('../models/userGroup.iot.model')
 const { SensorTypeModel } = require('../models/sensortype.iot.model')
 
 // end of Model

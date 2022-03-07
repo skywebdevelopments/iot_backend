@@ -15,7 +15,6 @@ let { create_log } = require('../middleware/logger.middleware')
 //database models
 let { userModel } = require('../models/user.iot.model');
 let { u_groupModel } = require('../models/u_group.iot.model');
-let { user_groupModel} = require('../models/userGroup.iot.model');
 var Sequelize = require('sequelize');
 
 

@@ -118,7 +118,7 @@ function getUsergroup(groupname) {
 function findUser(user_id) {
     return new Promise((resolve, reject) => {
         db.knex('user')
-            .where('userId', '=', user_id)
+            .where('id', '=', user_id)
             .select('user.id')
             .then(data => {
                 resolve(data);

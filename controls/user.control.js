@@ -246,11 +246,29 @@ function update_permission(req, request_key) {
 
 }
 
+//return true if user found else false
+function find_user(user_id) {
+    return new Promise((resolve, reject) => {
+        usermodel.findUser(user_id).then((data) => {
+            if (data.length === 0) {
+                reject(data)
+            }
+            else {
+                resolve(data)
+            }
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+
+}
+
 module.exports = {
     create_user,
     create_token,
     getall_users,
     getall_usergroups,
     update_permission,
-    get_usergroup
+    get_usergroup,
+    find_user
 }

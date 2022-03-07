@@ -99,6 +99,16 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
     let user_id = req.body['userid']
     let permissions = req.body['permissions']
 
+
+    //check again this validation it catches cannot set headers if user id isnt correct
+    // validation : check if user id is a valid user
+    userControl.find_user(user_id).catch((err) => {
+        create_log("update users' permission", log.log_level.error, responseList.error.error_invalid_payload.message, request_key, req)
+        res.send({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code });
+        return;
+    })
+
+
     // validation : check if permissions array has valid strings
     let getusergroup_promises = [];
     for (let permission of permissions) {

@@ -2,7 +2,9 @@ let db = require('../database/knex_connection')
 
 function createUser(user) {
 
-    return db.knex('user').insert(user)
+    return db.knex('user')
+        .insert(user)
+        .returning('*')
         .onConflict('email')
         .ignore()
 
@@ -17,11 +19,11 @@ function getUser(email, password) {
                 password: password
             })
             .select('user.id', 'username', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
-            .join('u_group', function () {
+            .leftJoin('u_group', function () {
                 this.on('u_group.id', '=', 'user.uGroupId')
             })
             .then((data) => {
-                resolve(data[0]);
+                resolve(data);
             }).catch((err) => {
                 reject(err);
             })
@@ -104,31 +106,34 @@ function getUsergroup(groupname) {
 
 }
 
-//find user by userId
-//returns user id if found
-function findUser(user_id) {
+function updateUser(user_id, username, password) {
+
     return new Promise((resolve, reject) => {
         db.knex('user')
-            .where('id', '=', user_id)
-            .select('user.id')
-            .then(data => {
+            .where('user.id', '=', user_id)
+            .returning('*')
+            .update({
+                username: username,
+                password: password
+            })
+            .then((data) => {
                 resolve(data);
             }).catch((err) => {
                 reject(err);
             })
     })
-
 }
 
+function updateActiveUser(user_id, active) {
 
-function deleteallPermissions(user_id) {
     return new Promise((resolve, reject) => {
-        db.knex('user_group')
-            .where({
-                userId: user_id
+        db.knex('user')
+            .where('user.id', '=', user_id)
+            .returning('*')
+            .update({
+                active: active
             })
-            .del()
-            .then(data => {
+            .then((data) => {
                 resolve(data);
             }).catch((err) => {
                 reject(err);
@@ -140,6 +145,7 @@ function updatePermission(user_id, u_group_id) {
     return new Promise((resolve, reject) => {
         db.knex('user')
             .where('user.id', '=', user_id)
+            .returning('*')
             .update({ uGroupId: u_group_id })
             .then((data) => {
                 resolve(data);
@@ -170,9 +176,9 @@ module.exports = {
     getallUsers,
     getallUsergroups,
     getUsergroup,
-    deleteallPermissions,
     updatePermission,
     createSession,
     updateSession,
-    findUser
+    updateUser,
+    updateActiveUser
 }

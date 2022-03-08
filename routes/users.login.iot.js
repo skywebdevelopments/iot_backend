@@ -18,7 +18,7 @@ let userControl = require('../controls/user.control')
 
 //validators
 var { validateRequestSchema } = require('../middleware/validate-request-schema')
-var { createTokenValidator, createUserValidator, updatePermissionValidator } = require('../validators/user.validator.iot')
+var { createTokenValidator, createUserValidator, updateUserValidator, updateActiveUserValidator, updatePermissionValidator } = require('../validators/user.validator.iot')
 
 /*
 POST /api/v1/users/token
@@ -58,10 +58,44 @@ router.post('/create', createUserValidator, validateRequestSchema, (req, res) =>
 
 });
 
+// Update user 
+// Put /api/v1/users/update
+// update a user's username or password by userid
+
+router.put('/update', authenticate.authenticateUser, updateUserValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+
+    userControl.update_user(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+
+
+});
+
+// Update user active
+// Put /api/v1/users/updateactive
+// update a user's active by userid
+
+router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updateActiveUserValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+
+    userControl.update_active_user(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+
+
+});
+
 
 // GET /api/v1/users
 // Return all user
-router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res) {
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
     let request_key = uuid();
 
     userControl.getall_users(req, request_key)
@@ -75,7 +109,7 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["admin"])
 
 // GET /api/v1/users/usergroups
 // Return all usergroups
-router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), function (req, res) {
+router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
     let request_key = uuid();
 
     userControl.getall_usergroups(req, request_key)
@@ -93,21 +127,9 @@ router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(
 // Put /api/v1/users/updaterole
 // update a user's role by userid
 
-router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["admin"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
+router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
-
-    let user_id = req.body['userid']
     let permission = req.body['permission']
-
-
-    //check again this validation it catches cannot set headers if user id isnt correct
-    // validation : check if user id is a valid user
-    userControl.find_user(user_id).catch((err) => {
-        create_log("update users' permission", log.log_level.error, responseList.error.error_invalid_payload.message, request_key, req)
-        res.send({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code });
-        return;
-    })
-
 
     // validation : check if permission is valid string in db
     userControl.get_usergroup(req, request_key, permission).then(() => {

@@ -22,6 +22,27 @@ const createTokenValidator = [
 ];
 
 
+
+const updateUserValidator = [
+    body('userid')
+        .isNumeric(),
+    body('username')
+        .isString()
+        .isLength({ min: 4 })
+        .withMessage('password must be at least 8 characters long and string'),
+    body('password')
+        .isLength({ min: 8 })
+        .withMessage('password must be at least 8 characters long')
+];
+
+
+const updateActiveUserValidator = [
+    body('userid')
+        .isNumeric(),
+    body('active')
+        .isBoolean()
+]
+
 const updatePermissionValidator = [
     body('userid')
         .isNumeric(),
@@ -34,5 +55,7 @@ const updatePermissionValidator = [
 module.exports = {
     createUserValidator,
     createTokenValidator,
-    updatePermissionValidator
+    updatePermissionValidator,
+    updateUserValidator,
+    updateActiveUserValidator
 }

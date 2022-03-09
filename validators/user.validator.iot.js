@@ -12,6 +12,26 @@ const createUserValidator = [
 
 ];
 
+const createUgroupValidator = [
+    body('groupname')
+        .isString(),
+    body('roles')
+        .isArray(),
+    body('active')
+        .isBoolean()
+];
+
+const updateUgroupValidator = [
+    body('groupname')
+        .isString(),
+    body('roles')
+        .isArray(),
+    body('active')
+        .isBoolean(),
+    body('rec_id')
+        .exists({ checkFalsy: true })
+];
+
 const createTokenValidator = [
     body('email')
         .isEmail()
@@ -57,5 +77,7 @@ module.exports = {
     createTokenValidator,
     updatePermissionValidator,
     updateUserValidator,
-    updateActiveUserValidator
+    updateActiveUserValidator,
+    createUgroupValidator,
+    updateUgroupValidator
 }

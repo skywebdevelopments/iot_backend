@@ -1,42 +1,69 @@
-let db = require('../database/knex_connection')
+var Sequelize = require('sequelize');
 
-function createUser(user) {
+let { userModel } = require('../models/user.iot.model')
+let { u_groupModel } = require('../models/u_group.iot.model')
+let { sessionModel } = require('../models/session.iot.model')
 
-    return db.knex('user')
-        .insert(user)
-        .returning('*')
-        .onConflict('email')
-        .ignore()
+
+function createUser(new_user) {
+
+    return new Promise((resolve, reject) => {
+        userModel.findOne({
+            where: {
+                email: new_user.email
+            }
+        }).then(user => {
+            if (!user) {
+                userModel.create({
+                    username: new_user.username,
+                    password: new_user.password,
+                    email: new_user.email,
+                    active: true
+                }).then((data) => {
+                    resolve(data)
+                }).catch((err) => {
+                    reject(err)
+                })
+            }
+            else {
+                resolve([])
+            }
+        }).catch(err => {
+            reject(err)
+        })
+    })
+
 
 }
 
 //retrieve user using email and password
 function getUser(email, password) {
     return new Promise((resolve, reject) => {
-        db.knex('user')
-            .where({
+
+        userModel.findOne({
+            where: {
                 email: email,
                 password: password
-            })
-            .select('user.id', 'username', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
-            .leftJoin('u_group', function () {
-                this.on('u_group.id', '=', 'user.uGroupId')
-            })
-            .then((data) => {
-                resolve(data);
-            }).catch((err) => {
-                reject(err);
-            })
+            },
+            include: {
+                model: u_groupModel
+            }
+        }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 
 }
 
 function createSession(user_id, token) {
     return new Promise((resolve, reject) => {
-        db.knex('session').insert({
-            userId: user_id,
+
+        sessionModel.create({
+            token: token,
             active: true,
-            token: token
+            userId: user_id
         }).then((data) => {
             resolve(data)
         }).catch((error) => {
@@ -45,32 +72,44 @@ function createSession(user_id, token) {
     })
 }
 
-function updateSession(user_id) {
+function updateSession(user_id, token) {
     return new Promise((resolve, reject) => {
-        db.knex('session')
-            .where('userId', '=', user_id)
-            .update({ active: false })
-            .then((data) => {
-                resolve(data)
-            }).catch((error) => {
-                reject(error)
-            })
+        sessionModel.findOne({
+            where: {
+                userId: user_id,
+                active: true
+            }
+        }).then((session) => {
+            if (session) {
+                sessionModel.update({ active: false }, {
+                    where: {
+                        id: session.id
+                    }
+                })
+            }
+            return createSession(user_id, token)
+        }).then((data) => {
+            resolve(data)
+        }).catch((error) => {
+            reject(error)
+        })
     })
 }
 
 function getallUsers() {
 
     return new Promise((resolve, reject) => {
-        db.knex('user')
-            .select('user.id', 'username', 'email', 'user.rec_id', 'u_group.groupname', 'u_group.roles')
-            .join('u_group', function () {
-                this.on('u_group.id', '=', 'user.uGroupId')
-            })
-            .then((data) => {
-                resolve(data);
-            }).catch((err) => {
-                reject(err);
-            })
+
+        userModel.findAll({
+            attributes: ['id', 'username', 'email']
+            , include: [{
+                model: u_groupModel
+            }]
+        }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 
 }
@@ -78,15 +117,16 @@ function getallUsers() {
 function getallUsergroups() {
 
     return new Promise((resolve, reject) => {
-        db.knex('u_group')
-            .select('*')
-            .join('user', function () {
-                this.on('u_group.id', '=', 'user.uGroupId')
-            }).then((data) => {
-                resolve(data);
-            }).catch((err) => {
-                reject(err);
-            })
+        u_groupModel.findAll({
+            include: [{
+                model: userModel,
+                as: 'users'
+            }]
+        }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 
 }
@@ -94,14 +134,16 @@ function getallUsergroups() {
 //get userGroup by group name
 function getUsergroup(groupname) {
     return new Promise((resolve, reject) => {
-        db.knex('u_group')
-            .where('groupname', '=', groupname)
-            .select('*')
-            .then(data => {
-                resolve(data);
-            }).catch((err) => {
-                reject(err);
-            })
+
+        u_groupModel.findOne({
+            where: {
+                groupname: groupname
+            }
+        }).then(data => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 
 }
@@ -109,12 +151,14 @@ function getUsergroup(groupname) {
 function updateUser(user_id, username, password) {
 
     return new Promise((resolve, reject) => {
-        db.knex('user')
-            .where('user.id', '=', user_id)
-            .returning('*')
-            .update({
-                username: username,
-                password: password
+        userModel.update({
+            username: username,
+            password: password
+        },
+            {
+                where: {
+                    id: user_id
+                }
             })
             .then((data) => {
                 resolve(data);
@@ -127,11 +171,13 @@ function updateUser(user_id, username, password) {
 function updateActiveUser(user_id, active) {
 
     return new Promise((resolve, reject) => {
-        db.knex('user')
-            .where('user.id', '=', user_id)
-            .returning('*')
-            .update({
-                active: active
+        userModel.update({
+            active: active
+        },
+            {
+                where: {
+                    id: user_id
+                }
             })
             .then((data) => {
                 resolve(data);
@@ -143,10 +189,14 @@ function updateActiveUser(user_id, active) {
 
 function updatePermission(user_id, u_group_id) {
     return new Promise((resolve, reject) => {
-        db.knex('user')
-            .where('user.id', '=', user_id)
-            .returning('*')
-            .update({ uGroupId: u_group_id })
+        userModel.update({
+            uGroupId: u_group_id
+        },
+            {
+                where: {
+                    id: user_id
+                }
+            })
             .then((data) => {
                 resolve(data);
             }).catch((err) => {
@@ -155,20 +205,66 @@ function updatePermission(user_id, u_group_id) {
     })
 }
 
-function deleteUgroup(ugroup_rec_id) {
+function createUgroup(ugroup) {
+
     return new Promise((resolve, reject) => {
-        db.knex('u_group')
-            .where('u_group.rec_id', '=', ugroup_rec_id)
-            .del()
-            .then(() => {
-                resolve();
-            })
-            .catch((err) => {
-                reject(err);
-            })
+        u_groupModel.findOne({
+            where:
+                Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('groupname')),
+                    Sequelize.fn('lower', ugroup.groupname)
+                )
+        }).then(group => {
+            if (!group) {
+                u_groupModel.create(ugroup)
+                    .then((data) => {
+                        resolve(data)
+                    }).catch((err) => {
+                        reject(err)
+                    })
+            }
+            else {
+                resolve([])
+            }
+        }).catch(err => {
+            reject(err)
+        })
+    })
+
+
+}
+
+function updateUgroup(ugroup) {
+
+    return new Promise((resolve, reject) => {
+
+        u_groupModel.findOne({
+            where:
+                Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('groupname')),
+                    Sequelize.fn('lower', ugroup.groupname)
+                )
+        }).then(group => {
+            if (!group) {
+                u_groupModel.update(ugroup, {
+                    where: {
+                        rec_id: ugroup.rec_id
+                    }
+                }).then((data) => {
+                    resolve(data)
+                }).catch((err) => {
+                    reject(err)
+                })
+            }
+            else {
+                resolve("exists")
+            }
+        })
     })
 
 }
+
+
 
 module.exports = {
     createUser,
@@ -177,8 +273,9 @@ module.exports = {
     getallUsergroups,
     getUsergroup,
     updatePermission,
-    createSession,
     updateSession,
     updateUser,
-    updateActiveUser
+    updateActiveUser,
+    createUgroup,
+    updateUgroup
 }

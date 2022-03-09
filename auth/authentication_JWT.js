@@ -14,7 +14,7 @@ var responseList = require('../config/response.code.json')
 exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
-    const roles = user.roles;
+    const roles = user.u_group['roles'];
 
     const expiresIn = "1d";
     const payload = {

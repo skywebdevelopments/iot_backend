@@ -18,7 +18,10 @@ let userControl = require('../controls/user.control')
 
 //validators
 var { validateRequestSchema } = require('../middleware/validate-request-schema')
-var { createTokenValidator, createUserValidator, updateUserValidator, updateActiveUserValidator, updatePermissionValidator } = require('../validators/user.validator.iot')
+var { createTokenValidator, createUserValidator,
+    updateUserValidator, updateActiveUserValidator,
+    updatePermissionValidator, createUgroupValidator,
+    updateUgroupValidator } = require('../validators/user.validator.iot')
 
 /*
 POST /api/v1/users/token
@@ -147,5 +150,39 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 
 });
 
+
+/*
+POST /api/v1/users/create/u_group
+Parameters:groupname,roles and active of a u_group
+*/
+router.post('/create/ugroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
+    let request_key = uuid();
+
+    let { groupname, roles, active } = req.body;
+
+    userControl.create_ugroup(groupname, roles, active, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+
+});
+
+
+// Update user group 
+// Put /api/v1/users/update/ugroup
+// update a user group by rec_id
+
+router.put('/update/ugroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:update"]), updateUgroupValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+
+    userControl.update_ugroup(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+});
 
 module.exports = router;

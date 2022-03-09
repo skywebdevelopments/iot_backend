@@ -1,0 +1,7 @@
+[2022-03-09T15:09:30.319] [TRACE] app - 655f0fbb-9306-48e3-8f91-f5b673536401 - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-09T15:09:30.354] [INFO] app - 655f0fbb-9306-48e3-8f91-f5b673536401 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1
+[2022-03-09T15:09:37.953] [TRACE] app - f5b4cc84-4770-4dd6-9332-8e4a492e0256 - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-09T15:09:37.976] [INFO] app - f5b4cc84-4770-4dd6-9332-8e4a492e0256 - INFO - inbound request - list sensor group with ID - no data found - 1
+[2022-03-09T15:09:37.980] [INFO] app - f5b4cc84-4770-4dd6-9332-8e4a492e0256 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1
+[2022-03-09T15:09:44.569] [TRACE] app - 715bc09f-80a4-4208-9b1f-14fea573ef0a - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-09T15:09:44.598] [INFO] app - 715bc09f-80a4-4208-9b1f-14fea573ef0a - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1

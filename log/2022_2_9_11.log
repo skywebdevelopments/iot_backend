@@ -1,0 +1,16 @@
+[2022-03-09T11:20:16.211] [TRACE] app - 178e5c99-ed21-46e9-8a40-8640fc378329 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T11:20:16.349] [ERROR] app - 178e5c99-ed21-46e9-8a40-8640fc378329 - ERROR - inbound request - update sensor group - update "s_group" set "0" = $1, "1" = $2, "2" = $3 where "s_group"."s_group_rec_id" = $4 - column "0" of relation "s_group" does not exist - 1
+[2022-03-09T11:21:54.065] [TRACE] app - 5d173c21-1766-43c7-a245-7aad07cb7e29 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T11:21:54.262] [ERROR] app - 5d173c21-1766-43c7-a245-7aad07cb7e29 - ERROR - inbound request - update sensor group - update "s_group" set "0" = $1, "1" = $2, "2" = $3 where "s_group"."s_group_rec_id" = $4 - column "0" of relation "s_group" does not exist - 1
+[2022-03-09T11:22:41.799] [TRACE] app - 902cb3fa-cb9e-46d7-a2a9-129f99fad3ec - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T11:22:41.929] [INFO] app - 902cb3fa-cb9e-46d7-a2a9-129f99fad3ec - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-09T11:23:49.958] [TRACE] app - be751e95-d39a-4252-9e5a-4f40bf67caa6 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T11:23:50.208] [INFO] app - be751e95-d39a-4252-9e5a-4f40bf67caa6 - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-09T11:24:42.070] [TRACE] app - ab25eb2f-5def-41c4-ac5e-ea4338e57a83 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T11:24:42.191] [INFO] app - ab25eb2f-5def-41c4-ac5e-ea4338e57a83 - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-09T11:25:01.976] [INFO] app - 5cf0e741-0226-4058-ac38-f65616efeb0d - INFO - inbound request - login - Logged in Successfully - 1
+[2022-03-09T11:25:12.165] [TRACE] app - 1cc65d88-0fe2-43ca-bf6a-fade1e74020a - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-09T11:25:12.193] [INFO] app - 1cc65d88-0fe2-43ca-bf6a-fade1e74020a - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-09T11:31:40.764] [INFO] app - 7bc99fcd-13d6-4cc6-89ff-12d50b8d5ec3 - INFO - inbound request - login - Logged in Successfully - 1
+[2022-03-09T11:32:24.435] [TRACE] app - cf5a054d-c475-421c-be8a-33407e1cb31f - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-09T11:32:24.447] [INFO] app - cf5a054d-c475-421c-be8a-33407e1cb31f - INFO - inbound request - list sensor group - Success retrieving  data - 1

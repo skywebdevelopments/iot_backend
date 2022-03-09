@@ -1,0 +1,26 @@
+[2022-03-08T14:40:49.919] [TRACE] app - 2a0cbad3-4365-4143-8c07-778d885a1d9b - TRACE - inbound request - create user - Data is executing - 0
+[2022-03-08T14:40:49.920] [INFO] app - 2a0cbad3-4365-4143-8c07-778d885a1d9b - INFO - inbound request - create user - Success creating new data - 1
+[2022-03-08T14:41:11.762] [INFO] app - cd1e3437-3a67-479c-af0b-8c112a711938 - INFO - inbound request - login - Logged in Successfully - 1
+[2022-03-08T14:44:30.718] [INFO] app - 7444864f-86aa-4f13-947d-c30941e15bea - INFO - inbound request - login - Logged in Successfully - 1
+[2022-03-08T14:44:33.868] [ERROR] app - 7fb1f220-49a0-4a10-8265-7b9d4e98fda4 - ERROR - inbound request - list Sensor_Type - no data found - 1
+[2022-03-08T14:46:27.546] [ERROR] app - 4476ee94-5924-465e-a4ad-735a17d63e50 - ERROR - inbound request - list mqtt_user - no data found - 1
+[2022-03-08T14:47:53.664] [TRACE] app - 6e7e6a2a-ad77-4a7a-853c-5ed4afc74607 - TRACE - inbound request - create sensor group - Data is executing - 1
+[2022-03-08T14:47:53.756] [INFO] app - 6e7e6a2a-ad77-4a7a-853c-5ed4afc74607 - INFO - inbound request - create sensor group - Success creating new data - 1
+[2022-03-08T14:48:16.978] [ERROR] app - 7a03bb7f-8857-4c57-a142-6c16d5ab71ef - ERROR - inbound request - list sensor - column mqtt_user.id does not exist - 1
+[2022-03-08T14:49:35.370] [ERROR] app - 9a3b4c95-226a-4dae-8533-37c12ee39821 - ERROR - inbound request - list sensor - column mqtt_user.id does not exist - 1
+[2022-03-08T14:51:12.055] [ERROR] app - d4e373b8-a669-43d8-9aed-1bee9a291f5d - ERROR - inbound request - list sensor - column mqtt_user.id does not exist - 1
+[2022-03-08T14:52:17.671] [TRACE] app - d69ae391-ae50-4142-b5f1-630575a7b4c0 - TRACE - inbound request - create sensor group - Data is executing - 1
+[2022-03-08T14:52:17.677] [ERROR] app - dc5af361-e038-4cce-9413-5493ab04c10a - ERROR - inbound request - list sensor - column mqtt_user.id does not exist - 1
+[2022-03-08T14:52:17.688] [INFO] app - d69ae391-ae50-4142-b5f1-630575a7b4c0 - INFO - inbound request - create sensor group - Success creating new data - 1
+[2022-03-08T14:53:00.714] [TRACE] app - a41616ad-d714-4656-8ed7-3c7dd42d21df - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T14:53:00.725] [INFO] app - a41616ad-d714-4656-8ed7-3c7dd42d21df - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-08T14:53:15.801] [TRACE] app - aabe6106-739b-4895-a608-6be0a6537c14 - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T14:53:15.806] [INFO] app - aabe6106-739b-4895-a608-6be0a6537c14 - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-08T14:54:19.891] [TRACE] app - d4da33ea-cca1-454b-be07-5b9bbfc4670b - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T14:54:19.897] [INFO] app - d4da33ea-cca1-454b-be07-5b9bbfc4670b - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-08T14:54:48.289] [TRACE] app - 29315d78-ea05-4bba-907c-d7d82c2ca9ae - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T14:54:48.297] [INFO] app - 29315d78-ea05-4bba-907c-d7d82c2ca9ae - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-08T15:05:29.027] [TRACE] app - 02486f5f-3f7e-4b09-a311-93220d21b4c1 - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T15:05:29.034] [INFO] app - 02486f5f-3f7e-4b09-a311-93220d21b4c1 - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-08T15:06:37.401] [TRACE] app - 10789313-aadf-4256-af1e-dbebd1e1f673 - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-08T15:06:37.408] [INFO] app - 10789313-aadf-4256-af1e-dbebd1e1f673 - INFO - inbound request - list sensor group - Success retrieving  data - 1

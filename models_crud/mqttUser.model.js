@@ -17,9 +17,10 @@ function getAll_mqttUsers() {
 
 //create mqttUser
 function create_mqttUsers(req) {
-    req.body['rec_id'] = uuid();
+
+    req.body['mqttuser_rec_id'] = uuid();
     return new Promise((resolve, reject) => {
-        db.knex('mqtt_user').insert(req.body)//.onConflict('username').ignore()
+        db.knex('mqtt_user').insert(req.body).onConflict('username').ignore()
             .then(data => {
                 resolve(data);
             }).catch((err) => {
@@ -32,7 +33,7 @@ function create_mqttUsers(req) {
 function update_mqttUsers(req) {
     return new Promise((resolve, reject) => {
         db.knex('mqtt_user')
-            .where('mqtt_user.rec_id', '=', req.body['rec_id'])
+            .where('mqtt_user.mqttuser_rec_id', '=', req.body['mqttuser_rec_id'])
             .update(req.body).then((data) => {
                 resolve(data);
             }
@@ -46,17 +47,17 @@ function update_mqttUsers(req) {
 
 function delete_sensor(req) {
     db.knex('mqtt_user')
-        .select('id')
-        .where('mqtt_user.rec_id', '=', req.body['rec_id'])
+        .select('mqttuser_id')
+        .where('mqtt_user.mqttuser_rec_id', '=', req.body['mqttuser_rec_id'])
         .then(function (unit) {
             db.knex('sensor')
-                .select('id')
-                .where('sensor.mqttUserId', '=', unit[0].id)
+                .select('sensor_id')
+                .where('sensor.mqttuserId', '=', unit[0].sensor_id)
                 .then((data) => {
                     if (data.length !== 0) {
                         for (sensorr of data) {
                             db.knex('sensor')
-                                .where('sensor.id', '=', sensorr.id)
+                                .where('sensor.sensor_id', '=', sensorr.sensor_id)
                                 .del().then((data) => {
                                 }).catch(err => {
                                     return err
@@ -71,14 +72,14 @@ function delete_sensor(req) {
         }).catch(err => {
             return err
         })
-        return "true";
+    return "true";
 }
 
 function delete_mqttUsers(req) {
     return new Promise((resolve, reject) => {
         if (delete_sensor(req) === "true") {
             db.knex('mqtt_user')
-                .where('mqtt_user.rec_id', '=', req.body['rec_id'])
+                .where('mqtt_user.mqttuser_rec_id', '=', req.body['mqttuser_rec_id'])
                 .del()
                 .then((data) => {
                     resolve(data);

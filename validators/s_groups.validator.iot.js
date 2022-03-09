@@ -15,7 +15,7 @@ const s_group_create = [
 const sgroup_sensorMap = [
   body('sensorId').isNumeric()
   .withMessage('sensorId must contain a numeric input'),
-  body('group_rec_id').exists({checkFalsy:true})
+  body('rec_id').exists({checkFalsy:true})
   .withMessage('group rec id is required')
 ];
 const s_group_update = [

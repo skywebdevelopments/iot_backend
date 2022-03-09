@@ -1,0 +1,2 @@
+[2022-03-09T17:04:00.444] [TRACE] app - 6d9f6118-814f-4f72-a578-ccf74687f0a0 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-09T17:04:00.610] [INFO] app - 6d9f6118-814f-4f72-a578-ccf74687f0a0 - INFO - inbound request - update sensor group - Success updating new data - 1

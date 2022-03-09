@@ -92,8 +92,8 @@ const sensor = sequelize.define('sensor', {
 // user.sync({ force: true });
 
 
+sensor.belongsTo(mqtt_userModel, { foreignKey: 'mqttuserId' });
+sensor.belongsTo(SensorTypeModel, { foreignKey: 'sensorTypeId' });
 
-sensor.belongsTo(mqtt_userModel);
-sensor.belongsTo(SensorTypeModel);
 
 exports.sensorModel = sensor

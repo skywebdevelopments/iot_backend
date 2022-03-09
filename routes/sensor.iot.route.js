@@ -64,12 +64,15 @@ router.post('/create', createsensorSchema, validateRequestSchema, function (req,
     control.Createsensor(req, request_key).then((data) => {
         if (data.rowCount === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
+            return;
         }
         else {
             res.send({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
+            return;
         }
 
     }).catch((error) => {
+      
         res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
     })
 

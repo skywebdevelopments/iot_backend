@@ -10,11 +10,13 @@ function Createsensor(req, request_key) {
         sensor.create_sensor(req).then((data) => {
             if (data.rowCount === 0) {
                 create_log('Create sensor', log.log_level.info, responseList.error.error_no_data.message, log.req_type.inbound, request_key, req)
-                resolve(data)
+                resolve(data);
+                return;
             }
             else {
                 create_log("Create Sensor", log.log_level.info, responseList.success.success_creating_data.message, log.req_type.inbound, request_key, req)
-                resolve(data)
+                resolve(data);
+                return;
             }
 
         }).catch((error) => {

@@ -71,7 +71,7 @@ const createsensorSchema = [
     .isLength({ min: 4 })
     .exists({ checkFalsy: true })
     .withMessage('Flags must be at least 4 characters long'),
-  body('mqttUserId')
+  body('mqttuserId')
     .isLength({ min: 1 })
     .exists({ checkFalsy: true })
     .isNumeric()
@@ -169,7 +169,7 @@ const updatesensorSchema = [
     .exists({ checkFalsy: true })
     .optional({ nullable: true })
     .withMessage('Flags must be at least 4 characters long'),
-  body('mqttUserId')
+  body('mqttuserId')
     .isLength({ min: 1 })
     .isNumeric()
     .optional({ nullable: true })

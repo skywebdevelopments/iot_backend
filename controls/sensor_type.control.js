@@ -67,7 +67,7 @@ function GetSensor_type_byId(req, request_key) {
 
 function UpdateSensortype(req, request_key) {
 
-    let rec_id = req.body['sensortype_rec_id']
+    let rec_id = req.body['rec_id']
     if (!isUuid(rec_id)) {
         create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
     }
@@ -97,7 +97,7 @@ function UpdateSensortype(req, request_key) {
 
 function DeleteSensortype(req, request_key) {
     
-    let rec_id = req.body['sensortype_rec_id']
+    let rec_id = req.body['rec_id']
     if (!isUuid(rec_id)) {
         create_log("update sensor type", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, log.req_type.inbound, request_key, req)
     }

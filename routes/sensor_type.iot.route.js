@@ -94,7 +94,7 @@ router.post('/', RequiredRec_Id, validateRequestSchema, function (req, res, next
 router.put('/update', updatesensortypeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
-    let rec_id = req.body['sensortype_rec_id']
+    let rec_id = req.body['rec_id']
     if (!isUuid(rec_id)) {
         res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
     }
@@ -128,7 +128,7 @@ router.put('/update', updatesensortypeSchema, validateRequestSchema, function (r
 router.post('/delete', RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     
-    let rec_id = req.body['sensortype_rec_id']
+    let rec_id = req.body['rec_id']
     if (!isUuid(rec_id)) {
         res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
     }

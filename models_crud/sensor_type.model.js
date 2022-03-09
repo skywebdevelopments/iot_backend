@@ -1,109 +1,87 @@
 let db = require('../database/knex_connection')
-let { uuid, isUuid } = require('uuidv4');
-const { GetSensortypes } = require('../controls/sensor_type.control');
+let { uuid } = require('uuidv4');
+let { SensorTypeModel } = require('../models/sensortype.iot.model');
+let { Op } = require("sequelize");
 
 
 function create_sensor_type(req) {
-    req.body['sensortype_rec_id'] = uuid();
+    req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
-        db.knex('sensor_type').insert(req.body).onConflict('type')
-            .ignore().then(function (rows) {
-                resolve(rows)
-            }).catch((err) => {
-                reject(err);
-            })
+        SensorTypeModel.create(req.body).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
     })
 }
 
 
 function getAll_senortype(req) {
     return new Promise((resolve, reject) => {
-        db.knex('sensor_type')
-            .select()
-            .then(function (rows) {
-                resolve(rows)
-            }).catch(err => {
-                reject(err)
-            })
-    })
+        SensorTypeModel.findAll().then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
+    }).catch((error) => {
+        reject(error);
+    });
 }
 
 function getSensor_type_byId(req) {
+    let sensorType_id = req.body['rec_id'];
     return new Promise((resolve, reject) => {
-        db.knex('sensor_type')
-            .select()
-            .where('sensor_type.sensortype_rec_id', '=', req.body['sensortype_rec_id'])
-            .then(function (rows) {
-                resolve(rows)
-            }).catch(err => {
-                reject(err)
-            })
+        SensorTypeModel.findOne({
+            where: {
+                rec_id: sensorType_id
+            }
+        }).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
     })
 }
 
 function updateSensortype(req) {
-    console.log(req.body)
+    let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
-        db.knex('sensor_type')
-            .where('sensor_type.sensortype_rec_id', '=', req.body['sensortype_rec_id'])
-            .update(req.body)
-            .then(data => {
-                resolve(data);
-            }).catch(err => {
-                reject(err)
-            })
+        SensorTypeModel.update(req.body,
+            {
+                where: {
+                    rec_id: {
+                        [Op.eq]: rec_id
+                    }
+                },
+            }
+
+        ).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
     })
 }
 
 
-function deleteSensorAssigned(req) {
-    db.knex('sensor_type')
-        .select('sensortype_id')
-        .where('sensor_type.sensortype_rec_id', '=', req.body['sensortype_rec_id'])
-        .then(function (unit) {
-            db.knex('sensor')
-                .select('sensor_id')
-                .where('sensor.sensorTypeId', '=', unit[0].sensortype_id)
-                .then((data) => {
-                    if (data.length !== 0) {
-                        for (sensorr of data) {
-                            db.knex('sensor')
-                                .where('sensor.sensor_id', '=', sensorr.sensor_id)
-                                .del().then(() => {
-                                }).catch(err => {
-                                    return err
-                                })
-                        }
-
-                    }
-                    return "true";
-                }).catch(err => {
-                    return err
-                })
-        }).catch(err => {
-            return err
-        })
-    return "true";
-
-}
-
 function deleteSensortypee(req) {
+    let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
+        SensorTypeModel.destroy(
+            {
+                where: {
+                    rec_id: {
+                        [Op.eq]: rec_id
+                    }
+                },
+            }
 
-        if (deleteSensortype(req) === "true") {
+        ).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
 
-            db.knex('sensor_type')
-                .where('sensor_type.sensortype_rec_id', '=', req.body['sensortype_rec_id'])
-                .del()
-                .then((data) => {
-                    resolve(data);
-                }).catch(err => {
-                    reject(err)
-                })
-        }
-        else {
-            reject(deleteSensortype(req));
-        }
     })
 }
 
@@ -113,7 +91,7 @@ module.exports = {
     getAll_senortype,
     getSensor_type_byId,
     updateSensortype,
-    deleteSensorAssigned,
+  
     deleteSensortypee
 }
 

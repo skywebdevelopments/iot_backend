@@ -14,13 +14,13 @@ const mqttuser_create = [
   const mqttuser_update = [
     body('rec_id').exists({checkFalsy:true})
     .withMessage('mqttuser rec id is required'),
-    body('is_superuser').isBoolean()
+    body('is_superuser').isBoolean().optional({ nullable: true })
     .withMessage('mqtt is_superuser must contain a boolean input'),
     body('salt').isString().optional({ nullable: true })
     .withMessage('mqtt salt must contain a string input'),
-    body('username').isString()
+    body('username').isString().optional({ nullable: true })
     .withMessage('mqtt username must contain a string input'),
-    body('password').isLength({ min: 5 })
+    body('password').isLength({ min: 5 }).optional({ nullable: true })
     .withMessage('mqtt password must contain a min length 5')
   ];
  

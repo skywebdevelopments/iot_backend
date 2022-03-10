@@ -1,0 +1,9 @@
+[2022-03-03T11:00:22.365] [TRACE] app - 7564b34e-b899-4497-a328-2af4fd87f827 - TRACE - inbound request - query for group with 3c277450-4f02-4141-af3f-8e4e6436b2d0 - Data is executing - 4
+[2022-03-03T11:00:22.367] [TRACE] app - 7564b34e-b899-4497-a328-2af4fd87f827 - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-03T11:00:22.531] [ERROR] app - 7564b34e-b899-4497-a328-2af4fd87f827 - ERROR - inbound request - map sensor to group - insert into "sensor_group" ("sGroupId", "sensorId") values ($1, $2) - duplicate key value violates unique constraint "sensor_group_pkey" - 4
+[2022-03-03T11:00:52.740] [ERROR] app - 2b6e0386-95ac-4c35-a221-8c38eca3f2ba - ERROR - inbound request - create sensor group - request payload is invalid - 4
+[2022-03-03T11:01:06.076] [ERROR] app - 70890371-f0dc-429a-978f-c8ca0453bde5 - ERROR - inbound request - create sensor group - request payload is invalid - 4
+[2022-03-03T11:01:14.773] [ERROR] app - 6f88da91-4c97-48c2-8acd-67a255272b2c - ERROR - inbound request - map sensor to group - request payload is missing - 4
+[2022-03-03T11:01:33.210] [TRACE] app - 305af4a4-803f-4f4c-81ed-09e2b7426603 - TRACE - inbound request - query for group with 3c277450-4f02-4141-af3f-8e4e6436b2d0 - Data is executing - 4
+[2022-03-03T11:01:33.212] [TRACE] app - 305af4a4-803f-4f4c-81ed-09e2b7426603 - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-03T11:01:33.242] [INFO] app - 305af4a4-803f-4f4c-81ed-09e2b7426603 - INFO - inbound request - map sensor to group - successfully - 4

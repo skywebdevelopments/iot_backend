@@ -1,0 +1,8 @@
+[2022-03-09T13:29:18.534] [ERROR] app - 52c67f14-b09f-477f-ac16-7d9834cd9154 - ERROR - inbound request - create user - column "roles" does not exist - 0
+[2022-03-09T13:31:58.368] [ERROR] app - 8e7cebf1-c22c-48de-93dc-44ac9fcc7d8c - ERROR - inbound request - login - column user.roles does not exist - 0
+[2022-03-09T13:35:00.273] [ERROR] app - 2716d6b1-53a7-47b1-9ca5-11aad15c04e9 - ERROR - inbound request - create user - column "roles" does not exist - 0
+[2022-03-09T13:37:35.463] [ERROR] app - 51fd3dac-2ffc-4b86-bec3-bce4b7ceed73 - ERROR - inbound request - create user - column "roles" does not exist - 0
+[2022-03-09T13:39:46.049] [ERROR] app - ef80a927-33b2-46e7-9b1d-bfc1cbd2efd0 - ERROR - inbound request - create user - column "roles" does not exist - 0
+[2022-03-09T13:45:55.797] [TRACE] app - 2d850574-f6dd-447e-b905-aca29332a60a - TRACE - inbound request - create user - Data is executing - 0
+[2022-03-09T13:45:55.801] [INFO] app - 2d850574-f6dd-447e-b905-aca29332a60a - INFO - inbound request - create user - Success creating new data - 1
+[2022-03-09T13:46:35.180] [INFO] app - 0bcce774-d52a-4e5e-9979-b156ed513353 - INFO - inbound request - login - Logged in Successfully - 1

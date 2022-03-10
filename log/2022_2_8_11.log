@@ -1,0 +1,59 @@
+[2022-03-08T11:40:08.273] [INFO] app - 57365247-98cf-4b16-97d9-cc7e818d8df2 - INFO - inbound request - login - Logged in Successfully - 4
+[2022-03-08T11:40:20.596] [TRACE] app - 2ca55c2b-36be-44cf-b99e-38aba6db22c1 - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-08T11:40:20.682] [INFO] app - 2ca55c2b-36be-44cf-b99e-38aba6db22c1 - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-08T11:43:38.820] [TRACE] app - daaf232e-870e-4b08-95a4-ff7e16b4b1cc - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:43:39.013] [INFO] app - daaf232e-870e-4b08-95a4-ff7e16b4b1cc - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:44:19.337] [TRACE] app - 6a988755-be2d-4e50-94c9-d61d1a5015d8 - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-08T11:44:19.355] [INFO] app - 6a988755-be2d-4e50-94c9-d61d1a5015d8 - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-08T11:44:51.834] [TRACE] app - 94a86219-a133-46ae-9f97-5a234e9611e8 - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-08T11:44:52.046] [INFO] app - 94a86219-a133-46ae-9f97-5a234e9611e8 - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-08T11:45:10.123] [TRACE] app - 2afdbbc4-5444-4419-a0b4-482128c34a20 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:45:10.160] [ERROR] app - 2afdbbc4-5444-4419-a0b4-482128c34a20 - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:45:10.184] [INFO] app - 2724bda3-3625-4145-ac79-731a778b1acb - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:45:20.477] [TRACE] app - 04f74a1a-62bf-4f4c-8128-dfbab1281cfc - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:45:20.491] [ERROR] app - 04f74a1a-62bf-4f4c-8128-dfbab1281cfc - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:46:04.802] [TRACE] app - 9bbcb97c-d2fd-4a37-bb5a-111c6b0db6a4 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:46:04.917] [ERROR] app - 9bbcb97c-d2fd-4a37-bb5a-111c6b0db6a4 - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:46:19.310] [TRACE] app - 365a6b60-2af8-4852-aa58-e6b4ec2a206a - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:46:19.443] [ERROR] app - 365a6b60-2af8-4852-aa58-e6b4ec2a206a - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:47:41.154] [TRACE] app - edd3598d-8851-4070-aa8c-ea550defc2b4 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:47:41.303] [ERROR] app - edd3598d-8851-4070-aa8c-ea550defc2b4 - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:47:50.157] [TRACE] app - ec9917dd-fb91-4656-9c98-462c6cf9815e - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:47:50.176] [INFO] app - 96f602bd-34a1-47dc-a8d1-36eb0d260b6c - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:47:50.187] [ERROR] app - ec9917dd-fb91-4656-9c98-462c6cf9815e - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:48:16.470] [TRACE] app - 99a942e7-50d5-4483-8db8-f16112ab6db4 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:48:16.486] [INFO] app - b44364d9-6782-43d2-954c-65455b50f6b0 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:48:16.500] [INFO] app - 99a942e7-50d5-4483-8db8-f16112ab6db4 - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:49:29.006] [TRACE] app - 8302dc1e-78f2-43ac-91ab-27a0fa2a9de0 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:49:29.019] [INFO] app - 13b97807-dbb0-4407-b46d-bebdf6e271f1 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:49:29.038] [INFO] app - 8302dc1e-78f2-43ac-91ab-27a0fa2a9de0 - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:50:23.644] [TRACE] app - 90c77a3f-d465-4a76-a1e2-d6f8c726c30f - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:50:23.649] [INFO] app - 7c18031e-436e-451d-b84e-0d071175bceb - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:50:23.660] [INFO] app - 90c77a3f-d465-4a76-a1e2-d6f8c726c30f - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:51:57.575] [TRACE] app - c0c46fbd-e015-47c5-add7-6e89c9511cf1 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:51:57.582] [INFO] app - e89f8a74-b763-49c9-bf4d-f8112be9c642 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:51:57.592] [INFO] app - c0c46fbd-e015-47c5-add7-6e89c9511cf1 - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:52:26.084] [TRACE] app - e3c84ab5-7dad-4cdf-817a-8e2d798b79dc - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:52:26.089] [INFO] app - f97f6d3d-f912-49eb-892b-e16441b67bae - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:52:26.096] [INFO] app - e3c84ab5-7dad-4cdf-817a-8e2d798b79dc - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:54:48.390] [TRACE] app - f8bd33cc-3413-4be1-85d0-c31d83bbb3eb - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:54:48.397] [INFO] app - 01104a8d-270d-48ea-b45c-abfc723c5ec6 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:54:48.410] [INFO] app - f8bd33cc-3413-4be1-85d0-c31d83bbb3eb - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:55:22.739] [TRACE] app - 1236a0ff-38e0-4374-b662-6506f636009f - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:55:22.747] [INFO] app - a2885fa5-eb04-4026-922a-da6acca1aec6 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:55:22.760] [INFO] app - 1236a0ff-38e0-4374-b662-6506f636009f - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:56:11.542] [TRACE] app - d974e346-dcbe-45d9-8c46-d56736cc46d2 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:56:11.550] [INFO] app - b37ba3e1-8881-4115-a308-9ae174792739 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:56:11.561] [ERROR] app - d974e346-dcbe-45d9-8c46-d56736cc46d2 - ERROR - inbound request - create sensor group - already exists! - 4
+[2022-03-08T11:56:17.004] [TRACE] app - 5e74870b-f0dd-4291-9d64-7d52d60052e5 - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:56:17.013] [INFO] app - 0cb815fe-d2cf-4538-89a1-8ad027fd0beb - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:56:17.027] [INFO] app - 5e74870b-f0dd-4291-9d64-7d52d60052e5 - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T11:56:55.829] [TRACE] app - 4ab16a0e-9c25-4eed-8c81-1cad47650d3d - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T11:56:55.837] [INFO] app - 5aae73e7-9e1b-451d-83ab-4a808c0503b0 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T11:56:55.841] [INFO] app - 4ab16a0e-9c25-4eed-8c81-1cad47650d3d - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T12:09:51.821] [TRACE] app - dc40a4bc-b138-468f-8e87-73d4e642783f - TRACE - inbound request - create sensor group - Data is executing - 4
+[2022-03-08T12:09:51.826] [INFO] app - d8895b4b-2c87-4006-b98f-dcdb3ada9b6e - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T12:09:51.840] [INFO] app - dc40a4bc-b138-468f-8e87-73d4e642783f - INFO - inbound request - create sensor group - Success creating new data - 4
+[2022-03-08T12:11:56.452] [INFO] app - 1b89fa4b-8ec9-4698-a7fb-5afac48abe51 - INFO - inbound request - list sensor - no data found - 4
+[2022-03-08T12:15:29.332] [TRACE] app - ade8802c-f224-4608-93eb-07e9c7bbfd9a - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-08T12:15:29.344] [INFO] app - ade8802c-f224-4608-93eb-07e9c7bbfd9a - INFO - inbound request - list sensor group - Success retrieving  data - 4

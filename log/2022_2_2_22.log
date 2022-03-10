@@ -1,0 +1,18 @@
+[2022-03-02T22:47:41.293] [ERROR] app - 7d82dfad-e7d6-4495-a82e-48e4dbde2466 - ERROR - inbound request - list sensor group with ID - id is not defined - 4
+[2022-03-02T22:51:08.692] [TRACE] app - 4b5b4b3f-b90e-4307-ab95-456b0e1ba2a7 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:51:08.695] [INFO] app - 4b5b4b3f-b90e-4307-ab95-456b0e1ba2a7 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:51:28.587] [TRACE] app - 7279f2b6-5aaf-487a-9cda-2b360c9d1edf - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:51:28.592] [INFO] app - 7279f2b6-5aaf-487a-9cda-2b360c9d1edf - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:51:48.200] [TRACE] app - 571dc76e-4443-4710-8138-9acd7dca1a87 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:51:48.204] [INFO] app - 571dc76e-4443-4710-8138-9acd7dca1a87 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:52:10.958] [TRACE] app - 1bb85b64-3235-4f2a-b069-0d07c883b751 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:52:10.960] [INFO] app - 1bb85b64-3235-4f2a-b069-0d07c883b751 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:52:39.911] [TRACE] app - fa402c15-ab4a-467c-9590-1655b95a0a85 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:52:39.913] [INFO] app - fa402c15-ab4a-467c-9590-1655b95a0a85 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:53:02.783] [TRACE] app - f4775f02-9513-4aa3-9e12-15deb6b0cc4c - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:53:02.786] [INFO] app - f4775f02-9513-4aa3-9e12-15deb6b0cc4c - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:53:59.095] [TRACE] app - bcd2edbc-a276-475f-bb91-e84c759bc6fd - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:53:59.098] [INFO] app - bcd2edbc-a276-475f-bb91-e84c759bc6fd - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-02T22:54:15.536] [ERROR] app - 1f8ecc6d-7019-43d2-9670-6e9d8c2791b3 - ERROR - inbound request - list sensor group with ID - id is not defined - 4
+[2022-03-02T22:54:31.598] [TRACE] app - bf211d6d-8f4a-4163-bdcd-71e022ba2e23 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-02T22:54:31.600] [INFO] app - bf211d6d-8f4a-4163-bdcd-71e022ba2e23 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4

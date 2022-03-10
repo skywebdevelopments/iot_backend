@@ -1,0 +1,77 @@
+[2022-03-06T09:59:39.310] [TRACE] app - 96402891-fb49-4d2a-8866-3dd4994c7a81 - TRACE - inbound request - list sensor group - check payload length - 4
+[2022-03-06T09:59:39.397] [INFO] app - 96402891-fb49-4d2a-8866-3dd4994c7a81 - INFO - inbound request - list sensor group - Success retrieving  data - 4
+[2022-03-06T09:59:53.128] [TRACE] app - d027bc93-5979-41fa-b009-378901d41072 - TRACE - inbound request - query for sensor group with 37 - Data is executing - 4
+[2022-03-06T09:59:53.139] [TRACE] app - d027bc93-5979-41fa-b009-378901d41072 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-06T09:59:53.144] [INFO] app - d027bc93-5979-41fa-b009-378901d41072 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-06T10:00:06.031] [TRACE] app - f43a1844-0d70-4079-921a-f36dfcc58631 - TRACE - inbound request - query for sensor group with 18 - Data is executing - 4
+[2022-03-06T10:00:06.038] [TRACE] app - f43a1844-0d70-4079-921a-f36dfcc58631 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-06T10:00:06.040] [INFO] app - f43a1844-0d70-4079-921a-f36dfcc58631 - INFO - inbound request - list sensor group with ID - no data found - 4
+[2022-03-06T10:00:14.432] [TRACE] app - d8014a62-2c93-4706-9fa5-cf2fc82ed5b8 - TRACE - inbound request - query for sensor group with 37 - Data is executing - 4
+[2022-03-06T10:00:14.440] [TRACE] app - d8014a62-2c93-4706-9fa5-cf2fc82ed5b8 - TRACE - inbound request - list sensor group with ID - check payload length - 4
+[2022-03-06T10:00:14.441] [INFO] app - d8014a62-2c93-4706-9fa5-cf2fc82ed5b8 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 4
+[2022-03-06T10:00:29.010] [TRACE] app - 225c7ae0-5ff1-45b1-a749-a8d54b131881 - TRACE - inbound request - query for group with 6bc7e9ed-0f1b-4102-888b-ecca191c15d3 - Data is executing - 4
+[2022-03-06T10:00:29.011] [TRACE] app - 225c7ae0-5ff1-45b1-a749-a8d54b131881 - TRACE - inbound request - map sensor to group - check payload length - 4
+[2022-03-06T10:00:29.056] [ERROR] app - 225c7ae0-5ff1-45b1-a749-a8d54b131881 - ERROR - inbound request - map sensor to group - Cannot read properties of undefined (reading 'id') - 4
+[2022-03-06T10:01:03.151] [INFO] app - 59898317-e78b-4d7f-a4a0-4950db217d11 - INFO - inbound request - login - Logged in Successfully - 4
+[2022-03-06T10:01:04.900] [INFO] app - 84be73c8-87fb-41aa-ad4a-0de72c5bb830 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:01:04.907] [INFO] app - 853d0468-50a3-4738-8aa9-03e3196034f7 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:03:36.002] [INFO] app - aaaca9e8-c425-49e6-a066-960edea7c2de - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:03:36.010] [INFO] app - 9f6f1a31-51d5-46cf-9819-d9bb29a3af0e - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:03:59.671] [INFO] app - 9d86b166-81bb-4d4e-8b23-6733cf36a12a - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:03:59.683] [INFO] app - 21c6ed08-cbe7-442d-9a75-ca693e150708 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:04:06.625] [INFO] app - 2d8d14c6-2ff1-4b1e-a82c-0e2872e9d131 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:04:06.635] [INFO] app - 883a2ad3-9d3f-4e48-b72e-5bb5e0e06d23 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:04:13.544] [INFO] app - a5c72510-8a71-4d71-99c5-52ad05438a2b - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:04:13.554] [INFO] app - 09638b11-0318-4361-ad8c-99e7a496e2df - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:04:45.456] [INFO] app - 876a3cbe-0514-4b39-ac6c-e2b7353ded85 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:04:45.471] [INFO] app - b76a29bc-8933-41b8-af6d-b66230367e67 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:04:50.697] [INFO] app - b4c2d6b0-6cce-440c-9cd8-069279340c34 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:04:50.706] [INFO] app - 94c46cbc-32de-4ed5-8bf2-f8c6b30c98dc - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:05:13.785] [INFO] app - 41b978e7-72f8-4fbb-80fd-d1c218076bac - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:05:13.797] [INFO] app - 42958a8f-e354-480e-90f1-da138e1b3772 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:05:47.891] [INFO] app - 7a522068-73ba-4554-856a-b00a20c47a51 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:05:47.918] [INFO] app - 61c4f636-281e-472d-8050-7e93c03c3ef9 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:06:26.909] [INFO] app - edf19842-aca0-4447-8f3b-29a6d5a4f3ae - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:06:26.916] [INFO] app - ae60e06e-781b-432a-8be9-6ee8eb8226e0 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:06:56.033] [INFO] app - 469e276a-af9e-4235-9cdf-ea19ac57deed - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:06:56.046] [INFO] app - 5367cdda-4455-4dda-b8d9-c92366ce29a1 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:07:17.094] [INFO] app - 6fb75d31-0fcc-4f4f-883e-c362c94d7468 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:07:17.101] [INFO] app - f29a3ea3-a842-46a7-b295-764072c0da50 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:13:47.993] [INFO] app - ff202769-7cdf-40cc-a983-323014bd28c7 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:13:48.043] [INFO] app - aed680c5-948f-49f1-b6ce-455d3f8a3bfc - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:14:16.650] [INFO] app - d4c4c3c7-cf05-445d-9f36-b08c5db63e7d - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:14:16.657] [INFO] app - ab1a549e-d47d-458b-a161-3654a4e9df85 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:14:36.548] [INFO] app - 7dc359f0-c85a-43c3-be18-5d17009e4196 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:14:36.556] [INFO] app - 470ec68c-e800-4c60-9f75-5dce4eb8cee6 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:14:45.587] [INFO] app - 1fa0592a-01bc-4ece-9911-01e0edcc9b97 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:14:45.598] [INFO] app - ae0a8264-3964-4c19-acec-4c8d4873a256 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:15:00.965] [INFO] app - 690ff874-95bc-41f8-a5e6-765c3b3ab729 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:15:01.166] [INFO] app - 318d4593-f9d6-4f67-8073-97c1b4cb87ab - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:16:14.063] [INFO] app - 21d06cdc-1a3d-4e25-b9a7-122dc00689ff - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:16:14.072] [INFO] app - b286d5fb-d8e2-42cf-b11f-b1492f79c7ae - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:17:18.553] [INFO] app - 80a906fc-36ad-4462-9793-e5c7397a85ca - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:17:18.558] [INFO] app - 4c06cdc3-0a11-41de-8c64-95ad3833ca3d - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:17:22.751] [INFO] app - 83374b46-4679-4b3c-86d3-20adce147b67 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:17:22.761] [INFO] app - ee38e8e5-c2d0-43ae-ad04-71ad47fced6e - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:17:57.762] [INFO] app - 6456c864-6d2a-4395-abae-e97b450ba480 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:17:57.775] [INFO] app - 0fb0bd2a-5927-4e36-ac36-7795a9fd908b - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:19:15.270] [INFO] app - 78ade2ac-5408-48e9-b9fe-14e57e0dc50f - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:19:15.284] [INFO] app - 37da0875-bd99-4dad-b302-7b945791defa - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:19:32.723] [INFO] app - fec5d01f-d2d4-4a8b-a90c-dda045f49579 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:19:32.737] [INFO] app - 0e5167ac-8e25-4b93-9f8e-f52f5179b2f1 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:20:46.611] [INFO] app - 7158ded2-f61c-46e7-bf16-87e04202ed22 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:20:46.618] [INFO] app - 4168dffe-f28d-49ec-a555-2f50e43c60aa - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:22:57.881] [INFO] app - 01f7e697-6f80-479b-9ec4-1b4eee00a028 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:22:58.004] [INFO] app - 2a8a399a-30a4-4078-b7b8-fd21445a3dea - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:25:44.863] [INFO] app - 2b89f08f-28d2-4604-8a14-0859eb9f4f67 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:25:44.869] [INFO] app - a912626e-6f9b-4ed3-a823-a5d4161278b4 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:30:23.347] [INFO] app - 658464f7-fc1f-4048-9f63-09cc2b79c7fd - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:30:23.355] [INFO] app - 0a51ca3e-2317-43cb-85b9-bf0e28b5befa - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:30:25.868] [INFO] app - 7942b708-d46a-4d9d-981f-4ee4f848d0ea - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:30:25.874] [INFO] app - 45e747e0-989b-4861-9653-c3ee31e1e541 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:30:43.119] [INFO] app - e484b3b8-e2cf-43e7-9856-77afd01464dd - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:30:43.125] [INFO] app - e0639ad6-bf81-44d6-b9f5-e962a24124d5 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:32:17.913] [INFO] app - ca3466f3-86f4-49d4-82ee-33f540945712 - INFO - inbound request - list usergroups - Success retrieving  data - 4
+[2022-03-06T10:32:17.921] [INFO] app - eb7385fd-1c09-4579-a317-d8187f8dfd65 - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:32:29.478] [INFO] app - 3118fb91-b1a8-442c-8097-5a25afe7966f - INFO - inbound request - list users - Success retrieving  data - 4
+[2022-03-06T10:32:29.490] [INFO] app - 9d9a204d-af5a-4e1e-b1df-7cf1568679c9 - INFO - inbound request - list usergroups - Success retrieving  data - 4

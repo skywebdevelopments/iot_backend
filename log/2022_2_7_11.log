@@ -1,0 +1,28 @@
+[2022-03-07T11:14:54.362] [ERROR] app - 69987841-16c2-4c8f-a958-e903fe9ee8b1 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:15:30.930] [ERROR] app - 58c551cf-91ff-4632-89d3-b6e33cae8388 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:15:38.725] [ERROR] app - d6f49f9d-54fd-4435-ae7d-01603731adf9 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:16:03.560] [ERROR] app - fa6c38e3-d6c6-4c1f-94d9-3991abd91046 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:16:31.721] [ERROR] app - dd1e3e84-da61-4522-bf3b-1a3adad238f9 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:17:14.651] [ERROR] app - cb179183-2244-4abb-8637-c9fbc1410ed7 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:17:25.487] [ERROR] app - fd538251-d764-4ae7-84ec-faf0d389ef77 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:17:42.790] [ERROR] app - fce46fd0-7f54-4ee1-a0c7-cbd5c2287731 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:18:10.267] [ERROR] app - f723492e-8df4-4353-ba7b-e03463985eb0 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:18:27.314] [ERROR] app - cb1a9871-ab5a-48d2-8e8c-0f17d9fb3c4c - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:18:55.661] [ERROR] app - debd1f51-3d13-4985-bfc9-d3c6e8d8d0d7 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:19:30.256] [INFO] app - 3 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:19:30.259] [INFO] app - 9c292d2e-e411-41f7-ba3d-3b2fb9c4d1a6 - INFO - update users' permission - Success updating new data - 1
+[2022-03-07T11:19:55.114] [INFO] app - 4 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:19:55.118] [INFO] app - 72977985-daa1-4f48-a4d1-0abcdaf44157 - INFO - update users' permission - Success updating new data - 1
+[2022-03-07T11:19:55.129] [ERROR] app - 72977985-daa1-4f48-a4d1-0abcdaf44157 - ERROR - update users' permission - insert into "user_group" ("uGroupId", "userId") values ($1, $2) - insert or update on table "user_group" violates foreign key constraint "user_group_userId_fkey" - 1
+[2022-03-07T11:20:37.227] [INFO] app - 4 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:20:37.230] [INFO] app - 8020dd7b-00f9-423a-8095-ed5c198b1b4c - INFO - update users' permission - Success updating new data - 1
+[2022-03-07T11:20:37.299] [ERROR] app - 8020dd7b-00f9-423a-8095-ed5c198b1b4c - ERROR - update users' permission - insert into "user_group" ("uGroupId", "userId") values ($1, $2) - insert or update on table "user_group" violates foreign key constraint "user_group_userId_fkey" - 1
+[2022-03-07T11:20:55.479] [INFO] app - 4 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:20:55.483] [INFO] app - 7732a8fd-f0f2-4720-b25b-5c5d61a002e6 - INFO - update users' permission - Success updating new data - 1
+[2022-03-07T11:20:55.546] [ERROR] app - 7732a8fd-f0f2-4720-b25b-5c5d61a002e6 - ERROR - update users' permission - insert into "user_group" ("uGroupId", "userId") values ($1, $2) - insert or update on table "user_group" violates foreign key constraint "user_group_userId_fkey" - 1
+[2022-03-07T11:22:56.042] [ERROR] app - 3a799590-b5fe-4ffb-9851-1502dcceca55 - ERROR - update users' permission - request payload is invalid - 1
+[2022-03-07T11:22:56.057] [INFO] app - 4 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:22:56.059] [INFO] app - 3a799590-b5fe-4ffb-9851-1502dcceca55 - INFO - update users' permission - Success updating new data - 1
+[2022-03-07T11:22:56.185] [ERROR] app - 3a799590-b5fe-4ffb-9851-1502dcceca55 - ERROR - update users' permission - insert into "user_group" ("uGroupId", "userId") values ($1, $2) - insert or update on table "user_group" violates foreign key constraint "user_group_userId_fkey" - 1
+[2022-03-07T11:24:48.383] [INFO] app - 3 - INFO - update users' permission - Success deleting data - 1
+[2022-03-07T11:24:48.390] [INFO] app - 66f11608-94aa-4328-b821-9025336cc4bb - INFO - update users' permission - Success updating new data - 1

@@ -1,6 +1,5 @@
 var conf = require('../config/config.json')
 const Sequelize = require('sequelize');
-const { ConnectionRefusedError } = require('sequelize');
 
 
 
@@ -14,4 +13,3 @@ const sequelize = new Sequelize(`${conf.development.dialect}://${conf.developmen
 
 module.exports = sequelize;
 global.sequelize = sequelize;
-

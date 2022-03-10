@@ -13,7 +13,8 @@ const mqtt_user = sequelize.define('mqtt_user', {
         type: Sequelize.BOOLEAN
     },
     username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
     },
     password: {
         type: Sequelize.STRING

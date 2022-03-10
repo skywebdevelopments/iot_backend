@@ -2,6 +2,7 @@ let db = require('../database/knex_connection')
 //models
 const { s_groupModel } = require('../models/s_group.iot.model');
 let { sensorModel } = require('../models/sensor.iot.model')
+let { sensor_groupModel } = require('../models/sensorGroup.iot.model')
 //end
 var Sequelize = require('sequelize');
 const { Op } = require("sequelize");

@@ -4,8 +4,11 @@ var { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var responseList = require('../config/response.code.json')
 let { create_log } = require('../controls/log.control')
+var cryptojs = require('crypto-js');
 
 function Createsensor(req, request_key) {
+    req.body['ota_password']=hash_pass( req.body['ota_password'])
+    req.body['ap_password']=hash_pass( req.body['ap_password'])
     create_log("create sensor", log.log_level.error, responseList.trace.executing_query.message, request_key, req)
     return new Promise((resolve, reject) => {
         sensor.create_sensor(req).then((data) => {
@@ -25,6 +28,17 @@ function Createsensor(req, request_key) {
             reject(error);
         })
     })
+}
+
+// parameters: password
+// hashes password sha256
+// returns: string
+function hash_pass(password) {
+    //Hashing password from req body before inserting in DB
+    var hash = cryptojs.SHA256(password);
+    var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+    return hashInBase64
+    //end
 }
 
 function GetSensors(req, request_key) {

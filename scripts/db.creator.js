@@ -33,7 +33,7 @@ function createSchema() {
 
             // })
 
-           // sequelize.sync({});
+           //sequelize.sync({ force: true });
             /* groupModel.findAll({ include: { model: sensorModel, as: "sensor" } }).then(data => {
                  console.log(data);
              });*/

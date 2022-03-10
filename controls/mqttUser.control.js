@@ -3,7 +3,7 @@ let s_mqttUsermodel = require('../models_crud/mqttUser.model')
 var responseList = require('../config/response.code.json')
 let { log } = require('../config/app.conf.json')
 let { create_log } = require('../controls/log.control')
-
+var cryptojs = require('crypto-js');
 
 
 function getAll_mqttUsers(req, request_key) {
@@ -24,7 +24,19 @@ function getAll_mqttUsers(req, request_key) {
     })
 }
 
+// parameters: password
+// hashes password sha256
+// returns: string
+function hash_pass(password) {
+    //Hashing password from req body before inserting in DB
+    var hash = cryptojs.SHA256(password);
+    var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
+    return hashInBase64
+    //end
+}
+
 function create_mqttUsers(req,request_key) {
+    req.body['password']=hash_pass( req.body['password'])
     return new Promise((resolve, reject) => {
         create_log("create mqtt_user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
         s_mqttUsermodel.create_mqttUsers(req).then(data => {

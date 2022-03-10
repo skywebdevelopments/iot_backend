@@ -11,6 +11,7 @@ let logmodel = require('../models_crud/log.model');
 function create_log(operation, log_level, log_message, uuid, req) {
 
     let user_id = get_user_id(req);
+
     if (user_id === -1) {
         user_id = req
     }

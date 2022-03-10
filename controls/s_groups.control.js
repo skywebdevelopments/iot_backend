@@ -98,7 +98,7 @@ function delete_sgroup(req, request_key) {
     return new Promise((resolve, reject) => {
         create_log("delete sensor group", log.log_level.trace, responseList.trace.executing_query.message, log.req_type.inbound, request_key, req)
         s_groupmodel.delete_sgroup(req).then(data => {
-            if (!data || data.length === 0 || data[0] == 0) {
+            if (!data || data.length === 0) {
                 create_log("delete sensor group", log.log_level.info, responseList.error.error_no_data_delete.message, log.req_type.inbound, request_key, req)
                 reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
             }

@@ -1,0 +1,64 @@
+[2022-03-10T09:46:35.860] [TRACE] app - f445fed7-6a60-41cb-a391-657b2ab9dac6 - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T09:46:35.874] [ERROR] app - f445fed7-6a60-41cb-a391-657b2ab9dac6 - ERROR - inbound request - list sensor group - sensor is not associated to s_group! - 1
+[2022-03-10T09:47:10.184] [TRACE] app - 8cd76b77-d411-42cc-9234-0b6a812f79ec - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-10T09:47:10.189] [ERROR] app - 8cd76b77-d411-42cc-9234-0b6a812f79ec - ERROR - inbound request - list sensor group with ID - sensor is not associated to s_group! - 1
+[2022-03-10T09:47:16.386] [TRACE] app - a4fba2f4-b6da-4e7d-b64b-346b7ac992be - TRACE - inbound request - create sensor group - Data is executing - 1
+[2022-03-10T09:47:16.404] [ERROR] app - a4fba2f4-b6da-4e7d-b64b-346b7ac992be - ERROR - inbound request - create sensor group - already exists! - 1
+[2022-03-10T09:47:24.439] [TRACE] app - 168abbb7-b8fe-40ea-941e-3c2877d3a690 - TRACE - inbound request - map sensor to group - check payload length - 1
+[2022-03-10T09:47:24.443] [ERROR] app - 168abbb7-b8fe-40ea-941e-3c2877d3a690 - ERROR - inbound request - map sensor to group - sensor is not associated to s_group! - 1
+[2022-03-10T09:49:28.612] [TRACE] app - 874f6878-6430-43e2-b631-baea487a8cac - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T09:49:28.718] [INFO] app - 874f6878-6430-43e2-b631-baea487a8cac - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-10T09:49:57.254] [TRACE] app - c38e93ca-1c79-4269-9971-1c40104e5348 - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-10T09:49:57.270] [INFO] app - c38e93ca-1c79-4269-9971-1c40104e5348 - INFO - inbound request - list sensor group with ID - no data found - 1
+[2022-03-10T09:49:57.276] [INFO] app - c38e93ca-1c79-4269-9971-1c40104e5348 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1
+[2022-03-10T09:50:19.738] [TRACE] app - 9b9dcf06-aeb0-4447-af86-2cc85db6b53e - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-10T09:50:19.756] [INFO] app - 9b9dcf06-aeb0-4447-af86-2cc85db6b53e - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1
+[2022-03-10T09:50:27.162] [TRACE] app - c92699cb-6560-4474-81e3-aa2d9231e138 - TRACE - inbound request - map sensor to group - check payload length - 1
+[2022-03-10T09:50:27.214] [ERROR] app - c92699cb-6560-4474-81e3-aa2d9231e138 - ERROR - inbound request - map sensor to group - no data found - 1
+[2022-03-10T09:50:40.550] [TRACE] app - 2d73c2c6-9410-4641-91a2-a8d7816f5730 - TRACE - inbound request - map sensor to group - check payload length - 1
+[2022-03-10T09:50:40.672] [ERROR] app - 2d73c2c6-9410-4641-91a2-a8d7816f5730 - ERROR - inbound request - map sensor to group - insert or update on table "sensor_group" violates foreign key constraint "sensor_group_sensorId_fkey" - 1
+[2022-03-10T09:50:59.899] [TRACE] app - afa48933-cc4d-49dd-afcd-0a5ca7ef1750 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-10T09:50:59.988] [INFO] app - afa48933-cc4d-49dd-afcd-0a5ca7ef1750 - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-10T09:51:12.300] [TRACE] app - 4ab7ac64-c0ab-4ab0-8510-49501a80bd50 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:51:27.702] [TRACE] app - e064d4e3-38d4-4902-97bf-54e58f0efe55 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:51:27.885] [INFO] app - e064d4e3-38d4-4902-97bf-54e58f0efe55 - INFO - inbound request - delete sensor group - Success deleting data - 1
+[2022-03-10T09:51:36.471] [TRACE] app - 5f35987c-bc3b-4896-b02f-6b744a6bb6c5 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:52:55.103] [TRACE] app - a50e26f9-f4a7-4476-a28f-824dff0b651e - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:53:16.660] [TRACE] app - 176b210f-cd8e-41e6-b363-9b045fe4d892 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:54:11.178] [TRACE] app - 16272754-e52b-44c5-878e-f776a1ee9707 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:55:13.007] [TRACE] app - 17f385af-47b7-4b42-b3ae-784d5a29023a - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:55:37.946] [TRACE] app - a4ed532c-db7c-4ca9-aeba-1a2c6f0db71c - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:56:15.841] [TRACE] app - 58be6a24-dac6-41d0-b90b-a96644251acd - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:56:43.886] [TRACE] app - 746901a5-e9ca-4c17-971b-781035101c22 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:58:54.091] [TRACE] app - 81f9b8ac-440c-4e0b-ac29-86f553e9544a - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:58:54.145] [INFO] app - 81f9b8ac-440c-4e0b-ac29-86f553e9544a - INFO - inbound request - delete sensor group - no data deleted - 1
+[2022-03-10T09:59:52.567] [TRACE] app - 37d92ab0-8581-4bb5-a05a-a5b336f57cc9 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T09:59:52.620] [INFO] app - 37d92ab0-8581-4bb5-a05a-a5b336f57cc9 - INFO - inbound request - delete sensor group - no data deleted - 1
+[2022-03-10T10:00:01.477] [TRACE] app - 8e31dc35-921d-47b9-b6f1-f7c198fd73f6 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-10T10:00:01.517] [INFO] app - 8e31dc35-921d-47b9-b6f1-f7c198fd73f6 - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-10T10:00:35.338] [TRACE] app - b05eced6-3058-4c67-9ed0-6c0406be5147 - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-10T10:00:35.530] [INFO] app - b05eced6-3058-4c67-9ed0-6c0406be5147 - INFO - inbound request - update sensor group - Success updating new data - 1
+[2022-03-10T10:00:52.672] [TRACE] app - 6fae6a72-16e7-4962-a5c5-5d2e2892590d - TRACE - inbound request - update sensor group - Data is executing - 1
+[2022-03-10T10:00:52.854] [ERROR] app - 6fae6a72-16e7-4962-a5c5-5d2e2892590d - ERROR - inbound request - update sensor group - already exists! - 1
+[2022-03-10T10:01:10.756] [TRACE] app - f7cb7959-fdb2-4f7e-9636-58d4f222f016 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T10:01:10.789] [INFO] app - f7cb7959-fdb2-4f7e-9636-58d4f222f016 - INFO - inbound request - delete sensor group - no data deleted - 1
+[2022-03-10T10:01:27.178] [TRACE] app - ebf3ad47-0d9e-4ec4-9790-6493f682aae4 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T10:01:27.352] [INFO] app - ebf3ad47-0d9e-4ec4-9790-6493f682aae4 - INFO - inbound request - delete sensor group - Success deleting data - 1
+[2022-03-10T10:01:35.340] [TRACE] app - d92bcbc8-2d36-43e7-9fd0-06a69b4293f7 - TRACE - inbound request - delete sensor group - Data is executing - 1
+[2022-03-10T10:01:35.372] [INFO] app - d92bcbc8-2d36-43e7-9fd0-06a69b4293f7 - INFO - inbound request - delete sensor group - no data deleted - 1
+[2022-03-10T10:01:42.375] [TRACE] app - 6c07d536-60e6-4520-beac-ac7d480e026c - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T10:01:42.402] [INFO] app - 6c07d536-60e6-4520-beac-ac7d480e026c - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-10T10:03:38.709] [TRACE] app - 6759df61-3cf8-409e-8e3c-6c7d97af94c7 - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T10:03:38.748] [INFO] app - 6759df61-3cf8-409e-8e3c-6c7d97af94c7 - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-10T10:03:57.589] [TRACE] app - a998e814-4b5a-45c4-a9ba-25108d5c2680 - TRACE - inbound request - list sensor group with ID - check payload length - 1
+[2022-03-10T10:03:57.614] [INFO] app - a998e814-4b5a-45c4-a9ba-25108d5c2680 - INFO - inbound request - list sensor group with ID - Success retrieving  data - 1
+[2022-03-10T10:04:09.640] [TRACE] app - 8ec4b9eb-1bca-4e81-bf0f-785362e62d53 - TRACE - inbound request - map sensor to group - check payload length - 1
+[2022-03-10T10:04:09.763] [TRACE] app - 8ec4b9eb-1bca-4e81-bf0f-785362e62d53 - TRACE - inbound request - query for group with undefined - Data is executing - 1
+[2022-03-10T10:04:09.764] [INFO] app - 8ec4b9eb-1bca-4e81-bf0f-785362e62d53 - INFO - inbound request - map sensor to group - successfully - 1
+[2022-03-10T10:04:14.504] [TRACE] app - 96f25d0e-44ff-4618-9a55-c19eec08b7ef - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T10:04:14.563] [INFO] app - 96f25d0e-44ff-4618-9a55-c19eec08b7ef - INFO - inbound request - list sensor group - Success retrieving  data - 1
+[2022-03-10T10:04:49.950] [TRACE] app - fe0b07c3-7c5e-47df-ac2f-5466e27ddbd1 - TRACE - inbound request - map sensor to group - check payload length - 1
+[2022-03-10T10:04:50.139] [TRACE] app - fe0b07c3-7c5e-47df-ac2f-5466e27ddbd1 - TRACE - inbound request - query for group with undefined - Data is executing - 1
+[2022-03-10T10:04:50.140] [INFO] app - fe0b07c3-7c5e-47df-ac2f-5466e27ddbd1 - INFO - inbound request - map sensor to group - successfully - 1
+[2022-03-10T10:04:54.527] [TRACE] app - b9b401b3-71c7-4105-8820-f351d2efc47a - TRACE - inbound request - list sensor group - check payload length - 1
+[2022-03-10T10:04:54.553] [INFO] app - b9b401b3-71c7-4105-8820-f351d2efc47a - INFO - inbound request - list sensor group - Success retrieving  data - 1

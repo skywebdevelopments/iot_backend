@@ -68,13 +68,13 @@ router.post('/create', validators.s_group_create, validateRequestSchema, authent
 // }
 router.post('/sensormap', validators.sgroup_sensorMap, validateRequestSchema, authenticate.authenticateUser, authenticate.UserRoles(["s_group:create"]), function (req, res, next) {
     let request_key = uuid();
-    control.sensorMap_to_sgroup(req, request_key).then(data => {
+    control.sensorMap_to_sgroup(req, request_key).then(() => {
         res.send({
             code: responseList.success.code,
-            status: responseList.success.message
+            message: responseList.success.message
         });
     }).catch((error) => {
-        res.send({ code: error.code, status: error.message })
+        res.send({ code: error.code, message: error.message })
     })
 
 });

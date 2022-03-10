@@ -97,10 +97,7 @@ function sensorMap_to_sgroup(req) {
             }
             return data.addSensor(req.body['sensorId'])
         }).then(() => {
-            resolve({
-                code: responseList.success.code,
-                message: responseList.success.message
-            });
+            resolve();
         }).catch((error) => {
             reject(error)
         });
@@ -111,47 +108,47 @@ function sensorMap_to_sgroup(req) {
 //update s_group 
 function update_sgroup(req) {
     return new Promise((resolve, reject) => {
-            update_sensor_active(req,req.body['active']).then(()=>{
-                s_groupModel.findOne(
-                    {
-                        where: Sequelize.where(
-                            Sequelize.fn('lower', Sequelize.col('name')),
-                            Sequelize.fn('lower', req.body['name'])
-                        )
-                    }
-                ).then((group) => {
-                    if (!group || req.body['rec_id'] === group['rec_id']) {
-                        s_groupModel.update(req.body,
-                            {
-                                where: {
-                                    rec_id: {
-                                        [Op.eq]: req.body['rec_id']
-                                    }
-                                },
-        
-                            }
-        
-                        ).then((data) => {
-                            resolve(data)
-                        }).catch((error) => {
-                            reject(error)
-                        });
-                    }
-                    else {
-                        reject({ code: responseList.error.error_already_exists.code, message: responseList.error.error_already_exists.message });
-                    }
-                }).catch((error) => {
-                    reject(error)
-                })
-            }).catch((error)=>{
+        update_sensor_active(req, req.body['active']).then(() => {
+            s_groupModel.findOne(
+                {
+                    where: Sequelize.where(
+                        Sequelize.fn('lower', Sequelize.col('name')),
+                        Sequelize.fn('lower', req.body['name'])
+                    )
+                }
+            ).then((group) => {
+                if (!group || req.body['rec_id'] === group['rec_id']) {
+                    s_groupModel.update(req.body,
+                        {
+                            where: {
+                                rec_id: {
+                                    [Op.eq]: req.body['rec_id']
+                                }
+                            },
+
+                        }
+
+                    ).then((data) => {
+                        resolve(data)
+                    }).catch((error) => {
+                        reject(error)
+                    });
+                }
+                else {
+                    reject({ code: responseList.error.error_already_exists.code, message: responseList.error.error_already_exists.message });
+                }
+            }).catch((error) => {
                 reject(error)
             })
+        }).catch((error) => {
+            reject(error)
+        })
     })
 }
 
 
 //make sensor unactive in case delete s_group or s_group active become false
-function update_sensor_active(req,active) {
+function update_sensor_active(req, active) {
     return new Promise((resolve, reject) => {
         s_groupModel.findOne(
             {
@@ -186,10 +183,11 @@ function update_sensor_active(req,active) {
                         });
                     }
                 }
-                else {
+                else
                     resolve(data)
-                }
             }
+            else
+                resolve(data)
         }).catch((error) => {
             reject(error);
         });
@@ -199,26 +197,27 @@ function update_sensor_active(req,active) {
 //delete s_group 
 function delete_sgroup(req) {
     return new Promise((resolve, reject) => {
-        update_sensor_active(req,false).then(() => {
-                s_groupModel.destroy(
-                    {
-                        where: {
-                            rec_id: {
-                                [Op.eq]: req.body['rec_id']
-                            }
-                        },
-                    }
+        update_sensor_active(req, false).then(() => {
 
-                ).then((data) => {
-                    resolve(data);
+            s_groupModel.destroy(
+                {
+                    where: {
+                        rec_id: {
+                            [Op.eq]: req.body['rec_id']
+                        }
+                    },
                 }
-                ).catch((err) => {
-                    reject(err);
-                })
-        }).catch((err)=>{
+
+            ).then((data) => {
+                resolve(data);
+            }
+            ).catch((err) => {
+                reject(err);
+            })
+        }).catch((err) => {
             reject(err)
-         })
-            
+        })
+
     })
 
 }

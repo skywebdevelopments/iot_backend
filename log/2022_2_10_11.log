@@ -1,0 +1,10 @@
+[2022-03-10T11:46:11.082] [TRACE] app - d409639e-3240-4920-a50d-c2049b46f906 - TRACE - create sensor group - Data is executing - 1
+[2022-03-10T11:46:11.097] [ERROR] app - d409639e-3240-4920-a50d-c2049b46f906 - ERROR - create sensor group - already exists! - 1
+[2022-03-10T11:59:04.219] [ERROR] app - 933a62eb-c36f-454b-99d3-d9d24e146d4d - ERROR - login - could not find user! - [ a@gmail.com ] - 0
+[2022-03-10T12:00:02.569] [INFO] app - 3dd013a9-c3ac-4fc5-b681-7a5e6ad92bf3 - INFO - login - Logged in Successfully - 2
+[2022-03-10T12:00:35.193] [TRACE] app - 4945b2bc-2a86-4baf-a2c1-d55c133007ec - TRACE - create sensor group - Data is executing - 2
+[2022-03-10T12:00:35.217] [INFO] app - 4945b2bc-2a86-4baf-a2c1-d55c133007ec - INFO - create sensor group - Success creating new data - 2
+[2022-03-10T12:01:44.091] [TRACE] app - c949bf1c-d0b6-4291-aae1-47550982f6d6 - TRACE - map sensor to group - check payload length - 2
+[2022-03-10T12:01:44.094] [ERROR] app - c949bf1c-d0b6-4291-aae1-47550982f6d6 - ERROR - map sensor to group - sensor is not associated to s_group! - 2
+[2022-03-10T12:34:50.933] [TRACE] app - b5776bdf-40ff-47af-a51a-48bc0a942a0b - TRACE - map sensor to group - check payload length - 2
+[2022-03-10T12:34:50.937] [ERROR] app - b5776bdf-40ff-47af-a51a-48bc0a942a0b - ERROR - map sensor to group - sensor is not associated to s_group! - 2

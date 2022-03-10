@@ -17,7 +17,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 // Return all sensors profiles 
 router.get('/', function (req, res, next) {
     let request_key = uuid();
-    control.GetSensors(request_key).then((data) => {
+    control.GetSensors(req,request_key).then((data) => {
         if (data.rowCount === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
         }
@@ -96,7 +96,7 @@ router.put('/update', updatesensorSchema, validateRequestSchema, function (req, 
     if (rec_id.length == 0) {
         res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
     }
-    control.UpdateSensor(req).then((data) => {
+    control.UpdateSensor(req,request_key).then((data) => {
 
         if (data.rowCount === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });

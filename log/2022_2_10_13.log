@@ -1,0 +1,3 @@
+[2022-03-10T13:07:39.352] [TRACE] app - 9632e492-804e-42c0-8b45-b55c9a2f7254 - TRACE - list sensor group - check payload length - 2
+[2022-03-10T13:07:39.375] [INFO] app - 9632e492-804e-42c0-8b45-b55c9a2f7254 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-10T13:08:33.431] [INFO] app - undefined - INFO - List Sensor - Success retrieving  data - 93489c88-1dcf-48eb-b5bd-7319d0377b29

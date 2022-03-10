@@ -1,16 +1,17 @@
 let db = require('../database/knex_connection')
+//models
+const { logModel } = require('../models/logger.iot.model');
+
 
 function createLog(operation, log_level, log_message, user_id) {
 
-    const timestamp = new Date(Date.now());
-    return db.knex('log').insert({
+    return logModel.create({
         operation: operation,
         log_level: log_level,
         log_message: log_message,
-        user_id: user_id,
-        createdAt: timestamp,
-        updatedAt: timestamp
+        user_id: user_id
     })
+    
 }
 
 module.exports = {

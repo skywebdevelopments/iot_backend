@@ -6,6 +6,7 @@ var fieldsList = require('../config/fields.required.json')
 
 let { json } = require("sequelize");
 let { uuid, isUuid } = require('uuidv4');
+var authenticate = require('../auth/authentication_JWT');
 var router = express.Router();
 
 var control = require('../controls/sensor.control')
@@ -15,7 +16,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 
 // GET / api / v1 / sensor
 // Return all sensors profiles 
-router.get('/', function (req, res, next) {
+router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
     let request_key = uuid();
     control.GetSensors(req,request_key).then((data) => {
         if (data.rowCount === 0) {
@@ -40,7 +41,7 @@ router.get('/', function (req, res, next) {
 // "rec_id": uuid
 // }
 
-router.post('/', RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     control.GetSensorbyId(req, request_key).then((data) => {
         if (data.rowCount === 0) {
@@ -59,7 +60,7 @@ router.post('/', RequiredRec_Id, validateRequestSchema, function (req, res, next
 // Post / api / v1 / sensor / create
 // Create a sensors profile
 
-router.post('/create', createsensorSchema, validateRequestSchema, function (req, res, next) {
+router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), createsensorSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     control.Createsensor(req, request_key).then((data) => {
         if (data.rowCount === 0) {
@@ -85,7 +86,7 @@ router.post('/create', createsensorSchema, validateRequestSchema, function (req,
 // Post / api / v1 / sensor / update
 // update a sensor's profile by rec_id
 
-router.put('/update', updatesensorSchema, validateRequestSchema, function (req, res, next) {
+router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sensor:update"]), updatesensorSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
     let rec_id = req.body['rec_id']
@@ -119,7 +120,7 @@ router.put('/update', updatesensorSchema, validateRequestSchema, function (req, 
 // Delete a sensors profile by rec_id
 
 
-router.post('/delete', RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/delete',authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
 
     let request_key = uuid();
     let rec_id = req.body['rec_id']

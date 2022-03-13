@@ -26,7 +26,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 // Post / api / v1 / sensortype / create
 // Create a sensor type profile
 
-router.post('/create', createsensortypeSchema, validateRequestSchema, function (req, res, next) {
+router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:create"]), createsensortypeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     control.Create_sensor_type(req, request_key).then((data) => {
         if (data.rowCount === 0) {
@@ -45,7 +45,7 @@ router.post('/create', createsensortypeSchema, validateRequestSchema, function (
 
 // GET / api / v1 / sensortype
 // Return all sensor types profiles 
-router.get('/', function (req, res, next) {
+router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:list"]), function (req, res, next) {
     let request_key = uuid();
     control.GetSensortypes(req, request_key).then((data) => {
         if (data.rowCount === 0) {
@@ -69,7 +69,7 @@ router.get('/', function (req, res, next) {
 // "rec_id": uuid
 // }
 
-router.post('/', RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
     control.GetSensor_type_byId(req, request_key).then((data) => {
@@ -91,7 +91,7 @@ router.post('/', RequiredRec_Id, validateRequestSchema, function (req, res, next
 // Post / api / v1 / sensortype / update
 // update a sensor's type profile by rec_id
 
-router.put('/update', updatesensortypeSchema, validateRequestSchema, function (req, res, next) {
+router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:update"]), updatesensortypeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
     let rec_id = req.body['rec_id']
@@ -125,7 +125,7 @@ router.put('/update', updatesensortypeSchema, validateRequestSchema, function (r
 // Delete a sensor type profile by rec_id
 
 
-router.post('/delete', RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/delete',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     
     let rec_id = req.body['rec_id']

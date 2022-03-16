@@ -7,7 +7,7 @@ const createsensortypeSchema = [
         .withMessage('Sensor Type must be at least 4 characters long'),
     body('active')
         .isBoolean()
-        .exists({ checkFalsy: true }),
+        
 
 ];
 

@@ -24,6 +24,7 @@ function hash_pass(password) {
     var hash = cryptojs.SHA256(password);
     var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
     return hashInBase64
+
     //end
 }
 
@@ -62,7 +63,6 @@ function create_token(email, password, request_key) {
     let hashed_password = hash_pass(password)
 
     return new Promise((resolve, reject) => {
-
         usermodel.getUser(email, hashed_password)
             .then((user) => {
                 if (!user || user.length === 0) {
@@ -70,19 +70,24 @@ function create_token(email, password, request_key) {
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
-                    var token = authenticate.getToken(user); //create token using id and you can add other inf
-                    usermodel.updateSession(user.id, token)
-                        .then(() => {
-                            create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.id)
-                            resolve({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
-                        }).catch(err => {
-                            create_log("login", log.log_level.error, err.message, request_key, user.id)
-                            reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-                        })
+                    if (user.active === false) {
+                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, 0)
+                        reject({ status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
+                    }
+                    else {
+                        var token = authenticate.getToken(user); //create token using id and you can add other inf
+                        usermodel.updateSession(user.id, token)
+                            .then(() => {
+                                create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.id)
+                                resolve({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
+                            }).catch(err => {
+                                create_log("login", log.log_level.error, err.message, request_key, user.id)
+                                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+                            })
+                    }
                 }
 
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 create_log("login", log.log_level.error, error.message, request_key, 0)
                 reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
             })
@@ -223,7 +228,7 @@ function update_permission(req, request_key) {
 }
 
 function update_user(req, request_key) {
-    let user_id = req.body['userid']
+    let user_id = req.body['id']
     let username = req.body['username']
     let password = req.body['password']
     return new Promise((resolve, reject) => {
@@ -331,6 +336,26 @@ function update_ugroup(req, request_key) {
     })
 }
 
+
+function delete_user(req, request_key) {
+    return new Promise((resolve, reject) => {
+        create_log("delete user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
+        usermodel.deleteUser(req).then(data => {
+            if (!data || data.length === 0) {
+                create_log("delete user", log.log_level.info, responseList.error.error_no_data_delete.message, request_key, req)
+                reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+            }
+            else {
+                create_log("delete user", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                resolve(data)
+            }
+        }).catch((error) => {
+            create_log("delete user", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
+
 module.exports = {
     create_user,
     create_token,
@@ -342,5 +367,6 @@ module.exports = {
     update_active_user,
     create_ugroup,
     update_ugroup,
-    get_user_id
+    get_user_id,
+    delete_user
 }

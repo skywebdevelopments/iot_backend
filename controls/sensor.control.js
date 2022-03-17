@@ -9,7 +9,7 @@ var cryptojs = require('crypto-js');
 function Createsensor(req, request_key) {
     req.body['ota_password']=hash_pass( req.body['ota_password'])
     req.body['ap_password']=hash_pass( req.body['ap_password'])
-    create_log("create sensor", log.log_level.error, responseList.trace.executing_query.message, request_key, req)
+    create_log("create sensor", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
     return new Promise((resolve, reject) => {
         sensor.create_sensor(req).then((data) => {
             if (data.rowCount === 0) {

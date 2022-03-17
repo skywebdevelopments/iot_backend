@@ -21,7 +21,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 var { createTokenValidator, createUserValidator,
     updateUserValidator, updateActiveUserValidator,
     updatePermissionValidator, createUgroupValidator,
-    updateUgroupValidator } = require('../validators/user.validator.iot')
+    updateUgroupValidator,getUserValidator } = require('../validators/user.validator.iot')
 
 /*
 POST /api/v1/users/token
@@ -84,7 +84,6 @@ router.put('/update', authenticate.authenticateUser, updateUserValidator, valida
 
 router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updateActiveUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
-
     userControl.update_active_user(req, request_key)
         .then((data) => {
             res.send(data)
@@ -97,7 +96,7 @@ router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRole
 
 
 // GET /api/v1/users
-// Return all user
+// Return all users
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
     let request_key = uuid();
 
@@ -110,6 +109,22 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:lis
 
 });
 
+// POST /api/v1/users
+// Return user by id
+// Parameters:
+// {
+// “Id”: 1
+// }
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]),getUserValidator, function (req, res) {
+    let request_key = uuid();
+    userControl.get_user_id(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        });
+
+});
 // GET /api/v1/users/usergroups
 // Return all usergroups
 router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
@@ -132,8 +147,7 @@ router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(
 
 router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
-    let permission = req.body['permission']
-
+    let permission = req.body['groupname']
     // validation : check if permission is valid string in db
     userControl.get_usergroup(req, request_key, permission).then(() => {
 

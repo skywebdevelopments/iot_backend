@@ -5,7 +5,8 @@ const keys = require('../config/config.json')
 const { userModel } = require('../models/user.iot.model');
 let { sessionModel } = require('../models/session.iot.model');
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
+    localStorage = new LocalStorage('./scratch');
+let { u_groupModel } = require('../models/u_group.iot.model')
 
 passport.use(new GoogleStrategy({
     // Options of google sterategy
@@ -22,12 +23,14 @@ passport.use(new GoogleStrategy({
             where:
             {
                 googleID: profile.id
+            },
+            include: {
+                model: u_groupModel
             }
         }).then((currentUser) => {
             if (currentUser) {
                 //User Already exist
                 generate_session_google(currentUser)
-              
                 done(null, currentUser)
             }
             else {
@@ -37,11 +40,23 @@ passport.use(new GoogleStrategy({
                     username: profile.displayName,
                     email: profile.emails[0].value,
                     googleID: profile.id,
-                    roles: [],
-                    active: true
-                }).then((newUser) => {
-                    generate_session_google(newUser)
-                    done(null, newUser)
+                    active: true,
+                    uGroupId: 4
+                }
+                ).then((newUser) => {
+                    userModel.findOne(
+                        {
+                            where:
+                            {
+                                id: newUser.id
+                            },
+                            include: {
+                                model: u_groupModel
+                            }
+                        }).then((newUser) => {
+                            generate_session_google(newUser)
+                            done(null, newUser)
+                        })
                 })
 
             }
@@ -55,6 +70,7 @@ passport.use(new GoogleStrategy({
 
 
 function generate_session_google(user) {
+
     var token = authenticate.getToken(user); //create token using id and you can add other inf
     sessionModel.findOne({
         where: {
@@ -68,7 +84,7 @@ function generate_session_google(user) {
                 active: true,
                 userId: user.id
             })
-         
+
             return;
         }
         sessionModel.update({ active: false }, {
@@ -81,7 +97,8 @@ function generate_session_google(user) {
             active: true,
             userId: user.id
         })
-        
+
     })
-    localStorage.setItem('token',token); //to store token in local storage 
+    localStorage.setItem('token', token); //to store token in local storage 
+
 }

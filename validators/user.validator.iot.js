@@ -44,7 +44,7 @@ const createTokenValidator = [
 
 
 const updateUserValidator = [
-    body('userid')
+    body('id')
         .isNumeric(),
     body('username')
         .isString()
@@ -57,19 +57,23 @@ const updateUserValidator = [
 
 
 const updateActiveUserValidator = [
-    body('userid')
+    body('id')
         .isNumeric(),
     body('active')
         .isBoolean()
 ]
 
 const updatePermissionValidator = [
-    body('userid')
+    body('id')
         .isNumeric(),
-    body('permission')
+    body('groupname')
         .isString()
 ];
 
+const getUserValidator =[
+    body('id')
+        .isNumeric()
+];
 
 
 module.exports = {
@@ -79,5 +83,6 @@ module.exports = {
     updateUserValidator,
     updateActiveUserValidator,
     createUgroupValidator,
-    updateUgroupValidator
+    updateUgroupValidator,
+    getUserValidator
 }

@@ -37,7 +37,7 @@ function create_user(email, username, password, request_key) {
             email: email,
             username: username,
             password: hashed_password,
-            active: true
+            active: true,
         }).then((data) => {
             if (!data || data.length === 0) {
                 create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, 0)
@@ -160,11 +160,34 @@ function get_usergroup(req, request_key, groupname) {
 
 }
 
+function get_user_id(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+        usermodel.get_user_id(req.body['id'])
+            .then((user) => {
+                //check if groupname is not found
+                if (!user || user.length === 0) {
+
+                    create_log("get user by id", log.log_level.error, responseList.error.error_invalid_payload.message, request_key, req)
+                    reject({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code });
+                }
+                else {
+                    resolve(user)
+                }
+
+            }).catch(error => {
+                create_log("get user by id", log.log_level.error, error.message, request_key, req)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+            })
+    })
+
+}
+
 function update_permission(req, request_key) {
 
 
-    let user_id = req.body['userid']
-    let permission = req.body['permission']
+    let user_id = req.body['id']
+    let permission = req.body['groupname']
 
 
     return new Promise((resolve, reject) => {
@@ -229,7 +252,7 @@ function update_user(req, request_key) {
 }
 
 function update_active_user(req, request_key) {
-    let user_id = req.body['userid']
+    let user_id = req.body['id']
     let active = req.body['active']
 
     return new Promise((resolve, reject) => {
@@ -318,5 +341,6 @@ module.exports = {
     update_user,
     update_active_user,
     create_ugroup,
-    update_ugroup
+    update_ugroup,
+    get_user_id
 }

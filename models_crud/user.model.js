@@ -18,7 +18,8 @@ function createUser(new_user) {
                     username: new_user.username,
                     password: new_user.password,
                     email: new_user.email,
-                    active: true
+                    active: true,
+                    uGroupId: 4
                 }).then((data) => {
                     resolve(data)
                 }).catch((err) => {
@@ -101,7 +102,7 @@ function getallUsers() {
     return new Promise((resolve, reject) => {
 
         userModel.findAll({
-            attributes: ['id', 'username', 'email']
+            attributes: ['id', 'username', 'email','active']
             , include: [{
                 model: u_groupModel
             }]
@@ -147,6 +148,25 @@ function getUsergroup(groupname) {
     })
 
 }
+
+//get user by id
+function get_user_id(user_id) {
+    return new Promise((resolve, reject) => {
+        userModel.findOne({
+            where: {
+                id: user_id
+            }, include: [{
+                model: u_groupModel
+            }]
+        }).then(data => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+
+}
+
 
 function updateUser(user_id, username, password) {
 
@@ -277,5 +297,6 @@ module.exports = {
     updateUser,
     updateActiveUser,
     createUgroup,
-    updateUgroup
+    updateUgroup,
+    get_user_id
 }

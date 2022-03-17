@@ -65,7 +65,7 @@ router.post('/create', createUserValidator, validateRequestSchema, (req, res) =>
 // Put /api/v1/users/update
 // update a user's username or password by userid
 
-router.put('/update', authenticate.authenticateUser, updateUserValidator, validateRequestSchema, function (req, res) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]),updateUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
 
     userControl.update_user(req, request_key)
@@ -77,6 +77,22 @@ router.put('/update', authenticate.authenticateUser, updateUserValidator, valida
 
 
 });
+
+
+// delete user 
+// post /api/v1/users/delete
+// delete user by userid
+
+router.post('/delete', authenticate.authenticateUser,authenticate.UserRoles(["user:delete"]), getUserValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+    userControl.delete_user(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+});
+
 
 // Update user active
 // Put /api/v1/users/updateactive

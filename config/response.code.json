@@ -34,6 +34,10 @@
             "code": 1100,
             "message": "error occured"
         },
+        "error_notactive": {
+            "code": 1105,
+            "message": "you are temporary deactivated"
+        },
         "error_no_data": {
             "code": 1101,
             "message": "no data found"

@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 let { userModel } = require('../models/user.iot.model')
 let { u_groupModel } = require('../models/u_group.iot.model')
 let { sessionModel } = require('../models/session.iot.model')
-
+const { Op } = require("sequelize");
 
 function createUser(new_user) {
 
@@ -102,7 +102,7 @@ function getallUsers() {
     return new Promise((resolve, reject) => {
 
         userModel.findAll({
-            attributes: ['id', 'username', 'email','active']
+            attributes: ['id', 'username', 'email', 'active']
             , include: [{
                 model: u_groupModel
             }]
@@ -148,6 +148,7 @@ function getUsergroup(groupname) {
     })
 
 }
+
 
 //get user by id
 function get_user_id(user_id) {
@@ -284,6 +285,24 @@ function updateUgroup(ugroup) {
 
 }
 
+function deleteUser(req) {
+    return new Promise((resolve, reject) => {
+        userModel.destroy(
+            {
+                where: {
+                    id: req.body['id']
+                },
+            }
+
+        ).then((data) => {
+            resolve(data);
+        }
+        ).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 
 
 module.exports = {
@@ -298,5 +317,6 @@ module.exports = {
     updateActiveUser,
     createUgroup,
     updateUgroup,
-    get_user_id
+    get_user_id,
+    deleteUser
 }

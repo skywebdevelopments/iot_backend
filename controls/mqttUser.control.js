@@ -8,7 +8,7 @@ var cryptojs = require('crypto-js');
 
 function getAll_mqttUsers(req, request_key) {
     return new Promise((resolve, reject) => {
-        create_log('list mqtt_user', log.log_level.trace, responseList.trace.check_data_length.message, request_key, req)
+       // create_log('list mqtt_user', log.log_level.trace, responseList.trace.check_data_length.message, request_key, req)
         s_mqttUsermodel.getAll_mqttUsers().then(data => {
             if (!data || data.length === 0) {
                 create_log('list mqtt_user', log.log_level.info, responseList.error.error_no_data.message, request_key, req)

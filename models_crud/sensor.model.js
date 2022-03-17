@@ -59,19 +59,19 @@ function getSensorbyId(req) {
     })
 }
 
-function UpdateSensor(req) {
+function UpdateSensorr(req) {
     let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
         sensorModel.update(req.body,
             {
                 where: {
-                    rec_id: {
-                        [Op.eq]: rec_id
-                    }
+                    rec_id:req.body['rec_id']
+                
                 },
             }
 
         ).then((data) => {
+            console.log(data)
             resolve(data);
         }).catch((error) => {
             reject(error);
@@ -103,7 +103,7 @@ function deleteSensor(req) {
 module.exports = {
     getAll,
     getSensorbyId,
-    UpdateSensor,
+    UpdateSensorr,
     deleteSensor,
     create_sensor
 }

@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "password",
-    "database": "mqtt",
+    "password": "postgres",
+    "database": "postgres",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"

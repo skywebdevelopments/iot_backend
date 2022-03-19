@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "password",
-    "database": "mqtt",
+    "password": "root",
+    "database": "iot_db",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"

@@ -21,7 +21,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 var { createTokenValidator, createUserValidator,
     updateUserValidator, updateActiveUserValidator,
     updatePermissionValidator, createUgroupValidator,
-    updateUgroupValidator } = require('../validators/user.validator.iot')
+    updateUgroupValidator,getUserValidator,createRoleValidator } = require('../validators/user.validator.iot')
 
 /*
 POST /api/v1/users/token
@@ -65,7 +65,7 @@ router.post('/create', createUserValidator, validateRequestSchema, (req, res) =>
 // Put /api/v1/users/update
 // update a user's username or password by userid
 
-router.put('/update', authenticate.authenticateUser, updateUserValidator, validateRequestSchema, function (req, res) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]),updateUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
 
     userControl.update_user(req, request_key)
@@ -78,13 +78,31 @@ router.put('/update', authenticate.authenticateUser, updateUserValidator, valida
 
 });
 
+
+// delete user 
+// post /api/v1/users/delete
+// delete user by userid
+
+router.post('/delete', authenticate.authenticateUser,authenticate.UserRoles(["user:delete"]), getUserValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+    userControl.delete_user(req, request_key)
+        .then(() => {
+            res.send({
+                message: responseList.success.message,
+                code: responseList.success.code
+            });
+        }).catch((error) => {
+            res.send({ code: error.code, message: error.message })
+        })
+});
+
+
 // Update user active
 // Put /api/v1/users/updateactive
 // update a user's active by userid
 
 router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updateActiveUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
-
     userControl.update_active_user(req, request_key)
         .then((data) => {
             res.send(data)
@@ -97,7 +115,7 @@ router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRole
 
 
 // GET /api/v1/users
-// Return all user
+// Return all users
 router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
     let request_key = uuid();
 
@@ -110,6 +128,22 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:lis
 
 });
 
+// POST /api/v1/users
+// Return user by id
+// Parameters:
+// {
+// “Id”: 1
+// }
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]),getUserValidator, function (req, res) {
+    let request_key = uuid();
+    userControl.get_user_id(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        });
+
+});
 // GET /api/v1/users/usergroups
 // Return all usergroups
 router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
@@ -132,8 +166,7 @@ router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(
 
 router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
-    let permission = req.body['permission']
-
+    let permission = req.body['groupname']
     // validation : check if permission is valid string in db
     userControl.get_usergroup(req, request_key, permission).then(() => {
 
@@ -155,11 +188,9 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 POST /api/v1/users/create/u_group
 Parameters:groupname,roles and active of a u_group
 */
-router.post('/create/ugroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
+router.post('/create/usergroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
     let request_key = uuid();
-
     let { groupname, roles, active } = req.body;
-
     userControl.create_ugroup(groupname, roles, active, request_key)
         .then((data) => {
             res.send(data)
@@ -183,6 +214,38 @@ router.put('/update/ugroup', authenticate.authenticateUser, authenticate.UserRol
         }).catch((error) => {
             res.send(error)
         })
+});
+
+
+/*
+POST /api/v1/users/create/ugroup/role
+Parameters:rolename of a u_group
+*/
+router.post('/create/ugroup/role', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createRoleValidator,validateRequestSchema,function (req,res){
+    let request_key = uuid();
+    userControl.createRole(req.body, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+
+});
+
+
+// GET /api/v1/users/usergroups/roles
+// Return all usergroups roles
+router.get('/usergroups/roles', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:list"]), function (req, res) {
+    let request_key = uuid();
+
+    userControl.getallRoles(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        });
+
+
 });
 
 module.exports = router;

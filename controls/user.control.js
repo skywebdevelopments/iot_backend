@@ -24,6 +24,7 @@ function hash_pass(password) {
     var hash = cryptojs.SHA256(password);
     var hashInBase64 = cryptojs.enc.Base64.stringify(hash);
     return hashInBase64
+
     //end
 }
 
@@ -37,7 +38,7 @@ function create_user(email, username, password, request_key) {
             email: email,
             username: username,
             password: hashed_password,
-            active: true
+            active: true,
         }).then((data) => {
             if (!data || data.length === 0) {
                 create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, 0)
@@ -62,7 +63,6 @@ function create_token(email, password, request_key) {
     let hashed_password = hash_pass(password)
 
     return new Promise((resolve, reject) => {
-
         usermodel.getUser(email, hashed_password)
             .then((user) => {
                 if (!user || user.length === 0) {
@@ -70,19 +70,24 @@ function create_token(email, password, request_key) {
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
-                    var token = authenticate.getToken(user); //create token using id and you can add other inf
-                    usermodel.updateSession(user.id, token)
-                        .then(() => {
-                            create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.id)
-                            resolve({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
-                        }).catch(err => {
-                            create_log("login", log.log_level.error, err.message, request_key, user.id)
-                            reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
-                        })
+                    if (user.active === false) {
+                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, 0)
+                        reject({ status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
+                    }
+                    else {
+                        var token = authenticate.getToken(user); //create token using id and you can add other inf
+                        usermodel.updateSession(user.id, token)
+                            .then(() => {
+                                create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.id)
+                                resolve({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
+                            }).catch(err => {
+                                create_log("login", log.log_level.error, err.message, request_key, user.id)
+                                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+                            })
+                    }
                 }
 
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 create_log("login", log.log_level.error, error.message, request_key, 0)
                 reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
             })
@@ -160,11 +165,34 @@ function get_usergroup(req, request_key, groupname) {
 
 }
 
+function get_user_id(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+        usermodel.get_user_id(req.body['id'])
+            .then((user) => {
+                //check if groupname is not found
+                if (!user || user.length === 0) {
+
+                    create_log("get user by id", log.log_level.error, responseList.error.error_invalid_payload.message, request_key, req)
+                    reject({ status: responseList.error.error_invalid_payload.message, code: responseList.error.error_invalid_payload.code });
+                }
+                else {
+                    resolve(user)
+                }
+
+            }).catch(error => {
+                create_log("get user by id", log.log_level.error, error.message, request_key, req)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+            })
+    })
+
+}
+
 function update_permission(req, request_key) {
 
 
-    let user_id = req.body['userid']
-    let permission = req.body['permission']
+    let user_id = req.body['id']
+    let permission = req.body['groupname']
 
 
     return new Promise((resolve, reject) => {
@@ -200,7 +228,7 @@ function update_permission(req, request_key) {
 }
 
 function update_user(req, request_key) {
-    let user_id = req.body['userid']
+    let user_id = req.body['id']
     let username = req.body['username']
     let password = req.body['password']
     return new Promise((resolve, reject) => {
@@ -229,7 +257,7 @@ function update_user(req, request_key) {
 }
 
 function update_active_user(req, request_key) {
-    let user_id = req.body['userid']
+    let user_id = req.body['id']
     let active = req.body['active']
 
     return new Promise((resolve, reject) => {
@@ -308,6 +336,71 @@ function update_ugroup(req, request_key) {
     })
 }
 
+
+function delete_user(req, request_key) {
+    return new Promise((resolve, reject) => {
+        create_log("delete user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
+        usermodel.deleteUser(req).then(data => {
+            if (!data || data.length === 0) {
+                create_log("delete user", log.log_level.info, responseList.error.error_no_data_delete.message, request_key, req)
+                reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+            }
+            else {
+                create_log("delete user", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                resolve(data)
+            }
+        }).catch((error) => {
+            create_log("delete user", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
+
+//get all Ugroup roles
+function getallRoles(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+
+        usermodel.getallRoles()
+            .then((grouproles) => {
+
+                if (!grouproles) {
+                    create_log("list group roles", log.log_level.warn, responseList.error.error_no_data.message, request_key, req)
+                    reject({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
+                }
+                create_log("list group roles", log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+                resolve({ data: grouproles, status: responseList.success.sucess_data.message, code: responseList.success.code });
+
+            }).catch(error => {
+                create_log("list group roles", log.log_level.error, error.message, request_key, req)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+
+            })
+    })
+}
+
+//create a group role
+function createRole(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+        usermodel.createRole(req).then((data) => {
+            if (!data || data.length === 0) {
+                create_log("create group role", log.log_level.error, responseList.error.error_already_exists.message, request_key, 0)
+                reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
+
+            }
+            else {
+                create_log("create group role", log.log_level.info, responseList.success.success_creating_data.message, request_key, 1)
+                resolve({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
+
+            }
+        }).catch((error) => {
+            create_log("create group role", log.log_level.error, error.message, request_key, 0)
+            reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+        })
+    })
+}
+
 module.exports = {
     create_user,
     create_token,
@@ -318,5 +411,9 @@ module.exports = {
     update_user,
     update_active_user,
     create_ugroup,
-    update_ugroup
+    update_ugroup,
+    get_user_id,
+    delete_user,
+    getallRoles,
+    createRole
 }

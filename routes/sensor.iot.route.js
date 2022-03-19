@@ -16,10 +16,10 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 
 // GET / api / v1 / sensor
 // Return all sensors profiles 
-router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
     let request_key = uuid();
-    control.GetSensors(req,request_key).then((data) => {
-        if (data.rowCount === 0) {
+    control.GetSensors(req, request_key).then((data) => {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
         }
         else {
@@ -41,14 +41,16 @@ router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:li
 // "rec_id": uuid
 // }
 
-router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     control.GetSensorbyId(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
+            return;
         }
         else {
             res.send({ data: data, status: responseList.success.sucess_data.message, code: responseList.success.code });
+            return;
         }
     }).catch((error) => {
         res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
@@ -60,10 +62,10 @@ router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensor:l
 // Post / api / v1 / sensor / create
 // Create a sensors profile
 
-router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), createsensorSchema, validateRequestSchema, function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), createsensorSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
     control.Createsensor(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             return;
         }
@@ -73,7 +75,7 @@ router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["se
         }
 
     }).catch((error) => {
-      
+
         res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
     })
 
@@ -86,20 +88,13 @@ router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["se
 // Post / api / v1 / sensor / update
 // update a sensor's profile by rec_id
 
-router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sensor:update"]), updatesensorSchema, validateRequestSchema, function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["sensor:update"]), updatesensorSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
-    }
+    
+    control.UpdateSensor(req, request_key).then((data) => {
 
-    if (rec_id.length == 0) {
-        res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
-    }
-    control.UpdateSensor(req,request_key).then((data) => {
-
-        if (data.rowCount === 0) {
+        if (!data || data.length === 0 ||  data[0] === 0 ) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }
 
@@ -120,7 +115,7 @@ router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sen
 // Delete a sensors profile by rec_id
 
 
-router.post('/delete',authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
 
     let request_key = uuid();
     let rec_id = req.body['rec_id']
@@ -132,7 +127,7 @@ router.post('/delete',authenticate.authenticateUser, authenticate.UserRoles(["se
         res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
     }
     control.DeleteSensor(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }
 

@@ -15,13 +15,11 @@ exports.getToken = function (user) {
     const id = user.id;
     const name = user.username;
     const roles = user.u_group['roles'];
-
     const expiresIn = "1d";
     const payload = {
         id: id,
         name: name,
         roles: roles,
-        //roles: roles,
         iat: Date.now(),
     };
 

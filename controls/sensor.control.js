@@ -9,7 +9,7 @@ var cryptojs = require('crypto-js');
 function Createsensor(req, request_key) {
     req.body['ota_password']=hash_pass( req.body['ota_password'])
     req.body['ap_password']=hash_pass( req.body['ap_password'])
-    create_log("create sensor", log.log_level.error, responseList.trace.executing_query.message, request_key, req)
+    create_log("create sensor", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
     return new Promise((resolve, reject) => {
         sensor.create_sensor(req).then((data) => {
             if (data.rowCount === 0) {
@@ -81,19 +81,12 @@ function GetSensorbyId(req, request_key) {
 
 function UpdateSensor(req, request_key) {
 
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        create_log("update sensor", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, request_key, req)
-    }
-
-    if (rec_id.length == 0) {
-        create_log("update sensor", log.log_level.error, ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, request_key, req);
-    }
     return new Promise((resolve, reject) => {
-        sensor.UpdateSensor(req).then((data) => {
-            if (data.rowCount === 0) {
-                create_log("update sensor", log.log_level.error, responseList.error.error_no_data_updated, request_key, req);
-                resolve(data);
+        sensor.UpdateSensorr(req).then((data) => {
+         
+            if (!data || data.length === 0 ||  data[0] === 0 ) {
+                create_log("update sensor", log.log_level.error, responseList.error.error_no_data_updated.message, request_key, req);
+                reject(data);
             }
             else {
                 create_log("update sensor", log.log_level.info, responseList.success.success_updating_data.message, request_key, req);

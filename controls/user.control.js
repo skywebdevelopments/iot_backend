@@ -356,6 +356,51 @@ function delete_user(req, request_key) {
     })
 }
 
+//get all Ugroup roles
+function getallRoles(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+
+        usermodel.getallRoles()
+            .then((grouproles) => {
+
+                if (!grouproles) {
+                    create_log("list group roles", log.log_level.warn, responseList.error.error_no_data.message, request_key, req)
+                    reject({ status: responseList.error.error_no_data.message, code: responseList.error.error_no_data.code });
+                }
+                create_log("list group roles", log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+                resolve({ data: grouproles, status: responseList.success.sucess_data.message, code: responseList.success.code });
+
+            }).catch(error => {
+                create_log("list group roles", log.log_level.error, error.message, request_key, req)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+
+            })
+    })
+}
+
+//create a group role
+function createRole(req, request_key) {
+
+    return new Promise((resolve, reject) => {
+        usermodel.createRole(req).then((data) => {
+            if (!data || data.length === 0) {
+                create_log("create group role", log.log_level.error, responseList.error.error_already_exists.message, request_key, 0)
+                reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
+
+            }
+            else {
+                create_log("create group role", log.log_level.info, responseList.success.success_creating_data.message, request_key, 1)
+                resolve({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
+
+            }
+        }).catch((error) => {
+            create_log("create group role", log.log_level.error, error.message, request_key, 0)
+            reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+        })
+    })
+}
+
 module.exports = {
     create_user,
     create_token,
@@ -368,5 +413,7 @@ module.exports = {
     create_ugroup,
     update_ugroup,
     get_user_id,
-    delete_user
+    delete_user,
+    getallRoles,
+    createRole
 }

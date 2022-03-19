@@ -3,6 +3,7 @@ var Sequelize = require('sequelize');
 let { userModel } = require('../models/user.iot.model')
 let { u_groupModel } = require('../models/u_group.iot.model')
 let { sessionModel } = require('../models/session.iot.model')
+let { GroupRoleModel } = require('../models/groupRole.iot.model')
 const { Op } = require("sequelize");
 
 function createUser(new_user) {
@@ -266,7 +267,7 @@ function updateUgroup(ugroup) {
                     Sequelize.fn('lower', ugroup.groupname)
                 )
         }).then(group => {
-            if (!group) {
+            if (!group || ugroup.rec_id === group['rec_id']) {
                 u_groupModel.update(ugroup, {
                     where: {
                         rec_id: ugroup.rec_id
@@ -303,6 +304,48 @@ function deleteUser(req) {
     })
 }
 
+//return all group roles
+function getallRoles() {
+
+    return new Promise((resolve, reject) => {
+        GroupRoleModel.findAll().then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+
+}
+
+//create group role
+function createRole(newrole) {
+
+    return new Promise((resolve, reject) => {
+        GroupRoleModel.findOne({
+            where:
+                Sequelize.where(
+                    Sequelize.fn('lower', Sequelize.col('role')),
+                    Sequelize.fn('lower', newrole.role)
+                )
+        }).then(grouprole => {
+            if (!grouprole) {
+                GroupRoleModel.create(newrole)
+                    .then((data) => {
+                        resolve(data)
+                    }).catch((err) => {
+                        reject(err)
+                    })
+            }
+            else {
+                resolve([])
+            }
+        }).catch(err => {
+            reject(err)
+        })
+    })
+
+
+}
 
 
 module.exports = {
@@ -318,5 +361,7 @@ module.exports = {
     createUgroup,
     updateUgroup,
     get_user_id,
-    deleteUser
+    deleteUser,
+    getallRoles,
+    createRole
 }

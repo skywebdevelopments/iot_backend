@@ -10,6 +10,7 @@ const { userModel } = require('../models/user.iot.model')
 const { u_groupModel } = require('../models/u_group.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
+const { GroupRoleModel } = require('../models/groupRole.iot.model');
 const { SensorTypeModel } = require('../models/sensortype.iot.model')
 
 // end of Model
@@ -27,7 +28,7 @@ function createSchema() {
             // mqtt_userModel.sync({ force: true });
             //SensorTypeModel.sync();
             //u_groupModel.sync();
-
+            //GroupRoleModel.sync();
             // sensorModel.create({
             //     ap_name:"sensor 2",
 

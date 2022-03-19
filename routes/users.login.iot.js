@@ -21,7 +21,7 @@ var { validateRequestSchema } = require('../middleware/validate-request-schema')
 var { createTokenValidator, createUserValidator,
     updateUserValidator, updateActiveUserValidator,
     updatePermissionValidator, createUgroupValidator,
-    updateUgroupValidator,getUserValidator } = require('../validators/user.validator.iot')
+    updateUgroupValidator,getUserValidator,createRoleValidator } = require('../validators/user.validator.iot')
 
 /*
 POST /api/v1/users/token
@@ -86,10 +86,13 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["us
 router.post('/delete', authenticate.authenticateUser,authenticate.UserRoles(["user:delete"]), getUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
     userControl.delete_user(req, request_key)
-        .then((data) => {
-            res.send(data)
+        .then(() => {
+            res.send({
+                message: responseList.success.message,
+                code: responseList.success.code
+            });
         }).catch((error) => {
-            res.send(error)
+            res.send({ code: error.code, message: error.message })
         })
 });
 
@@ -185,11 +188,9 @@ router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(
 POST /api/v1/users/create/u_group
 Parameters:groupname,roles and active of a u_group
 */
-router.post('/create/ugroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
+router.post('/create/usergroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
     let request_key = uuid();
-
     let { groupname, roles, active } = req.body;
-
     userControl.create_ugroup(groupname, roles, active, request_key)
         .then((data) => {
             res.send(data)
@@ -213,6 +214,38 @@ router.put('/update/ugroup', authenticate.authenticateUser, authenticate.UserRol
         }).catch((error) => {
             res.send(error)
         })
+});
+
+
+/*
+POST /api/v1/users/create/ugroup/role
+Parameters:rolename of a u_group
+*/
+router.post('/create/ugroup/role', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createRoleValidator,validateRequestSchema,function (req,res){
+    let request_key = uuid();
+    userControl.createRole(req.body, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        })
+
+});
+
+
+// GET /api/v1/users/usergroups/roles
+// Return all usergroups roles
+router.get('/usergroups/roles', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:list"]), function (req, res) {
+    let request_key = uuid();
+
+    userControl.getallRoles(req, request_key)
+        .then((data) => {
+            res.send(data)
+        }).catch((error) => {
+            res.send(error)
+        });
+
+
 });
 
 module.exports = router;

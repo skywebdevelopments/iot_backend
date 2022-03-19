@@ -21,6 +21,10 @@ const createUgroupValidator = [
         .isBoolean()
 ];
 
+const createRoleValidator = [
+    body('role').isString(),
+];
+
 const updateUgroupValidator = [
     body('groupname')
         .isString(),
@@ -84,5 +88,6 @@ module.exports = {
     updateActiveUserValidator,
     createUgroupValidator,
     updateUgroupValidator,
-    getUserValidator
+    getUserValidator,
+    createRoleValidator
 }

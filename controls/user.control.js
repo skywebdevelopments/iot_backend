@@ -344,7 +344,7 @@ function delete_user(req, request_key) {
                 reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
             }
             else {
-                create_log("delete user", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                create_log("delete user", log.log_level.info, responseList.success.success_deleting_data.message, request_key, data.email)
                 resolve(data)
             }
         }).catch((error) => {

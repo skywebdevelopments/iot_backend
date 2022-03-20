@@ -293,19 +293,26 @@ function updateUgroup(ugroup) {
 
 function deleteUser(req) {
     return new Promise((resolve, reject) => {
-        userModel.destroy(
-            {
-                where: {
-                    id: req.body['id']
-                },
+        userModel.findOne({
+            where: {
+                id:req.body['id']
             }
-
-        ).then((data) => {
-            resolve(data);
-        }
-        ).catch((err) => {
-            reject(err);
+        }).then((data) => {
+            userModel.destroy(
+                {
+                    where: {
+                        id: req.body['id']
+                    },
+                }
+    
+            ).then(() => {
+                resolve(data);
+            }
+            ).catch((err) => {
+                reject(err);
+            })
         })
+       
     })
 }
 

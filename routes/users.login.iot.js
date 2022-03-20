@@ -191,7 +191,7 @@ Parameters:groupname,roles and active of a u_group
 router.post('/create/usergroup', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:create"]),createUgroupValidator,validateRequestSchema,function (req,res){
     let request_key = uuid();
     let { groupname, roles, active } = req.body;
-    userControl.create_ugroup(groupname, roles, active, request_key)
+    userControl.create_ugroup(req,groupname, roles, active, request_key)
         .then((data) => {
             res.send(data)
         }).catch((error) => {

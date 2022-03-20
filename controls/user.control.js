@@ -29,8 +29,6 @@ function hash_pass(password) {
 }
 
 function create_user(email, username, password, request_key) {
-
-
     let hashed_password = hash_pass(password)
 
     return new Promise((resolve, reject) => {
@@ -41,17 +39,17 @@ function create_user(email, username, password, request_key) {
             active: true,
         }).then((data) => {
             if (!data || data.length === 0) {
-                create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, 0)
+                create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, "")
                 reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
 
             }
             else {
-                create_log("create user", log.log_level.info, responseList.success.success_creating_data.message, request_key, 1)
+                create_log("create user", log.log_level.info, responseList.success.success_creating_data.message, request_key, email)
                 resolve({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
 
             }
         }).catch((error) => {
-            create_log("create user", log.log_level.error, error.message, request_key, 0)
+            create_log("create user", log.log_level.error, error.message, request_key, email)
             reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
         })
     })
@@ -284,7 +282,7 @@ function update_active_user(req, request_key) {
     })
 }
 
-function create_ugroup(groupname, roles, active, request_key) {
+function create_ugroup(req,groupname, roles, active, request_key) {
 
     return new Promise((resolve, reject) => {
         usermodel.createUgroup({
@@ -293,17 +291,17 @@ function create_ugroup(groupname, roles, active, request_key) {
             active: active
         }).then((data) => {
             if (!data || data.length === 0) {
-                create_log("create ugroup", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${groupname} ]`, request_key, 0)
+                create_log("create ugroup", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${groupname} ]`, request_key, req)
                 reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
 
             }
             else {
-                create_log("create ugroup", log.log_level.info, responseList.success.success_creating_data.message, request_key, 1)
+                create_log("create ugroup", log.log_level.info, responseList.success.success_creating_data.message, request_key, req)
                 resolve({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
 
             }
         }).catch((error) => {
-            create_log("create ugroup", log.log_level.error, error.message, request_key, 0)
+            create_log("create ugroup", log.log_level.error, error.message, request_key, req)
             reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
         })
     })

@@ -9,15 +9,16 @@ let jwt = require('jsonwebtoken')
 let logmodel = require('../models_crud/log.model');
 let { userModel } = require('../models/user.iot.model');
 
+var email = '';
+
 function create_log(operation, log_level, log_message, parent_uuid, req) {
 
     let user_email = get_user_email(req);
-
-    if (user_email === -1) {
-        user_email = req
-    }
-
-
+    /*
+        if (user_email === '') {
+            user_email = req
+        }
+    */
     if (logger.log.database.enable_database_log === true) {
 
         if (log.isTraceEnabled()) {
@@ -75,22 +76,19 @@ function get_user_email(req) {
             if (scheme === 'Bearer') {
                 token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
                 var token_payload = jwt.decode(token);
-                var user_id = token_payload.id
+                var id = token_payload.id
                 userModel.findOne({
                     where: {
-                        id: user_id
+                        id: id
                     }
-                }).then(data)
-                {
-                    console.log("**************************************************************")
-                    console.log(data['email'])
-                    console.log("**************************************************************")
-                    return data['email'];
-                }
+                }).then((data) => {
+                    this.email = data.email;
+                })
             }
         }
     }
-    return -1;
+
+    return this.email;
 }
 
 module.exports = {

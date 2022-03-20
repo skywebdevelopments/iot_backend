@@ -4,6 +4,8 @@ let { log } = require('../config/app.conf.json')
 let { create_log } = require('../controls/log.control')
 
 function getAll_sgroups(request_key, req) {
+
+
     return new Promise((resolve, reject) => {
         create_log('list sensor group', log.log_level.trace, responseList.trace.check_data_length.message, request_key, req)
         s_groupmodel.getAll_sgroups().then(data => {
@@ -58,6 +60,9 @@ function create_sgroup(req, request_key) {
 }
 
 function sensorMap_to_sgroup(req, request_key) {
+    console.log('================================================')
+    console.log(req.body)
+    console.log('================================================')
     return new Promise((resolve, reject) => {
         create_log('map sensor to group', log.log_level.trace, responseList.trace.check_data_length.message, request_key, req)
         s_groupmodel.sensorMap_to_sgroup(req).then(data => {

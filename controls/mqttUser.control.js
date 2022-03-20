@@ -7,7 +7,6 @@ var cryptojs = require('crypto-js');
 
 function getAll_mqttUsers(req, request_key) {
     return new Promise((resolve, reject) => {
-       // create_log('list mqtt_user', log.log_level.trace, responseList.trace.check_data_length.message, request_key, req)
         s_mqttUsermodel.getAll_mqttUsers().then(data => {
             if (!data || data.length === 0) {
                 create_log('list mqtt_user', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
@@ -39,7 +38,7 @@ function create_mqttUsers(req,request_key) {
     return new Promise((resolve, reject) => {
         create_log("create mqtt_user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
         s_mqttUsermodel.create_mqttUsers(req).then(data => {
-            if (!data || data.rowCount === 0) {
+            if (!data || data.length === 0) {
                 create_log("create mqtt_user", log.log_level.error, responseList.error.error_already_exists.message, request_key, req)
             }
             else
@@ -58,7 +57,7 @@ function update_mqttUsers(req,request_key) {
     return new Promise((resolve, reject) => {
         create_log("update mqtt_user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
         s_mqttUsermodel.update_mqttUsers(req).then(data => {
-            if (!data || data.rowCount === 0) {
+            if (!data || data.length === 0) {
                 create_log("update mqtt_user",log.log_level.info, responseList.error.error_no_data.message, request_key, req)
             }
             else
@@ -77,7 +76,7 @@ function delete_mqttUsers(req,request_key) {
     return new Promise((resolve, reject) => {
         create_log("delete mqtt_user", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
         s_mqttUsermodel.delete_mqttUsers(req).then(data => {
-            if (!data || data.rowCount === 0||data.length===0) {
+            if (!data ||data.length===0) {
                 create_log("delete mqtt_user",log.log_level.info, responseList.error.error_no_data.message, request_key, req)
             }
             else

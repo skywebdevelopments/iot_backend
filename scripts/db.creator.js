@@ -28,7 +28,7 @@ function createSchema() {
             // mqtt_userModel.sync({ force: true });
             //SensorTypeModel.sync();
             //u_groupModel.sync();
-            //logModel.sync();
+            logModel.sync();
             //sessionModel.sync();
             // sensorModel.create({
             //     ap_name:"sensor 2",

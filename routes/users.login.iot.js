@@ -20,7 +20,7 @@ let userControl = require('../controls/user.control')
 var { validateRequestSchema } = require('../middleware/validate-request-schema')
 var { createTokenValidator, createUserValidator,
     updateUserValidator, updateActiveUserValidator,
-    updatePermissionValidator, createUgroupValidator,
+    updatePermissionValidator, createUgroupValidator,deleteUgroupValidator,
     updateUgroupValidator,getUserValidator,createRoleValidator } = require('../validators/user.validator.iot')
 
 /*
@@ -216,6 +216,23 @@ router.put('/update/ugroup', authenticate.authenticateUser, authenticate.UserRol
         })
 });
 
+
+// delete user 
+// post /api/v1/users/delete/ugroup
+// delete user by userid
+
+router.post('/delete/ugroup', authenticate.authenticateUser,authenticate.UserRoles(["ugroup:delete"]), deleteUgroupValidator, validateRequestSchema, function (req, res) {
+    let request_key = uuid();
+    userControl.delete_Ugroup(req, request_key)
+        .then(() => {
+            res.send({
+                message: responseList.success.message,
+                code: responseList.success.code
+            });
+        }).catch((error) => {
+            res.send({ code: error.code, message: error.message })
+        })
+});
 
 /*
 POST /api/v1/users/create/ugroup/role

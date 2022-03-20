@@ -66,29 +66,29 @@ function create_token(email, password, request_key) {
         usermodel.getUser(email, hashed_password)
             .then((user) => {
                 if (!user || user.length === 0) {
-                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key, 0)
+                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key, "")
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
                     if (user.active === false) {
-                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, 0)
+                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, user.email)
                         reject({ status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
                     }
                     else {
                         var token = authenticate.getToken(user); //create token using id and you can add other inf
                         usermodel.updateSession(user.id, token)
                             .then(() => {
-                                create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.id)
+                                create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, user.email)
                                 resolve({ status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
                             }).catch(err => {
-                                create_log("login", log.log_level.error, err.message, request_key, user.id)
+                                create_log("login", log.log_level.error, err.message, request_key, user.email)
                                 reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
                             })
                     }
                 }
 
             }).catch((error) => {
-                create_log("login", log.log_level.error, error.message, request_key, 0)
+                create_log("login", log.log_level.error, error.message, request_key, "")
                 reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
             })
     })
@@ -356,6 +356,25 @@ function delete_user(req, request_key) {
     })
 }
 
+function delete_Ugroup(req, request_key) {
+    let {rec_id} = req.body;
+    return new Promise((resolve, reject) => {
+        create_log("delete user group", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
+        usermodel.deleteUgroup({rec_id}).then(data => {
+            if (!data || data.length === 0) {
+                create_log("delete user group", log.log_level.info, responseList.error.error_no_data_delete.message, request_key, req)
+                reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+            }
+            else {
+                create_log("delete user group", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                resolve(data)
+            }
+        }).catch((error) => {
+            create_log("delete user group", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
 //get all Ugroup roles
 function getallRoles(req, request_key) {
 
@@ -415,5 +434,6 @@ module.exports = {
     get_user_id,
     delete_user,
     getallRoles,
-    createRole
+    createRole,
+    delete_Ugroup
 }

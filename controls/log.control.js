@@ -7,36 +7,36 @@ let jwt = require('jsonwebtoken')
 
 //model
 let logmodel = require('../models_crud/log.model');
+let { userModel } = require('../models/user.iot.model');
 
-function create_log(operation, log_level, log_message, uuid, req) {
+function create_log(operation, log_level, log_message, parent_uuid, req) {
 
-    let user_id = get_user_id(req);
+    let user_email = get_user_email(req);
 
-    if (user_id === -1) {
-        user_id = req
+    if (user_email === -1) {
+        user_email = req
     }
 
 
     if (logger.log.database.enable_database_log === true) {
 
         if (log.isTraceEnabled()) {
-
-            logmodel.createLog(operation, log_level, log_message, user_id).then( ).catch(err => console.log(err))
+            logmodel.createLog(operation, log_level, log_message, user_email, parent_uuid).then().catch(err => console.log(err))
         }
         else if (log.isInfoEnabled() && log_level !== logger.log.log_level.trace) {
 
-            logmodel.createLog(operation, log_level, log_message, user_id).then( ).catch(err => console.log(err))
+            logmodel.createLog(operation, log_level, log_message, user_email, parent_uuid).then().catch(err => console.log(err))
         }
         else if (log.isWarnEnabled() && log_level !== logger.log.log_level.trace
             && log_level !== logger.log.log_level.info) {
 
-            logmodel.createLog(operation, log_level, log_message, user_id).then( ).catch(err => console.log(err))
+            logmodel.createLog(operation, log_level, log_message, user_email, parent_uuid).then().catch(err => console.log(err))
         }
         else if (log.isErrorEnabled() && log_level !== logger.log.log_level.trace
             && log_level !== logger.log.log_level.info
             && log_level !== logger.log.log_level.warn) {
 
-            logmodel.createLog(operation, log_level, log_message, user_id).then( ).catch(err => console.log(err))
+            logmodel.createLog(operation, log_level, log_message, user_email, parent_uuid).then().catch(err => console.log(err))
         }
 
     }
@@ -44,16 +44,16 @@ function create_log(operation, log_level, log_message, uuid, req) {
     if (logger.log.log_file.enable_file_log === true) {
 
         if (log_level === logger.log.log_level.trace) {
-            log.trace(`${uuid} - ${log_level} - ${operation} - ${log_message} - ${user_id}`);
+            log.trace(`${parent_uuid} - ${log_level} - ${operation} - ${log_message} - ${user_email}`);
         }
         if (log_level === logger.log.log_level.info) {
-            log.info(`${uuid} - ${log_level} - ${operation} - ${log_message} - ${user_id}`);
+            log.info(`${parent_uuid} - ${log_level} - ${operation} - ${log_message} - ${user_email}`);
         }
         if (log_level === logger.log.log_level.warn) {
-            log.warn(`${uuid} - ${log_level} - ${operation} - ${log_message} - ${user_id}`);
+            log.warn(`${parent_uuid} - ${log_level} - ${operation} - ${log_message} - ${user_email}`);
         }
         if (log_level === logger.log.log_level.error) {
-            log.error(`${uuid} - ${log_level} - ${operation} - ${log_message} - ${user_id}`);
+            log.error(`${parent_uuid} - ${log_level} - ${operation} - ${log_message} - ${user_email}`);
         }
     }
 
@@ -61,7 +61,7 @@ function create_log(operation, log_level, log_message, uuid, req) {
 }
 
 // Extracts user id from token that is sent in headers of the request
-function get_user_id(req) {
+function get_user_email(req) {
     var token = null;
 
     if (req.headers && req.headers['authorization']) {
@@ -76,7 +76,17 @@ function get_user_id(req) {
                 token = cryptojs.AES.decrypt(enc_token, secret.token_sercet_key).toString(cryptojs.enc.Utf8);
                 var token_payload = jwt.decode(token);
                 var user_id = token_payload.id
-                return user_id;
+                userModel.findOne({
+                    where: {
+                        id: user_id
+                    }
+                }).then(data)
+                {
+                    console.log("**************************************************************")
+                    console.log(data['email'])
+                    console.log("**************************************************************")
+                    return data['email'];
+                }
             }
         }
     }

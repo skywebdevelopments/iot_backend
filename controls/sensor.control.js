@@ -1,5 +1,4 @@
 let sensor = require('../models_crud/sensor.model')
-//let { create_log } = require('../middleware/logger.middleware');
 var { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var responseList = require('../config/response.code.json')

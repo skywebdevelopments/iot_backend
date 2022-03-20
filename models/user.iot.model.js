@@ -39,7 +39,7 @@ const user = sequelize.define('user', {
     }
 );
 
-u_groupModel.hasMany(user, { as: 'users', onDelete: 'cascade'});
+u_groupModel.hasMany(user, { as: 'users'});
 user.belongsTo(u_groupModel);
 
 exports.userModel = user;

@@ -13,9 +13,7 @@ var router = express.Router();
 let { mqtt_userModel } = require('../models/mqttUser.iot.model')
 // end
 
-// middleware
-let { create_log } = require('../middleware/logger.middleware');
-// end
+
 var control = require('../controls/mqttUser.control')
 let { validateRequestSchema } = require('../middleware/validate-request-schema');
 var validators = require('../validators/mqttusers.validator.iot');

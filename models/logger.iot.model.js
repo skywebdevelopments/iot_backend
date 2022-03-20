@@ -18,9 +18,21 @@ const log = sequelize.define('log', {
     log_level: {
         type: Sequelize.STRING
     },
-    user_id: {
-        type: Sequelize.INTEGER,
+    user_email: {
+        type: Sequelize.STRING,
         allowNull: false
+    },
+    child_rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
+    },
+    parent_rec_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false
+
     }
 },
     {

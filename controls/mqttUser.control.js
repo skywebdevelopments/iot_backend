@@ -1,5 +1,4 @@
 let s_mqttUsermodel = require('../models_crud/mqttUser.model')
-//let { create_log } = require('../middleware/logger.middleware');
 var responseList = require('../config/response.code.json')
 let { log } = require('../config/app.conf.json')
 let { create_log } = require('../controls/log.control')

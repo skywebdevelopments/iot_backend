@@ -1,0 +1,31 @@
+[2022-03-20T18:07:23.851] [INFO] app - 0dacc6bf-8f55-4827-8ce4-8ea14770a6aa - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T18:07:26.247] [INFO] app - 48e7d696-3fa7-4fdd-9cc0-24b649c94fcc - INFO - list group roles - Success retrieving  data - 2
+[2022-03-20T18:07:28.756] [INFO] app - 6f9cdd90-3872-4baf-85ae-b31c745a614d - INFO - list users - Success retrieving  data - 2
+[2022-03-20T18:07:28.772] [INFO] app - dbc6e7f2-0051-49d6-8041-37c4d4a3a37f - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T18:07:47.956] [TRACE] app - 0a7a48d7-04a6-453a-b72c-f59adbee4bb8 - TRACE - list sensor group - check payload length - 2
+[2022-03-20T18:07:47.977] [INFO] app - 01d063af-65b9-4d05-b97d-44dddf69d7f6 - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-20T18:07:48.002] [INFO] app - 0a7a48d7-04a6-453a-b72c-f59adbee4bb8 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-20T18:07:48.031] [INFO] app - 4d118e6b-1305-489f-9f7e-691039005630 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-20T18:07:48.044] [INFO] app - c91897a6-6438-4645-bfe3-5c3fd1352b0a - INFO - List Sensor - Success retrieving  data - 2
+[2022-03-20T18:07:49.378] [INFO] app - d84b4af2-14aa-4d42-8633-e0b64171d549 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-20T18:07:49.385] [INFO] app - 92e18918-c874-4d01-bf50-6946558ff305 - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-20T18:07:53.515] [INFO] app - 6d8c1a2d-4167-40ce-9740-0af58eb2616b - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-20T18:07:57.102] [INFO] app - bc44c247-c487-4a78-af45-92d82caa45b3 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-20T18:08:00.799] [TRACE] app - 9741f1b8-9de4-4e83-bff5-23416cc285e1 - TRACE - list sensor group - check payload length - 2
+[2022-03-20T18:08:00.810] [INFO] app - 9741f1b8-9de4-4e83-bff5-23416cc285e1 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-20T18:08:10.159] [INFO] app - 4339d362-5333-4d41-b659-df76305667cd - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T18:08:11.610] [INFO] app - 823d5dd2-efb7-4b2c-a8af-174e0047a32c - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T18:08:11.629] [INFO] app - b5c11a7b-6594-494e-891f-6172af01ac98 - INFO - list users - Success retrieving  data - 2
+[2022-03-20T18:12:10.389] [INFO] app - 51294925-a217-497a-b111-4b0ab480a555 - INFO - list users - Success retrieving  data - 2
+[2022-03-20T18:12:10.415] [INFO] app - 292ac310-e450-4878-bf72-7172665ea7e2 - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T21:44:12.826] [TRACE] app - 358d4247-3949-448f-b19e-d269f6b3175f - TRACE - list sensor group - check payload length - 2
+[2022-03-20T21:44:12.837] [INFO] app - 497957a4-3f0c-41b1-b58e-a735da4cc66a - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-20T21:44:12.844] [INFO] app - a16fec6f-3e00-4435-8cc8-8d8225c7ee63 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-20T21:44:12.863] [INFO] app - 11b5a0b1-cb0f-472f-b4f5-b081dfced3ee - INFO - List Sensor - Success retrieving  data - 2
+[2022-03-20T21:44:12.874] [INFO] app - 358d4247-3949-448f-b19e-d269f6b3175f - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-20T21:44:16.989] [INFO] app - 44ed771a-766c-4583-994a-6b4e944ee97a - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-20T21:44:26.477] [INFO] app - e097c366-f4e3-49da-8e7b-dbfc6e78a136 - INFO - list users - Success retrieving  data - 2
+[2022-03-20T21:44:26.497] [INFO] app - 0aaa5c55-d895-4032-9d7a-95b5d221dc4c - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T21:44:35.035] [INFO] app - 989ab2b7-645f-47e5-aa03-702a371bc690 - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T21:44:37.882] [INFO] app - 8c68fa4b-68b9-4c56-94d3-c5d4d2d00c0d - INFO - list group roles - Success retrieving  data - 2
+[2022-03-20T21:44:50.920] [INFO] app - 2c4a2d76-e206-4c97-842e-7f54fe585ed7 - INFO - list mqtt_user - Success retrieving  data - 2

@@ -18,7 +18,7 @@ var s_groupRoute = require('./routes/s_group.iot.route')
 var sensorRoute = require('./routes/sensor.iot.route')
 var mqttRoute = require('./routes/mqttuser.iot.route')
 var sensortypeRoute = require('./routes/sensor_type.iot.route')
-
+var sensorProvisionRoute = require('./routes/prov.sensor');
 var logRoute = require('./routes/logs.iot')
 
 // end
@@ -62,6 +62,7 @@ app.use('/api/v1/sensor', sensorRoute);
 app.use('/api/v1/mqttuser', mqttRoute);
 app.use('/api/v1/sensortype', sensortypeRoute);
 app.use('/api/v1/logs', logRoute);
+app.use('/api/v1/provision', sensorProvisionRoute);
 // 
 
 

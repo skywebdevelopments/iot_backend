@@ -10,8 +10,10 @@ function create_sensor(req) {
     req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
         sensorModel.create(req.body).then((data) => {
+            console.log("1");
             resolve(data);
         }).catch((error) => {
+            console.log("2");
             reject(error);
         });
     })

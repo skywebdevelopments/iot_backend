@@ -1,0 +1,5 @@
+[2022-03-20T13:16:08.131] [INFO] app - 9440589a-fbb2-440f-894e-407898b038a7 - INFO - login - Logged in Successfully - 2
+[2022-03-20T13:16:08.282] [TRACE] app - a697f8fe-a9d8-47b8-be72-0cbeb3d51599 - TRACE - list sensor group - check payload length - 2
+[2022-03-20T13:16:08.301] [INFO] app - a697f8fe-a9d8-47b8-be72-0cbeb3d51599 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-20T13:16:39.354] [INFO] app - 2a38daa7-abe5-438c-a60e-f8527a2dc40a - INFO - list u_groups - Success retrieving  data - 2
+[2022-03-20T13:16:58.983] [INFO] app - 2011e9b1-f691-4f40-8745-044b010c20e2 - INFO - list group roles - Success retrieving  data - 2

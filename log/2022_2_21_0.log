@@ -1,0 +1,13 @@
+[2022-03-21T11:20:05.397] [INFO] app - 3af7d6b1-e804-4fa2-a701-085ff3fa5460 - INFO - List Sensor - Success retrieving  data - 2
+[2022-03-21T11:20:05.459] [INFO] app - b7489d8e-750c-4db7-8cd2-ebbcfa26d422 - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-21T11:20:05.494] [TRACE] app - 8170071e-c511-47be-a940-b51c621f8da7 - TRACE - list sensor group - check payload length - 2
+[2022-03-21T11:20:05.528] [INFO] app - 8170071e-c511-47be-a940-b51c621f8da7 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-21T11:20:05.541] [INFO] app - 6d1df09f-9de5-4c2c-ae42-17d6a88bf6e1 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-21T11:20:14.612] [TRACE] app - 5105a3bf-2fad-46de-a29b-4970a2558327 - TRACE - list sensor group - check payload length - 2
+[2022-03-21T11:20:14.624] [INFO] app - 9e88b44c-8cf4-46d3-b366-1c7bc24de2b3 - INFO - List Sensor_type - Success retrieving  data - 2
+[2022-03-21T11:20:14.638] [INFO] app - 5105a3bf-2fad-46de-a29b-4970a2558327 - INFO - list sensor group - Success retrieving  data - 2
+[2022-03-21T11:20:14.649] [INFO] app - 8ea2edb0-c238-4274-8156-4b1c472b61e6 - INFO - List Sensor - Success retrieving  data - 2
+[2022-03-21T11:20:14.661] [INFO] app - 906d54e2-4e6f-4435-a084-796c13d9f3f1 - INFO - list mqtt_user - Success retrieving  data - 2
+[2022-03-21T11:38:11.487] [INFO] app - 05d7f17a-d0bc-439c-8319-d4620cceabc4 - INFO - login - Logged in Successfully - 2
+[2022-03-21T11:38:11.577] [TRACE] app - 77c10147-969c-4d48-969e-ae7a89e4e74a - TRACE - list sensor group - check payload length - 2
+[2022-03-21T11:38:11.583] [INFO] app - 77c10147-969c-4d48-969e-ae7a89e4e74a - INFO - list sensor group - Success retrieving  data - 2

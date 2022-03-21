@@ -1,5 +1,4 @@
 let sensor = require('../models_crud/sensor.model')
-//let { create_log } = require('../middleware/logger.middleware');
 var { log } = require('../config/app.conf.json')
 let { uuid, isUuid } = require('uuidv4');
 var responseList = require('../config/response.code.json')
@@ -7,12 +6,13 @@ let { create_log } = require('../controls/log.control')
 var cryptojs = require('crypto-js');
 
 function Createsensor(req, request_key) {
+    
     req.body['ota_password']=hash_pass( req.body['ota_password'])
     req.body['ap_password']=hash_pass( req.body['ap_password'])
     create_log("create sensor", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
     return new Promise((resolve, reject) => {
         sensor.create_sensor(req).then((data) => {
-            if (data.rowCount === 0) {
+            if (!data || data.length === 0 ||  data[0] === 0 ) {
                 create_log('Create sensor', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
                 resolve(data);
                 return;
@@ -44,7 +44,7 @@ function hash_pass(password) {
 function GetSensors(req, request_key) {
     return new Promise((resolve, reject) => {
         sensor.getAll().then((data) => {
-            if (data.rowCount === 0) {
+            if (!data || data.length === 0 ||  data[0] === 0 ) {
                 create_log('list sensor', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
                 resolve(data);
             }
@@ -63,7 +63,7 @@ function GetSensors(req, request_key) {
 function GetSensorbyId(req, request_key) {
     return new Promise((resolve, reject) => {
         sensor.getSensorbyId(req).then((data) => {
-            if (data.rowCount === 0) {
+            if (!data || data.length === 0 ||  data[0] === 0 ) {
                 create_log('list sensor by Id', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
                 resolve(data);
             }
@@ -102,19 +102,12 @@ function UpdateSensor(req, request_key) {
 
 function DeleteSensor(req, request_key) {
 
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        create_log("delete sensor", log.log_level.error, ` ${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, request_key, req)
-    }
-
-    if (rec_id.length == 0) {
-        create_log("delete sensor", log.log_level.error, ` ${responseList.error.error_missing_payload.message} - value must be a uuidv4 key`, request_key, req);
-    }
+    
 
     return new Promise((resolve, reject) => {
         sensor.deleteSensor(req).then((data) => {
             create_log("delete sensor", log.log_level.trace, responseList.trace.executing_query.message, request_key, req);
-            if (data.rowCount === 0) {
+            if (!data || data.length === 0 ||  data[0] === 0 ) {
                 create_log("delete sensor", log.log_level.error, responseList.error.error_no_data_updated, request_key, req);
                 resolve(data);
             }

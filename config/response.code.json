@@ -23,40 +23,40 @@
             "message": "Data is executing"
         },
         "required_fields": {
-            "message": "check required fields"
+            "message": "Check required fields"
         },
         "check_data_length": {
-            "message": "check payload length"
+            "message": "Check payload length"
         }
     },
     "error": {
         "error_general": {
             "code": 1100,
-            "message": "error occured"
+            "message": "Error occured"
         },
         "error_notactive": {
             "code": 1105,
-            "message": "you are temporary deactivated"
+            "message": "You are temporary deactivated"
         },
         "error_no_data": {
             "code": 1101,
-            "message": "no data found"
+            "message": "No data found"
         },
         "error_missing_payload": {
             "code": 2100,
-            "message": "request payload is missing"
+            "message": "Request payload is missing"
         },
         "error_invalid_payload": {
             "code": 2101,
-            "message": "request payload is invalid"
+            "message": "Request payload is invalid"
         },
         "error_invalid_input": {
             "code": 2102,
-            "message": "request inputs is/are invalid"
+            "message": "Request inputs is/are invalid"
         },
         "error_no_user_found": {
             "code": 404,
-            "message": "could not find user!"
+            "message": "Could not find user!"
         },
         "error_unauthorized": {
             "code": 401,
@@ -72,19 +72,19 @@
         },
         "error_already_exists": {
             "code": 3100,
-            "message": "already exists!"
+            "message": "Already exists!"
         },
         "error_no_data_created": {
             "code": 1102,
-            "message": "no data was created"
+            "message": "No data was created"
         },
         "error_no_data_updated": {
             "code": 1103,
-            "message": "no data was updated"
+            "message": "No data was updated"
         },
         "error_no_data_delete": {
             "code": 1104,
-            "message": "no data deleted"
+            "message": "No data deleted"
         }
     }
 }

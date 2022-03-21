@@ -11,10 +11,6 @@ let { Op, json } = require("sequelize");
 //let { log } = require('../logger/app.logger')
 let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
-
-// middleware
-let { create_log } = require('../middleware/logger.middleware');
-// end
 const { body, validationResult } = require('express-validator');
 
 var control = require('../controls/sensor_type.control')

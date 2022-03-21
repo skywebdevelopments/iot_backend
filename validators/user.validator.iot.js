@@ -79,6 +79,10 @@ const getUserValidator =[
         .isNumeric()
 ];
 
+const deleteUgroupValidator= [
+    body('rec_id').exists({checkFalsy:true})
+    .withMessage('group rec id is required')
+  ];
 
 module.exports = {
     createUserValidator,
@@ -89,5 +93,6 @@ module.exports = {
     createUgroupValidator,
     updateUgroupValidator,
     getUserValidator,
-    createRoleValidator
+    createRoleValidator,
+    deleteUgroupValidator
 }

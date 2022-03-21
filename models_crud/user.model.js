@@ -259,28 +259,33 @@ function createUgroup(ugroup) {
 function updateUgroup(ugroup) {
 
     return new Promise((resolve, reject) => {
-
-        u_groupModel.findOne({
-            where:
-                Sequelize.where(
-                    Sequelize.fn('lower', Sequelize.col('groupname')),
-                    Sequelize.fn('lower', ugroup.groupname)
-                )
-        }).then(group => {
-            if (!group || ugroup.rec_id === group['rec_id']) {
-                u_groupModel.update(ugroup, {
-                    where: {
-                        rec_id: ugroup.rec_id
-                    }
-                }).then((data) => {
-                    resolve(data)
-                }).catch((err) => {
-                    reject(err)
-                })
-            }
-            else {
-                resolve("exists")
-            }
+        UpdateAsscioateUserActive(ugroup, ugroup['active']).then(() => {
+            u_groupModel.findOne({
+                where:
+                    Sequelize.where(
+                        Sequelize.fn('lower', Sequelize.col('groupname')),
+                        Sequelize.fn('lower', ugroup.groupname)
+                    )
+            }).then(group => {
+                if (!group || ugroup.rec_id === group['rec_id']) {
+                    u_groupModel.update(ugroup, {
+                        where: {
+                            rec_id: ugroup.rec_id
+                        }
+                    }).then((data) => {
+                        resolve(data)
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                }
+                else {
+                    resolve("exists")
+                }
+            }).catch((error) => {
+                reject(error)
+            }).catch((error) => {
+                reject(error)
+            })
         })
     })
 
@@ -288,19 +293,26 @@ function updateUgroup(ugroup) {
 
 function deleteUser(req) {
     return new Promise((resolve, reject) => {
-        userModel.destroy(
-            {
-                where: {
-                    id: req.body['id']
-                },
+        userModel.findOne({
+            where: {
+                id:req.body['id']
             }
-
-        ).then((data) => {
-            resolve(data);
-        }
-        ).catch((err) => {
-            reject(err);
+        }).then((data) => {
+            userModel.destroy(
+                {
+                    where: {
+                        id: req.body['id']
+                    },
+                }
+    
+            ).then(() => {
+                resolve(data);
+            }
+            ).catch((err) => {
+                reject(err);
+            })
         })
+       
     })
 }
 
@@ -347,6 +359,126 @@ function createRole(newrole) {
 
 }
 
+//make user unactive in case delete u_group or u_group active become false
+function UpdateAsscioateUserActive(ugroup, active) {
+    return new Promise((resolve, reject) => {
+        u_groupModel.findOne(
+            {
+                where: {
+                    rec_id: ugroup.rec_id
+                },
+                include: [{
+                    model: userModel,
+                    as: 'users'
+                }]
+            }
+        ).then((data) => {
+            if (data) {
+                if (data['users'].length !== 0) {
+                    for (let user of data['users']) {
+                        userModel.update({ active: active },
+                            {
+                                where: {
+                                    id: {
+                                        [Op.eq]: user['id']
+                                    }
+                                },
+                            }
+
+                        ).then((data) => {
+                            if (!data || data.length === 0 || data[0] === 0) {
+                                reject({ code: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message })
+                            };
+                            resolve(data)
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                    }
+                }
+                else
+                    resolve(data)
+            }
+            else
+                resolve(data)
+        }).catch((error) => {
+            reject(error);
+        });
+    })
+}
+
+//make user group in case delete u_group to be public
+function UpdateAsscioateUserGroup(ugroup, groupid) {
+    return new Promise((resolve, reject) => {
+        u_groupModel.findOne(
+            {
+                where: {
+                    rec_id: ugroup.rec_id
+                },
+                include: [{
+                    model: userModel,
+                    as: 'users'
+                }]
+            }
+        ).then((data) => {
+            if (data) {
+                if (data['users'].length !== 0) {
+                    for (let user of data['users']) {
+                        userModel.update({ uGroupId: groupid },
+                            {
+                                where: {
+                                    id: {
+                                        [Op.eq]: user['id']
+                                    }
+                                },
+                            }
+
+                        ).then((data) => {
+                            if (!data || data.length === 0 || data[0] === 0) {
+                                reject({ code: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message })
+                            };
+                            resolve(data)
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                    }
+                }
+                else
+                    resolve(data)
+            }
+            else
+                resolve(data)
+        }).catch((error) => {
+            reject(error);
+        });
+    })
+}
+
+//delete Ugroup
+function deleteUgroup(ugroup) {
+    return new Promise((resolve, reject) => {
+        UpdateAsscioateUserGroup(ugroup, 4).then(() => {
+            u_groupModel.destroy(
+                {
+                    where: {
+                        rec_id: {
+                            [Op.eq]: ugroup.rec_id
+                        }
+                    },
+                }
+
+            ).then((data) => {
+                resolve(data);
+            }
+            ).catch((err) => {
+                reject(err);
+            })
+        }).catch((err) => {
+            reject(err)
+        })
+
+    })
+
+}
 
 module.exports = {
     createUser,
@@ -363,5 +495,6 @@ module.exports = {
     get_user_id,
     deleteUser,
     getallRoles,
-    createRole
+    createRole,
+    deleteUgroup
 }

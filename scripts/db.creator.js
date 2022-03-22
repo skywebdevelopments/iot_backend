@@ -13,13 +13,17 @@ const { logModel } = require('../models/logger.iot.model');
 const { GroupRoleModel } = require('../models/groupRole.iot.model');
 const { entityModel } = require('../models/entity.iot.model')
 
+// end of Model
+
 const bcrypt = require('bcrypt');
 
+// 
 function createSchema() {
     return new Promise((resolve, reject) => {
-        try {
-            //entityModel.sync({ force: true })
-            sequelize.sync({ force: true });
+        try {       
+          //entityModel.sync({ force: true })
+
+          sequelize.sync({ force: true });
 
             resolve("success")
         } catch (error) {
@@ -27,4 +31,35 @@ function createSchema() {
 
         }
     })
+}
+
+function createUser() {
+
+    bcrypt.hash("admin123@", 10, function (err, hash) {
+        userModel.create({
+            user_email: "admin@admin.com",
+            user_password: hash,
+            user_role: "admin",
+            user_gender: "system",
+            user_location: "location",
+            user_address: "address",
+            user_mobile: "0100"
+
+        });
+
+    });
+
+
+}
+
+try {
+    createSchema();
+    // setTimeout(() => {
+
+    //     createUser();
+    // }, 3000);
+
+
+} catch (error) {
+    console.error(error);
 }

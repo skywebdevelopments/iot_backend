@@ -1,10 +1,10 @@
 const { body } = require('express-validator');
 
-const get_s_groupByID = [
+const get_n_groupByID = [
     body('groupId').isNumeric()
     .withMessage('groupId must contain a numeric input')
 ];
-const s_group_create = [
+const n_group_create = [
   body('name').isString()
   .withMessage('group name must contain a string input'),
   body('name').isLength({ min: 3 })
@@ -12,13 +12,13 @@ const s_group_create = [
   body('active').isBoolean()
   .withMessage('group active  must contain a boolean input')
 ];
-const sgroup_sensorMap = [
-  body('sensorId').isNumeric()
-  .withMessage('sensorId must contain a numeric input'),
+const ngroup_nodeMap = [
+  body('nodeId').isNumeric()
+  .withMessage('nodeId must contain a numeric input'),
   body('rec_id').exists({checkFalsy:true})
   .withMessage('group rec id is required')
 ];
-const s_group_update = [
+const n_group_update = [
   body('rec_id').exists({checkFalsy:true})
   .withMessage('group rec id is required'),
   body('name').isString()
@@ -28,14 +28,14 @@ const s_group_update = [
   body('active').isBoolean()
   .withMessage('group active  must contain a boolean input')
 ];
-const s_group_delete= [
+const n_group_delete= [
   body('rec_id').exists({checkFalsy:true})
   .withMessage('group rec id is required')
 ];
 module.exports =
- {get_s_groupByID,
-  s_group_create,
-  sgroup_sensorMap,
-  s_group_update,
-  s_group_delete
+ {get_n_groupByID,
+  n_group_create,
+  ngroup_nodeMap,
+  n_group_update,
+  n_group_delete
  };

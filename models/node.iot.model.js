@@ -1,14 +1,17 @@
 const sequelize = require('../database/connection');
 const { Sequelize, DataTypes } = require('sequelize');
-let { mqtt_userModel } = require('../models/mqttUser.iot.model')
-let { SensorTypeModel } = require('../models/sensortype.iot.model')
-const sensor = sequelize.define('sensor', {
+let { mqtt_userModel } = require('./mqttUser.iot.model')
+let { entityModel } = require('./entity.iot.model')
+const node = sequelize.define('node', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    },
+    friendly_name: {
+        type: Sequelize.STRING
     },
     mac_address: {
         type: Sequelize.STRING
@@ -84,7 +87,7 @@ const sensor = sequelize.define('sensor', {
     }
 },
     {
-        tableName: 'sensor',
+        tableName: 'node',
         timestamps: false
     }
 
@@ -92,8 +95,8 @@ const sensor = sequelize.define('sensor', {
 // user.sync({ force: true });
 
 
-sensor.belongsTo(mqtt_userModel, { foreignKey: 'mqttuserId' ,onDelete: 'cascade'});
-sensor.belongsTo(SensorTypeModel, { foreignKey: 'sensorTypeId' ,onDelete: 'cascade'});
+node.belongsTo(mqtt_userModel, { foreignKey: 'mqttuserId', onDelete: 'cascade' });
+node.belongsTo(entityModel, { foreignKey: 'entityId', onDelete: 'cascade' });
 
 
-exports.sensorModel = sensor
+exports.nodeModel = node

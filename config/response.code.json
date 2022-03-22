@@ -85,6 +85,10 @@
         "error_no_data_delete": {
             "code": 1104,
             "message": "No data deleted"
+        },
+        "error_delete_public": {
+            "code": 1106,
+            "message": "Public group is forbidden to be delete!"
         }
     }
 }

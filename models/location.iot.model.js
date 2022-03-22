@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 const sequelize = require('../database/connection');
-let { sensorModel } = require('./sensor.iot.model');
+let { nodeModel } = require('./node.iot.model');
 
 const location = sequelize.define("location", {
   id: {
@@ -34,7 +34,7 @@ const location = sequelize.define("location", {
 );
 
 
-location.belongsTo(sensorModel);
+location.belongsTo(nodeModel);
 
 
 exports.locationModel = location;

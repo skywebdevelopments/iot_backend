@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const sensortype = sequelize.define('sensor_type', {
+const n_group = sequelize.define('n_group', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -9,7 +9,7 @@ const sensortype = sequelize.define('sensor_type', {
         primaryKey: true,
         autoIncrement: true
     },
-    type: {
+    name: {
         type: Sequelize.STRING,
         unique: true
     },
@@ -20,15 +20,13 @@ const sensortype = sequelize.define('sensor_type', {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false
-
     }
 },
     {
-        tableName: 'sensor_type',
+        tableName: 'n_group',
         timestamps: false
     }
 );
+// user.sync({ force: true });
 
-
-
-exports.SensorTypeModel = sensortype;
+exports.n_groupModel = n_group

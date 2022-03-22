@@ -1,13 +1,13 @@
 let db = require('../database/knex_connection')
 let { uuid } = require('uuidv4');
-let { SensorTypeModel } = require('../models/sensortype.iot.model');
+let { entityModel } = require('../models/entity.iot.model');
 let { Op } = require("sequelize");
 
 
-function create_sensor_type(req) {
+function create_entity(req) {
     req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
-        SensorTypeModel.create(req.body).then((data) => {
+        entityModel.create(req.body).then((data) => {
             resolve(data);
         }).catch((error) => {
             reject(error);
@@ -16,9 +16,9 @@ function create_sensor_type(req) {
 }
 
 
-function getAll_senortype(req) {
+function getAll_entity(req) {
     return new Promise((resolve, reject) => {
-        SensorTypeModel.findAll().then((data) => {
+        entityModel.findAll().then((data) => {
             resolve(data);
         }).catch((error) => {
             reject(error);
@@ -28,12 +28,12 @@ function getAll_senortype(req) {
     });
 }
 
-function getSensor_type_byId(req) {
-    let sensorType_id = req.body['rec_id'];
+function getentity_byId(req) {
+    let entity_id = req.body['rec_id'];
     return new Promise((resolve, reject) => {
-        SensorTypeModel.findOne({
+        entityModel.findOne({
             where: {
-                rec_id: sensorType_id
+                rec_id: entity_id
             }
         }).then((data) => {
             resolve(data);
@@ -43,10 +43,10 @@ function getSensor_type_byId(req) {
     })
 }
 
-function updateSensortype(req) {
+function update_entity(req) {
     let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
-        SensorTypeModel.update(req.body,
+        entityModel.update(req.body,
             {
                 where: {
                     rec_id: {
@@ -64,10 +64,10 @@ function updateSensortype(req) {
 }
 
 
-function deleteSensortypee(req) {
+function delete_entity(req) {
     let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
-        SensorTypeModel.destroy(
+        entityModel.destroy(
             {
                 where: {
                     rec_id: {
@@ -87,11 +87,10 @@ function deleteSensortypee(req) {
 
 
 module.exports = {
-    create_sensor_type,
-    getAll_senortype,
-    getSensor_type_byId,
-    updateSensortype,
-  
-    deleteSensortypee
+    create_entity,
+    getAll_entity,
+    getentity_byId,
+    update_entity,
+    delete_entity
 }
 

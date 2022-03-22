@@ -13,19 +13,19 @@ let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
 const { body, validationResult } = require('express-validator');
 
-var control = require('../controls/sensor_type.control')
+var control = require('../controls/entity.control')
 
-var { RequiredRec_Id, createsensortypeSchema, updatesensortypeSchema } = require('../validators/sensortype.validator.iot')
+var { RequiredRec_Id, createentitySchema, updateentitySchema } = require('../validators/entity.validator.iot')
 var { validateRequestSchema } = require('../middleware/validate-request-schema')
 
-// Create a sensor Type
-// Post / api / v1 / sensortype / create
-// Create a sensor type profile
+// Create a entity
+// Post / api / v1 / entity / create
+// Create a entity profile
 
-router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:create"]), createsensortypeSchema, validateRequestSchema, function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["entity:create"]), createentitySchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
-    control.Create_sensor_type(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+    control.Create_entity(req, request_key).then((data) => {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_already_exists.message, code: responseList.error.error_no_data.code });
         }
         else {
@@ -39,12 +39,12 @@ router.post('/create',authenticate.authenticateUser, authenticate.UserRoles(["se
 }
 )
 
-// GET / api / v1 / sensortype
-// Return all sensor types profiles 
-router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:list"]), function (req, res, next) {
+// GET / api / v1 / entity
+// Return all entity profiles 
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["entity:list"]), function (req, res, next) {
     let request_key = uuid();
-    control.GetSensortypes(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+    control.GetEntity(req, request_key).then((data) => {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
         }
         else {
@@ -58,18 +58,18 @@ router.get('/',authenticate.authenticateUser, authenticate.UserRoles(["sensortyp
 }
 )
 
-// Post / api / v1 / sensortype /
-// Return a sensor type profile
+// Post / api / v1 / entity /
+// Return a entity profile
 // Parameters:
 // {
 // "rec_id": uuid
 // }
 
-router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["entity:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
-    control.GetSensor_type_byId(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+    control.Getentity_byId(req, request_key).then((data) => {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
         }
         else {
@@ -83,24 +83,16 @@ router.post('/',authenticate.authenticateUser, authenticate.UserRoles(["sensorty
 )
 
 
-// Update a sensor type profile
-// Post / api / v1 / sensortype / update
-// update a sensor's type profile by rec_id
+// Update a entity profile
+// Post / api / v1 / entity / update
+// update a entity profile by rec_id
 
-router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:update"]), updatesensortypeSchema, validateRequestSchema, function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["entity:update"]), updateentitySchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
-    }
+    control.Update_entityy(req, request_key).then((data) => {
 
-    if (rec_id.length == 0) {
-        res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
-    }
-    control.UpdateSensortype(req, request_key).then((data) => {
-
-        if (data.rowCount === 0) {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }
 
@@ -116,25 +108,16 @@ router.put('/update',authenticate.authenticateUser, authenticate.UserRoles(["sen
 }
 )
 
-// Delete a sensor type
-// Delete / api / v1 /  sensortype / delete
-// Delete a sensor type profile by rec_id
+// Delete a entity
+// Delete / api / v1 /  entity / delete
+// Delete a entity profile by rec_id
 
 
-router.post('/delete',authenticate.authenticateUser, authenticate.UserRoles(["sensortype:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["entity:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
-    
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
-    }
 
-    if (rec_id.length == 0) {
-        res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
-    }
-    
-    control.DeleteSensortype(req, request_key).then((data) => {
-        if (data.rowCount === 0) {
+    control.Delete_entity(req, request_key).then((data) => {
+        if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }
         else {

@@ -1,8 +1,8 @@
 let db = require('../database/knex_connection')
 //models
-const { s_groupModel } = require('../models/s_group.iot.model');
-let { sensorModel } = require('../models/sensor.iot.model')
-let { sensor_groupModel } = require('../models/sensorGroup.iot.model')
+const { n_groupModel } = require('../models/n_group.iot.model');
+let { nodeModel } = require('../models/node.iot.model')
+let { node_groupModel } = require('../models/nodeGroup.iot.model')
 //end
 var Sequelize = require('sequelize');
 const { Op } = require("sequelize");
@@ -10,13 +10,13 @@ var responseList = require('../config/response.code.json')
 let { log } = require('../config/app.conf.json')
 
 
-//get all s_groups include asscioated sensors 
-function getAll_sgroups() {
+//get all s_groups include asscioated nodes 
+function getAll_ngroups() {
     return new Promise((resolve, reject) => {
-        s_groupModel.findAll({
+        n_groupModel.findAll({
             include: {
-                model: sensorModel,
-                as: "sensor"
+                model: nodeModel,
+                as: "node"
             }
         }).then((data) => {
             resolve(data)
@@ -28,13 +28,13 @@ function getAll_sgroups() {
 }
 
 
-//get asscoiated sensors by s_group id
-function get_gSensor_by_id(req) {
+//get asscoiated nodes by n_group id
+function get_gnode_by_id(req) {
     return new Promise((resolve, reject) => {
-        s_groupModel.findOne({
+        n_groupModel.findOne({
             include: {
-                model: sensorModel,
-                as: "sensor"
+                model: nodeModel,
+                as: "node"
             }
             ,
             where: {
@@ -49,9 +49,9 @@ function get_gSensor_by_id(req) {
 }
 
 //create s_group
-function create_sgroup(req) {
+function create_ngroup(req) {
     return new Promise((resolve, reject) => {
-        s_groupModel.findOne(
+        n_groupModel.findOne(
             {
                 where: Sequelize.where(
                     Sequelize.fn('lower', Sequelize.col('name')),
@@ -60,7 +60,7 @@ function create_sgroup(req) {
             }
         ).then((group) => {
             if (!group) {
-                s_groupModel.create(req.body).then((data) => {
+                n_groupModel.create(req.body).then((data) => {
                     resolve(data)
                 }).catch((error) => {
                     reject(error)
@@ -75,13 +75,13 @@ function create_sgroup(req) {
     })
 }
 
-//Map sensor to s_group by sensorId and group_rec_id
-function sensorMap_to_sgroup(req) {
+//Map node to n_group by nodeId and group_rec_id
+function nodeMap_to_ngroup(req) {
     return new Promise((resolve, reject) => {
-        s_groupModel.findOne({
+        n_groupModel.findOne({
             include: {
-                model: sensorModel,
-                as: "sensor"
+                model: nodeModel,
+                as: "node"
             }
             ,
             where: {
@@ -96,7 +96,7 @@ function sensorMap_to_sgroup(req) {
                     }
                 );
             }
-            return data.addSensor(req.body['sensorId'])
+            return data.addnode(req.body['nodeId'])
         }).then(() => {
             resolve();
         }).catch((error) => {
@@ -106,11 +106,11 @@ function sensorMap_to_sgroup(req) {
 }
 
 
-//update s_group 
-function update_sgroup(req) {
+//update n_group 
+function update_ngroup(req) {
     return new Promise((resolve, reject) => {
-        update_sensor_active(req, req.body['active']).then(() => {
-            s_groupModel.findOne(
+        update_node_active(req, req.body['active']).then(() => {
+            n_groupModel.findOne(
                 {
                     where: Sequelize.where(
                         Sequelize.fn('lower', Sequelize.col('name')),
@@ -119,7 +119,7 @@ function update_sgroup(req) {
                 }
             ).then((group) => {
                 if (!group || req.body['rec_id'] === group['rec_id']) {
-                    s_groupModel.update(req.body,
+                    n_groupModel.update(req.body,
                         {
                             where: {
                                 rec_id: {
@@ -148,28 +148,28 @@ function update_sgroup(req) {
 }
 
 
-//make sensor unactive in case delete s_group or s_group active become false
-function update_sensor_active(req, active) {
+//make node unactive in case delete n_group or n_group active become false
+function update_node_active(req, active) {
     return new Promise((resolve, reject) => {
-        s_groupModel.findOne(
+        n_groupModel.findOne(
             {
                 where: {
                     rec_id: req.body['rec_id']
                 },
                 include: [{
-                    model: sensorModel,
-                    as: 'sensor'
+                    model: nodeModel,
+                    as: 'node'
                 }]
             }
         ).then((data) => {
             if (data) {
-                if (data['sensor'].length !== 0) {
-                    for (let sensor of data['sensor']) {
-                        sensorModel.update({ active: active },
+                if (data['node'].length !== 0) {
+                    for (let node of data['node']) {
+                        nodeModel.update({ active: active },
                             {
                                 where: {
                                     id: {
-                                        [Op.eq]: sensor['id']
+                                        [Op.eq]: node['id']
                                     }
                                 },
                             }
@@ -195,12 +195,12 @@ function update_sensor_active(req, active) {
     })
 }
 
-//delete s_group 
-function delete_sgroup(req) {
+//delete n_group 
+function delete_ngroup(req) {
     return new Promise((resolve, reject) => {
-        update_sensor_active(req, false).then(() => {
+        update_node_active(req, false).then(() => {
 
-            s_groupModel.destroy(
+            n_groupModel.destroy(
                 {
                     where: {
                         rec_id: {
@@ -225,10 +225,10 @@ function delete_sgroup(req) {
 
 
 module.exports = {
-    getAll_sgroups,
-    get_gSensor_by_id,
-    create_sgroup,
-    sensorMap_to_sgroup,
-    update_sgroup,
-    delete_sgroup
+    getAll_ngroups,
+    get_gnode_by_id,
+    create_ngroup,
+    nodeMap_to_ngroup,
+    update_ngroup,
+    delete_ngroup
 }

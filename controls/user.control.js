@@ -282,7 +282,7 @@ function update_active_user(req, request_key) {
     })
 }
 
-function create_ugroup(req,groupname, roles, active, request_key) {
+function create_ugroup(req, groupname, roles, active, request_key) {
 
     return new Promise((resolve, reject) => {
         usermodel.createUgroup({
@@ -355,23 +355,32 @@ function delete_user(req, request_key) {
 }
 
 function delete_Ugroup(req, request_key) {
-    let {rec_id} = req.body;
+    let { rec_id } = req.body;
     return new Promise((resolve, reject) => {
         create_log("delete user group", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
-        usermodel.deleteUgroup({rec_id}).then(data => {
-            if (!data || data.length === 0) {
-                create_log("delete user group", log.log_level.info, responseList.error.error_no_data_delete.message, request_key, req)
-                reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
-            }
-            else {
-                create_log("delete user group", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
-                resolve(data)
-            }
-        }).catch((error) => {
-            create_log("delete user group", log.log_level.error, error.message, request_key, req)
-            reject(error);
-        })
+
+        if (rec_id === '81c77949-ada7-41c1-9c31-e27c59742087') {
+            create_log("delete user group", log.log_level.error, responseList.error.error_delete_public.message, request_key, req)
+            reject({ message: responseList.error.error_delete_public.message, code: responseList.error.error_delete_public.code })
+        }
+        else {
+            usermodel.deleteUgroup({ rec_id }).then(data => {
+
+                if (!data || data.length === 0) {
+                    create_log("delete user group", log.log_level.error, responseList.error.error_no_data_delete.message, request_key, req)
+                    reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+                }
+                else {
+                    create_log("delete user group", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                    resolve(data)
+                }
+            }).catch((error) => {
+                create_log("delete user group", log.log_level.error, error.message, request_key, req)
+                reject(error);
+            })
+        }
     })
+
 }
 //get all Ugroup roles
 function getallRoles(req, request_key) {

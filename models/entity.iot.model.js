@@ -1,7 +1,7 @@
+const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
-const { Sequelize, DataTypes } = require('sequelize');
 
-const s_group = sequelize.define('s_group', {
+const entity = sequelize.define('entity', {
     // Model attributes are defined here
     id: {
         type: Sequelize.INTEGER,
@@ -9,24 +9,26 @@ const s_group = sequelize.define('s_group', {
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
+    type: {
         type: Sequelize.STRING,
         unique: true
     },
-    active: {
-        type: Sequelize.BOOLEAN
+    name: {
+        type: Sequelize.STRING
     },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false
+
     }
 },
     {
-        tableName: 's_group',
+        tableName: 'entity',
         timestamps: false
     }
 );
-// user.sync({ force: true });
 
-exports.s_groupModel = s_group
+
+
+exports.entityModel = entity;

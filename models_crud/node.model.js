@@ -1,19 +1,17 @@
 let db = require('../database/knex_connection');
 let { uuid } = require('uuidv4');
-let { sensorModel } = require('../models/sensor.iot.model');
+let { nodeModel } = require('../models/node.iot.model');
 let { mqtt_userModel } = require('../models/mqttUser.iot.model');
-let { SensorTypeModel } = require('../models/sensortype.iot.model');
+let { entityModel } = require('../models/entity.iot.model');
 let { Op } = require("sequelize");
 
 
-function create_sensor(req) {
+function create_node(req) {
     req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
-        sensorModel.create(req.body).then((data) => {
-            console.log("1");
+        nodeModel.create(req.body).then((data) => {
             resolve(data);
         }).catch((error) => {
-            console.log("2");
             reject(error);
         });
     })
@@ -22,7 +20,7 @@ function create_sensor(req) {
 
 function getAll() {
     return new Promise((resolve, reject) => {
-        sensorModel.findAll(
+        nodeModel.findAll(
             {
                 include: [{
                     model: mqtt_userModel,
@@ -30,7 +28,7 @@ function getAll() {
                     attributes: ['username', 'id']
                 },
                 {
-                    model: SensorTypeModel,
+                    model: entityModel,
                     required: true,
                     attributes: ['type', 'id']
                 }]
@@ -46,12 +44,12 @@ function getAll() {
     });
 }
 
-function getSensorbyId(req) {
-    let sensor_id = req.body['rec_id'];
+function getnodebyId(req) {
+    let node_id = req.body['rec_id'];
     return new Promise((resolve, reject) => {
-        sensorModel.findOne({
+        nodeModel.findOne({
             where: {
-                rec_id: sensor_id
+                rec_id: node_id
             }
         }).then((data) => {
             resolve(data);
@@ -61,10 +59,10 @@ function getSensorbyId(req) {
     })
 }
 
-function UpdateSensorr(req) {
+function Update_node(req) {
     let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
-        sensorModel.update(req.body,
+        nodeModel.update(req.body,
             {
                 where: {
                     rec_id:req.body['rec_id']
@@ -81,10 +79,10 @@ function UpdateSensorr(req) {
     })
 }
 
-function deleteSensor(req) {
+function delete_node(req) {
     let rec_id = req.body['rec_id']
     return new Promise((resolve, reject) => {
-        sensorModel.destroy(
+        nodeModel.destroy(
             {
                 where: {
                     rec_id: {
@@ -104,10 +102,10 @@ function deleteSensor(req) {
 
 module.exports = {
     getAll,
-    getSensorbyId,
-    UpdateSensorr,
-    deleteSensor,
-    create_sensor
+    getnodebyId,
+    Update_node,
+    delete_node,
+    create_node
 }
 
 

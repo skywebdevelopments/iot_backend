@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-const createsensorSchema = [
+const createnodeSchema = [
   body('mac_address')
     .matches(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$/)
     .exists({ checkFalsy: true }),
@@ -19,7 +19,7 @@ const createsensorSchema = [
     .isLength({ min: 4 })
     .optional({ nullable: true })
     .withMessage('Access Point Password must be at least 4 characters long'),
-  body('sensorTypeId')
+  body('nodeId')
     .isLength({ min: 1 })
     .isNumeric()
     .exists({ checkFalsy: true })
@@ -97,7 +97,7 @@ const RequiredRec_Id = [
     .withMessage('Rec Id is required'),
 ]
 
-const updatesensorSchema = [
+const updatenodeSchema = [
   
   body('board_model')
     .isLength({ min: 4 })
@@ -107,7 +107,7 @@ const updatesensorSchema = [
 ];
 
 module.exports = {
-  createsensorSchema,
+  createnodeSchema,
   RequiredRec_Id,
-  updatesensorSchema
+  updatenodeSchema
 };

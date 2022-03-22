@@ -9,16 +9,16 @@ let { uuid, isUuid } = require('uuidv4');
 var authenticate = require('../auth/authentication_JWT');
 var router = express.Router();
 
-var control = require('../controls/sensor.control')
-var { createsensorSchema, RequiredRec_Id, updatesensorSchema } = require('../validators/sensorcreate.validator.iot')
+var control = require('../controls/node.control')
+var { createnodeSchema, RequiredRec_Id, updatenodeSchema } = require('../validators/nodecreate.validator.iot')
 var { validateRequestSchema } = require('../middleware/validate-request-schema')
 
 
-// GET / api / v1 / sensor
-// Return all sensors profiles 
-router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), function (req, res, next) {
+// GET / api / v1 / node
+// Return all nodes profiles 
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["node:list"]), function (req, res, next) {
     let request_key = uuid();
-    control.GetSensors(req, request_key).then((data) => {
+    control.Getnodes(req, request_key).then((data) => {
         if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
         }
@@ -34,16 +34,16 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:l
 }
 )
 
-// Post / api / v1 / sensor /
-//     Return a sensor profile
+// Post / api / v1 / node /
+//     Return a node profile
 // Parameters:
 // {
 // "rec_id": uuid
 // }
 
-router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
+router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["node:list"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
-    control.GetSensorbyId(req, request_key).then((data) => {
+    control.GetnodebyId(req, request_key).then((data) => {
         if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             return;
@@ -58,13 +58,13 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["sensor:
 }
 )
 
-// Create a sensor
-// Post / api / v1 / sensor / create
-// Create a sensors profile
+// Create a node
+// Post / api / v1 / node / create
+// Create a nodes profile
 
-router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["sensor:create"]), createsensorSchema, validateRequestSchema, function (req, res, next) {
+router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["node:create"]), createnodeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
-    control.Createsensor(req, request_key).then((data) => {
+    control.Createnode(req, request_key).then((data) => {
         if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             return;
@@ -84,17 +84,17 @@ router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["s
 
 
 
-// Update a sensor profile
-// Post / api / v1 / sensor / update
-// update a sensor's profile by rec_id
+// Update a node profile
+// Post / api / v1 / node / update
+// update a node's profile by rec_id
 
-router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["sensor:update"]), updatesensorSchema, validateRequestSchema, function (req, res, next) {
+router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["node:update"]), updatenodeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
 
-    
-    control.UpdateSensor(req, request_key).then((data) => {
 
-        if (!data || data.length === 0 ||  data[0] === 0 ) {
+    control.Updatenode(req, request_key).then((data) => {
+
+        if (!data || data.length === 0 || data[0] === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }
 
@@ -110,23 +110,14 @@ router.put('/update', authenticate.authenticateUser, authenticate.UserRoles(["se
 )
 
 
-// Delete a sensor
-// Delete / api / v1 /  sensor / delete
-// Delete a sensors profile by rec_id
+// Delete a node
+// Delete / api / v1 /  node / delete
+// Delete a nodes profile by rec_id
 
 
-router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["sensor:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
-
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["node:delete"]), RequiredRec_Id, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
-    let rec_id = req.body['rec_id']
-    if (!isUuid(rec_id)) {
-        res.send({ status: `${responseList.error.error_invalid_payload.message} - value must be a uuidv4 key`, code: responseList.error.error_invalid_payload.code });
-    }
-
-    if (rec_id.length == 0) {
-        res.send({ status: responseList.error.error_missing_payload.message, code: responseList.error.error_missing_payload.code });
-    }
-    control.DeleteSensor(req, request_key).then((data) => {
+    control.Deletenode(req, request_key).then((data) => {
         if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data_updated.message, code: responseList.error.error_no_data_updated.code });
         }

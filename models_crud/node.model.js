@@ -29,8 +29,7 @@ function getAll() {
                 },
                 {
                     model: entityModel,
-                    required: true,
-                    attributes: ['type', 'id']
+                    as: 'entity'
                 }]
             }
         ).then((data) => {
@@ -65,8 +64,8 @@ function Update_node(req) {
         nodeModel.update(req.body,
             {
                 where: {
-                    rec_id:req.body['rec_id']
-                
+                    rec_id: req.body['rec_id']
+
                 },
             }
 

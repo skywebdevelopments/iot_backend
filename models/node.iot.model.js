@@ -1,7 +1,7 @@
 const sequelize = require('../database/connection');
 const { Sequelize, DataTypes } = require('sequelize');
 let { mqtt_userModel } = require('./mqttUser.iot.model')
-let { entityModel } = require('./entity.iot.model')
+
 const node = sequelize.define('node', {
     // Model attributes are defined here
     id: {
@@ -96,7 +96,8 @@ const node = sequelize.define('node', {
 
 
 node.belongsTo(mqtt_userModel, { foreignKey: 'mqttuserId', onDelete: 'cascade' });
-node.belongsTo(entityModel, { foreignKey: 'entityId', onDelete: 'cascade' });
+
+
 
 
 exports.nodeModel = node

@@ -96,7 +96,7 @@ function nodeMap_to_ngroup(req) {
                     }
                 );
             }
-            return data.addnode(req.body['nodeId'])
+            return data.addNode(req.body['nodeId'])
         }).then(() => {
             resolve();
         }).catch((error) => {

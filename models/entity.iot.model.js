@@ -11,8 +11,7 @@ const entity = sequelize.define('entity', {
         autoIncrement: true
     },
     type: {
-        type: Sequelize.STRING,
-        unique: true
+        type: Sequelize.STRING
     },
     name: {
         type: Sequelize.STRING
@@ -31,7 +30,7 @@ const entity = sequelize.define('entity', {
 );
 
 
-nodeModel.hasMany(entity, { as: 'entity', onDelete: 'cascade' , foreignKey: 'nodeId'});
+nodeModel.hasMany(entity, { as: 'entity', onDelete: 'cascade', foreignKey: 'nodeId' });
 entity.belongsTo(nodeModel);
 
 exports.entityModel = entity;

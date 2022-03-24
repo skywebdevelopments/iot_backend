@@ -6,8 +6,13 @@ const createentitySchema = [
         .exists({ checkFalsy: true })
         .withMessage('Entity must be at least 4 characters long'),
     body('name')
-    .isLength({ min: 4 })
-    .withMessage('Entity must be at least 4 characters long'),
+        .isLength({ min: 4 })
+        .exists({ checkFalsy: true })
+        .withMessage('Entity must be at least 4 characters long'),
+    body('nodeId')
+        .isNumeric()
+        .exists({ checkFalsy: true })
+        .withMessage('Node Id must be at least 1 characters long'),
 
 ];
 
@@ -23,7 +28,7 @@ const updateentitySchema = [
         .isLength({ min: 4 })
         .optional({ nullable: true })
         .withMessage('Entity must be at least 4 characters long'),
-        body('name')
+    body('name')
         .isLength({ min: 4 })
         .optional({ nullable: true })
         .withMessage('Entity must be at least 4 characters long'),

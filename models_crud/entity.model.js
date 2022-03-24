@@ -6,11 +6,14 @@ let { Op } = require("sequelize");
 
 
 function create_entity(req) {
+   
     req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
         entityModel.create(req.body).then((data) => {
+            console.log(data)
             resolve(data);
         }).catch((error) => {
+            console.log(error)
             reject(error);
         });
     })

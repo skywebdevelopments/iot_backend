@@ -20,10 +20,11 @@ const bcrypt = require('bcrypt');
 // 
 function createSchema() {
     return new Promise((resolve, reject) => {
-        try {       
-          //entityModel.sync({ force: true })
+        try {   
+           entityModel.sync({ force: true })
+          // locationModel.sync({ force: true })
 
-          sequelize.sync({ force: true });
+         // sequelize.sync({ force: true });
 
             resolve("success")
         } catch (error) {

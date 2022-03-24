@@ -1,6 +1,7 @@
 let db = require('../database/knex_connection')
 let { uuid } = require('uuidv4');
 let { entityModel } = require('../models/entity.iot.model');
+let { nodeModel } = require('../models/node.iot.model');
 let { Op } = require("sequelize");
 
 
@@ -18,7 +19,13 @@ function create_entity(req) {
 
 function getAll_entity(req) {
     return new Promise((resolve, reject) => {
-        entityModel.findAll().then((data) => {
+        entityModel.findAll(
+            {
+                include: [{
+                    model: nodeModel
+                }]
+            }
+        ).then((data) => {
             resolve(data);
         }).catch((error) => {
             reject(error);

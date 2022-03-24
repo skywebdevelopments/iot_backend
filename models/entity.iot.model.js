@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
+let { nodeModel } = require('./node.iot.model')
 
 const entity = sequelize.define('entity', {
     // Model attributes are defined here
@@ -30,5 +31,7 @@ const entity = sequelize.define('entity', {
 );
 
 
+nodeModel.hasMany(entity, { as: 'entity', onDelete: 'cascade' , foreignKey: 'nodeId'});
+entity.belongsTo(nodeModel);
 
 exports.entityModel = entity;

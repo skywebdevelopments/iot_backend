@@ -12,13 +12,12 @@ let { userModel } = require('../models/user.iot.model');
 var email = '';
 
 function create_log(operation, log_level, log_message, parent_uuid, req) {
-
-    let user_email = get_user_email(req);
-    /*
-        if (user_email === '') {
-            user_email = req
-        }
-    */
+    var user_email;
+    if(typeof req !=='string')
+     user_email = get_user_email(req);
+     else
+     user_email = req
+    if(user_email !==undefined){
     if (logger.log.database.enable_database_log === true) {
 
         if (log.isTraceEnabled()) {
@@ -58,7 +57,7 @@ function create_log(operation, log_level, log_message, parent_uuid, req) {
         }
     }
 
-
+    }
 }
 
 // Extracts user id from token that is sent in headers of the request

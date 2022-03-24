@@ -39,7 +39,7 @@ function create_user(email, username, password, request_key) {
             active: true,
         }).then((data) => {
             if (!data || data.length === 0) {
-                create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, "")
+                create_log("create user", log.log_level.error, `${responseList.error.error_already_exists.message} - [ ${email} ]`, request_key, "not found")
                 reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
 
             }
@@ -64,7 +64,7 @@ function create_token(email, password, request_key) {
         usermodel.getUser(email, hashed_password)
             .then((user) => {
                 if (!user || user.length === 0) {
-                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key, "")
+                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key,"not found")
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
@@ -86,7 +86,7 @@ function create_token(email, password, request_key) {
                 }
 
             }).catch((error) => {
-                create_log("login", log.log_level.error, error.message, request_key, "")
+                create_log("login", log.log_level.error, error.message, request_key, "not found")
                 reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
             })
     })
@@ -411,17 +411,17 @@ function createRole(req, request_key) {
     return new Promise((resolve, reject) => {
         usermodel.createRole(req).then((data) => {
             if (!data || data.length === 0) {
-                create_log("create group role", log.log_level.error, responseList.error.error_already_exists.message, request_key, 0)
+                create_log("create group role", log.log_level.error, responseList.error.error_already_exists.message, request_key, req)
                 reject({ status: responseList.error.error_already_exists.message, code: responseList.error.error_already_exists.code });
 
             }
             else {
-                create_log("create group role", log.log_level.info, responseList.success.success_creating_data.message, request_key, 1)
+                create_log("create group role", log.log_level.info, responseList.success.success_creating_data.message, request_key, req)
                 resolve({ data: data, status: responseList.success.success_creating_data.message, code: responseList.success.code });
 
             }
         }).catch((error) => {
-            create_log("create group role", log.log_level.error, error.message, request_key, 0)
+            create_log("create group role", log.log_level.error, error.message, request_key, req)
             reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
         })
     })

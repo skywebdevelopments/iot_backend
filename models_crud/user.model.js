@@ -295,7 +295,7 @@ function deleteUser(req) {
     return new Promise((resolve, reject) => {
         userModel.findOne({
             where: {
-                id:req.body['id']
+                id: req.body['id']
             }
         }).then((data) => {
             userModel.destroy(
@@ -304,7 +304,7 @@ function deleteUser(req) {
                         id: req.body['id']
                     },
                 }
-    
+
             ).then(() => {
                 resolve(data);
             }
@@ -312,7 +312,7 @@ function deleteUser(req) {
                 reject(err);
             })
         })
-       
+
     })
 }
 

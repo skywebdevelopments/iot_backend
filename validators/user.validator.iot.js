@@ -22,7 +22,7 @@ const createUgroupValidator = [
 ];
 
 const createRoleValidator = [
-    body('role').isString(),
+    body('role').isString()
 ];
 
 const updateUgroupValidator = [
@@ -41,8 +41,7 @@ const createTokenValidator = [
         .isEmail()
         .withMessage('email must contain a valid email address'),
     body('password')
-        .isLength({ min: 8 })
-        .withMessage('password must be at least 8 characters long')
+        .exists({ checkFalsy: true })
 ];
 
 
@@ -74,15 +73,15 @@ const updatePermissionValidator = [
         .isString()
 ];
 
-const getUserValidator =[
+const getUserValidator = [
     body('id')
         .isNumeric()
 ];
 
-const deleteUgroupValidator= [
-    body('rec_id').exists({checkFalsy:true})
-    .withMessage('group rec id is required')
-  ];
+const deleteUgroupValidator = [
+    body('rec_id').exists({ checkFalsy: true })
+        .withMessage('group rec id is required')
+];
 
 module.exports = {
     createUserValidator,

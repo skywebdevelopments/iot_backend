@@ -60,8 +60,7 @@ function GoogleUser(new_user) {
                         active: true,
                         uGroupId: group.id
                     }).then((user) => {
-                        //create session
-                        googleSession(user).then((data) => {
+                        get_user_id(user.id).then((data) => {
                             resolve(data)
                         }).catch((err) => {
                             reject(err)
@@ -72,12 +71,7 @@ function GoogleUser(new_user) {
                 }
                 //already found
                 else {
-                    //update session
-                    googleSession(user).then((data) => {
-                        resolve(data)
-                    }).catch((err) => {
-                        reject(err)
-                    })
+                    resolve(user)
                 }
             }).catch(err => {
                 reject(err)
@@ -85,54 +79,6 @@ function GoogleUser(new_user) {
         }).catch(err => {
             reject(err)
         })
-    })
-
-}
-
-// google session
-function googleSession(user) {
-    return new Promise((resolve, reject) => {
-        if (user['active'] === true) {
-            var token = authenticate.getToken(user); //create token using id and you can add other inf
-            sessionModel.findOne({
-                where: {
-                    userId: user.id,
-                    active: true
-                }
-            }).then((session) => {
-                if (!session) {
-                    sessionModel.create({
-                        token: token,
-                        active: true,
-                        userId: user.id
-                    }).then(() => {
-                        resolve(token)
-                    }).catch((error) => {
-                        reject(error)
-                    })
-                    return;
-                }
-                sessionModel.update({ active: false }, {
-                    where: {
-                        id: session.id
-                    }
-                }).then(() => {
-                    sessionModel.create({
-                        token: token,
-                        active: true,
-                        userId: user.id
-                    }).then(() => {
-                    resolve(session.token)
-                    })
-                }).catch((error) => {
-                    reject(error)
-                })
-            })
-        }
-        else {
-            var token = 'deactivated';
-            resolve(token)
-        }
     })
 
 }

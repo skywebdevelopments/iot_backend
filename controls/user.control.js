@@ -57,22 +57,33 @@ function create_user(email, username, password, request_key) {
 function google_user(user, email, request_key) {
     return new Promise((resolve, reject) => {
         usermodel.GoogleUser(user)
-            .then((token) => {
-                    if (token === 'deactivated') {
-                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, email)
-                        resolve({ data:token,status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
-                    }
-                    else {
-                        create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, email)
-                        resolve({ data:token,status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
-                    }
-
+            .then((data) => {
+                if (data.active === false) {
+                    create_log("Sign in Google", log.log_level.error, responseList.error.error_notactive.message, request_key, email)
+                    resolve({ data:"deactivated", status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
+                }
+                else {
+                    //create session
+                    console.log('***************************')
+                    console.log(data)
+                    console.log('***************************')
+                    var token = authenticate.getToken(data);
+                    usermodel.updateSession(data.id, token)
+                        .then((data_token) => {
+                            create_log("Sign in Google Successfully", log.log_level.info, responseList.success.success_creating_data.message, request_key, email)
+                            resolve({ data:data_token, status: responseList.success.success_creating_data.message, code: responseList.success.code });
+                        }).catch((error) => {
+                            create_log("Sign in Google", log.log_level.error, error.message, request_key, email)
+                            reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+                        })
+                }
             }).catch((error) => {
-                create_log("login", log.log_level.error, error.message, request_key, email)
-                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+                create_log("Sign in Google", log.log_level.error, error.message, request_key, email)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
             })
     })
 }
+
 function create_token(email, password, request_key) {
 
 

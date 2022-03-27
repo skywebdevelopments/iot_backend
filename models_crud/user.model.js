@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-
+var authenticate = require('../auth/authentication_JWT');
 let { userModel } = require('../models/user.iot.model')
 let { u_groupModel } = require('../models/u_group.iot.model')
 let { sessionModel } = require('../models/session.iot.model')
@@ -9,32 +9,131 @@ const { Op } = require("sequelize");
 function createUser(new_user) {
 
     return new Promise((resolve, reject) => {
-        userModel.findOne({
-            where: {
-                email: new_user.email
-            }
-        }).then(user => {
-            if (!user) {
-                userModel.create({
-                    username: new_user.username,
-                    password: new_user.password,
-                    email: new_user.email,
-                    active: true,
-                    uGroupId: 4
-                }).then((data) => {
-                    resolve(data)
-                }).catch((err) => {
-                    reject(err)
-                })
-            }
-            else {
-                resolve([])
-            }
+        getUgroup('public').then(group => {
+            userModel.findOne({
+                where: {
+                    email: new_user.email
+                }
+            }).then(user => {
+                if (!user) {
+                    userModel.create({
+                        username: new_user.username,
+                        password: new_user.password,
+                        email: new_user.email,
+                        active: true,
+                        uGroupId: group.id
+                    }).then((data) => {
+                        resolve(data)
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                }
+                else {
+                    resolve([])
+                }
+            }).catch(err => {
+                reject(err)
+            })
         }).catch(err => {
             reject(err)
         })
     })
 
+}
+// google user
+function GoogleUser(new_user) {
+    return new Promise((resolve, reject) => {
+        getUgroup('public').then(group => {
+            userModel.findOne({
+                where: {
+                    googleID: new_user.id
+                },
+                include: {
+                    model: u_groupModel
+                }
+            }).then(user => {
+                if (!user) {
+                    userModel.create({
+                        username: new_user.displayName,
+                        email: new_user.emails[0].value,
+                        googleID: new_user.id,
+                        active: true,
+                        uGroupId: group.id
+                    }).then((user) => {
+                        //create session
+                        googleSession(user).then((data) => {
+                            resolve(data)
+                        }).catch((err) => {
+                            reject(err)
+                        })
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                }
+                //already found
+                else {
+                    //update session
+                    googleSession(user).then((data) => {
+                        resolve(data)
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                }
+            }).catch(err => {
+                reject(err)
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+
+}
+
+// google session
+function googleSession(user) {
+    return new Promise((resolve, reject) => {
+        if (user['active'] === true) {
+            var token = authenticate.getToken(user); //create token using id and you can add other inf
+            sessionModel.findOne({
+                where: {
+                    userId: user.id,
+                    active: true
+                }
+            }).then((session) => {
+                if (!session) {
+                    sessionModel.create({
+                        token: token,
+                        active: true,
+                        userId: user.id
+                    }).then(() => {
+                        resolve(token)
+                    }).catch((error) => {
+                        reject(error)
+                    })
+                    return;
+                }
+                sessionModel.update({ active: false }, {
+                    where: {
+                        id: session.id
+                    }
+                }).then(() => {
+                    sessionModel.create({
+                        token: token,
+                        active: true,
+                        userId: user.id
+                    }).then(() => {
+                    resolve(session.token)
+                    })
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        }
+        else {
+            var token = 'deactivated';
+            resolve(token)
+        }
+    })
 
 }
 
@@ -57,6 +156,21 @@ function getUser(email, password) {
         })
     })
 
+}
+
+//retrieve group using groupname
+function getUgroup(groupname) {
+    return new Promise((resolve, reject) => {
+        u_groupModel.findOne({
+            where: {
+                groupname: groupname
+            }
+        }).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 function createSession(user_id, token) {
@@ -136,7 +250,6 @@ function getallUsergroups() {
 //get userGroup by group name
 function getUsergroup(groupname) {
     return new Promise((resolve, reject) => {
-
         u_groupModel.findOne({
             where: {
                 groupname: groupname
@@ -169,6 +282,25 @@ function get_user_id(user_id) {
 
 }
 
+//get user group by rec_id
+function get_group_recid(rec_id) {
+    return new Promise((resolve, reject) => {
+        u_groupModel.findOne({
+            where: {
+                rec_id: {
+                    [Op.eq]: rec_id
+                }
+            }
+        }).then(data => {
+            console.log(data)
+            resolve(data);
+        }).catch((err) => {
+            console.log(err)
+            reject(err);
+        })
+    })
+
+}
 
 function updateUser(user_id, username, password) {
 
@@ -456,36 +588,40 @@ function UpdateAsscioateUserGroup(ugroup, groupid) {
 //delete Ugroup
 function deleteUgroup(ugroup) {
     return new Promise((resolve, reject) => {
-        UpdateAsscioateUserGroup(ugroup, 4).then(() => {
-            u_groupModel.destroy(
-                {
-                    where: {
-                        rec_id: {
-                            [Op.eq]: ugroup.rec_id
-                        }
-                    },
-                }
+        getUgroup('public').then(group => {
+            UpdateAsscioateUserGroup(ugroup, group['id']).then(() => {
+                u_groupModel.destroy(
+                    {
+                        where: {
+                            rec_id: {
+                                [Op.eq]: ugroup.rec_id
+                            }
+                        },
+                    }
 
-            ).then((data) => {
-                resolve(data);
-            }
-            ).catch((err) => {
-                reject(err);
+                ).then((data) => {
+                    resolve(data);
+                }
+                ).catch((err) => {
+                    reject(err);
+                })
+            }).catch((err) => {
+                reject(err)
             })
         }).catch((err) => {
             reject(err)
         })
-
     })
-
 }
 
 module.exports = {
     createUser,
+    GoogleUser,
     getUser,
     getallUsers,
     getallUsergroups,
     getUsergroup,
+    get_group_recid,
     updatePermission,
     updateSession,
     updateUser,

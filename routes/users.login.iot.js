@@ -1,18 +1,9 @@
 var express = require('express');
 var router = express.Router();
 let { uuid } = require('uuidv4');
-let { Op } = require("sequelize");
-var { body } = require('express-validator')
 //configs
 var authenticate = require('../auth/authentication_JWT');
-var secret = require('../config/sercret.json');
 var responseList = require('../config/response.code.json');
-var cryptojs = require('crypto-js');
-let { log } = require('../config/app.conf.json')
-
-//middleware
-let { create_log } = require('../controls/log.control')
-
 //controls
 let userControl = require('../controls/user.control')
 
@@ -101,7 +92,7 @@ router.post('/delete', authenticate.authenticateUser,authenticate.UserRoles(["us
 // Put /api/v1/users/updateactive
 // update a user's active by userid
 
-router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updateActiveUserValidator, validateRequestSchema, function (req, res) {
+router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRoles(["users:update"]), updateActiveUserValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
     userControl.update_active_user(req, request_key)
         .then((data) => {
@@ -116,7 +107,7 @@ router.put('/updateactive', authenticate.authenticateUser, authenticate.UserRole
 
 // GET /api/v1/users
 // Return all users
-router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
+router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["users:list"]), function (req, res) {
     let request_key = uuid();
 
     userControl.getall_users(req, request_key)
@@ -146,7 +137,7 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["user:li
 });
 // GET /api/v1/users/usergroups
 // Return all usergroups
-router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["user:list"]), function (req, res) {
+router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(["ugroup:list"]), function (req, res) {
     let request_key = uuid();
 
     userControl.getall_usergroups(req, request_key)
@@ -164,7 +155,7 @@ router.get('/usergroups', authenticate.authenticateUser, authenticate.UserRoles(
 // Put /api/v1/users/updaterole
 // update a user's role by userid
 
-router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["user:update"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
+router.put('/updaterole', authenticate.authenticateUser, authenticate.UserRoles(["users:update"]), updatePermissionValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();
     let permission = req.body['groupname']
     // validation : check if permission is valid string in db
@@ -217,9 +208,9 @@ router.put('/update/ugroup', authenticate.authenticateUser, authenticate.UserRol
 });
 
 
-// delete user 
+// delete user group
 // post /api/v1/users/delete/ugroup
-// delete user by userid
+// delete user by rec_id
 
 router.post('/delete/ugroup', authenticate.authenticateUser,authenticate.UserRoles(["ugroup:delete"]), deleteUgroupValidator, validateRequestSchema, function (req, res) {
     let request_key = uuid();

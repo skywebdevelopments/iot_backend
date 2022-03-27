@@ -36,69 +36,71 @@ passport.use(new GoogleStrategy({
             else {
                 //User Not exist
                 //save data of profile in database
-                userModel.create({
-                    username: profile.displayName,
-                    email: profile.emails[0].value,
-                    googleID: profile.id,
-                    active: true,
-                    uGroupId: 4
-                }
-                ).then((newUser) => {
-                    userModel.findOne(
-                        {
-                            where:
+                u_groupModel.findOne({
+                    where: {
+                        groupname: 'public'
+                    }
+                }).then(data => {
+                    userModel.create({
+                        username: profile.displayName,
+                        email: profile.emails[0].value,
+                        googleID: profile.id,
+                        active: true,
+                        uGroupId: data.id
+                    }
+                    ).then((newUser) => {
+                        userModel.findOne(
                             {
-                                id: newUser.id
-                            },
-                            include: {
-                                model: u_groupModel
-                            }
-                        }).then((newUser) => {
-                            generate_session_google(newUser)
-                            done(null, newUser)
-                        })
+                                where:
+                                {
+                                    id: newUser.id
+                                },
+                                include: {
+                                    model: u_groupModel
+                                }
+                            }).then((newUser) => {
+                                generate_session_google(newUser)
+                                done(null, newUser)
+                            })
+                    })
                 })
-
             }
-
         })
-
-
-
 })
 )
 
 
 function generate_session_google(user) {
-
-    var token = authenticate.getToken(user); //create token using id and you can add other inf
-    sessionModel.findOne({
-        where: {
-            userId: user.id,
-            active: true
-        }
-    }).then((session) => {
-        if (!session) {
+    if (user['active'] === true) {
+        var token = authenticate.getToken(user); //create token using id and you can add other inf
+        sessionModel.findOne({
+            where: {
+                userId: user.id,
+                active: true
+            }
+        }).then((session) => {
+            if (!session) {
+                sessionModel.create({
+                    token: token,
+                    active: true,
+                    userId: user.id
+                })
+                return;
+            }
+            sessionModel.update({ active: false }, {
+                where: {
+                    id: session.id
+                }
+            })
             sessionModel.create({
                 token: token,
                 active: true,
                 userId: user.id
             })
 
-            return;
-        }
-        sessionModel.update({ active: false }, {
-            where: {
-                id: session.id
-            }
         })
-        sessionModel.create({
-            token: token,
-            active: true,
-            userId: user.id
-        })
-
-    })
-    localStorage.setItem('token', token); //to store token in local storage 
-
+        localStorage.setItem('token', token); //to store token in local storage 
+    }
+    else
+        localStorage.setItem('token', 'deactivated');
 }

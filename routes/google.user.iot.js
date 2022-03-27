@@ -2,8 +2,8 @@ const router = require('express').Router();
 const { Router } = require('express');
 const passport = require('passport');
 var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
-
+    localStorage = new LocalStorage('./scratch');
+var jwt = require('jsonwebtoken');
 // GET /auth
 // Return  google user
 //Auth with google
@@ -16,8 +16,15 @@ router.get('/google', passport.authenticate('google', {
 // GET /auth/google/callback
 // Callback URL ( redirectURL )
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
-    res.cookie('token', localStorage.getItem('token'), { maxAge: 360000 });
-    res.redirect("http://localhost:4200/listGroup")
+    //we need to check for token to redirect 
+    if (localStorage.getItem("token") !== 'deactivated') {
+        res.cookie("token", localStorage.getItem("token"), { maxAge: 360000 });
+        res.redirect("http://localhost:4200/dashboard")
+    }
+    else {
+        res.cookie("token", localStorage.getItem("token"), { maxAge: 360000 });
+        res.redirect("http://localhost:4200")
+    }
 })
 
 

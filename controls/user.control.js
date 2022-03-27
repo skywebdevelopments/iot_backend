@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
-let { uuid } = require('uuidv4');
 
 
 //configs
 var authenticate = require('../auth/authentication_JWT');
-var secret = require('../config/sercret.json');
 var responseList = require('../config/response.code.json');
 var cryptojs = require('crypto-js');
 let { log } = require('../config/app.conf.json')
@@ -55,6 +53,26 @@ function create_user(email, username, password, request_key) {
     })
 }
 
+//google user
+function google_user(user, email, request_key) {
+    return new Promise((resolve, reject) => {
+        usermodel.GoogleUser(user)
+            .then((token) => {
+                    if (token === 'deactivated') {
+                        create_log("login", log.log_level.error, responseList.error.error_notactive.message, request_key, email)
+                        resolve({ data:token,status: responseList.error.error_notactive.message, code: responseList.error.error_notactive.code })
+                    }
+                    else {
+                        create_log("login", log.log_level.info, responseList.success.sucess_login.message, request_key, email)
+                        resolve({ data:token,status: responseList.success.sucess_login.message, code: responseList.success.code, token: token })
+                    }
+
+            }).catch((error) => {
+                create_log("login", log.log_level.error, error.message, request_key, email)
+                reject({ status: responseList.error.error_general.message, code: responseList.error.error_general.code })
+            })
+    })
+}
 function create_token(email, password, request_key) {
 
 
@@ -64,7 +82,7 @@ function create_token(email, password, request_key) {
         usermodel.getUser(email, hashed_password)
             .then((user) => {
                 if (!user || user.length === 0) {
-                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key,"not found")
+                    create_log("login", log.log_level.error, `${responseList.error.error_no_user_found.message} - [ ${email} ]`, request_key, "not found")
                     reject({ status: responseList.error.error_no_user_found.message, code: responseList.error.error_no_user_found.code })
                 }
                 else {
@@ -358,27 +376,30 @@ function delete_Ugroup(req, request_key) {
     let { rec_id } = req.body;
     return new Promise((resolve, reject) => {
         create_log("delete user group", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
-
-        if (rec_id === '81c77949-ada7-41c1-9c31-e27c59742087') {
-            create_log("delete user group", log.log_level.error, responseList.error.error_delete_public.message, request_key, req)
-            reject({ message: responseList.error.error_delete_public.message, code: responseList.error.error_delete_public.code })
-        }
-        else {
-            usermodel.deleteUgroup({ rec_id }).then(data => {
-
-                if (!data || data.length === 0) {
-                    create_log("delete user group", log.log_level.error, responseList.error.error_no_data_delete.message, request_key, req)
-                    reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
-                }
-                else {
-                    create_log("delete user group", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
-                    resolve(data)
-                }
-            }).catch((error) => {
-                create_log("delete user group", log.log_level.error, error.message, request_key, req)
-                reject(error);
-            })
-        }
+        usermodel.get_group_recid(rec_id).then(group => {
+            if (group['groupname'] === 'public') {
+                create_log("delete user group", log.log_level.error, responseList.error.error_delete_public.message, request_key, req)
+                reject({ message: responseList.error.error_delete_public.message, code: responseList.error.error_delete_public.code })
+            }
+            else {
+                usermodel.deleteUgroup({ rec_id }).then(data => {
+                    if (!data || data.length === 0) {
+                        create_log("delete user group", log.log_level.error, responseList.error.error_no_data_delete.message, request_key, req)
+                        reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+                    }
+                    else {
+                        create_log("delete user group", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                        resolve(data)
+                    }
+                }).catch((error) => {
+                    create_log("delete user group", log.log_level.error, error.message, request_key, req)
+                    reject(error);
+                })
+            }
+        }).catch((error) => {
+            create_log("delete user group", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
     })
 
 }
@@ -429,6 +450,7 @@ function createRole(req, request_key) {
 
 module.exports = {
     create_user,
+    google_user,
     create_token,
     getall_users,
     getall_usergroups,

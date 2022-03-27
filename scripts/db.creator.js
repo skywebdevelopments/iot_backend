@@ -21,10 +21,9 @@ const bcrypt = require('bcrypt');
 function createSchema() {
     return new Promise((resolve, reject) => {
         try {   
-           entityModel.sync({ force: true })
+            //sessionModel.sync()
           // locationModel.sync({ force: true })
-
-         // sequelize.sync({ force: true });
+          //sequelize.sync();
 
             resolve("success")
         } catch (error) {

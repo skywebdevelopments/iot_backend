@@ -31,8 +31,10 @@ router.get('/log', function (req, res, next) {
 // "parent_rec_id": uuid
 // }
 
-router.post('/', function (req, res, next) {
-    console.log(req.body)
+router.post('/',function (req, res, next) {
+    console.log('==============req===body===================');
+    console.log(req.body);
+    console.log('====================================');
     let parent_id = req.body['parent_rec_id'];
     // code block
     // 1. db_operation: select all query

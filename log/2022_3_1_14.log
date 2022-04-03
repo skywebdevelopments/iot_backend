@@ -1,0 +1,70 @@
+[2022-04-01T14:55:17.396] [ERROR] app - 48c19759-7028-4a13-a220-f38c7b433608 - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:55:22.179] [ERROR] app - 8a06d760-4e34-45b0-8b0f-598735b88f7d - ERROR - create user - Already exists! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:55:29.550] [ERROR] app - 95d72b9e-af30-4c27-a2b1-b3145c2359d9 - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:55:30.200] [ERROR] app - 4ac52fc5-f875-4dad-b6c1-147f216d97ac - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:55:30.596] [ERROR] app - c4b7a002-b362-443a-8cfe-2c8732170563 - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:55:53.314] [ERROR] app - dcfcc37f-162e-4eb3-84f6-1167b4edd535 - ERROR - create user - Already exists! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-04-01T14:56:03.299] [INFO] app - 9ff3bf41-df00-4557-9eda-9089ee0e389c - INFO - login - Logged in Successfully - ahmed.shalaby@cyshield.com
+[2022-04-01T14:58:23.584] [INFO] app - 64217058-9945-42ad-b3a6-51e97eee7179 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T14:58:40.418] [INFO] app - 2f57204d-ff04-4ad4-9111-87f6236ca2db - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:00:03.009] [INFO] app - 152febec-2aba-4d51-8afc-c0a5b2df127d - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:00:03.449] [INFO] app - f859fd6b-8b59-40c8-adc2-9a30f24a60d7 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:00:07.278] [INFO] app - e288341d-115c-4d73-81fa-97c626a27b21 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:00:11.589] [INFO] app - 70d36022-2b4d-4756-8944-46dcafba2b4f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:00:21.319] [INFO] app - 7012932b-5e8f-4ab2-9ac4-91ea9dcfcd87 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:01:27.550] [INFO] app - 7a1cf59c-41dd-42fa-b1b5-072a4b0675b5 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:01:29.702] [INFO] app - 5c1c3788-effd-4442-af66-d9667caddc6f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:01:49.271] [INFO] app - 637d87ed-05dd-4fb9-9b01-0db5f5488c3b - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:01:50.713] [INFO] app - f595d56c-9747-463e-9a4d-26aa2f6f3765 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:02:31.287] [INFO] app - b840a27f-062e-46e3-91b6-f4e7098010d6 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:02:47.773] [INFO] app - 8b96d4c3-f9d5-49c0-ac31-45b3ba340307 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:02:55.395] [INFO] app - 1d09afa2-771a-4c75-b4ba-5cb44b11fa1e - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:03:06.340] [INFO] app - b76aa4fd-a6cd-462b-8626-b347cc277cd6 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:04:22.061] [INFO] app - 60605d70-40be-41aa-a13c-c5b60de0e664 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:04:39.389] [INFO] app - 8ca0ff38-547d-46ca-9727-9896d23d471b - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:06:01.817] [INFO] app - fbd23008-40d4-4ec0-af41-f0666722fa3c - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:20:06.934] [INFO] app - e7f855f1-ea7a-465b-ac8e-82e2d20039c7 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:20:53.582] [INFO] app - 2e4d86dd-98b1-4a42-bb30-235ec9da7a38 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:21:22.975] [INFO] app - ee99420b-e404-4735-9f8b-2632b7cd9b3f - INFO - list mqtt_user - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:22:44.725] [INFO] app - 35c0e1a9-c25e-42a9-bcac-c1ba08901aac - INFO - List entity - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:22:56.057] [INFO] app - a135eb30-9a89-496b-9d97-4a1df487b58c - INFO - List entity - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:24:31.811] [INFO] app - 7c848e6b-ad4e-4a56-aebe-638b883b2a10 - INFO - list mqtt_user - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:24:31.834] [INFO] app - 6d914098-2cfe-484f-8139-87fa8a5a6e4a - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:02.091] [INFO] app - 900bab80-6867-414f-ba0c-33e45672163e - INFO - list mqtt_user - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:02.104] [INFO] app - a3cc770e-737a-453f-8886-1001b619688d - INFO - List entity - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:02.113] [INFO] app - a50e21d3-270f-4ce4-82b1-f5e943cd081f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:35.372] [INFO] app - a09ffeb2-cac9-4a0f-abad-df0a71fe4ce0 - INFO - List entity - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:35.381] [INFO] app - 3c0c780c-9ede-4a40-bf51-ed1e913fe0b8 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:30:35.393] [INFO] app - ce926fd4-038b-4493-8d56-bae8cde8381a - INFO - list mqtt_user - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:37:31.891] [INFO] app - db333d67-d2f5-489f-8026-6a06ca7d692a - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:38:43.714] [INFO] app - e8d20e81-b68f-4cef-8f93-1f059e65f1a9 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:39:20.094] [INFO] app - b446e85b-a8d7-4895-9106-8a64217c52ea - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:39:29.568] [INFO] app - 48dfbdde-9464-4079-8616-d4287643a9f7 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:39:30.479] [INFO] app - 5cf2d25c-b28d-41b5-94ad-4fe93d452e69 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:39:48.319] [INFO] app - 1fd1c94a-c561-49bf-b7b8-fd912ae13912 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:41:26.054] [INFO] app - 8625dae1-3f6d-4914-ad3e-747365ca748f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:41:59.273] [INFO] app - 07d492aa-6bbb-4ab6-9b5e-67be2e9b276b - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:42:28.544] [INFO] app - 65f7028b-3f7c-40dc-b930-892390dff776 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:42:46.455] [INFO] app - ea3a6482-7280-4964-928f-60c1115cf847 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:42:53.140] [INFO] app - 5ad39279-484a-4fe0-a301-b0e361d51b09 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:14.549] [INFO] app - 54bdd1fd-6c4a-45a8-8ad6-849a0218ec1c - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:16.249] [INFO] app - f24924e6-458a-4210-9cec-f95f09260100 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:18.453] [INFO] app - 4c949a9c-b333-46ac-b3a7-3523e26edde0 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:42.457] [INFO] app - c5e33806-bb14-4450-855a-626d47dc64e9 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:44.047] [INFO] app - 8f42e633-ff17-4da8-805c-cea7c919b8a0 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:45:53.645] [INFO] app - 2c1f44dd-cf8e-413d-87a7-01f686c49ec9 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:46:30.914] [INFO] app - 1c56371c-72e4-436e-9acd-2a843ce50c49 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:47:34.009] [INFO] app - 27bf2aa1-fd5b-4dd9-8f58-e275ff2bcf6f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:47:49.444] [INFO] app - bb71875b-1585-418f-923b-c218764f33b5 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:17.469] [INFO] app - cfec2c87-d005-49e6-84c6-742347281dd1 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:21.605] [INFO] app - 4d36734b-584b-477c-bde9-ffa269f09365 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:23.615] [INFO] app - 59b82ad7-6766-4c2f-a94d-ba08cc5533aa - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:42.558] [INFO] app - cb2e49fd-7c5a-4153-aebc-7cfd371fe98a - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:43.530] [INFO] app - d7c05380-6543-46f4-98ba-b23a077ace2f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:54:54.503] [INFO] app - 0f69a181-c32d-493a-8b14-6e7d2497a00c - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:55:02.571] [INFO] app - 52b82b77-34b3-4e10-9449-dd2a3bdb85ec - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:55:28.230] [INFO] app - b9995bfc-9d82-4276-9d9c-df3a43d58bfe - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:57:01.261] [INFO] app - 6a696590-22a5-4034-8439-f86d9c3ff9d7 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:57:02.055] [INFO] app - 4006ab57-0eb9-48aa-a50f-cb4ec0d0b85d - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:57:20.557] [INFO] app - 251c3e11-4790-402f-860f-1147ff6aca6f - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com
+[2022-04-01T15:57:30.110] [INFO] app - 1fdc5f6a-4e6e-4039-80d6-5160090c4ec4 - INFO - List node - Success retrieving  data - ahmed.shalaby@cyshield.com

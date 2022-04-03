@@ -19,6 +19,7 @@ var nodeRoute = require('./routes/node.iot.route')
 var mqttRoute = require('./routes/mqttuser.iot.route')
 var entityRoute = require('./routes/entity.iot.route')
 var sensorProvisionRoute = require('./routes/prov.sensor');
+var ReportsRoute = require('./routes/report.route');
 var logRoute = require('./routes/logs.iot')
 
 // end
@@ -63,6 +64,7 @@ app.use('/api/v1/mqttuser', mqttRoute);
 app.use('/api/v1/entity', entityRoute);
 app.use('/api/v1/logs', logRoute);
 app.use('/api/v1/provision', sensorProvisionRoute);
+app.use('/api/v1/report', ReportsRoute);
 // 
 
 

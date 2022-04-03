@@ -1,2 +1,0 @@
-[2022-03-06T14:48:26.165] [TRACE] app - fb78d2fa-1ddd-4ecd-9fd1-d81b86a7490f - TRACE - inbound request - list sensor group - check payload length - 4
-[2022-03-06T14:48:26.265] [INFO] app - fb78d2fa-1ddd-4ecd-9fd1-d81b86a7490f - INFO - inbound request - list sensor group - Success retrieving  data - 4

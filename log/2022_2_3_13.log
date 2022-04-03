@@ -1,6 +1,0 @@
-[2022-03-03T13:14:41.014] [TRACE] app - 54f00214-dc64-469a-a379-98d5651a3016 - TRACE - inbound request - delete sensor group - Data is executing - 4
-[2022-03-03T13:14:41.119] [ERROR] app - 54f00214-dc64-469a-a379-98d5651a3016 - ERROR - inbound request - delete sensor group - data is not defined - 4
-[2022-03-03T13:15:24.011] [TRACE] app - 4e10a1d4-bdfe-4059-8bf7-de9f1161a2d0 - TRACE - inbound request - delete sensor group - Data is executing - 4
-[2022-03-03T13:15:24.117] [INFO] app - 4e10a1d4-bdfe-4059-8bf7-de9f1161a2d0 - INFO - inbound request - delete sensor group - Success updating new data - 4
-[2022-03-03T13:46:09.561] [TRACE] app - 80620974-2894-4ab0-b821-c182eb7c5308 - TRACE - inbound request - delete sensor group - Data is executing - 4
-[2022-03-03T13:46:09.662] [INFO] app - 80620974-2894-4ab0-b821-c182eb7c5308 - INFO - inbound request - delete sensor group - Success updating new data - 4

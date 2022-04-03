@@ -1,6 +1,0 @@
-[2022-01-09T14:22:08.777] [TRACE] app - 39e31bfb-080e-43d3-9127-ed5bde2d09f0 - ERROR - inbound request - create sensor - check required fields
-[2022-01-09T14:22:08.981] [TRACE] app - 39e31bfb-080e-43d3-9127-ed5bde2d09f0 - inbound request - executing the create query
-[2022-01-09T14:22:08.981] [TRACE] app - 39e31bfb-080e-43d3-9127-ed5bde2d09f0 - inbound request - send a response
-[2022-01-09T15:05:34.320] [TRACE] app - f014c475-90c2-40bf-a37c-4db93d9a8215 - ERROR - inbound request - create sensor - check required fields
-[2022-01-09T15:05:34.394] [TRACE] app - f014c475-90c2-40bf-a37c-4db93d9a8215 - inbound request - executing the create query
-[2022-01-09T15:05:34.395] [TRACE] app - f014c475-90c2-40bf-a37c-4db93d9a8215 - inbound request - send a response

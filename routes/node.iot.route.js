@@ -64,7 +64,11 @@ router.post('/', authenticate.authenticateUser, authenticate.UserRoles(["node:li
 
 router.post('/create', authenticate.authenticateUser, authenticate.UserRoles(["node:create"]), createnodeSchema, validateRequestSchema, function (req, res, next) {
     let request_key = uuid();
+    console.log('***********************************************Route***********')
+    console.log(req.body)
+    console.log('***********************************************Route***********')
     control.Createnode(req, request_key).then((data) => {
+        
         if (data.length === 0) {
             res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             return;

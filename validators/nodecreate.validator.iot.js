@@ -19,11 +19,6 @@ const createnodeSchema = [
     .isLength({ min: 4 })
     .optional({ nullable: true })
     .withMessage('Access Point Password must be at least 4 characters long'),
-  body('nodeId')
-    .isLength({ min: 1 })
-    .isNumeric()
-    .exists({ checkFalsy: true })
-    .withMessage('Sensor Type must be at least 1 characters long'),
   body('dns1')
     .isLength({ min: 4 })
     .optional({ nullable: true })
@@ -58,6 +53,10 @@ const createnodeSchema = [
     .isLength({ min: 4 })
     .exists({ checkFalsy: true })
     .withMessage('Board Name must be at least 4 characters long'),
+    body('friendly_name')
+    .isLength({ min: 4 })
+    .exists({ checkFalsy: true })
+    .withMessage('Friendly Name must be at least 4 characters long'),
   body('board_model')
     .isLength({ min: 4 })
     .exists({ checkFalsy: true })

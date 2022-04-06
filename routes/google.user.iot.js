@@ -19,7 +19,7 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
     //we need to check for token to redirect 
     if (localStorage.getItem("token") !== 'deactivated') {
         res.cookie("token", localStorage.getItem("token"), { maxAge: 360000 });
-        res.redirect("http://localhost:4200/dashboard")
+        res.redirect("http://localhost:4200/dash")
     }
     else {
         res.cookie("token", localStorage.getItem("token"), { maxAge: 360000 });

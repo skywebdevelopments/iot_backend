@@ -11,7 +11,8 @@ const { u_groupModel } = require('../models/u_group.iot.model')
 const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
 const { GroupRoleModel } = require('../models/groupRole.iot.model');
-const { entityModel } = require('../models/entity.iot.model')
+const { entityModel } = require('../models/entity.iot.model');
+const {dashboard} = require('../models/dashboard.iot');
 
 // end of Model
 
@@ -23,7 +24,7 @@ function createSchema() {
         try {   
             //sessionModel.sync()
           // locationModel.sync({ force: true })
-          sequelize.sync();
+            sequelize.sync();
 
             resolve("success")
         } catch (error) {

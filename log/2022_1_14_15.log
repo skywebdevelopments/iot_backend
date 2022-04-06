@@ -1,5 +1,0 @@
-[2022-02-14T15:36:26.322] [TRACE] app - 7ab7e13a-2d50-48ba-8691-e1aaa0d96fd0 - inbound request - executing the delete query
-[2022-02-14T15:36:26.323] [TRACE] app - 7ab7e13a-2d50-48ba-8691-e1aaa0d96fd0 - inbound request - send a response
-[2022-02-14T16:19:22.662] [TRACE] app - 28d6aebf-d750-4057-a7ab-281866c69029 - ERROR - inbound request - email already exists!
-[2022-02-14T16:24:53.952] [TRACE] app - 47c934fd-1887-4f8a-ac53-2c0b0e85c658 - inbound request - executing the create query
-[2022-02-14T16:24:53.952] [TRACE] app - 47c934fd-1887-4f8a-ac53-2c0b0e85c658 - inbound request - send a response

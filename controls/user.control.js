@@ -88,7 +88,7 @@ function create_token(email, password, request_key) {
 
 
     let hashed_password = hash_pass(password)
-
+    console.log(hashed_password)
     return new Promise((resolve, reject) => {
         usermodel.getUser(email, hashed_password)
             .then((user) => {

@@ -1,0 +1,69 @@
+[2022-03-28T20:05:20.326] [ERROR] app - 1b7d6471-8f66-42e6-a5b1-13a2cdc0cc8a - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:05:30.839] [ERROR] app - 5e21dec4-4d1e-4d70-8af8-d107682ea115 - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:06:07.584] [ERROR] app - 6d909d94-8041-434b-91cc-2e21b99a4b14 - ERROR - login - Cannot read property 'roles' of null - not found
+[2022-03-28T20:06:08.332] [ERROR] app - 075654b5-f2f3-45bf-9d24-7c9ddbb4e5b0 - ERROR - login - Cannot read property 'roles' of null - not found
+[2022-03-28T20:08:15.458] [ERROR] app - 6397228e-b4fe-4468-b5fe-0fd966faa91b - ERROR - login - Cannot read property 'roles' of null - not found
+[2022-03-28T20:08:24.605] [ERROR] app - d28f4566-e255-49d7-8b25-8104c636e31e - ERROR - login - Cannot read property 'roles' of null - not found
+[2022-03-28T20:08:57.405] [ERROR] app - 5fc6f33a-a1ef-450a-8bec-49c96df1731c - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:09:17.184] [ERROR] app - 18403f65-e9af-423e-a53c-465295a501ea - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:12:32.605] [ERROR] app - e1e096b3-38c1-432a-a7f7-5631e45eeea6 - ERROR - login - Could not find user! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:12:35.624] [ERROR] app - f2e74e47-8cd4-4f43-9082-a57a15756ab6 - ERROR - create user - Already exists! - [ ahmed.shalaby@cyshield.com ] - not found
+[2022-03-28T20:13:01.851] [INFO] app - 4b5eb7dc-f00a-4d84-8bed-01a4caa4c472 - INFO - login - Logged in Successfully - ahmed.shalaby@cyshield.com
+[2022-03-28T20:15:31.673] [INFO] app - 2b062fc5-b4f4-48cd-b4af-ed45b8f04c72 - INFO - list node - No data found - ahmed.shalaby@cyshield.com
+[2022-03-28T20:15:37.608] [INFO] app - e08eaf40-a2b6-49a4-87f7-73ae9320d92a - INFO - login - Logged in Successfully - ahmed.shalaby@cyshield.com
+[2022-03-28T20:15:45.093] [INFO] app - 2c736b2a-f184-4677-b200-3e337010870f - INFO - list node - No data found - ahmed.shalaby@cyshield.com
+[2022-03-28T22:21:21.482] [INFO] app - faa4ca45-3dad-4949-8dab-9b52c5b84e9e - INFO - list node - No data found - ahmed.shalaby@cyshield.com
+[2022-03-28T22:22:00.499] [TRACE] app - 133666fe-cc06-4a47-8bdc-1722a3676db3 - TRACE - create node - Data is executing - ahmed.shalaby@cyshield.com
+[2022-03-28T22:22:00.610] [ERROR] app - 133666fe-cc06-4a47-8bdc-1722a3676db3 - ERROR - Create node - insert or update on table "node" violates foreign key constraint "node_mqttuserId_fkey" - ahmed.shalaby@cyshield.com
+[2022-03-28T22:22:24.649] [TRACE] app - f0b2a1e3-fdb5-4378-aa51-50853c4e589b - TRACE - create node - Data is executing - ahmed.shalaby@cyshield.com
+[2022-03-28T22:22:24.701] [ERROR] app - f0b2a1e3-fdb5-4378-aa51-50853c4e589b - ERROR - Create node - insert or update on table "node" violates foreign key constraint "node_mqttuserId_fkey" - ahmed.shalaby@cyshield.com
+[2022-03-28T22:36:57.696] [INFO] app - fc71ced6-fc30-4f15-8af3-31a3a6c8d4d5 - INFO - Sign in Google Successfully - Success creating new data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:36:59.624] [INFO] app - 5b4daf5b-e51c-4021-8405-9310d0fbeed9 - INFO - list entity - No data found - ahmed.shalaby@cyshield.com
+[2022-03-28T22:37:01.594] [INFO] app - 383d34fd-2047-4a56-940d-a14949906d1a - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:08.558] [TRACE] app - 46834281-4d63-48d2-9ce1-6e5316b131bc - TRACE - list node group - Check payload length - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:08.632] [INFO] app - 46834281-4d63-48d2-9ce1-6e5316b131bc - INFO - list node group - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:08.635] [INFO] app - 46834281-4d63-48d2-9ce1-6e5316b131bc - INFO - list node group - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:15.819] [TRACE] app - 1964956a-0550-44f6-b592-71305f107cf5 - TRACE - create node group - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:15.870] [INFO] app - f777fdca-973c-4fda-9fe0-ba756db87da8 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:15.957] [INFO] app - 1964956a-0550-44f6-b592-71305f107cf5 - INFO - create node group - Success creating new data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:18.239] [TRACE] app - 7d04c6c0-3083-4b8b-abce-8d07a8835983 - TRACE - create node group - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:18.259] [ERROR] app - 7d04c6c0-3083-4b8b-abce-8d07a8835983 - ERROR - create node group - Already exists! - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:18.264] [INFO] app - c06454ee-7925-4f44-998e-668ff89fe980 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.117] [TRACE] app - 10b1f740-d719-4813-a381-842b2b48b28b - TRACE - create node group - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.144] [ERROR] app - 10b1f740-d719-4813-a381-842b2b48b28b - ERROR - create node group - Already exists! - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.147] [INFO] app - bea18282-fd7d-4c50-a42e-5d71aa14cfa1 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.495] [TRACE] app - 16e4bc9e-1ef5-4b0c-b727-f2551f88046c - TRACE - create node group - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.501] [INFO] app - 2fd3cc46-7081-415f-9b89-c78cb2eb225e - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:20.520] [ERROR] app - 16e4bc9e-1ef5-4b0c-b727-f2551f88046c - ERROR - create node group - Already exists! - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:23.286] [TRACE] app - 102a1609-549a-4bb6-a3ae-f0630393dda0 - TRACE - list node group - Check payload length - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:23.322] [INFO] app - 11cfd93f-56a5-48ad-9848-7dac0e24fb50 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:23.331] [INFO] app - 2ec41b20-d241-4297-b67c-807f582a129f - INFO - list mqtt_user - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:23.340] [INFO] app - 102a1609-549a-4bb6-a3ae-f0630393dda0 - INFO - list node group - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:23.344] [INFO] app - 7e41d787-67cd-4ad2-a33e-ff76b1029503 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:24.834] [INFO] app - dee94eab-c54b-4b51-8f09-de906e3aee39 - INFO - list mqtt_user - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:37:24.841] [INFO] app - 7139ba45-5d52-4c98-91f8-33344d716cd6 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:38:08.209] [INFO] app - 9913c3ca-f3cc-47c1-9878-b5cbca6d0845 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:38:08.218] [INFO] app - 92d5bb62-fed1-4b71-9365-2230f228c2c6 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:38.708] [INFO] app - 8cc6e7e4-f729-4d4e-be5b-103344aa18e0 - INFO - list mqtt_user - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:38.730] [INFO] app - b80e1f2e-688e-4ea9-a957-238c4c51a21a - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:41.330] [INFO] app - a3af381e-dca7-4dc1-b72a-2a8240227622 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:41.339] [INFO] app - 8b0b8aca-577d-423d-ae08-4c3b5c807831 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:44.086] [INFO] app - 88fdccf7-ab1a-4ce2-a96a-f85f919ab4cf - INFO - list mqtt_user - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:56.500] [TRACE] app - d1f87fbf-184c-4dc5-9fc6-3f768c914d4b - TRACE - create mqtt_user - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:39:56.590] [INFO] app - d1f87fbf-184c-4dc5-9fc6-3f768c914d4b - INFO - create mqtt_user - Success creating new data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:04.446] [INFO] app - a547e1f4-921b-4124-ba18-0d4b708cc93b - INFO - list mqtt_user - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:08.217] [INFO] app - f5c67cd9-5bd4-449d-8fb6-966c330260ca - INFO - list mqtt_user - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:08.235] [INFO] app - c79f40c5-0145-4bc5-a5a9-912bb481af78 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:10.087] [TRACE] app - ca651164-81c5-496f-b3b4-8848f18bb852 - TRACE - list node group - Check payload length - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:10.103] [INFO] app - 817a35a8-d0da-4641-a795-df94a68a26a8 - INFO - list mqtt_user - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:10.107] [INFO] app - 6dae851d-0e75-4868-a2a2-0613f58438a4 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:10.117] [INFO] app - bd4fe779-799f-49f2-ab21-2f26bc68bdb3 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:10.128] [INFO] app - ca651164-81c5-496f-b3b4-8848f18bb852 - INFO - list node group - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:12.147] [INFO] app - 1d62df52-79b5-4d61-bbee-4ffaacfdf3ad - INFO - list mqtt_user - Success retrieving  data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:12.150] [INFO] app - 9cbe1d24-ce24-4452-a5c8-b95ae976a45c - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:17.620] [INFO] app - d9b5bda1-8a53-4ab8-b107-3858c8cacb25 - INFO - list node - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:17.653] [INFO] app - 63afb20b-b2df-42ce-966d-9023d057d373 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:40:19.550] [INFO] app - 59092296-86f8-4a8c-86ee-2c9401722b22 - INFO - list entity - No data found - ahmedismailshalaby@gmail.com
+[2022-03-28T22:41:16.595] [TRACE] app - 51289b65-92a6-4cac-87ea-f40155abbe74 - TRACE - create node group - Data is executing - ahmedismailshalaby@gmail.com
+[2022-03-28T22:41:16.722] [INFO] app - 51289b65-92a6-4cac-87ea-f40155abbe74 - INFO - create node group - Success creating new data - ahmedismailshalaby@gmail.com
+[2022-03-28T22:41:16.725] [INFO] app - 0ca93e6b-af2c-4d0f-99ea-8a81eaed6866 - INFO - list node - No data found - ahmedismailshalaby@gmail.com

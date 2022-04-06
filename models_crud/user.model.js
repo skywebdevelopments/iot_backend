@@ -46,7 +46,7 @@ function GoogleUser(new_user) {
         getUgroup('public').then(group => {
             userModel.findOne({
                 where: {
-                    googleID: new_user.id
+                    googleID: new_user.googleId
                 },
                 include: {
                     model: u_groupModel
@@ -54,9 +54,9 @@ function GoogleUser(new_user) {
             }).then(user => {
                 if (!user) {
                     userModel.create({
-                        username: new_user.displayName,
-                        email: new_user.emails[0].value,
-                        googleID: new_user.id,
+                        username: new_user.name,
+                        email: new_user.email,
+                        googleID: new_user.googleId,
                         active: true,
                         uGroupId: group.id
                     }).then((user) => {

@@ -21,6 +21,7 @@ var entityRoute = require('./routes/entity.iot.route')
 var sensorProvisionRoute = require('./routes/prov.sensor');
 var ReportsRoute = require('./routes/report.route');
 var logRoute = require('./routes/logs.iot')
+var dashboardRoute = require('./routes/dashboard.iot.route')
 
 // end
 const bodyParser = require("body-parser");
@@ -65,6 +66,7 @@ app.use('/api/v1/entity', entityRoute);
 app.use('/api/v1/logs', logRoute);
 app.use('/api/v1/provision', sensorProvisionRoute);
 app.use('/api/v1/report', ReportsRoute);
+app.use('/api/v1/dashboard', dashboardRoute);
 // 
 
 

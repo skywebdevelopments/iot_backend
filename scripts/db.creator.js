@@ -12,6 +12,8 @@ const { sessionModel } = require('../models/session.iot.model')
 const { logModel } = require('../models/logger.iot.model');
 const { GroupRoleModel } = require('../models/groupRole.iot.model');
 const { entityModel } = require('../models/entity.iot.model')
+const { messageModel } = require('../models/messages.iot')
+const { dashboard } = require('../models/dashboard.iot')
 
 // end of Model
 
@@ -20,13 +22,11 @@ const bcrypt = require('bcrypt');
 // 
 function createSchema() {
     return new Promise((resolve, reject) => {
-        try {   
-            //sessionModel.sync()
-          // locationModel.sync({ force: true })
-          sequelize.sync();
-
+        try {
+            sequelize.sync();
             resolve("success")
-        } catch (error) {
+        }
+        catch (error) {
             reject(error)
 
         }

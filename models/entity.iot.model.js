@@ -16,6 +16,9 @@ const entity = sequelize.define('entity', {
     name: {
         type: Sequelize.STRING
     },
+    active: {
+        type: Sequelize.BOOLEAN,
+    },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,

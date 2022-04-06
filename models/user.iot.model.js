@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
 const { u_groupModel } = require('./u_group.iot.model');
+const { dashboard } = require('./dashboard.iot');
 
 const user = sequelize.define('user', {
     // Model attributes are defined here
@@ -41,5 +42,6 @@ const user = sequelize.define('user', {
 
 u_groupModel.hasMany(user, { as: 'users'});
 user.belongsTo(u_groupModel);
+user.belongsTo(dashboard);
 
 exports.userModel = user;

@@ -1,8 +1,0 @@
-[2022-02-13T15:12:03.643] [TRACE] app - 22aa0f69-a3a3-448b-ace4-96fc4868b8fc - inbound request - executing the create query
-[2022-02-13T15:12:03.645] [TRACE] app - 22aa0f69-a3a3-448b-ace4-96fc4868b8fc - inbound request - send a response
-[2022-02-13T15:12:23.019] [TRACE] app - d86e82f5-5816-4fe7-a88a-4dab6ec36890 - inbound request - executing the create query
-[2022-02-13T15:12:23.019] [TRACE] app - d86e82f5-5816-4fe7-a88a-4dab6ec36890 - inbound request - send a response
-[2022-02-13T15:27:20.035] [TRACE] app - 64ed10f6-7f00-4d4d-9d87-4d73d9073aa2 - inbound request - executing the create query
-[2022-02-13T15:27:20.036] [TRACE] app - 64ed10f6-7f00-4d4d-9d87-4d73d9073aa2 - inbound request - send a response
-[2022-02-13T15:27:32.554] [TRACE] app - e4a8a17a-9496-4b32-87a4-5abf77b22bc0 - inbound request - executing the create query
-[2022-02-13T15:27:32.555] [TRACE] app - e4a8a17a-9496-4b32-87a4-5abf77b22bc0 - inbound request - send a response

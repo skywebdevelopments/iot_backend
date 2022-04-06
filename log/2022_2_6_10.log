@@ -1,9 +1,0 @@
-[2022-03-06T10:43:53.463] [INFO] app - 8b8fbb33-977c-46d8-9089-081771da3244 - INFO - inbound request - login - Logged in Successfully - 4
-[2022-03-06T10:44:47.450] [TRACE] app - c0637d82-a873-494d-a8fc-666820e2e1bc - TRACE - inbound request - list sensor group - check payload length - 4
-[2022-03-06T10:44:47.519] [INFO] app - c0637d82-a873-494d-a8fc-666820e2e1bc - INFO - inbound request - list sensor group - Success retrieving  data - 4
-[2022-03-06T10:45:04.949] [TRACE] app - 271b69b6-da5d-4604-9490-7d952da212e6 - TRACE - inbound request - list sensor group - check payload length - 4
-[2022-03-06T10:45:05.052] [INFO] app - 271b69b6-da5d-4604-9490-7d952da212e6 - INFO - inbound request - list sensor group - Success retrieving  data - 4
-[2022-03-06T10:46:13.922] [TRACE] app - 4cdef483-d8e8-4e6d-a0e4-6d16031d16b6 - TRACE - inbound request - list sensor group - check payload length - 4
-[2022-03-06T10:46:14.056] [INFO] app - 4cdef483-d8e8-4e6d-a0e4-6d16031d16b6 - INFO - inbound request - list sensor group - Success retrieving  data - 4
-[2022-03-06T10:47:02.671] [TRACE] app - b799cb1f-7be1-480e-998a-ba0526255622 - TRACE - inbound request - list sensor group - check payload length - 4
-[2022-03-06T10:47:02.781] [INFO] app - b799cb1f-7be1-480e-998a-ba0526255622 - INFO - inbound request - list sensor group - Success retrieving  data - 4

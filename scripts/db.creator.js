@@ -23,7 +23,7 @@ function createSchema() {
         try {   
             //sessionModel.sync()
           // locationModel.sync({ force: true })
-          //sequelize.sync();
+          sequelize.sync();
 
             resolve("success")
         } catch (error) {

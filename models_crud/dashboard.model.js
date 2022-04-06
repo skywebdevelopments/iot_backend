@@ -42,7 +42,7 @@ function getDashboard(userId) {
 }
 
 function getEntityMessage(req) {
-    let entity_id = req.body['entity id'];
+    let entity_id = req.body['entityId'];
     return new Promise((resolve, reject) => {
         messageModel.findOne({
             where: {

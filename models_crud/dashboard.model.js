@@ -29,8 +29,24 @@ function getDashboard(userId) {
             attributes: ['username', 'email'],
             include: [{
                 model: dashboard,
-                attributes: ["cards"]
+                attributes: ["cards", "id"]
             }]
+        }).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
+    }).catch((error) => {
+        reject(error);
+    });
+}
+
+function getDashboardByID(dashboardid) {
+    return new Promise((resolve, reject) => {
+        dashboard.findOne({
+            where: {
+                id: dashboardid
+            }
         }).then((data) => {
             resolve(data);
         }).catch((error) => {
@@ -71,8 +87,58 @@ function getEntityMessages_byId(id) {
 }
 
 
+function createDashboard(req) {
+
+    return new Promise((resolve, reject) => {
+        dashboard.create(req.body).then((data) => {
+            console.log(data)
+            resolve(data);
+        }).catch((error) => {
+            console.log(error)
+            reject(error);
+        });
+    })
+}
+
+function updateDashboard(cards, dashboardId) {
+    return new Promise((resolve, reject) => {
+        dashboard.update(cards, {
+            where: {
+                id: dashboardId
+            }
+        }).then((data) => {
+
+            resolve(data);
+        }).catch((error) => {
+
+            reject(error);
+        });
+    })
+}
+
+function addDashboardToUser(userId, dashboardId) {
+    return new Promise((resolve, reject) => {
+        userModel.update({ dashboardId: dashboardId }, {
+            where: {
+                id: userId
+            }
+        }).then((data) => {
+            console.log(data)
+            resolve(data);
+        }).catch((error) => {
+            console.log(error)
+            reject(error);
+        });
+    })
+}
+
+
 module.exports = {
     getDashboard,
+    getDashboardByID,
     getEntityMessages,
-    getEntityMessages_byId
+    getEntityMessages_byId,
+    createDashboard,
+    addDashboardToUser,
+    updateDashboard
 }

@@ -9,6 +9,7 @@ const cryptojs = require('crypto-js');
 var jwt = require('jsonwebtoken');
 var secret = require('../config/sercret.json');
 
+
 function TokenExtractor(req) {
     var token = null;
 
@@ -95,7 +96,66 @@ async function parse_entity_messages(data) {
 
     return new_data
 }
+
+function create_new_dashboard(req, userid) {
+    return new Promise((resolve, reject) => {
+        dashboardmodel.createDashboard(req)
+            .then((dashboard) => {
+                return dashboardmodel.addDashboardToUser(userid, dashboard.id)
+            })
+            .then((data) => {
+                resolve(data)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+function update_dashboard(req, dashboardid) {
+    return new Promise((resolve, reject) => {
+        dashboardmodel.getDashboardByID(dashboardid)
+            .then((data) => {
+                let cards = data.cards;
+                cards.push(req.body);
+                return dashboardmodel.updateDashboard({ "cards": cards }, dashboardid)
+            })
+            .then((data) => {
+                resolve(data)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+
+
+
+function create_dashboard(req, request_key) {
+    return new Promise((resolve, reject) => {
+        let { id } = jwt.decode(TokenExtractor(req));
+        req.body["entity_id"] = parseInt(req.body["entity_id"])
+        dashboardmodel.getDashboard(id)
+            .then((data) => {
+                if (!data.dashboard) {
+                    return create_new_dashboard(req, id)
+                }
+                else {
+                    return update_dashboard(req, data.dashboard.id)
+                }
+            })
+            .then((data) => {
+                resolve(data)
+            })
+            .catch((error) => {
+                create_log('create dashboard', log.log_level.error, error.message, request_key, req)
+                reject(error);
+            })
+    })
+}
 module.exports = {
     get_dashboard,
-    get_entity_message
+    get_entity_message,
+    create_dashboard
 }

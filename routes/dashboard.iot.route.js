@@ -20,12 +20,12 @@ router.get('/', authenticate.authenticateUser, authenticate.UserRoles(["dashboar
         })
 });
 
-// POST / api / v1 / dashboard / message
+// GET / api / v1 / dashboard / messages / :id
 //return message for given entity id 
 //parameters:{
 // entityId :1
 // }
-router.post('/message', authenticate.authenticateUser, authenticate.UserRoles(["dashboard"]), function (req, res, next) {
+router.get('/messages/:id', authenticate.authenticateUser, authenticate.UserRoles(["dashboard"]), function (req, res, next) {
     let request_key = uuid();
     dashboardControl.get_entity_message(request_key, req)
         .then(data => {

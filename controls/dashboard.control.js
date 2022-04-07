@@ -35,12 +35,12 @@ function get_dashboard(request_key, req) {
 
         let { id } = jwt.decode(TokenExtractor(req));
         dashboardmodel.getDashboard(id).then(data => {
-            if (!data || data.length === 0) {
+            if (!data || !data.dashboard || data.length === 0) {
                 create_log('get dashboard', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
                 reject({ code: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             }
             create_log('get dashboard', log.log_level.info, responseList.success.sucess_data.message, request_key, req)
-            resolve(data)
+            resolve(parse_entity_messages(data))
         }).catch((error) => {
             create_log('get dashboard', log.log_level.error, error.message, request_key, req)
             reject(error);
@@ -51,20 +51,50 @@ function get_dashboard(request_key, req) {
 function get_entity_message(request_key, req) {
     return new Promise((resolve, reject) => {
 
-        dashboardmodel.getEntityMessage(req).then(data => {
+        let messages = []
+        dashboardmodel.getEntityMessages(req).then(data => {
             if (!data || data.length === 0) {
-                create_log('get entity', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
+                create_log('get message', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
                 reject({ code: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
             }
-            create_log('get entity', log.log_level.info, responseList.success.sucess_data.message, request_key, req)
-            resolve(data)
+            data.forEach(element => {
+                messages.push(element.message)
+            });
+            create_log('get message', log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+            resolve(messages)
         }).catch((error) => {
-            create_log('get entity', log.log_level.error, error.message, request_key, req)
+            create_log('get message', log.log_level.error, error.message, request_key, req)
             reject(error);
         })
     })
 }
 
+async function parse_entity_messages(data) {
+    let new_data = data
+
+    for (let i = 0; i < data.dashboard.cards.length; i++) {
+        await dashboardmodel.getEntityMessages_byId(data.dashboard.cards[i]['entity_id'])
+            .then(result => {
+                if (!result || result.length === 0) {
+
+                    new_data['dashboard']['cards'][i]['chart_data'] = [];
+                }
+                let messages = []
+                result.forEach(element => {
+                    messages.push(element.message)
+                });
+
+                new_data['dashboard']['cards'][i]['chart_data'] = messages;
+
+            }).catch((error) => {
+
+                new_data['dashboard']['cards'][i]['chart_data'] = [];
+            })
+
+    }
+
+    return new_data
+}
 module.exports = {
     get_dashboard,
     get_entity_message

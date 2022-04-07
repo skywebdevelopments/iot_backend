@@ -41,10 +41,24 @@ function getDashboard(userId) {
     });
 }
 
-function getEntityMessage(req) {
-    let entity_id = req.body['entityId'];
+function getEntityMessages(req) {
+    let entity_id = req.params.id;
     return new Promise((resolve, reject) => {
-        messageModel.findOne({
+        messageModel.findAll({
+            where: {
+                entityId: entity_id
+            }
+        }).then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
+    })
+}
+function getEntityMessages_byId(id) {
+    let entity_id = id;
+    return new Promise((resolve, reject) => {
+        messageModel.findAll({
             where: {
                 entityId: entity_id
             }
@@ -59,5 +73,6 @@ function getEntityMessage(req) {
 
 module.exports = {
     getDashboard,
-    getEntityMessage
+    getEntityMessages,
+    getEntityMessages_byId
 }

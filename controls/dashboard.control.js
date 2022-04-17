@@ -82,7 +82,7 @@ async function parse_entity_messages(data) {
                 }
                 let messages = []
                 result.forEach(element => {
-                    messages.push(element.message)
+                    messages.push({ y: element.message, x: element.createdAt })
                 });
 
                 new_data['dashboard']['cards'][i]['chart_data'] = messages;
@@ -129,6 +129,23 @@ function update_dashboard(req, dashboardid) {
     })
 }
 
+function delete_dashboard(req, request_key) {
+    return new Promise((resolve, reject) => {
+        let { id } = jwt.decode(TokenExtractor(req));
+        dashboardmodel.getDashboard(id)
+            .then((data) => {
+                let updated_cards = req.body['cards'].map(({ chart_data, ...keepAttrs }) => keepAttrs)
+                return dashboardmodel.updateDashboard({ 'cards': updated_cards }, data.dashboard.id)
+            })
+            .then((data) => {
+                resolve(data)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 
 
 
@@ -157,5 +174,6 @@ function create_dashboard(req, request_key) {
 module.exports = {
     get_dashboard,
     get_entity_message,
-    create_dashboard
+    create_dashboard,
+    delete_dashboard
 }

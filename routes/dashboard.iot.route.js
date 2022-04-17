@@ -4,8 +4,8 @@ let { uuid, isUuid } = require('uuidv4');
 var router = express.Router();
 var authenticate = require('../auth/authentication_JWT');
 var dashboardControl = require('../controls/dashboard.control')
- let { validateRequestSchema } = require('../middleware/validate-request-schema');
- var validators = require('../validators/dashboard.validator');
+let { validateRequestSchema } = require('../middleware/validate-request-schema');
+var validators = require('../validators/dashboard.validator');
 
 
 // GET / api / v1 / dashboard
@@ -48,12 +48,33 @@ router.get('/messages/:id', authenticate.authenticateUser, authenticate.UserRole
 //}
 router.post('/create', validators.createdashboardSchema, validateRequestSchema, authenticate.authenticateUser, authenticate.UserRoles(["dashboard"]), function (req, res, next) {
     let request_key = uuid();
-   
+
     dashboardControl.create_dashboard(req, request_key).then(data => {
         res.send({
             data: data,
             code: responseList.success.success_creating_data.code,
             message: responseList.success.success_creating_data.message
+        });
+    }).catch((error) => {
+        res.send({ code: error.code, message: error.message });
+    });
+});
+
+// Delete cards from Dashboard
+// Post / api / v1 / dashboard / delete
+// delete cards from dashboard for user
+//// Parameters:
+//{
+// cards:[]
+//}
+router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["dashboard"]), function (req, res, next) {
+    let request_key = uuid();
+
+    dashboardControl.delete_dashboard(req, request_key).then(data => {
+        res.send({
+            data: data,
+            code: responseList.success.success_deleting_data.code,
+            message: responseList.success.success_deleting_data.message
         });
     }).catch((error) => {
         res.send({ code: error.code, message: error.message });

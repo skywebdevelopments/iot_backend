@@ -95,12 +95,27 @@ function delete_entity(req) {
     })
 }
 
+function countrow(){
+    return new Promise((resolve, reject) => {
+        entityModel.count({}
+        ).then((data) => {
+            resolve(data);
+            //end
+        }).catch((error) => {
+            reject(error);
+        });
+    }).catch((error) => {
+        reject(error);
+    });
+
+ }
 
 module.exports = {
     create_entity,
     getAll_entity,
     getentity_byId,
     update_entity,
-    delete_entity
+    delete_entity,
+    countrow
 }
 

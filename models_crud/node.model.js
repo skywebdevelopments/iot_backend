@@ -103,12 +103,31 @@ function delete_node(req) {
     })
 }
 
+
+ function countrow(){
+    return new Promise((resolve, reject) => {
+        nodeModel.count(
+            {
+               
+            }
+        ).then((data) => {
+            resolve(data);
+            //end
+        }).catch((error) => {
+            reject(error);
+        });
+    }).catch((error) => {
+        reject(error);
+    });
+
+ }
 module.exports = {
     getAll,
     getnodebyId,
     Update_node,
     delete_node,
-    create_node
+    create_node,
+    countrow
 }
 
 

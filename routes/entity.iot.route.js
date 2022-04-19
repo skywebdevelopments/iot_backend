@@ -129,5 +129,22 @@ router.post('/delete', authenticate.authenticateUser, authenticate.UserRoles(["e
 }
 )
 
+router.get('/count', authenticate.authenticateUser, authenticate.UserRoles(["entity:list"]), validateRequestSchema, function (req, res, next) {
+    let request_key = uuid();
+    control.Getcount(req, request_key).then((data) => {
+        if (data.length === 0) {
+            res.send({ status: responseList.error.error_no_data.code, message: responseList.error.error_no_data.message });
+            return;
+        }
+        else {
+            res.send({ data: data, status: responseList.success.sucess_data.message, code: responseList.success.code });
+            return;
+        }
+    }).catch((error) => {
+        res.send({ status: responseList.error.error_general.message, code: responseList.error.error_general.code });
+    })
+}
+)
+
 
 module.exports = router;

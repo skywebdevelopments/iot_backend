@@ -126,11 +126,31 @@ function Deletenode(req, request_key) {
 
 }
 
+function Getcount(req, request_key) {
+    return new Promise((resolve, reject) => {
+        node.countrow().then((data) => {
+            if (!data || data.length === 0 || data[0] === 0) {
+                create_log(' Node', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
+                resolve(data);
+            }
+            else {
+                create_log(" Node", log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+                resolve(data);
+            }
+
+        }).catch((error) => {
+            create_log(" Node", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
+
 module.exports = {
     Getnodes,
     GetnodebyId,
     Updatenode,
     Deletenode,
-    Createnode
+    Createnode,
+    Getcount
 
 }

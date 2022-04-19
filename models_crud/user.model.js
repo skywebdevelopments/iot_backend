@@ -21,7 +21,8 @@ function createUser(new_user) {
                         password: new_user.password,
                         email: new_user.email,
                         active: true,
-                        uGroupId: group.id
+                        uGroupId: group.id,
+                        dashboardId: 1
                     }).then((data) => {
                         resolve(data)
                     }).catch((err) => {
@@ -58,7 +59,8 @@ function GoogleUser(new_user) {
                         email: new_user.email,
                         googleID: new_user.googleId,
                         active: true,
-                        uGroupId: group.id
+                        uGroupId: group.id,
+                        dashboardId: 1
                     }).then((user) => {
                         get_user_id(user.id).then((data) => {
                             resolve(data)

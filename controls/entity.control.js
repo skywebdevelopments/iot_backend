@@ -109,12 +109,31 @@ function Delete_entity(req, request_key) {
     })
 }
 
+function Getcount(req, request_key) {
+    return new Promise((resolve, reject) => {
+        entity.countrow().then((data) => {
+            if (!data || data.length === 0 || data[0] === 0) {
+                create_log('Entity', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
+                resolve(data);
+            }
+            else {
+                create_log("Entity", log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+                resolve(data);
+            }
+
+        }).catch((error) => {
+            create_log("Entity", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
 
 module.exports = {
     Create_entity,
     GetEntity,
     Getentity_byId,
     Update_entityy,
-    Delete_entity
+    Delete_entity,
+    Getcount
 
 }

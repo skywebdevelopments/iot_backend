@@ -49,7 +49,11 @@ function getnodebyId(req) {
         nodeModel.findOne({
             where: {
                 rec_id: node_id
-            }
+            },
+            include: [{
+                model: entityModel,
+                as: 'entity'
+            }]
         }).then((data) => {
             resolve(data);
         }).catch((error) => {

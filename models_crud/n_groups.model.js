@@ -2,6 +2,7 @@ let db = require('../database/knex_connection')
 //models
 const { n_groupModel } = require('../models/n_group.iot.model');
 let { nodeModel } = require('../models/node.iot.model')
+let { entityModel } = require('../models/entity.iot.model')
 let { node_groupModel } = require('../models/nodeGroup.iot.model')
 //end
 var Sequelize = require('sequelize');
@@ -16,8 +17,12 @@ function getAll_ngroups() {
         n_groupModel.findAll({
             include: {
                 model: nodeModel,
-                as: "node"
-            }
+                as: "node",
+                include: {
+                    model: entityModel,
+                    as: "entity",
+                }
+            },
         }).then((data) => {
             resolve(data)
         }).catch((err) => {

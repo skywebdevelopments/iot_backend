@@ -24,7 +24,10 @@ function getAll_ngroups() {
                 }
             },
             order: [
-                ['id', 'ASC']
+                ['id', 'ASC'],
+                [{model:nodeModel}, 'id', 'ASC'],
+                [{model: nodeModel},{model:entityModel}, 'id', 'ASC']
+
             ]
         }).then((data) => {
             resolve(data)
@@ -234,25 +237,25 @@ function delete_ngroup(req) {
 //delete relation of  n_group with node
 function delete_relation_ngroup(req) {
     return new Promise((resolve, reject) => {
-            node_groupModel.destroy(
-                {
-                    where: {
-                        nodeId: {
-                            [Op.eq]: req.body['nodeId']
-                        },
-                        nGroupId: {
-                            [Op.eq]: req.body['nGroupId']
-                        },
+        node_groupModel.destroy(
+            {
+                where: {
+                    nodeId: {
+                        [Op.eq]: req.body['nodeId']
                     },
-                }
-
-            ).then((data) => {
-                resolve(data);
+                    nGroupId: {
+                        [Op.eq]: req.body['nGroupId']
+                    },
+                },
             }
-            ).catch((err) => {
-                reject(err);
-            })
+
+        ).then((data) => {
+            resolve(data);
+        }
+        ).catch((err) => {
+            reject(err);
         })
+    })
 
 }
 

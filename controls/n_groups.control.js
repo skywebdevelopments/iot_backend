@@ -114,11 +114,32 @@ function delete_ngroup(req, request_key) {
         })
     })
 }
+
+function delete_ngroup_relation(req, request_key) {
+    return new Promise((resolve, reject) => {
+        create_log("delete node group relation", log.log_level.trace, responseList.trace.executing_query.message, request_key, req)
+        n_groupmodel.delete_relation_ngroup(req).then(data => {
+            if (!data || data.length === 0) {
+                create_log("delete node group relation", log.log_level.info, responseList.error.error_no_data_delete.message, request_key, req)
+                reject({ message: responseList.error.error_no_data_delete.message, code: responseList.error.error_no_data_delete.code })
+            }
+            else {
+                create_log("delete node group relation", log.log_level.info, responseList.success.success_deleting_data.message, request_key, req)
+                resolve(data)
+            }
+        }).catch((error) => {
+            create_log("delete node group relation", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+}
+
 module.exports = {
     create_ngroup,
     getAll_ngroups,
     get_gnode_by_id,
     nodeMap_to_ngroup,
     update_ngroup,
-    delete_ngroup
+    delete_ngroup,
+    delete_ngroup_relation
 }

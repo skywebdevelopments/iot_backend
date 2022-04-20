@@ -122,6 +122,27 @@ router.post('/delete', validators.n_group_delete, validateRequestSchema, authent
     })
 });
 
+
+// Delete a Group
+// post / api / v1 / n_group / delete/ relation
+// Delete a node’ group relation by nodeId
+/*{
+    "nodeId": "1"
+ }
+*/
+router.post('/delete/relation', validators.n_group_delete_relation, validateRequestSchema, authenticate.authenticateUser, authenticate.UserRoles(["n_group:delete"]), function (req, res, next) {
+    let request_key = uuid();
+    control.delete_ngroup_relation(req, request_key).then(() => {
+        res.send({
+            message: responseList.success.message,
+            code: responseList.success.code
+        });
+    }).catch((error) => {
+        res.send({ code: error.code, message: error.message })
+    })
+});
+
+
 // 
 /** ------ */
 

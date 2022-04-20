@@ -32,10 +32,17 @@ const n_group_delete= [
   body('rec_id').exists({checkFalsy:true})
   .withMessage('group rec id is required')
 ];
+const n_group_delete_relation= [
+  body('nodeId').exists({checkFalsy:true})
+  .withMessage('Node Id is required'),
+  body('nGroupId').exists({checkFalsy:true})
+  .withMessage('nGroup Id is required')
+];
 module.exports =
  {get_n_groupByID,
   n_group_create,
   ngroup_nodeMap,
   n_group_update,
-  n_group_delete
+  n_group_delete,
+  n_group_delete_relation
  };

@@ -6,6 +6,7 @@ const createUserValidator = [
         .withMessage('email must contain a valid email address'),
     body('password')
         .isLength({ min: 8 })
+        .matches(/(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[$@$!%?&])[A-Za-z\d$@$!%?&].{8,}/)
         .withMessage('password must be at least 8 characters long'),
     body('username').
         exists({ checkFalsy: true })
@@ -54,7 +55,8 @@ const updateUserValidator = [
         .isLength({ min: 4 })
         .withMessage('password must be at least 8 characters long and string'),
     body('password')
-        .isLength({ min: 8 })
+     
+        .matches(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
         .withMessage('password must be at least 8 characters long')
 ];
 

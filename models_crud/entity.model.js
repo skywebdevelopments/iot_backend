@@ -2,11 +2,12 @@ let db = require('../database/knex_connection')
 let { uuid } = require('uuidv4');
 let { entityModel } = require('../models/entity.iot.model');
 let { nodeModel } = require('../models/node.iot.model');
+let { entity_TypeModel } = require('../models/entity_types.iot.model');
 let { Op } = require("sequelize");
 
 
 function create_entity(req) {
-   
+
     req.body['rec_id'] = uuid();
     return new Promise((resolve, reject) => {
         entityModel.create(req.body).then((data) => {
@@ -26,6 +27,8 @@ function getAll_entity(req) {
             {
                 include: [{
                     model: nodeModel
+                }, {
+                    model: entity_TypeModel
                 }]
             }
         ).then((data) => {
@@ -95,7 +98,7 @@ function delete_entity(req) {
     })
 }
 
-function countrow(){
+function countrow() {
     return new Promise((resolve, reject) => {
         entityModel.count({}
         ).then((data) => {
@@ -108,7 +111,20 @@ function countrow(){
         reject(error);
     });
 
- }
+}
+
+
+function getAll_entities_types(req) {
+    return new Promise((resolve, reject) => {
+        entity_TypeModel.findAll().then((data) => {
+            resolve(data);
+        }).catch((error) => {
+            reject(error);
+        });
+    }).catch((error) => {
+        reject(error);
+    });
+}
 
 module.exports = {
     create_entity,
@@ -116,6 +132,8 @@ module.exports = {
     getentity_byId,
     update_entity,
     delete_entity,
-    countrow
+    countrow,
+    getAll_entities_types
+
 }
 

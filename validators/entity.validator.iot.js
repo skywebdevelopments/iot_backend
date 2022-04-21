@@ -1,10 +1,10 @@
 const { body } = require('express-validator');
 
 const createentitySchema = [
-    body('type')
-        .isLength({ min: 4 })
-        .exists({ checkFalsy: true })
-        .withMessage('Entity must be at least 4 characters long'),
+    body('entityTypeId')
+    .isNumeric()
+    .exists({ checkFalsy: true })
+    .withMessage('Entity type Id must be at least 1 characters long'),
     body('name')
         .isLength({ min: 4 })
         .exists({ checkFalsy: true })
@@ -24,10 +24,6 @@ const RequiredRec_Id = [
 ]
 
 const updateentitySchema = [
-    body('type')
-        .isLength({ min: 4 })
-        .optional({ nullable: true })
-        .withMessage('Entity must be at least 4 characters long'),
     body('name')
         .isLength({ min: 4 })
         .optional({ nullable: true })

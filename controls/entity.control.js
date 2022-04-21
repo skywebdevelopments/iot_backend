@@ -128,12 +128,34 @@ function Getcount(req, request_key) {
     })
 }
 
+function GetEntity_types(req, res) {
+    let request_key = uuid();
+    return new Promise((resolve, reject) => {
+        entity.getAll_entities_types().then((data) => {
+            if (data.length === 0) {
+                create_log('list entity types', log.log_level.info, responseList.error.error_no_data.message, request_key, req)
+                resolve(data);
+            }
+            else {
+                create_log("List entity types", log.log_level.info, responseList.success.sucess_data.message, request_key, req)
+                resolve(data)
+            }
+
+        }).catch((error) => {
+            create_log("List entity types", log.log_level.error, error.message, request_key, req)
+            reject(error);
+        })
+    })
+
+}
+
 module.exports = {
     Create_entity,
     GetEntity,
     Getentity_byId,
     Update_entityy,
     Delete_entity,
-    Getcount
+    Getcount,
+    GetEntity_types
 
 }

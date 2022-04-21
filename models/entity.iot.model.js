@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../database/connection');
 let { nodeModel } = require('./node.iot.model')
+let { entity_TypeModel } = require('./entity_types.iot.model')
 
 const entity = sequelize.define('entity', {
     // Model attributes are defined here
@@ -9,9 +10,6 @@ const entity = sequelize.define('entity', {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
-    },
-    type: {
-        type: Sequelize.STRING
     },
     name: {
         type: Sequelize.STRING
@@ -35,5 +33,8 @@ const entity = sequelize.define('entity', {
 
 nodeModel.hasMany(entity, { as: 'entity', onDelete: 'cascade', foreignKey: 'nodeId' });
 entity.belongsTo(nodeModel);
+
+entity_TypeModel.hasMany(entity, { as: 'entity', onDelete: 'cascade' });
+entity.belongsTo(entity_TypeModel);
 
 exports.entityModel = entity;

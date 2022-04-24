@@ -17,6 +17,9 @@ const entity = sequelize.define('entity', {
     active: {
         type: Sequelize.BOOLEAN,
     },
+    emqx_config: {
+        type: Sequelize.JSON,
+    },
     rec_id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,

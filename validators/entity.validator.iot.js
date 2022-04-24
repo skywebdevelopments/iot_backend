@@ -2,9 +2,9 @@ const { body } = require('express-validator');
 
 const createentitySchema = [
     body('entityTypeId')
-    .isNumeric()
-    .exists({ checkFalsy: true })
-    .withMessage('Entity type Id must be at least 1 characters long'),
+        .isNumeric()
+        .exists({ checkFalsy: true })
+        .withMessage('Entity type Id must be at least 1 characters long'),
     body('name')
         .isLength({ min: 4 })
         .exists({ checkFalsy: true })
@@ -13,6 +13,9 @@ const createentitySchema = [
         .isNumeric()
         .exists({ checkFalsy: true })
         .withMessage('Node Id must be at least 1 characters long'),
+    body('emqx_config')
+        .exists({ checkFalsy: true })
+        .withMessage('emqx config is required'),
 
 ];
 

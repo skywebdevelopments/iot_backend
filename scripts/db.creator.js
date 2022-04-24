@@ -26,9 +26,9 @@ function createSchema() {
 
 
         try {
-            messageModel.sync()
-            // locationModel.sync({ force: true })
-            // sequelize.sync();
+            //messageModel.sync()
+            //entityModel.sync({ force: true })
+            //sequelize.sync();
             resolve("success")
         }
         catch (error) {
